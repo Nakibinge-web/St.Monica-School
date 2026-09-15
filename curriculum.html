@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>School Curriculum - St. Monica Junior School Kasanje</title>
+    <link rel="icon" type="image/png" href="assets/imgz/logo2-cut.png">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#0d1a39",
+                        "inverse-surface": "#2f3131",
+                        "on-secondary-container": "#fffbff",
+                        "on-surface": "#1a1c1c",
+                        "outline": "#76777f",
+                        "primary": "#081534",
+                        "tertiary": "#161717",
+                        "tertiary-container": "#2b2b2b",
+                        "surface-white": "#FFFFFF",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#410003",
+                        "surface-dim": "#dadada",
+                        "secondary-fixed": "#ffdad6",
+                        "surface-container-high": "#e8e8e8",
+                        "on-surface-charcoal": "#2C2C2C",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#dae2ff",
+                        "secondary-fixed-dim": "#ffb4ac",
+                        "background": "#f9f9f9",
+                        "primary-fixed-dim": "#bac5ee",
+                        "surface-tint": "#525d80",
+                        "error-container": "#ffdad6",
+                        "surface-bright": "#f9f9f9",
+                        "inverse-primary": "#bac5ee",
+                        "surface-variant": "#e2e2e2",
+                        "surface": "#f9f9f9",
+                        "surface-container-highest": "#e2e2e2",
+                        "secondary": "#b51a1e",
+                        "on-background": "#1a1c1c",
+                        "surface-container": "#eeeeee",
+                        "on-primary-container": "#8691b7",
+                        "on-surface-variant": "#45464e",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "inverse-on-surface": "#f1f1f1",
+                        "tertiary-fixed": "#e4e2e1",
+                        "secondary-container": "#d93633",
+                        "error": "#ba1a1a",
+                        "surface-container-low": "#f3f3f3",
+                        "on-tertiary-container": "#939292",
+                        "outline-variant": "#c6c6cf",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed-variant": "#3a4667",
+                        "primary-container": "#1e2a4a",
+                        "on-tertiary-fixed": "#1b1c1c",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "on-secondary-fixed-variant": "#93000e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-max": "1200px",
+                        "margin-desktop": "80px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Montserrat"],
+                        "display-lg-mobile": ["Montserrat"],
+                        "body-md": ["Montserrat"],
+                        "display-lg": ["Montserrat"],
+                        "headline-sm": ["Montserrat"],
+                        "body-lg": ["Montserrat"],
+                        "headline-md": ["Montserrat"],
+                        "label-sm": ["Montserrat"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-surface-white text-on-surface-charcoal font-body-md antialiased flex flex-col min-h-screen">
+    <!-- TopNavBar -->
+    <nav class="fixed top-0 w-full bg-white shadow-sm z-50 transition-all duration-300">
+        <div class="flex justify-between items-center h-24 py-2 px-4 lg:px-8 max-w-[1400px] mx-auto">
+            <!-- Brand with Logo -->
+            <a href="index.html" class="flex items-center">
+                <img src="assets/imgz/logo2.webp" alt="St Monica Junior School Logo"
+                    class="h-60 w-60 m-20 object-contain hover:scale-105 transition-transform duration-200" />
+            </a>
+            <!-- Nav Links (Desktop) -->
+            <div class="hidden lg:flex items-center gap-6 flex-nowrap mr-14">
+                <a class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
+                    href="index.html">Home</a>
+                <a class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
+                    href="about.html">About Us</a>
+
+                <!-- School Life Dropdown -->
+                <div class="relative group">
+                    <button
+                        class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] border-b-2 border-[#d93633] pb-1 hover:text-[#d93633] transition-colors duration-200 flex items-center gap-1 whitespace-nowrap">
+                        School Life
+                        <span
+                            class="material-symbols-outlined text-[18px] transition-transform duration-200 group-hover:rotate-180">expand_more</span>
+                    </button>
+                    <!-- Dropdown Menu -->
+                    <div
+                        class="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-[#c6c6cf] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform group-hover:translate-y-0 -translate-y-2">
+                        <div class="py-2">
+                            <a href="academics.html"
+                                class="block px-6 py-3 text-[#2C2C2C] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:bg-[#f3f3f3] hover:text-[#d93633] transition-colors duration-150">
+                                Academics
+                            </a>
+                            <a href="curriculum.html"
+                                class="block px-6 py-3 text-[#2C2C2C] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:bg-[#f3f3f3] hover:text-[#d93633] transition-colors duration-150">
+                                School Curriculum
+                            </a>
+                            <a href="cocurricular.html"
+                                class="block px-6 py-3 text-[#2C2C2C] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:bg-[#f3f3f3] hover:text-[#d93633] transition-colors duration-150">
+                                Co-curricular Activities
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <a class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
+                    href="gallery.html">Gallery</a>
+                <a class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
+                    href="contact.html">Contact</a>
+
+                <button
+                    class="bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm whitespace-nowrap ml-2">
+                    Join Us
+                </button>
+            </div>
+            <!-- Mobile Menu Icon -->
+            <div class="lg:hidden">
+                <button id="mobileMenuBtn" class="focus:outline-none">
+                    <span id="mobileMenuIcon" class="material-symbols-outlined text-[#1e2a4a] text-[32px]">menu</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-white shadow-lg border-t border-[#e2e2e2]">
+            <div class="px-4 py-6 space-y-4">
+                <a class="block text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors pb-2"
+                    href="index.html">Home</a>
+                <a class="block text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors pb-2"
+                    href="about.html">About Us</a>
+                
+                <!-- School Life Mobile Accordion -->
+                <div>
+                    <button id="mobileSchoolLifeBtn" class="w-full flex items-center justify-between text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors border-b-2 border-[#d93633] pb-2">
+                        <span>School Life</span>
+                        <span class="material-symbols-outlined text-[20px]" id="mobileSchoolLifeIcon">expand_more</span>
+                    </button>
+                    <div id="mobileSchoolLifeMenu" class="hidden pl-4 mt-2 space-y-2">
+                        <a href="academics.html" class="block text-[14px] leading-[20px] font-semibold text-[#2C2C2C] hover:text-[#d93633] transition-colors py-2">
+                            Academics
+                        </a>
+                        <a href="curriculum.html" class="block text-[14px] leading-[20px] font-semibold text-[#2C2C2C] hover:text-[#d93633] transition-colors py-2">
+                            School Curriculum
+                        </a>
+                        <a href="cocurricular.html" class="block text-[14px] leading-[20px] font-semibold text-[#2C2C2C] hover:text-[#d93633] transition-colors py-2">
+                            Co-curricular Activities
+                        </a>
+                    </div>
+                </div>
+                
+                <a class="block text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors pb-2"
+                    href="gallery.html">Gallery</a>
+                <a class="block text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors pb-2"
+                    href="contact.html">Contact</a>
+                
+                <button class="w-full bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm mt-4">
+                    Join Us
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section class="relative bg-[#1e2a4a] text-white py-20 md:py-28 px-4 md:px-20 overflow-hidden">
+            <div class="max-w-[1200px] mx-auto relative z-10 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                <div>
+                    <h1 class="text-[32px] md:text-[48px] leading-[40px] md:leading-[56px] font-bold tracking-[-0.02em] text-white mb-4">
+                        Academic Excellence, Rooted in Values.
+                    </h1>
+                    <p class="text-[18px] leading-[28px] opacity-90 max-w-lg mb-8">
+                        Our primary curriculum is designed to foster critical thinking, creativity, and a strong moral foundation, aligning with national UNEB standards while nurturing global citizens.
+                    </p>
+                </div>
+                <div class="relative h-64 md:h-96 rounded-[0.5rem] overflow-hidden shadow-lg border border-[#dae2ff]/20">
+                    <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWiIS1IhvjHxbIPfsZ6vdbzIbE3GnrdSvYuWbyiGM_GYGcnDpru_yRUmBpHcV1YOwTZRJELTd6XBprMtxICutdCKmb9VY4RcacM0GbNP3-U_W_m066nIrUlAgWbpVldlxEppbAzFB6FJpu0yu324bukEfIwCrTM5r0SKbvGR5D7r4NoE94V7rNB4iegRM4LhMa-i1d3sfkjs2V-cIPlkQrD2R79kiL_O5eRt6oc0Bu6XWlXXCvjaBEHA" alt="Students learning"/>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Our Curriculum Section -->
+        <section class="py-20 px-4 md:px-20 bg-white">
+            <div class="max-w-[1200px] mx-auto">
+                <div class="mb-8 text-center">
+                    <h2 class="text-[32px] leading-[40px] font-semibold tracking-[-0.01em] text-[#1e2a4a] mb-4">About Our Curriculum</h2>
+                    <p class="text-[18px] leading-[28px] text-[#2C2C2C] max-w-4xl mx-auto">
+                        The school uses a curriculum that provides the tools our teachers need to assist us in helping your child reach their full potential. Special focus is to help children in the following:
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+                    <!-- Left Column -->
+                    <div class="space-y-6">
+                        <!-- Language Development -->
+                        <div class="bg-[#f9f9f9] rounded-xl p-6 border-l-4 border-[#1e2a4a]">
+                            <h3 class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] mb-3 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-[#d93633]">chat</span>
+                                Language Development
+                            </h3>
+                            <p class="text-[16px] leading-[24px] text-[#2C2C2C]">
+                                Building strong communication skills and linguistic abilities through interactive learning.
+                            </p>
+                        </div>
+
+                        <!-- Literacy -->
+                        <div class="bg-[#f9f9f9] rounded-xl p-6 border-l-4 border-[#d93633]">
+                            <h3 class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] mb-3 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-[#d93633]">auto_stories</span>
+                                Literacy
+                            </h3>
+                            <ul class="space-y-2 text-[16px] leading-[24px] text-[#2C2C2C]">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-[#d93633] mt-1">•</span>
+                                    <span>Book knowledge and appreciation</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-[#d93633] mt-1">•</span>
+                                    <span>Phonological awareness</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-[#d93633] mt-1">•</span>
+                                    <span>Alphabet recognition</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-[#d93633] mt-1">•</span>
+                                    <span>Print awareness</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-[#d93633] mt-1">•</span>
+                                    <span>Early writing</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Cognitive Development -->
+                        <div class="bg-[#f9f9f9] rounded-xl p-6 border-l-4 border-[#1e2a4a]">
+                            <h3 class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] mb-3 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-[#d93633]">psychology</span>
+                                Cognitive Development
+                            </h3>
+                            <p class="text-[16px] leading-[24px] text-[#2C2C2C]">
+                                Enhancing critical thinking through math, science, and creative arts activities.
+                            </p>
+                        </div>
+
+                        <!-- Social and Emotional Development -->
+                        <div class="bg-[#f9f9f9] rounded-xl p-6 border-l-4 border-[#d93633]">
+                            <h3 class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] mb-3 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-[#d93633]">groups</span>
+                                Social and Emotional Development
+                            </h3>
+                            <p class="text-[16px] leading-[24px] text-[#2C2C2C]">
+                                Fostering empathy, teamwork, and emotional intelligence in a supportive environment.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="space-y-6">
+                        <!-- Physical and Health Development -->
+                        <div class="bg-[#f9f9f9] rounded-xl p-6 border-l-4 border-[#d93633]">
+                            <h3 class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] mb-3 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-[#d93633]">sports_gymnastics</span>
+                                Physical and Health Development
+                            </h3>
+                            <p class="text-[16px] leading-[24px] text-[#2C2C2C]">
+                                Promoting physical fitness, coordination, and healthy lifestyle habits.
+                            </p>
+                        </div>
+
+                        <!-- Numeracy -->
+                        <div class="bg-[#f9f9f9] rounded-xl p-6 border-l-4 border-[#1e2a4a]">
+                            <h3 class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] mb-3 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-[#d93633]">calculate</span>
+                                Numeracy
+                            </h3>
+                            <ul class="space-y-2 text-[16px] leading-[24px] text-[#2C2C2C]">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-[#d93633] mt-1">•</span>
+                                    <span>Sorting and classifying</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-[#d93633] mt-1">•</span>
+                                    <span>Ordering and sorting</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-[#d93633] mt-1">•</span>
+                                    <span>Measuring</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-[#d93633] mt-1">•</span>
+                                    <span>Identifying and using shapes</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Character Development -->
+                        <div class="bg-[#f9f9f9] rounded-xl p-6 border-l-4 border-[#d93633]">
+                            <h3 class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] mb-3 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-[#d93633]">favorite</span>
+                                Character Development
+                            </h3>
+                            <p class="text-[16px] leading-[24px] text-[#2C2C2C]">
+                                Instilling moral values, health awareness, safety practices, proper nutrition, and strong character traits.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Curriculum Overview Section -->
+        <section class="py-20 px-4 md:px-20 bg-white">
+            <div class="max-w-[1200px] mx-auto">
+                <div class="mb-12 text-center">
+                    <h2 class="text-[32px] leading-[40px] font-semibold tracking-[-0.01em] text-[#1e2a4a] mb-4">Curriculum Overview</h2>
+                    <p class="text-[18px] leading-[28px] text-[#2C2C2C] max-w-3xl mx-auto">
+                        St. Monica Junior School Kasanje follows the National Primary School Curriculum, enhanced with enrichment programs to foster well-rounded learners prepared for the challenges of the modern world.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- National Curriculum Card -->
+                    <div class="bg-[#f9f9f9] rounded-xl p-8 border-l-4 border-[#1e2a4a] hover:shadow-lg transition-shadow">
+                        <div class="flex items-start gap-4">
+                            <div class="w-14 h-14 bg-[#1e2a4a] rounded-lg flex items-center justify-center flex-shrink-0">
+                                <span class="material-symbols-outlined text-white text-[28px]">school</span>
+                            </div>
+                            <div>
+                                <h3 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] mb-3">National Curriculum</h3>
+                                <p class="text-[16px] leading-[24px] text-[#2C2C2C]">
+                                    We adhere to the Uganda National Primary School Curriculum, ensuring all pupils receive a solid foundation in core academic areas.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Key Stages Card -->
+                    <div class="bg-[#f9f9f9] rounded-xl p-8 border-l-4 border-[#d93633] hover:shadow-lg transition-shadow">
+                        <div class="flex items-start gap-4">
+                            <div class="w-14 h-14 bg-[#d93633] rounded-lg flex items-center justify-center flex-shrink-0">
+                                <span class="material-symbols-outlined text-white text-[28px]">stairs</span>
+                            </div>
+                            <div>
+                                <h3 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] mb-3">Key Stages</h3>
+                                <p class="text-[16px] leading-[24px] text-[#2C2C2C]">
+                                    The curriculum is structured into Lower Primary (P1-P3) and Upper Primary (P4-P7), with age-appropriate content and teaching methods for each stage.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Creative & Physical Development Card -->
+                    <div class="bg-[#f9f9f9] rounded-xl p-8 border-l-4 border-[#d93633] hover:shadow-lg transition-shadow">
+                        <div class="flex items-start gap-4">
+                            <div class="w-14 h-14 bg-[#d93633] rounded-lg flex items-center justify-center flex-shrink-0">
+                                <span class="material-symbols-outlined text-white text-[28px]">palette</span>
+                            </div>
+                            <div>
+                                <h3 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] mb-3">Creative & Physical Development</h3>
+                                <p class="text-[16px] leading-[24px] text-[#2C2C2C]">
+                                    Art & Craft, Music and Physical Education are integrated to promote creativity, teamwork, and literacy.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Life Skills & Values Card -->
+                    <div class="bg-[#f9f9f9] rounded-xl p-8 border-l-4 border-[#1e2a4a] hover:shadow-lg transition-shadow">
+                        <div class="flex items-start gap-4">
+                            <div class="w-14 h-14 bg-[#1e2a4a] rounded-lg flex items-center justify-center flex-shrink-0">
+                                <span class="material-symbols-outlined text-white text-[28px]">favorite</span>
+                            </div>
+                            <div>
+                                <h3 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] mb-3">Life Skills & Values</h3>
+                                <p class="text-[16px] leading-[24px] text-[#2C2C2C]">
+                                    Our curriculum emphasizes life skills, critical thinking, and values such as respect, responsibility, and integrity.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Curriculum Overview -->
+        <section class="py-20 px-4 md:px-20 bg-[#f9f9f9] max-w-[1200px] mx-auto">
+            <div class="mb-12 text-center md:text-left">
+                <h2 class="text-[32px] leading-[40px] font-semibold tracking-[-0.01em] text-[#1e2a4a] mb-2">Core Curriculum</h2>
+                <p class="text-[16px] leading-[24px] text-[#45464e] max-w-2xl">A comprehensive approach to foundational subjects, preparing students for PLE success and lifelong learning.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[250px]">
+                <!-- Math Card -->
+                <div class="md:col-span-2 bg-[#f3f3f3] rounded-[0.5rem] p-8 border border-[#c6c6cf] hover:shadow-md transition-shadow flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 bg-[#1e2a4a] text-white rounded-full flex items-center justify-center mb-4">
+                            <span class="material-symbols-outlined">calculate</span>
+                        </div>
+                        <h3 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] mb-2">Mathematics</h3>
+                        <p class="text-[16px] leading-[24px] text-[#45464e]">Focusing on numerical fluency, problem-solving, and practical application of mathematical concepts in everyday life.</p>
+                    </div>
+                </div>
+                <!-- English Card -->
+                <div class="bg-[#d93633] text-white rounded-[0.5rem] p-8 hover:shadow-md transition-shadow flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 bg-white text-[#d93633] rounded-full flex items-center justify-center mb-4">
+                            <span class="material-symbols-outlined">menu_book</span>
+                        </div>
+                        <h3 class="text-[24px] leading-[32px] font-semibold mb-2">English Language</h3>
+                        <p class="text-[16px] leading-[24px] opacity-90">Developing comprehensive literacy skills: reading comprehension, creative writing, and effective communication.</p>
+                    </div>
+                </div>
+                <!-- Science Card -->
+                <div class="bg-[#e2e2e2] rounded-[0.5rem] p-8 border border-[#c6c6cf] hover:shadow-md transition-shadow flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 bg-[#1e2a4a] text-white rounded-full flex items-center justify-center mb-4">
+                            <span class="material-symbols-outlined">science</span>
+                        </div>
+                        <h3 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] mb-2">Integrated Science</h3>
+                        <p class="text-[16px] leading-[24px] text-[#45464e]">Fostering inquiry and discovery through hands-on experiments and understanding of the natural world.</p>
+                    </div>
+                </div>
+                <!-- Social Studies Card -->
+                <div class="md:col-span-2 bg-[#f3f3f3] rounded-[0.5rem] p-8 border border-[#c6c6cf] hover:shadow-md transition-shadow flex flex-col justify-between relative overflow-hidden">
+                    <div class="relative z-10 w-2/3">
+                        <div class="w-12 h-12 bg-[#1e2a4a] text-white rounded-full flex items-center justify-center mb-4">
+                            <span class="material-symbols-outlined">public</span>
+                        </div>
+                        <h3 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] mb-2">Social Studies (SST)</h3>
+                        <p class="text-[16px] leading-[24px] text-[#45464e]">Exploring history, geography, and civic responsibility to understand our place in Uganda and the global community.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other Subjects Section -->
+            <div class="mt-16">
+                <h3 class="text-[28px] leading-[36px] font-semibold text-[#1e2a4a] mb-8 text-center md:text-left">Other Subjects</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Luganda Card -->
+                    <div class="bg-white rounded-xl p-8 border border-[#c6c6cf] hover:shadow-lg transition-all group">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="w-16 h-16 bg-gradient-to-br from-[#1e2a4a] to-[#3a4667] rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <span class="material-symbols-outlined text-white text-[32px]">translate</span>
+                            </div>
+                            <h4 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] mb-3">Luganda</h4>
+                            <p class="text-[16px] leading-[24px] text-[#2C2C2C]">
+                                Enhancing understanding and usage of the local language.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Kiswahili Card -->
+                    <div class="bg-white rounded-xl p-8 border border-[#c6c6cf] hover:shadow-lg transition-all group">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="w-16 h-16 bg-gradient-to-br from-[#d93633] to-[#b51a1e] rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <span class="material-symbols-outlined text-white text-[32px]">language</span>
+                            </div>
+                            <h4 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] mb-3">Kiswahili</h4>
+                            <p class="text-[16px] leading-[24px] text-[#2C2C2C]">
+                                Developing proficiency in another regional language.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- German Card -->
+                    <div class="bg-white rounded-xl p-8 border border-[#c6c6cf] hover:shadow-lg transition-all group">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="w-16 h-16 bg-gradient-to-br from-[#1e2a4a] to-[#3a4667] rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <span class="material-symbols-outlined text-white text-[32px]">public</span>
+                            </div>
+                            <h4 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] mb-3">German</h4>
+                            <p class="text-[16px] leading-[24px] text-[#2C2C2C]">
+                                Offering foundational knowledge of the German language.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Teaching Approach Section -->
+        <section class="py-20 px-4 md:px-20 bg-white">
+            <div class="max-w-[1200px] mx-auto">
+                <div class="mb-12 text-center">
+                    <h2 class="text-[32px] leading-[40px] font-semibold tracking-[-0.01em] text-[#1e2a4a] mb-4">Teaching Approach</h2>
+                    <p class="text-[18px] leading-[28px] text-[#2C2C2C] max-w-3xl mx-auto">
+                        Our innovative teaching methods ensure every student receives personalized attention and support to reach their full potential.
+                    </p>
+                </div>
+
+                <div class="max-w-4xl mx-auto space-y-6">
+                    <!-- Child-Centered Learning -->
+                    <div class="flex items-start gap-6 p-6 bg-[#f9f9f9] rounded-xl hover:bg-white hover:shadow-md transition-all border border-transparent hover:border-[#c6c6cf]">
+                        <div class="flex-shrink-0">
+                            <div class="w-12 h-12 bg-[#1e2a4a] rounded-full flex items-center justify-center text-white text-[20px] font-bold">
+                                1
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] mb-2">Child-Centered Learning</h3>
+                            <p class="text-[16px] leading-[24px] text-[#2C2C2C]">
+                                Lessons are interactive and tailored to meet the needs of each pupil, encouraging participation and curiosity.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Inquiry-Based Methods -->
+                    <div class="flex items-start gap-6 p-6 bg-[#f9f9f9] rounded-xl hover:bg-white hover:shadow-md transition-all border border-transparent hover:border-[#c6c6cf]">
+                        <div class="flex-shrink-0">
+                            <div class="w-12 h-12 bg-[#d93633] rounded-full flex items-center justify-center text-white text-[20px] font-bold">
+                                2
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] mb-2">Inquiry-Based Methods</h3>
+                            <p class="text-[16px] leading-[24px] text-[#2C2C2C]">
+                                Pupils are encouraged to ask questions, explore, and discover through hands-on activities and projects.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Continuous Assessment -->
+                    <div class="flex items-start gap-6 p-6 bg-[#f9f9f9] rounded-xl hover:bg-white hover:shadow-md transition-all border border-transparent hover:border-[#c6c6cf]">
+                        <div class="flex-shrink-0">
+                            <div class="w-12 h-12 bg-[#1e2a4a] rounded-full flex items-center justify-center text-white text-[20px] font-bold">
+                                3
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] mb-2">Continuous Assessment</h3>
+                            <p class="text-[16px] leading-[24px] text-[#2C2C2C]">
+                                Regular formative and summative assessments help track progress and inform teaching strategies.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Remedial & Enrichment Programs -->
+                    <div class="flex items-start gap-6 p-6 bg-[#f9f9f9] rounded-xl hover:bg-white hover:shadow-md transition-all border border-transparent hover:border-[#c6c6cf]">
+                        <div class="flex-shrink-0">
+                            <div class="w-12 h-12 bg-[#d93633] rounded-full flex items-center justify-center text-white text-[20px] font-bold">
+                                4
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] mb-2">Remedial & Enrichment Programs</h3>
+                            <p class="text-[16px] leading-[24px] text-[#2C2C2C]">
+                                Support is provided for pupils who need extra help, while advanced learners are challenged with enrichment activities.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full mt-auto bg-on-surface-charcoal text-surface-white">
+        <div class="max-w-[1400px] mx-auto px-4 lg:px-8 py-16">
+            <!-- Main Footer Content -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <!-- Brand Column -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3 mb-4">
+                        <img src="assets/imgz/logo2-cut.png" alt="St Monica Junior School Logo"
+                            class="h-48 w-48 object-contain" />
+
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-[16px] leading-[24px] font-semibold text-white mb-6 uppercase tracking-wider">Quick
+                        Links</h4>
+                    <ul class="space-y-3">
+                        <li><a class="text-[16px] leading-[24px] text-white/70 hover:text-secondary-container transition-colors duration-200 flex items-center gap-2"
+                                href="about.html">
+                                <span class="material-symbols-outlined text-[18px]">chevron_right</span> About Us
+                            </a></li>
+                        <li><a class="text-[16px] leading-[24px] text-white/70 hover:text-secondary-container transition-colors duration-200 flex items-center gap-2"
+                                href="academics.html">
+                                <span class="material-symbols-outlined text-[18px]">chevron_right</span> Academics
+                            </a></li>
+                        <li><a class="text-[16px] leading-[24px] text-white/70 hover:text-secondary-container transition-colors duration-200 flex items-center gap-2"
+                                href="gallery.html">
+                                <span class="material-symbols-outlined text-[18px]">chevron_right</span> Gallery
+                            </a></li>
+                        <li><a class="text-[16px] leading-[24px] text-white/70 hover:text-secondary-container transition-colors duration-200 flex items-center gap-2"
+                                href="contact.html">
+                                <span class="material-symbols-outlined text-[18px]">chevron_right</span> Contact Us
+                            </a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div>
+                    <h4 class="text-[16px] leading-[24px] font-semibold text-white mb-6 uppercase tracking-wider">
+                        Contact</h4>
+                    <ul class="space-y-4">
+                        <li class="footer-contact-item flex items-start gap-3 text-white/70">
+                            <span
+                                class="material-symbols-outlined text-[20px] text-secondary-container flex-shrink-0">location_on</span>
+                            <span class="text-[16px] leading-[24px]">Kkoba village, Kasanje</span>
+                        </li>
+                        <li class="footer-contact-item flex items-start gap-3 text-white/70">
+                            <span
+                                class="material-symbols-outlined text-[20px] text-secondary-container flex-shrink-0">phone</span>
+                            <div class="flex flex-col">
+                                <span class="text-[16px] leading-[24px]">+256 752 406176</span>
+                                <span class="text-[16px] leading-[24px]">+256 762636213</span>
+                            </div>
+                        </li>
+                        <li class="footer-contact-item flex items-center gap-3 text-white/70">
+                            <span
+                                class="material-symbols-outlined text-[20px] text-secondary-container flex-shrink-0">mail</span>
+                            <span class="text-[16px] leading-[24px]">stmonicajuniorschool2012@gmail.com</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div class="">
+                    <h4 class="text-[16px] leading-[24px] font-semibold text-white mb-6 uppercase tracking-wider">
+                        Newsletter</h4>
+                    <p class="text-[14px] leading-[20px] text-white/70 mb-4">Subscribe for school news.</p>
+                    <form class="space-y-3">
+                        <input
+                            class="w-full bg-white/10 border border-white/20 text-white placeholder-white/50 rounded-lg px-4 py-3 text-[14px] focus:ring-2 focus:ring-secondary-container focus:border-transparent outline-none transition-all"
+                            placeholder="Your email address" type="email" />
+                        <button
+                            class="w-full bg-secondary-container text-white px-6 py-3 rounded-lg hover:bg-secondary transition-colors duration-200 font-semibold text-[14px] flex items-center justify-center gap-2">
+                            Subscribe
+                            <span class="material-symbols-outlined text-[20px]">send</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom border-t border-white/10 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="flex flex-col md:flex-row items-center gap-4 md:gap-6">
+                        <a class="text-[14px] leading-[20px] text-white/60 hover:text-secondary-container transition-colors"
+                            href="#">Privacy Policy</a>
+                        <a class="text-[14px] leading-[20px] text-white/60 hover:text-secondary-container transition-colors"
+                            href="#">Terms of Service</a>
+                    </div>
+                    <p class="text-[14px] leading-[20px] text-white/60 text-center">
+                        © <span id="currentYear"></span> St Monica Junior School Kasanje. All rights reserved.
+                    </p>
+                    <p class="text-[14px] leading-[20px] text-white/60 text-center md:text-right">
+                        Made by <a href="https://www.sofdas.com/" class="text-secondary-container hover:text-secondary transition-colors font-semibold">Sofdas Technologies</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        if (document.getElementById('currentYear')) {
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+        }
+    </script>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuIcon = document.getElementById('mobileMenuIcon');
+        const mobileSchoolLifeBtn = document.getElementById('mobileSchoolLifeBtn');
+        const mobileSchoolLifeMenu = document.getElementById('mobileSchoolLifeMenu');
+        const mobileSchoolLifeIcon = document.getElementById('mobileSchoolLifeIcon');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenuIcon.textContent = 'menu';
+            } else {
+                mobileMenuIcon.textContent = 'close';
+            }
+        });
+
+        // Mobile School Life Accordion
+        mobileSchoolLifeBtn.addEventListener('click', function() {
+            mobileSchoolLifeMenu.classList.toggle('hidden');
+            if (mobileSchoolLifeMenu.classList.contains('hidden')) {
+                mobileSchoolLifeIcon.textContent = 'expand_more';
+            } else {
+                mobileSchoolLifeIcon.textContent = 'expand_less';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Gallery - St. Monica Junior School Kasanje</title>
+    <link rel="icon" type="image/png" href="assets/imgz/logo2-cut.png">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#0d1a39",
+                        "inverse-surface": "#2f3131",
+                        "on-secondary-container": "#fffbff",
+                        "on-surface": "#1a1c1c",
+                        "outline": "#76777f",
+                        "primary": "#081534",
+                        "tertiary": "#161717",
+                        "tertiary-container": "#2b2b2b",
+                        "surface-white": "#FFFFFF",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#410003",
+                        "surface-dim": "#dadada",
+                        "secondary-fixed": "#ffdad6",
+                        "surface-container-high": "#e8e8e8",
+                        "on-surface-charcoal": "#2C2C2C",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#dae2ff",
+                        "secondary-fixed-dim": "#ffb4ac",
+                        "background": "#f9f9f9",
+                        "primary-fixed-dim": "#bac5ee",
+                        "surface-tint": "#525d80",
+                        "error-container": "#ffdad6",
+                        "surface-bright": "#f9f9f9",
+                        "inverse-primary": "#bac5ee",
+                        "surface-variant": "#e2e2e2",
+                        "surface": "#f9f9f9",
+                        "surface-container-highest": "#e2e2e2",
+                        "secondary": "#b51a1e",
+                        "on-background": "#1a1c1c",
+                        "surface-container": "#eeeeee",
+                        "on-primary-container": "#8691b7",
+                        "on-surface-variant": "#45464e",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "inverse-on-surface": "#f1f1f1",
+                        "tertiary-fixed": "#e4e2e1",
+                        "secondary-container": "#d93633",
+                        "error": "#ba1a1a",
+                        "surface-container-low": "#f3f3f3",
+                        "on-tertiary-container": "#939292",
+                        "outline-variant": "#c6c6cf",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed-variant": "#3a4667",
+                        "primary-container": "#1e2a4a",
+                        "on-tertiary-fixed": "#1b1c1c",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "on-secondary-fixed-variant": "#93000e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-max": "1200px",
+                        "margin-desktop": "80px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Montserrat"],
+                        "display-lg-mobile": ["Montserrat"],
+                        "body-md": ["Montserrat"],
+                        "display-lg": ["Montserrat"],
+                        "headline-sm": ["Montserrat"],
+                        "body-lg": ["Montserrat"],
+                        "headline-md": ["Montserrat"],
+                        "label-sm": ["Montserrat"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .masonry-grid {
+            column-count: 1;
+            column-gap: 24px;
+        }
+        @media (min-width: 768px) {
+            .masonry-grid { column-count: 2; }
+        }
+        @media (min-width: 1024px) {
+            .masonry-grid { column-count: 3; }
+        }
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 24px;
+        }
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(30, 42, 74, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-surface-white text-on-surface-charcoal font-body-md antialiased flex flex-col min-h-screen">
+    <!-- TopNavBar -->
+    <nav class="fixed top-0 w-full bg-white shadow-sm z-50 transition-all duration-300">
+        <div class="flex justify-between items-center h-24 py-2 px-4 lg:px-8 max-w-[1400px] mx-auto">
+            <!-- Brand with Logo -->
+            <a href="index.html" class="flex items-center">
+                <img src="assets/imgz/logo2.webp" alt="St Monica Junior School Logo"
+                    class="h-60 w-60 m-20 object-contain hover:scale-105 transition-transform duration-200" />
+            </a>
+            <!-- Nav Links (Desktop) -->
+            <div class="hidden lg:flex items-center gap-6 flex-nowrap mr-14">
+                <a class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
+                    href="index.html">Home</a>
+                <a class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
+                    href="about.html">About Us</a>
+
+                <!-- School Life Dropdown -->
+                <div class="relative group">
+                    <button
+                        class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 flex items-center gap-1 whitespace-nowrap">
+                        School Life
+                        <span
+                            class="material-symbols-outlined text-[18px] transition-transform duration-200 group-hover:rotate-180">expand_more</span>
+                    </button>
+                    <!-- Dropdown Menu -->
+                    <div
+                        class="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-[#c6c6cf] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform group-hover:translate-y-0 -translate-y-2">
+                        <div class="py-2">
+                            <a href="academics.html"
+                                class="block px-6 py-3 text-[#2C2C2C] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:bg-[#f3f3f3] hover:text-[#d93633] transition-colors duration-150">
+                                Academics
+                            </a>
+                            <a href="curriculum.html" class="block px-6 py-3 text-[#2C2C2C] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:bg-[#f3f3f3] hover:text-[#d93633] transition-colors duration-150">
+                                School Curriculum
+                            </a>
+                            <a href="cocurricular.html" class="block px-6 py-3 text-[#2C2C2C] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:bg-[#f3f3f3] hover:text-[#d93633] transition-colors duration-150">
+                                Co-curricular Activities
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <a class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] border-b-2 border-[#d93633] pb-1 hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap" href="gallery.html">Gallery</a>
+                <a class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap" href="contact.html">Contact</a>
+                
+                <button class="bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm whitespace-nowrap ml-2">
+                    Join Us
+                </button>
+            </div>
+            <!-- Mobile Menu Icon -->
+            <div class="lg:hidden">
+                <button id="mobileMenuBtn" class="focus:outline-none">
+                    <span id="mobileMenuIcon" class="material-symbols-outlined text-[#1e2a4a] text-[32px]">menu</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-white shadow-lg border-t border-[#e2e2e2]">
+            <div class="px-4 py-6 space-y-4">
+                <a class="block text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors pb-2"
+                    href="index.html">Home</a>
+                <a class="block text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors pb-2"
+                    href="about.html">About Us</a>
+                
+                <!-- School Life Mobile Accordion -->
+                <div>
+                    <button id="mobileSchoolLifeBtn" class="w-full flex items-center justify-between text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors pb-2">
+                        <span>School Life</span>
+                        <span class="material-symbols-outlined text-[20px]" id="mobileSchoolLifeIcon">expand_more</span>
+                    </button>
+                    <div id="mobileSchoolLifeMenu" class="hidden pl-4 mt-2 space-y-2">
+                        <a href="academics.html" class="block text-[14px] leading-[20px] font-semibold text-[#2C2C2C] hover:text-[#d93633] transition-colors py-2">
+                            Academics
+                        </a>
+                        <a href="curriculum.html" class="block text-[14px] leading-[20px] font-semibold text-[#2C2C2C] hover:text-[#d93633] transition-colors py-2">
+                            School Curriculum
+                        </a>
+                        <a href="cocurricular.html" class="block text-[14px] leading-[20px] font-semibold text-[#2C2C2C] hover:text-[#d93633] transition-colors py-2">
+                            Co-curricular Activities
+                        </a>
+                    </div>
+                </div>
+                
+                <a class="block text-[16px] leading-[24px] font-semibold text-[#1e2a4a] border-b-2 border-[#d93633] hover:text-[#d93633] transition-colors pb-2"
+                    href="gallery.html">Gallery</a>
+                <a class="block text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors pb-2"
+                    href="contact.html">Contact</a>
+                
+                <button class="w-full bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm mt-4">
+                    Join Us
+                </button>
+            </div>
+        </div>
+    </nav>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section class="relative pt-20 pb-32 overflow-hidden bg-[#1e2a4a] text-white">
+            <div class="absolute inset-0 opacity-10">
+                <div class="absolute inset-0" style="background-image: radial-gradient(#bac5ee 1px, transparent 1px); background-size: 20px 20px;"></div>
+            </div>
+            <div class="max-w-[1200px] mx-auto px-4 md:px-20 relative z-10 text-center">
+                <h1 class="text-[32px] md:text-[48px] leading-[40px] md:leading-[56px] font-bold tracking-[-0.02em] text-white mb-6">Our Gallery</h1>
+                <p class="text-[18px] leading-[28px] text-white/90 max-w-3xl mx-auto">
+                    This is our visual story. Explore the vibrant life and precious moments at St. Monica Junior School visually.
+                </p>
+            </div>
+        </section>
+
+        <!-- Gallery Filters & Content -->
+        <section class="pt-12 pb-24 px-4 md:px-20 max-w-[1200px] mx-auto w-full">
+            <!-- Gallery Filters -->
+            <div class="mb-12 text-center">
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <button class="px-6 py-2 rounded-full bg-[#1e2a4a] text-white text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-md transition-transform hover:scale-105">All Photos</button>
+                    <button class="px-6 py-2 rounded-full border-2 border-[#c6c6cf] text-[#45464e] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:border-[#1e2a4a] hover:text-[#1e2a4a] transition-colors">Campus Life</button>
+                    <button class="px-6 py-2 rounded-full border-2 border-[#c6c6cf] text-[#45464e] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:border-[#1e2a4a] hover:text-[#1e2a4a] transition-colors">Academics</button>
+                    <button class="px-6 py-2 rounded-full border-2 border-[#c6c6cf] text-[#45464e] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:border-[#1e2a4a] hover:text-[#1e2a4a] transition-colors">Sports & Athletics</button>
+                    <button class="px-6 py-2 rounded-full border-2 border-[#c6c6cf] text-[#45464e] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:border-[#1e2a4a] hover:text-[#1e2a4a] transition-colors">Special Events</button>
+                </div>
+            </div>
+
+            <!-- Masonry Gallery Grid -->
+            <div class="masonry-grid">
+            <!-- Gallery Item 1 -->
+            <div class="masonry-item rounded-[0.5rem] overflow-hidden hover-lift bg-[#f3f3f3] border border-[#e2e2e2] relative group">
+                <img class="w-full h-auto object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiTfvxn762d9lsukXv6r5tDEtGSCn8SJOwWMfHqytzYjwgn0M5B35eyTmkgy2DE6ZWiuum_Yhj36To8hq-oNalFcLHmoVvWinPi-LV1B1Smf145m13K-5siGtW6N3WtIL4hUre8ooYf0niW7bBXeyuU4PtokNkwRWbvUgwQ8hxUUpwG-1q-cX_WG3j31BJvmWQajpZhZun8IYgwqfb3D6UV1erT35dYvbVvuPmF_2ookMqpAhovL-VMQ" alt="Science Fair"/>
+                <div class="absolute inset-0 bg-[#1e2a4a]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                    <span class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#ffb4ac] mb-1">Academics</span>
+                    <h3 class="text-[24px] leading-[32px] font-semibold text-white">Science Fair Prep</h3>
+                </div>
+            </div>
+
+            <!-- Gallery Item 2 -->
+            <div class="masonry-item rounded-[0.5rem] overflow-hidden hover-lift bg-[#f3f3f3] border border-[#e2e2e2] relative group">
+                <img class="w-full h-auto object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjzBOYjDeySqiy8O-rvvkKAo_1biN9VAF3D5PZVzpO5P2aore8kpnEk-jhY0aQw28K4mvqICbgIq3yrOV_47jZZSQl2Veegsy_HsLy9z6WvF4TzjJNSA078KUz00Zlfku8qLDsjQkJgg89UohBn5VlAFLO5tlQw0scJW8-aMFoR_46yki5p1JR9pWfzKFNCd_OJouJxhJ1G0RvVLmpncGF8X9C7tmjKq3X1ZryboiJylKwkw9B7McllA" alt="Football"/>
+                <div class="absolute inset-0 bg-[#1e2a4a]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                    <span class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#ffb4ac] mb-1">Sports & Athletics</span>
+                    <h3 class="text-[24px] leading-[32px] font-semibold text-white">Inter-House Football</h3>
+                </div>
+            </div>
+
+            <!-- Gallery Item 3 -->
+            <div class="masonry-item rounded-[0.5rem] overflow-hidden hover-lift bg-[#f3f3f3] border border-[#e2e2e2] relative group">
+                <img class="w-full h-auto object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhh3cdyIuBaMtd4ZuUFprQWx4WXCLpw_ctC0Cu9Uoohr6bCZ25j7UpcybSypevOArRr0H6pfXsp6wCyLxfNIHv8TdCIhsBmhYUm_hNFkoiA8oT-CO9b1xR36qW7N0RyiRKZhpXWxzj05wNHOHa7SxyRobx39btoWpBvhcMZsq4RQLwch5ihiKwoESmyymj0Lv5ENcrA79rpDoZl2MQl-bjWNpXG3wmArLzsCYgICr1Ua_anrqRN566Tw" alt="Campus"/>
+                <div class="absolute inset-0 bg-[#1e2a4a]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                    <span class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#ffb4ac] mb-1">Campus Life</span>
+                    <h3 class="text-[24px] leading-[32px] font-semibold text-white">Main Quadrangle</h3>
+                </div>
+            </div>
+
+            <!-- Gallery Item 4 -->
+            <div class="masonry-item rounded-[0.5rem] overflow-hidden hover-lift bg-[#f3f3f3] border border-[#e2e2e2] relative group">
+                <img class="w-full h-auto object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBuZlq7OKdha-Ec2Q2GmPR42dcIXv4kz8MRKSIO0LQdo62gPDZS_Jia_sfMPxVhfTG-NBRSzOhFRp6ZGHyptiDN_Xpctm_moFxwEU1cqYaL-HRbRw_Lk5UmTrR8EDiW8F4ird40qZpdxbsAxYGhNvuXCx3Junxnq40ZmVXxlQSDivqGZNtKt2KAGcwVyXiZFXeCRxtHLBaa3tTQzMzkZxnll5Gmfhc1kZKIY_Mn-zSqcaeU_mF9uUKWQ" alt="Arts"/>
+                <div class="absolute inset-0 bg-[#1e2a4a]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                    <span class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#ffb4ac] mb-1">Academics</span>
+                    <h3 class="text-[24px] leading-[32px] font-semibold text-white">Creative Arts Class</h3>
+                </div>
+            </div>
+
+            <!-- Gallery Item 5 -->
+            <div class="masonry-item rounded-[0.5rem] overflow-hidden hover-lift bg-[#f3f3f3] border border-[#e2e2e2] relative group">
+                <img class="w-full h-auto object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjHE4MuErBw3ipQpLAsmrwpNBT5FBWAFo1JBlaWpU86O6c1pa8JyTKT9rVCG6XWzFMAGOTA3xdIbPuaN5bKN7DEy87-adqjA5zR9MnWIv9dAZFd5IbLgFXB7Ysxcob8MloLJiTbEKyt00zoMeLr9a3-bn_-IQLTOf6MVosAZoO06bNKDAWBR7EXryOxGmQQ0fixtsoeXQkkRAseTWkoGyYmiIax_2HHN72KXM10Nqnj6rb4mqCW13lqw" alt="Cultural Day"/>
+                <div class="absolute inset-0 bg-[#1e2a4a]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                    <span class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#ffb4ac] mb-1">Special Events</span>
+                    <h3 class="text-[24px] leading-[32px] font-semibold text-white">Annual Cultural Day</h3>
+                </div>
+            </div>
+
+            <!-- Gallery Item 6 -->
+            <div class="masonry-item rounded-[0.5rem] overflow-hidden hover-lift bg-[#f3f3f3] border border-[#e2e2e2] relative group">
+                <img class="w-full h-auto object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqEtiunPCGMKrwvxg5nZzwtWE5m1QHlWGq92UjGnXtdnLisTYL0uBRGz3GVsQPkOgHiaExkV7oOcA943MAt0_wdI5PscxIi_8JnrlNYta0oDtGOTcfeZnygdYJqGH7Sq_7BLwhX1z-b_YVlrzldtxI6jbec8qR7-8fTI08TO6bK9lgbpUWhhD3zG5PmxJyG9HF-aJicEeztpnmbYVNVxsGjZElEECq4S-zYWkm8UV-8A0khfMoW8PjcQ" alt="Library"/>
+                <div class="absolute inset-0 bg-[#1e2a4a]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                    <span class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#ffb4ac] mb-1">Campus Life</span>
+                    <h3 class="text-[24px] leading-[32px] font-semibold text-white">The Library Hub</h3>
+                </div>
+            </div>
+            </div>
+
+            <!-- Load More Button -->
+            <div class="mt-16 text-center">
+                <button class="inline-flex items-center gap-2 px-8 py-3 rounded-full border-2 border-[#1e2a4a] text-[#1e2a4a] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:bg-[#dae2ff] hover:text-[#0d1a39] transition-colors duration-300">
+                    Load More Memories
+                    <span class="material-symbols-outlined text-[20px]">expand_more</span>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full mt-auto bg-on-surface-charcoal text-surface-white">
+        <div class="max-w-[1400px] mx-auto px-4 lg:px-8 py-16">
+            <!-- Main Footer Content -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <!-- Brand Column -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3 mb-4">
+                        <img src="assets/imgz/logo2-cut.png" alt="St Monica Junior School Logo"
+                            class="h-48 w-48 object-contain" />
+
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-[16px] leading-[24px] font-semibold text-white mb-6 uppercase tracking-wider">Quick
+                        Links</h4>
+                    <ul class="space-y-3">
+                        <li><a class="text-[16px] leading-[24px] text-white/70 hover:text-secondary-container transition-colors duration-200 flex items-center gap-2"
+                                href="about.html">
+                                <span class="material-symbols-outlined text-[18px]">chevron_right</span> About Us
+                            </a></li>
+                        <li><a class="text-[16px] leading-[24px] text-white/70 hover:text-secondary-container transition-colors duration-200 flex items-center gap-2"
+                                href="academics.html">
+                                <span class="material-symbols-outlined text-[18px]">chevron_right</span> Academics
+                            </a></li>
+                        <li><a class="text-[16px] leading-[24px] text-white/70 hover:text-secondary-container transition-colors duration-200 flex items-center gap-2"
+                                href="gallery.html">
+                                <span class="material-symbols-outlined text-[18px]">chevron_right</span> Gallery
+                            </a></li>
+                        <li><a class="text-[16px] leading-[24px] text-white/70 hover:text-secondary-container transition-colors duration-200 flex items-center gap-2"
+                                href="contact.html">
+                                <span class="material-symbols-outlined text-[18px]">chevron_right</span> Contact Us
+                            </a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div>
+                    <h4 class="text-[16px] leading-[24px] font-semibold text-white mb-6 uppercase tracking-wider">
+                        Contact</h4>
+                    <ul class="space-y-4">
+                        <li class="footer-contact-item flex items-start gap-3 text-white/70">
+                            <span
+                                class="material-symbols-outlined text-[20px] text-secondary-container flex-shrink-0">location_on</span>
+                            <span class="text-[16px] leading-[24px]">Kkoba village, Kasanje</span>
+                        </li>
+                        <li class="footer-contact-item flex items-start gap-3 text-white/70">
+                            <span
+                                class="material-symbols-outlined text-[20px] text-secondary-container flex-shrink-0">phone</span>
+                            <div class="flex flex-col">
+                                <span class="text-[16px] leading-[24px]">+256 752 406176</span>
+                                <span class="text-[16px] leading-[24px]">+256 762636213</span>
+                            </div>
+                        </li>
+                        <li class="footer-contact-item flex items-center gap-3 text-white/70">
+                            <span
+                                class="material-symbols-outlined text-[20px] text-secondary-container flex-shrink-0">mail</span>
+                            <span class="text-[16px] leading-[24px]">stmonicajuniorschool2012@gmail.com</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div class="">
+                    <h4 class="text-[16px] leading-[24px] font-semibold text-white mb-6 uppercase tracking-wider">
+                        Newsletter</h4>
+                    <p class="text-[14px] leading-[20px] text-white/70 mb-4">Subscribe for school news.</p>
+                    <form class="space-y-3">
+                        <input
+                            class="w-full bg-white/10 border border-white/20 text-white placeholder-white/50 rounded-lg px-4 py-3 text-[14px] focus:ring-2 focus:ring-secondary-container focus:border-transparent outline-none transition-all"
+                            placeholder="Your email address" type="email" />
+                        <button
+                            class="w-full bg-secondary-container text-white px-6 py-3 rounded-lg hover:bg-secondary transition-colors duration-200 font-semibold text-[14px] flex items-center justify-center gap-2">
+                            Subscribe
+                            <span class="material-symbols-outlined text-[20px]">send</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom border-t border-white/10 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="flex flex-col md:flex-row items-center gap-4 md:gap-6">
+                        <a class="text-[14px] leading-[20px] text-white/60 hover:text-secondary-container transition-colors"
+                            href="#">Privacy Policy</a>
+                        <a class="text-[14px] leading-[20px] text-white/60 hover:text-secondary-container transition-colors"
+                            href="#">Terms of Service</a>
+                    </div>
+                    <p class="text-[14px] leading-[20px] text-white/60 text-center">
+                        © <span id="currentYear"></span> St Monica Junior School Kasanje. All rights reserved.
+                    </p>
+                    <p class="text-[14px] leading-[20px] text-white/60 text-center md:text-right">
+                        Made by <a href="https://www.sofdas.com/" class="text-secondary-container hover:text-secondary transition-colors font-semibold">Sofdas Technologies</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        if (document.getElementById('currentYear')) {
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+        }
+    </script>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuIcon = document.getElementById('mobileMenuIcon');
+        const mobileSchoolLifeBtn = document.getElementById('mobileSchoolLifeBtn');
+        const mobileSchoolLifeMenu = document.getElementById('mobileSchoolLifeMenu');
+        const mobileSchoolLifeIcon = document.getElementById('mobileSchoolLifeIcon');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenuIcon.textContent = 'menu';
+            } else {
+                mobileMenuIcon.textContent = 'close';
+            }
+        });
+
+        // Mobile School Life Accordion
+        mobileSchoolLifeBtn.addEventListener('click', function() {
+            mobileSchoolLifeMenu.classList.toggle('hidden');
+            if (mobileSchoolLifeMenu.classList.contains('hidden')) {
+                mobileSchoolLifeIcon.textContent = 'expand_more';
+            } else {
+                mobileSchoolLifeIcon.textContent = 'expand_less';
+            }
+        });
+    </script>
+</body>
+</html>

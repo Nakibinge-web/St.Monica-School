@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>St. Monica Junior School Kasanje</title>
+    <link rel="icon" type="image/png" href="assets/imgz/logo2-cut.png">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@400;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#0d1a39",
+                        "inverse-surface": "#2f3131",
+                        "on-secondary-container": "#fffbff",
+                        "on-surface": "#1a1c1c",
+                        "outline": "#76777f",
+                        "primary": "#081534",
+                        "tertiary": "#161717",
+                        "tertiary-container": "#2b2b2b",
+                        "surface-white": "#FFFFFF",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#410003",
+                        "surface-dim": "#dadada",
+                        "secondary-fixed": "#ffdad6",
+                        "surface-container-high": "#e8e8e8",
+                        "on-surface-charcoal": "#2C2C2C",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#dae2ff",
+                        "secondary-fixed-dim": "#ffb4ac",
+                        "background": "#f9f9f9",
+                        "primary-fixed-dim": "#bac5ee",
+                        "surface-tint": "#525d80",
+                        "error-container": "#ffdad6",
+                        "surface-bright": "#f9f9f9",
+                        "inverse-primary": "#bac5ee",
+                        "surface-variant": "#e2e2e2",
+                        "surface": "#f9f9f9",
+                        "surface-container-highest": "#e2e2e2",
+                        "secondary": "#b51a1e",
+                        "on-background": "#1a1c1c",
+                        "surface-container": "#eeeeee",
+                        "on-primary-container": "#8691b7",
+                        "on-surface-variant": "#45464e",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "inverse-on-surface": "#f1f1f1",
+                        "tertiary-fixed": "#e4e2e1",
+                        "secondary-container": "#d93633",
+                        "error": "#ba1a1a",
+                        "surface-container-low": "#f3f3f3",
+                        "on-tertiary-container": "#939292",
+                        "outline-variant": "#c6c6cf",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed-variant": "#3a4667",
+                        "primary-container": "#1e2a4a",
+                        "on-tertiary-fixed": "#1b1c1c",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "on-secondary-fixed-variant": "#93000e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-max": "1200px",
+                        "margin-desktop": "80px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Montserrat"],
+                        "display-lg-mobile": ["Montserrat"],
+                        "body-md": ["Montserrat"],
+                        "display-lg": ["Montserrat"],
+                        "headline-sm": ["Montserrat"],
+                        "body-lg": ["Montserrat"],
+                        "headline-md": ["Montserrat"],
+                        "label-sm": ["Montserrat"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "display-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-sm": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700" }]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+
+<body class="bg-surface-white text-on-surface-charcoal font-body-md antialiased flex flex-col min-h-screen">
+    <!-- TopNavBar -->
+    <nav id="navbar" class="fixed top-0 w-full bg-transparent z-50 transition-all duration-300">
+        <div class="flex justify-between items-center h-24 py-2 px-4 lg:px-8 max-w-[1400px] mx-auto">
+            <!-- Brand with Logo -->
+            <a href="index.html" class="flex items-center">
+                <img src="assets/imgz/logo2.webp" alt="St Monica Junior School Logo"
+                    class="h-60 w-60 m-20 object-contain hover:scale-105 transition-transform duration-200" />
+            </a>
+            <!-- Nav Links (Desktop) -->
+            <div class="hidden lg:flex items-center gap-6 flex-nowrap mr-14">
+                <a class="nav-link text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-white border-b-2 border-[#d93633] pb-1 hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
+                    href="index.html">Home</a>
+                <a class="nav-link text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-white hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
+                    href="about.html">About Us</a>
+
+                <!-- School Life Dropdown -->
+                <div class="relative group">
+                    <button
+                        class="nav-link text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-white hover:text-[#d93633] transition-colors duration-200 flex items-center gap-1 whitespace-nowrap">
+                        School Life
+                        <span
+                            class="material-symbols-outlined text-[18px] transition-transform duration-200 group-hover:rotate-180">expand_more</span>
+                    </button>
+                    <!-- Dropdown Menu -->
+                    <div
+                        class="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-[#c6c6cf] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform group-hover:translate-y-0 -translate-y-2">
+                        <div class="py-2">
+                            <a href="academics.html"
+                                class="block px-6 py-3 text-[#2C2C2C] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:bg-[#f3f3f3] hover:text-[#d93633] transition-colors duration-150">
+                                Academics
+                            </a>
+                            <a href="curriculum.html"
+                                class="block px-6 py-3 text-[#2C2C2C] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:bg-[#f3f3f3] hover:text-[#d93633] transition-colors duration-150">
+                                School Curriculum
+                            </a>
+                            <a href="cocurricular.html"
+                                class="block px-6 py-3 text-[#2C2C2C] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:bg-[#f3f3f3] hover:text-[#d93633] transition-colors duration-150">
+                                Co-curricular Activities
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <a class="nav-link text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-white hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
+                    href="gallery.html">Gallery</a>
+                <a class="nav-link text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-white hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
+                    href="contact.html">Contact</a>
+
+                <button
+                    class="bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm whitespace-nowrap ml-2">
+                    Join Us
+                </button>
+            </div>
+            <!-- Mobile Menu Icon -->
+            <div class="lg:hidden">
+                <button id="mobileMenuBtn" class="focus:outline-none">
+                    <span id="mobileMenuIcon" class="material-symbols-outlined text-white text-[32px]">menu</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-white shadow-lg border-t border-[#e2e2e2]">
+            <div class="px-4 py-6 space-y-4">
+                <a class="block text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors border-b-2 border-[#d93633] pb-2"
+                    href="index.html">Home</a>
+                <a class="block text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors pb-2"
+                    href="about.html">About Us</a>
+                
+                <!-- School Life Mobile Accordion -->
+                <div>
+                    <button id="mobileSchoolLifeBtn" class="w-full flex items-center justify-between text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors pb-2">
+                        <span>School Life</span>
+                        <span class="material-symbols-outlined text-[20px]" id="mobileSchoolLifeIcon">expand_more</span>
+                    </button>
+                    <div id="mobileSchoolLifeMenu" class="hidden pl-4 mt-2 space-y-2">
+                        <a href="academics.html" class="block text-[14px] leading-[20px] font-semibold text-[#2C2C2C] hover:text-[#d93633] transition-colors py-2">
+                            Academics
+                        </a>
+                        <a href="curriculum.html" class="block text-[14px] leading-[20px] font-semibold text-[#2C2C2C] hover:text-[#d93633] transition-colors py-2">
+                            School Curriculum
+                        </a>
+                        <a href="cocurricular.html" class="block text-[14px] leading-[20px] font-semibold text-[#2C2C2C] hover:text-[#d93633] transition-colors py-2">
+                            Co-curricular Activities
+                        </a>
+                    </div>
+                </div>
+                
+                <a class="block text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors pb-2"
+                    href="gallery.html">Gallery</a>
+                <a class="block text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors pb-2"
+                    href="contact.html">Contact</a>
+                
+                <button class="w-full bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm mt-4">
+                    Join Us
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <!-- Carousel Section -->
+        <section class="carousel h-[700px] relative">
+            <div class="carousel">
+                <!-- list item -->
+                <div class="list">
+                    <div class="item">
+                        <img src="assets/imgz/hero1-light.webp">
+                        <div class="content">
+                            <div class="title">
+                                <h1>Welcome to St.Monica Junior School</h1>
+                            </div>
+                            <div class="des mt-7">
+                                Welcome to St.Monica Junior School website and community. Explore all the school information you need to know from here
+                            </div>
+                            <div class="buttons absolute">
+                                <a href="about.html"
+                                    class="bg-red-600 cursor-pointer mt-8 text-white px-8 py-3 rounded-full hover:bg-red-700 transition duration-300 inline-flex items-center book-appointment">
+                                    <span>Know More</span>
+                                    <i class="fas fa-arrow-right ml-2"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="assets/imgz/hero2.webp">
+                        <div class="content">
+                            <div class="title">Providing Quality Education</div>
+                            <div class="des mt-7">
+                                We provide quality education to our pupils for a bright future and build skills for success in a global world
+                            </div>
+                            <div class="buttons absolute">
+                                <a href="academics.html"
+                                    class="bg-red-600 cursor-pointer mt-8 text-white px-8 py-3 rounded-full hover:bg-red-700 transition duration-300 inline-flex items-center">
+                                    <span>Our Academics</span>
+                                    <i class="fas fa-arrow-right ml-2"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="assets/imgz/hero3.webp">
+                        <div class="content">
+                            <div class="title">Beautiful Compound And Structures</div>
+                            <div class="des mt-7">
+                                St.Monica boosts a serene and beautiful compound, complete with modern
+                                structures to provide a safe and condusive learning environment to our pupils
+                            </div>
+                            <div class="buttons absolute">
+                                <a href="gallery.html"
+                                    class="bg-red-600 cursor-pointer mt-8 text-white px-8 py-3 rounded-full hover:bg-red-700 transition duration-300 inline-flex items-center">
+                                    <span>Explore Our Gallery</span>
+                                    <i class="fas fa-arrow-right ml-2"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="assets/imgz/farming.webp">
+                        <div class="content">
+                            <div class="title">Co-curricular Activities</div>
+                            <div class="des mt-7">
+                                At St.Monica, our pupils engage in co-curricular activities and we have a fully stocked Library that allows our
+                                pupils to seek more knowledge
+                            </div>
+                            <div class="buttons absolute">
+                                <a href="cocurricular.html"
+                                    class="bg-red-600 cursor-pointer mt-8 text-white px-8 py-3 rounded-full hover:bg-red-700 transition duration-300 inline-flex items-center">
+                                    <span>Co-curricular Activities</span>
+                                    <i class="fas fa-arrow-right ml-2"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- list thumbnail -->
+                <div class="thumbnail">
+                    <div class="item">
+                        <img src="assets/imgz/hero1-light.webp">
+                    </div>
+                    <div class="item">
+                        <img src="assets/imgz/hero2.webp">
+                    </div>
+                    <div class="item">
+                        <img src="assets/imgz/hero3.webp">
+                    </div>
+                    <div class="item">
+                        <img src="assets/imgz/farming.webp">
+                    </div>
+                </div>
+
+                <!-- next prev buttons -->
+                <div class="arrows">
+                    <button id="prev"><</button>
+                    <button id="next">></button>
+                </div>
+
+                <!-- time running indicator -->
+                <div class="time"></div>
+            </div>
+        </section>
+
+
+        <!-- Warm Welcome from Headteacher -->
+        <section class="py-24 px-24 lg:px-48 bg-surface-white">
+            <div class="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Image Left -->
+                <div class="director-image opacity-0 -translate-x-20 relative h-[500px] rounded-xl overflow-hidden shadow-lg">
+                    <img class="w-full h-full object-cover"
+                        src="assets/imgz/Director-copy.jpg"
+                        alt="Headteacher" />
+                    <div
+                        class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-primary-container/90 to-transparent p-6 text-surface-white">
+                        <p class="text-[24px] leading-[32px] font-semibold">Rev. Fr. Dr Denis Mpanga</p>
+                        <p class="text-[14px] leading-[20px] opacity-90">Director</p>
+                    </div>
+                </div>
+                <!-- Text Right -->
+                <div class="director-text opacity-0 translate-x-20 space-y-6">
+                    <h2 class="text-[32px] leading-[40px] font-semibold text-[#1e2a4a] flex items-center gap-4">
+                        <span class="w-12 h-1 bg-[#d93633] block"></span>
+                        Message from Our Director
+                    </h2>
+                    <p class="text-[18px] leading-[28px] text-[#2C2C2C]">
+                        Welcome to St. Monica Junior School! We are dedicated to providing a nurturing environment where every pupil can thrive. Our focus on holistic and Christian development ensures that each child reaches their full potential, both academically and personally.
+                        <br>
+                        <br>
+                        Our commitment to excellence is reflected in our UNEB Center number, which guarantees that our pupils are well-prepared for national exams. We use innovative teaching methods to engage students, fostering a lifelong love of learning.
+                        <br>
+                        <br>
+                        In addition to academics, we offer a range of co-curricular activities to enhance overall development. Our balanced approach supports pupils' growth in both their academic and personal lives, preparing them for future success.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us -->
+        <section class="py-24 px-8 lg:px-48 bg-[#f3f3f3]">
+            <div class="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Text Left -->
+                <div class="why-choose-text opacity-0 -translate-x-20 space-y-6">
+                    <h2 class="text-[32px] leading-[40px] font-semibold text-[#1e2a4a]">Why Choose St Monica?</h2>
+                    <p class="text-[18px] leading-[28px] text-[#2C2C2C]">
+                        We are committed to providing a nurturing environment where each child can thrive academically,
+                        socially, and emotionally.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="why-item opacity-0 -translate-x-10 flex items-start gap-4">
+                            <div
+                                class="w-12 h-12 bg-[#1e2a4a] rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-children text-white text-[24px]"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-[18px] leading-[28px] font-semibold text-[#1e2a4a] mb-1">Children's Safety</h3>
+                                <p class="text-[16px] leading-[24px] text-[#45464e]">At St Monica Junior School, Our children's safety is key</p>
+                            </div>
+                        </div>
+                        <div class="why-item opacity-0 -translate-x-10 flex items-start gap-4">
+                            <div class="w-12 h-12 bg-[#d93633] rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-bowl-food text-white text-[24px]"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-[18px] leading-[28px] font-semibold text-[#1e2a4a] mb-1">Healthy Meals</h3>
+                                <p class="text-[16px] leading-[24px] text-[#45464e]">Healthy food is key to a healthy mind</p>
+                            </div>
+                        </div>
+                        <div class="why-item opacity-0 -translate-x-10 flex items-start gap-4">
+                            <div
+                                class="w-12 h-12 bg-[#1e2a4a] rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-book-open text-white text-[20px]"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-[18px] leading-[28px] font-semibold text-[#1e2a4a] mb-1">Learning & Fun</h3>
+                                <p class="text-[16px] leading-[24px] text-[#45464e]">Creative activities to help with development and early learning.</p>
+                            </div>
+                        </div>
+                        <div class="why-item opacity-0 -translate-x-10 flex items-start gap-4">
+                            <div
+                                class="w-12 h-12 bg-[#d93633] rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-building text-white text-[22px]"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-[18px] leading-[28px] font-semibold text-[#1e2a4a] mb-1">Cute Environment</h3>
+                                <p class="text-[16px] leading-[24px] text-[#45464e]">Encourages children to freely explore, discover and learn through nature</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Image Right -->
+                <div class="why-choose-image opacity-0 translate-x-20 relative h-[550px] rounded-xl overflow-hidden shadow-lg">
+                    <img class="w-full h-full object-cover"
+                        src="assets/imgz/Communion.webp"
+                        alt="Students learning" />
+                </div>
+            </div>
+        </section>
+
+        <!-- Vision & Motto -->
+        <section class="py-24 px-8 lg:px-16 bg-[#d93633]">
+            <div class="max-w-[1400px] mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Vision -->
+                    <div class="vision-card opacity-0 translate-y-20 group bg-white/10 backdrop-blur-sm rounded-xl p-8 border border-white/20 transition-all duration-700 hover:bg-white/20 hover:border-white/40 hover:scale-105 hover:shadow-2xl hover:-translate-y-2 cursor-pointer overflow-hidden relative">
+                        <div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="flex items-center gap-4 mb-6 relative z-10">
+                            <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-12 group-hover:shadow-lg">
+                                <span class="material-symbols-outlined text-[#1e2a4a] text-[32px] transition-all duration-500 group-hover:scale-110">visibility</span>
+                            </div>
+                            <h2 class="text-[28px] leading-[36px] font-semibold text-white transition-all duration-300 group-hover:text-white">Our Vision</h2>
+                        </div>
+                        <p class="text-[18px] leading-[28px] text-white/90 relative z-10 transition-all duration-300 group-hover:text-white">
+                            To be a leading institution that nurtures well-rounded individuals who are academically
+                            excellent, morally upright, and socially responsible citizens.
+                        </p>
+                    </div>
+                    <!-- Mission -->
+                    <div class="vision-card opacity-0 translate-y-20 group bg-white/10 backdrop-blur-sm rounded-xl p-8 border border-white/20 transition-all duration-700 hover:bg-white/20 hover:border-white/40 hover:scale-105 hover:shadow-2xl hover:-translate-y-2 cursor-pointer overflow-hidden relative">
+                        <div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="flex items-center gap-4 mb-6 relative z-10">
+                            <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-12 group-hover:shadow-lg">
+                                <span class="material-symbols-outlined text-[#1e2a4a] text-[32px] transition-all duration-500 group-hover:scale-110">flag</span>
+                            </div>
+                            <h2 class="text-[28px] leading-[36px] font-semibold text-white transition-all duration-300 group-hover:text-white">Our Motto</h2>
+                        </div>
+                        <p class="text-[24px] leading-[32px] font-semibold text-white italic relative z-10 transition-all duration-300 group-hover:text-white">
+                            "Always Aim Higher"
+                        </p>
+                        <p class="text-[16px] leading-[24px] text-white/80 mt-4 relative z-10 transition-all duration-300 group-hover:text-white">
+                            Striving for the highest standards in everything we do.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- School Staff Summary -->
+        <section class="py-24 px-8 lg:px-48 bg-white">
+            <div class="max-w-[1400px] mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-[32px] leading-[40px] font-semibold text-[#1e2a4a] mb-4">Our Dedicated Team</h2>
+                    <p class="text-[18px] leading-[28px] text-[#2C2C2C] max-w-2xl mx-auto">
+                        Meet the passionate educators who make learning an exciting journey for every child.
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Staff Card 1 -->
+                    <div
+                        class="vision-card opacity-0 translate-y-20 bg-[#f3f3f3] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-700 hover:scale-105 hover:-translate-y-2 group">
+                        <div class="h-72 overflow-hidden">
+                            <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                src="assets/imgz/Director-copy.jpg"
+                                alt="Director" />
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] mb-1">Rev. Fr. Dr Denis Mpanga
+                            </h3>
+                            <p class="text-[14px] leading-[20px] text-[#d93633] font-semibold mb-3">Director</p>
+                            <p class="text-[16px] leading-[24px] text-[#45464e]">Leading with 15 years of educational
+                                excellence.</p>
+                        </div>
+                    </div>
+                    <!-- Staff Card 2 -->
+                    <div
+                        class="vision-card opacity-0 translate-y-20 bg-[#f3f3f3] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-700 hover:scale-105 hover:-translate-y-2 group">
+                        <div class="h-72 overflow-hidden">
+                            <img class="w-full h-full object-cover object-top headteacher-img group-hover:scale-105 transition-transform duration-500"
+                                src="assets/imgz/headteacher.webp"
+                                alt="HeadTeacher" />
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] mb-1">Ms Jane Frances Luyiga</h3>
+                            <p class="text-[14px] leading-[20px] text-[#d93633] font-semibold mb-3">Headteacher</p>
+                            <p class="text-[16px] leading-[24px] text-[#45464e]">Making numbers fun and accessible for
+                                all learners.</p>
+                        </div>
+                    </div>
+                    <!-- Staff Card 3 -->
+                    <div
+                        class="vision-card opacity-0 translate-y-20 bg-[#f3f3f3] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-700 hover:scale-105 hover:-translate-y-2 group">
+                        <div class="h-72 overflow-hidden">
+                            <img class="w-full h-full object-cover object-top headteacher-img group-hover:scale-105 transition-transform duration-500"
+                                src="assets/imgz/Deputy HM.webp" alt="Teacher" />
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] mb-1">Mr. Isaac Omuge</h3>
+                            <p class="text-[14px] leading-[20px] text-[#d93633] font-semibold mb-3">Deputy Headteacher</p>
+                            <p class="text-[16px] leading-[24px] text-[#45464e]">Inspiring young minds through language
+                                and literature.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Counter Section -->
+        <section class="py-20 px-8 lg:px-16 bg-[#d93633] relative overflow-hidden bg-fixed bg-center bg-cover" style="background-image: url('assets/imgz/Communion.webp'); background-attachment: fixed;">
+            <!-- Overlay for better text readability -->
+            <div class="absolute inset-0 bg-[#FF000D]/80"></div>
+            
+            <div class="max-w-[1400px] mx-auto relative z-10">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Counter 1 -->
+                    <div class="text-center counter-item" style="opacity: 1;">
+                        <div class="inline-flex items-center justify-center w-20 h-20 bg-white/20 rounded-full mb-4 animate-icon">
+                            <span class="material-symbols-outlined text-white text-[40px]">verified</span>
+                        </div>
+                        <h3 class="text-[48px] leading-[56px] font-bold text-white mb-2">
+                            <span class="counter" data-target="10">0</span>+
+                        </h3>
+                        <p class="text-[18px] leading-[28px] text-white/90 font-semibold">Years of Excellence</p>
+                    </div>
+                    <!-- Counter 2 -->
+                    <div class="text-center counter-item" style="opacity: 1;">
+                        <div class="inline-flex items-center justify-center w-20 h-20 bg-white/20 rounded-full mb-4 animate-icon">
+                            <span class="material-symbols-outlined text-white text-[40px]">school</span>
+                        </div>
+                        <h3 class="text-[48px] leading-[56px] font-bold text-white mb-2">
+                            <span class="counter" data-target="500">0</span>+
+                        </h3>
+                        <p class="text-[18px] leading-[28px] text-white/90 font-semibold">Happy Pupils</p>
+                    </div>
+                    <!-- Counter 3 -->
+                    <div class="text-center counter-item" style="opacity: 1;">
+                        <div class="inline-flex items-center justify-center w-20 h-20 bg-white/20 rounded-full mb-4 animate-icon">
+                            <span class="material-symbols-outlined text-white text-[40px]">meeting_room</span>
+                        </div>
+                        <h3 class="text-[48px] leading-[56px] font-bold text-white mb-2">
+                            <span class="counter" data-target="10">0</span>
+                        </h3>
+                        <p class="text-[18px] leading-[28px] text-white/90 font-semibold">Modern Classrooms</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- News & Events -->
+        <section class="py-24 px-8 lg:px-48 bg-[#f3f3f3]">
+            <div class="max-w-[1400px] mx-auto">
+                <div class="text-center mb-12 news-header opacity-0 translate-y-20">
+                    <h2 class="text-[32px] leading-[40px] font-semibold text-[#1e2a4a] mb-2">News & Events</h2>
+                    <p class="text-[16px] leading-[24px] text-[#2C2C2C]">Stay updated with our school community</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- News Card 1 -->
+                    <div class="news-card opacity-0 translate-y-20 bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-700 hover:scale-105 hover:-translate-y-2 group">
+                        <div class="h-48 overflow-hidden">
+                            <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                src="assets/imgz/3 graduants.webp"
+                                alt="Event" />
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center justify-between mb-3">
+                                <span
+                                    class="text-[12px] leading-[16px] font-bold text-[#d93633] bg-[#d93633]/10 px-3 py-1 rounded-full uppercase">Event</span>
+                                <span class="text-[14px] leading-[20px] text-[#45464e] flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[16px]">calendar_today</span> Oct 15
+                                </span>
+                            </div>
+                            <h3 class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] mb-2">Top Class Graduation Day</h3>
+                            <p class="text-[16px] leading-[24px] text-[#45464e] mb-4">Celebrating our top class students for reaching another educational level</p>
+                            <a class="text-[#1e2a4a] text-[14px] leading-[20px] font-semibold hover:text-[#d93633] transition-colors"
+                                href="#">Read More →</a>
+                        </div>
+                    </div>
+                    <!-- News Card 2 -->
+                    <div class="news-card opacity-0 translate-y-20 bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-700 hover:scale-105 hover:-translate-y-2 group">
+                        <div class="h-48 overflow-hidden">
+                            <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                src="assets/imgz/netball.webp"
+                                alt="Event" />
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center justify-between mb-3">
+                                <span
+                                    class="text-[12px] leading-[16px] font-bold text-[#d93633] bg-[#d93633]/10 px-3 py-1 rounded-full uppercase">Sports</span>
+                                <span class="text-[14px] leading-[20px] text-[#45464e] flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[16px]">calendar_today</span> Oct 22
+                                </span>
+                            </div>
+                            <h3 class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] mb-2">Inter-House
+                                Athletics</h3>
+                            <p class="text-[16px] leading-[24px] text-[#45464e] mb-4">Join us for an exciting day of
+                                sports and competition.</p>
+                            <a class="text-[#1e2a4a] text-[14px] leading-[20px] font-semibold hover:text-[#d93633] transition-colors"
+                                href="#">Read More →</a>
+                        </div>
+                    </div>
+                    <!-- News Card 3 -->
+                    <div class="news-card opacity-0 translate-y-20 bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-700 hover:scale-105 hover:-translate-y-2 group">
+                        <div class="h-48 overflow-hidden">
+                            <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                src="assets/imgz/swimming.webp"
+                                alt="News" />
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center justify-between mb-3">
+                                <span
+                                    class="text-[12px] leading-[16px] font-bold text-[#d93633] bg-[#d93633]/10 px-3 py-1 rounded-full uppercase">News</span>
+                                <span class="text-[14px] leading-[20px] text-[#45464e] flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[16px]">calendar_today</span> Oct 5
+                                </span>
+                            </div>
+                            <h3 class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] mb-2">Study Trip</h3>
+                            <p class="text-[16px] leading-[24px] text-[#45464e] mb-4">Our trip is happening soon so that pupils get to learn visually and see new places</p>
+                            <a class="text-[#1e2a4a] text-[14px] leading-[20px] font-semibold hover:text-[#d93633] transition-colors"
+                                href="#">Read More →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="py-24 px-8 lg:px-16 bg-white">
+            <div class="max-w-[1400px] mx-auto">
+                <div class="text-center mb-12 testimonial-header opacity-0 translate-y-20">
+                    <h2 class="text-[32px] leading-[40px] font-semibold text-[#1e2a4a] mb-4">What Parents Say</h2>
+                    <p class="text-[18px] leading-[28px] text-[#2C2C2C] max-w-2xl mx-auto">
+                        Hear from our community about their experience at St Monica Junior School
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Testimonial 1 -->
+                    <div class="testimonial-card opacity-0 translate-y-20 bg-[#f3f3f3] rounded-xl p-8 relative transition-all duration-700 hover:scale-105 hover:-translate-y-2">
+                        <div class="mb-6">
+                            <div class="flex gap-1 mb-4">
+                                <span class="material-symbols-outlined text-[#d93633]"
+                                    style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-[#d93633]"
+                                    style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-[#d93633]"
+                                    style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-[#d93633]"
+                                    style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-[#d93633]"
+                                    style="font-variation-settings: 'FILL' 1;">star</span>
+                            </div>
+                            <p class="text-[16px] leading-[24px] text-[#2C2C2C] mb-6">
+                                "St Monica has been a blessing to our family. The teachers are caring and dedicated, and
+                                my daughter has flourished academically and socially."
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="w-12 h-12 bg-[#1e2a4a] rounded-full flex items-center justify-center text-white font-semibold">
+                                MK
+                            </div>
+                            <div>
+                                <p class="text-[16px] leading-[24px] font-semibold text-[#1e2a4a]">Mrs. Mary Kisakye</p>
+                                <p class="text-[14px] leading-[20px] text-[#45464e]">Parent, Grade 5</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Testimonial 2 -->
+                    <div class="testimonial-card opacity-0 translate-y-20 bg-[#f3f3f3] rounded-xl p-8 relative transition-all duration-700 hover:scale-105 hover:-translate-y-2">
+                        <div class="mb-6">
+                            <div class="flex gap-1 mb-4">
+                                <span class="material-symbols-outlined text-[#d93633]"
+                                    style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-[#d93633]"
+                                    style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-[#d93633]"
+                                    style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-[#d93633]"
+                                    style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-[#d93633]"
+                                    style="font-variation-settings: 'FILL' 1;">star</span>
+                            </div>
+                            <p class="text-[16px] leading-[24px] text-[#2C2C2C] mb-6">
+                                "The holistic approach to education here is outstanding. My son not only excels in
+                                academics but has also developed strong values and character."
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="w-12 h-12 bg-[#1e2a4a] rounded-full flex items-center justify-center text-white font-semibold">
+                                JM
+                            </div>
+                            <div>
+                                <p class="text-[16px] leading-[24px] font-semibold text-[#1e2a4a]">Mr. John Musoke</p>
+                                <p class="text-[14px] leading-[20px] text-[#45464e]">Parent, Grade 3</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Testimonial 3 -->
+                    <div class="testimonial-card opacity-0 translate-y-20 bg-[#f3f3f3] rounded-xl p-8 relative transition-all duration-700 hover:scale-105 hover:-translate-y-2">
+                        <div class="mb-6">
+                            <div class="flex gap-1 mb-4">
+                                <span class="material-symbols-outlined text-[#d93633]"
+                                    style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-[#d93633]"
+                                    style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-[#d93633]"
+                                    style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-[#d93633]"
+                                    style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-[#d93633]"
+                                    style="font-variation-settings: 'FILL' 1;">star</span>
+                            </div>
+                            <p class="text-[16px] leading-[24px] text-[#2C2C2C] mb-6">
+                                "Excellent school with modern facilities and passionate teachers. We couldn't have
+                                chosen a better school for our children."
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="w-12 h-12 bg-[#1e2a4a] rounded-full flex items-center justify-center text-white font-semibold">
+                                SN
+                            </div>
+                            <div>
+                                <p class="text-[16px] leading-[24px] font-semibold text-[#1e2a4a]">Mrs. Sarah Nambi</p>
+                                <p class="text-[14px] leading-[20px] text-[#45464e]">Parent, Grade 6</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Location Map -->
+        <section class="py-24 px-8 lg:px-16 bg-[#f3f3f3]">
+            <div class="max-w-[1400px] mx-auto">
+                <div class="text-center mb-12 visit-header opacity-0 translate-y-20">
+                    <h2 class="text-[32px] leading-[40px] font-semibold text-[#1e2a4a] mb-4">Visit Us</h2>
+                    <p class="text-[18px] leading-[28px] text-[#2C2C2C] max-w-2xl mx-auto">
+                        We'd love to show you around our campus and introduce you to our community
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Contact Info -->
+                    <div class="space-y-6">
+                        <div class="visit-card opacity-0 -translate-x-20 bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition-all duration-300">
+                            <div class="flex items-start gap-4">
+                                <div
+                                    class="visit-icon w-12 h-12 bg-[#1e2a4a] rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <span class="material-symbols-outlined text-white">location_on</span>
+                                </div>
+                                <div>
+                                    <h3 class="text-[18px] leading-[28px] font-semibold text-[#1e2a4a] mb-2">Address
+                                    </h3>
+                                    <p class="text-[16px] leading-[24px] text-[#45464e]">
+                                        Kasanje Village<br />
+                                        Wakiso District<br />
+                                        Uganda
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="visit-card opacity-0 -translate-x-20 bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition-all duration-300">
+                            <div class="flex items-start gap-4">
+                                <div
+                                    class="visit-icon w-12 h-12 bg-[#d93633] rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <span class="material-symbols-outlined text-white">phone</span>
+                                </div>
+                                <div>
+                                    <h3 class="text-[18px] leading-[28px] font-semibold text-[#1e2a4a] mb-2">Phone</h3>
+                                    <p class="text-[16px] leading-[24px] text-[#45464e]">
+                                        +256 414 123 456<br />
+                                        +256 772 987 654
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="visit-card opacity-0 -translate-x-20 bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition-all duration-300">
+                            <div class="flex items-start gap-4">
+                                <div
+                                    class="visit-icon w-12 h-12 bg-[#1e2a4a] rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <span class="material-symbols-outlined text-white">schedule</span>
+                                </div>
+                                <div>
+                                    <h3 class="text-[18px] leading-[28px] font-semibold text-[#1e2a4a] mb-2">School
+                                        Hours</h3>
+                                    <p class="text-[16px] leading-[24px] text-[#45464e]">
+                                        Mon - Fri: 7:00 AM - 5:00 PM<br />
+                                        Saturday: 8:00 AM - 1:00 PM
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Map -->
+                    <div class="lg:col-span-2 visit-map opacity-0 translate-x-20">
+                        <div class="bg-white rounded-xl overflow-hidden shadow-lg h-full min-h-[500px]">
+                            <iframe class="embed-responsive-item w-full h-full" 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.8027083140364!2d32.400966173966786!3d0.1602842642463911!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x177d9d78438ea433%3A0x1a41e79700174128!2sSt%20Monica%20Junior%20School%2C%20Kasanjye!5e0!3m2!1sen!2sug!4v1724341837360!5m2!1sen!2sug" 
+                                style="border:0;" allowfullscreen="" loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Bento Grid (Removed - replaced by Counter Section) -->
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full mt-auto bg-on-surface-charcoal text-surface-white">
+        <div class="max-w-[1400px] mx-auto px-4 lg:px-8 py-16">
+            <!-- Main Footer Content -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <!-- Brand Column -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3 mb-4">
+                        <img src="assets/imgz/logo2-cut.png" alt="St Monica Junior School Logo"
+                            class="h-48 w-48 object-contain" />
+
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-[16px] leading-[24px] font-semibold text-white mb-6 uppercase tracking-wider">Quick
+                        Links</h4>
+                    <ul class="space-y-3">
+                        <li><a class="text-[16px] leading-[24px] text-white/70 hover:text-secondary-container transition-colors duration-200 flex items-center gap-2"
+                                href="about.html">
+                                <span class="material-symbols-outlined text-[18px]">chevron_right</span> About Us
+                            </a></li>
+                        <li><a class="text-[16px] leading-[24px] text-white/70 hover:text-secondary-container transition-colors duration-200 flex items-center gap-2"
+                                href="academics.html">
+                                <span class="material-symbols-outlined text-[18px]">chevron_right</span> Academics
+                            </a></li>
+                        <li><a class="text-[16px] leading-[24px] text-white/70 hover:text-secondary-container transition-colors duration-200 flex items-center gap-2"
+                                href="gallery.html">
+                                <span class="material-symbols-outlined text-[18px]">chevron_right</span> Gallery
+                            </a></li>
+                        <li><a class="text-[16px] leading-[24px] text-white/70 hover:text-secondary-container transition-colors duration-200 flex items-center gap-2"
+                                href="contact.html">
+                                <span class="material-symbols-outlined text-[18px]">chevron_right</span> Contact Us
+                            </a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div>
+                    <h4 class="text-[16px] leading-[24px] font-semibold text-white mb-6 uppercase tracking-wider">
+                        Contact</h4>
+                    <ul class="space-y-4">
+                        <li class="footer-contact-item flex items-start gap-3 text-white/70">
+                            <span
+                                class="material-symbols-outlined text-[20px] text-secondary-container flex-shrink-0">location_on</span>
+                            <span class="text-[16px] leading-[24px]">Kkoba village, Kasanje</span>
+                        </li>
+                        <li class="footer-contact-item flex items-start gap-3 text-white/70">
+                            <span
+                                class="material-symbols-outlined text-[20px] text-secondary-container flex-shrink-0">phone</span>
+                            <div class="flex flex-col">
+                                <span class="text-[16px] leading-[24px]">+256 752 406176</span>
+                                <span class="text-[16px] leading-[24px]">+256 762636213</span>
+                            </div>
+                        </li>
+                        <li class="footer-contact-item flex items-center gap-3 text-white/70">
+                            <span
+                                class="material-symbols-outlined text-[20px] text-secondary-container flex-shrink-0">mail</span>
+                            <span class="text-[16px] leading-[24px]">stmonicajuniorschool2012@gmail.com</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div class="">
+                    <h4 class="text-[16px] leading-[24px] font-semibold text-white mb-6 uppercase tracking-wider">
+                        Newsletter</h4>
+                    <p class="text-[14px] leading-[20px] text-white/70 mb-4">Subscribe for school news.</p>
+                    <form class="space-y-3">
+                        <input
+                            class="w-full bg-white/10 border border-white/20 text-white placeholder-white/50 rounded-lg px-4 py-3 text-[14px] focus:ring-2 focus:ring-secondary-container focus:border-transparent outline-none transition-all"
+                            placeholder="Your email address" type="email" />
+                        <button
+                            class="w-full bg-secondary-container text-white px-6 py-3 rounded-lg hover:bg-secondary transition-colors duration-200 font-semibold text-[14px] flex items-center justify-center gap-2">
+                            Subscribe
+                            <span class="material-symbols-outlined text-[20px]">send</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom border-t border-white/10 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="flex flex-col md:flex-row items-center gap-4 md:gap-6">
+                        <a class="text-[14px] leading-[20px] text-white/60 hover:text-secondary-container transition-colors"
+                            href="#">Privacy Policy</a>
+                        <a class="text-[14px] leading-[20px] text-white/60 hover:text-secondary-container transition-colors"
+                            href="#">Terms of Service</a>
+                    </div>
+                    <p class="text-[14px] leading-[20px] text-white/60 text-center">
+                        © <span id="currentYear"></span> St Monica Junior School Kasanje. All rights reserved.
+                    </p>
+                    <p class="text-[14px] leading-[20px] text-white/60 text-center md:text-right">
+                        Made by <a href="https://www.sofdas.com/" class="text-secondary-container hover:text-secondary transition-colors font-semibold">Sofdas Technologies</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Set current year automatically
+        if (document.getElementById('currentYear')) {
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+        }
+
+        // Carousel functionality
+        // Step 1: get DOM elements
+        let nextDom = document.getElementById('next');
+        let prevDom = document.getElementById('prev');
+
+        let carouselDom = document.querySelector('.carousel');
+        let SliderDom = carouselDom.querySelector('.carousel .list');
+        let thumbnailBorderDom = document.querySelector('.carousel .thumbnail');
+        let thumbnailItemsDom = thumbnailBorderDom.querySelectorAll('.item');
+        let timeDom = document.querySelector('.carousel .time');
+
+        // Move first thumbnail to end on page load
+        thumbnailBorderDom.appendChild(thumbnailItemsDom[0]);
+
+        // Timing configuration
+        let timeRunning = 3000;      // 3 seconds for animation to complete
+        let timeAutoNext = 7000;     // 7 seconds before auto-advance
+
+        // Next button click handler
+        nextDom.onclick = function () {
+            showSlider('next');
+        }
+
+        // Previous button click handler
+        prevDom.onclick = function () {
+            showSlider('prev');
+        }
+
+        // Auto-advance timer
+        let runTimeOut;
+        let runNextAuto = setTimeout(() => {
+            next.click();
+        }, timeAutoNext)
+
+        // Main slider function
+        function showSlider(type) {
+            let SliderItemsDom = SliderDom.querySelectorAll('.carousel .list .item');
+            let thumbnailItemsDom = document.querySelectorAll('.carousel .thumbnail .item');
+
+            if (type === 'next') {
+                // Move first slide to end
+                SliderDom.appendChild(SliderItemsDom[0]);
+                thumbnailBorderDom.appendChild(thumbnailItemsDom[0]);
+                carouselDom.classList.add('next');
+            } else {
+                // Move last slide to beginning
+                SliderDom.prepend(SliderItemsDom[SliderItemsDom.length - 1]);
+                thumbnailBorderDom.prepend(thumbnailItemsDom[thumbnailItemsDom.length - 1]);
+                carouselDom.classList.add('prev');
+            }
+
+            // Clear animation class after transition completes
+            clearTimeout(runTimeOut);
+            runTimeOut = setTimeout(() => {
+                carouselDom.classList.remove('next');
+                carouselDom.classList.remove('prev');
+            }, timeRunning);
+
+            // Reset auto-advance timer
+            clearTimeout(runNextAuto);
+            runNextAuto = setTimeout(() => {
+                next.click();
+            }, timeAutoNext)
+        }
+
+    </script>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="fixed bottom-8 right-8 bg-[#d93633] text-white w-12 h-12 rounded-full shadow-lg hover:bg-[#b51a1e] transition-all duration-300 opacity-0 invisible z-50 flex items-center justify-center">
+        <span class="material-symbols-outlined text-[24px]">arrow_upward</span>
+    </button>
+
+    <!-- Navbar Scroll Effect Script -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuIcon = document.getElementById('mobileMenuIcon');
+        const mobileSchoolLifeBtn = document.getElementById('mobileSchoolLifeBtn');
+        const mobileSchoolLifeMenu = document.getElementById('mobileSchoolLifeMenu');
+        const mobileSchoolLifeIcon = document.getElementById('mobileSchoolLifeIcon');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenuIcon.textContent = 'menu';
+            } else {
+                mobileMenuIcon.textContent = 'close';
+            }
+        });
+
+        // Mobile School Life Accordion
+        mobileSchoolLifeBtn.addEventListener('click', function() {
+            mobileSchoolLifeMenu.classList.toggle('hidden');
+            if (mobileSchoolLifeMenu.classList.contains('hidden')) {
+                mobileSchoolLifeIcon.textContent = 'expand_more';
+            } else {
+                mobileSchoolLifeIcon.textContent = 'expand_less';
+            }
+        });
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                // Scrolled - change to semi-transparent white background with dark text and shadow
+                navbar.classList.remove('bg-transparent');
+                navbar.classList.add('bg-white/90', 'backdrop-blur-md', 'shadow-sm');
+                
+                // Change nav links to dark color
+                navLinks.forEach(link => {
+                    link.classList.remove('text-white', 'text-white/90');
+                    link.classList.add('text-[#1e2a4a]');
+                });
+                
+                // Change mobile menu icon to dark
+                mobileMenuIcon.classList.remove('text-white');
+                mobileMenuIcon.classList.add('text-[#1e2a4a]');
+            } else {
+                // At top - transparent background with white text and no shadow
+                navbar.classList.add('bg-transparent');
+                navbar.classList.remove('bg-white/90', 'backdrop-blur-md', 'shadow-sm');
+                
+                // Change nav links to white color
+                navLinks.forEach(link => {
+                    link.classList.remove('text-[#1e2a4a]');
+                    link.classList.add('text-white');
+                });
+                
+                // Change mobile menu icon to white
+                mobileMenuIcon.classList.remove('text-[#1e2a4a]');
+                mobileMenuIcon.classList.add('text-white');
+            }
+        });
+
+        // Back to Top Button
+        const backToTopBtn = document.getElementById('backToTop');
+        
+        // Show/hide button based on scroll position
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.remove('opacity-0', 'invisible');
+                backToTopBtn.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopBtn.classList.add('opacity-0', 'invisible');
+                backToTopBtn.classList.remove('opacity-100', 'visible');
+            }
+        });
+        
+        // Scroll to top when button is clicked
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Vision & Motto Scroll Animation
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.remove('opacity-0', 'translate-y-20');
+                        entry.target.classList.add('opacity-100', 'translate-y-0');
+                    }, index * 200); // Stagger animation by 200ms
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all vision cards
+        document.querySelectorAll('.vision-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Observe news header
+        const newsHeader = document.querySelector('.news-header');
+        if (newsHeader) {
+            observer.observe(newsHeader);
+        }
+
+        // Observe all news cards
+        document.querySelectorAll('.news-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Observe testimonial header
+        const testimonialHeader = document.querySelector('.testimonial-header');
+        if (testimonialHeader) {
+            observer.observe(testimonialHeader);
+        }
+
+        // Observe all testimonial cards
+        document.querySelectorAll('.testimonial-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Observe Director section elements
+        const directorImage = document.querySelector('.director-image');
+        const directorText = document.querySelector('.director-text');
+        if (directorImage) observer.observe(directorImage);
+        if (directorText) observer.observe(directorText);
+
+        // Observe Why Choose section elements
+        const whyChooseText = document.querySelector('.why-choose-text');
+        const whyChooseImage = document.querySelector('.why-choose-image');
+        if (whyChooseText) observer.observe(whyChooseText);
+        if (whyChooseImage) observer.observe(whyChooseImage);
+
+        // Special observer for why-item with staggered animation
+        const whyItemObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const items = document.querySelectorAll('.why-item');
+                    items.forEach((item, index) => {
+                        setTimeout(() => {
+                            item.classList.remove('opacity-0', '-translate-x-10');
+                            item.classList.add('opacity-100', 'translate-x-0');
+                        }, index * 150); // Stagger by 150ms
+                    });
+                    whyItemObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        // Observe the why-choose-text to trigger item animations
+        if (whyChooseText) {
+            whyItemObserver.observe(whyChooseText);
+        }
+
+        // Observe Visit Us section header
+        const visitHeader = document.querySelector('.visit-header');
+        if (visitHeader) observer.observe(visitHeader);
+
+        // Observe Visit Us map
+        const visitMap = document.querySelector('.visit-map');
+        if (visitMap) observer.observe(visitMap);
+
+        // Special observer for visit-card with staggered animation
+        const visitCardObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const cards = document.querySelectorAll('.visit-card');
+                    cards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.classList.remove('opacity-0', '-translate-x-20');
+                            card.classList.add('opacity-100', 'translate-x-0');
+                        }, index * 200); // Stagger by 200ms
+                    });
+                    visitCardObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        // Observe the first visit card to trigger all card animations
+        const firstVisitCard = document.querySelector('.visit-card');
+        if (firstVisitCard) {
+            visitCardObserver.observe(firstVisitCard);
+        }
+
+        // Counter Animation
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counters = entry.target.querySelectorAll('.counter');
+                    counters.forEach(counter => {
+                        const target = +counter.getAttribute('data-target');
+                        const duration = 2000; // 2 seconds
+                        const increment = target / (duration / 16); // 60fps
+                        let current = 0;
+
+                        const updateCounter = () => {
+                            current += increment;
+                            if (current < target) {
+                                counter.textContent = Math.ceil(current);
+                                requestAnimationFrame(updateCounter);
+                            } else {
+                                counter.textContent = target;
+                            }
+                        };
+
+                        // Add animation to icons
+                        const icon = entry.target.querySelector('.animate-icon');
+                        if (icon) {
+                            icon.style.animation = 'bounceIn 0.8s ease-out';
+                        }
+
+                        // Start counting after a small delay
+                        setTimeout(updateCounter, 200);
+                    });
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        // Observe all counter items
+        document.querySelectorAll('.counter-item').forEach(item => {
+            counterObserver.observe(item);
+        });
+
+        // Footer Animations Observer
+        const footerObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Animate footer columns with stagger
+                    const footerCols = document.querySelectorAll('.footer-col');
+                    footerCols.forEach((col, index) => {
+                        setTimeout(() => {
+                            col.classList.remove('opacity-0', 'translate-y-20');
+                            col.classList.add('opacity-100', 'translate-y-0');
+                        }, index * 200);
+                    });
+
+                    // Animate contact items
+                    const contactItems = document.querySelectorAll('.footer-contact-item');
+                    contactItems.forEach((item, index) => {
+                        setTimeout(() => {
+                            item.classList.remove('opacity-0', '-translate-x-10');
+                            item.classList.add('opacity-100', 'translate-x-0');
+                        }, 800 + (index * 150));
+                    });
+
+                    // Animate footer bottom
+                    setTimeout(() => {
+                        const footerBottom = document.querySelector('.footer-bottom');
+                        if (footerBottom) {
+                            footerBottom.classList.remove('opacity-0', 'translate-y-10');
+                            footerBottom.classList.add('opacity-100', 'translate-y-0');
+                        }
+                    }, 1200);
+
+                    footerObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        // Observe footer
+        const footer = document.querySelector('footer');
+        if (footer) {
+            footerObserver.observe(footer);
+        }
+    </script>
+</body>
+
+</html>
