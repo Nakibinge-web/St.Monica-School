@@ -111,22 +111,22 @@
 </head>
 <body class="bg-surface-white text-on-surface-charcoal font-body-md antialiased flex flex-col min-h-screen">
     <!-- TopNavBar -->
-    <nav class="fixed top-0 w-full bg-white shadow-sm z-50 transition-all duration-300">
+    <nav class="nav-load fixed top-0 w-full bg-white shadow-sm z-50 transition-all duration-300">
         <div class="flex justify-between items-center h-24 py-2 px-4 lg:px-8 max-w-[1400px] mx-auto">
             <!-- Brand with Logo -->
-            <a href="index.html" class="flex items-center">
+            <a href="index.html" class="flex items-center nav-load-logo">
                 <img src="assets/imgz/logo2.webp" alt="St Monica Junior School Logo"
-                    class="h-60 w-60 m-20 object-contain hover:scale-105 transition-transform duration-200" />
+                    class="h-20 w-20 m-0 lg:h-60 lg:w-60 lg:m-20 object-contain hover:scale-105 transition-transform duration-200" />
             </a>
             <!-- Nav Links (Desktop) -->
             <div class="hidden lg:flex items-center gap-6 flex-nowrap mr-14">
-                <a class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
+                <a class="nav-load-item text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
                     href="index.html">Home</a>
-                <a class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] border-b-2 border-[#d93633] pb-1 hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
+                <a class="nav-load-item text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] border-b-2 border-[#d93633] pb-1 hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
                     href="about.html">About Us</a>
 
                 <!-- School Life Dropdown -->
-                <div class="relative group">
+                <div class="relative group nav-load-item">
                     <button
                         class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 flex items-center gap-1 whitespace-nowrap">
                         School Life
@@ -153,18 +153,18 @@
                     </div>
                 </div>
 
-                <a class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
+                <a class="nav-load-item text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
                     href="gallery.html">Gallery</a>
-                <a class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
+                <a class="nav-load-item text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
                     href="contact.html">Contact</a>
 
-                <button
-                    class="bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm whitespace-nowrap ml-2">
+                <a href="contact.html#apply"
+                    class="nav-load-item inline-block text-center bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm whitespace-nowrap ml-2">
                     Join Us
-                </button>
+                </a>
             </div>
             <!-- Mobile Menu Icon -->
-            <div class="lg:hidden">
+            <div class="lg:hidden nav-load-item">
                 <button id="mobileMenuBtn" class="focus:outline-none">
                     <span id="mobileMenuIcon" class="material-symbols-outlined text-[#1e2a4a] text-[32px]">menu</span>
                 </button>
@@ -203,9 +203,9 @@
                 <a class="block text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors pb-2"
                     href="contact.html">Contact</a>
                 
-                <button class="w-full bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm mt-4">
+                <a href="contact.html#apply" class="block text-center w-full bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm mt-4">
                     Join Us
-                </button>
+                </a>
             </div>
         </div>
     </nav>
@@ -767,5 +767,6 @@
             scrollObserver.observe(el);
         });
     </script>
+    <script src="assets/js/cms-client.js"></script>
 </body>
 </html>

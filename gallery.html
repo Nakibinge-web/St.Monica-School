@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="scroll-smooth" lang="en">
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -124,26 +124,29 @@
             transform: translateY(-4px);
             box-shadow: 0 10px 25px -5px rgba(30, 42, 74, 0.15);
         }
+        .traditional-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30L30 0ZM30 15L45 30L30 45L15 30L30 15Z' fill='%23bac5ee' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
     </style>
 </head>
 <body class="bg-surface-white text-on-surface-charcoal font-body-md antialiased flex flex-col min-h-screen">
     <!-- TopNavBar -->
-    <nav class="fixed top-0 w-full bg-white shadow-sm z-50 transition-all duration-300">
+    <nav class="nav-load fixed top-0 w-full bg-white shadow-sm z-50 transition-all duration-300">
         <div class="flex justify-between items-center h-24 py-2 px-4 lg:px-8 max-w-[1400px] mx-auto">
             <!-- Brand with Logo -->
-            <a href="index.html" class="flex items-center">
+            <a href="index.html" class="flex items-center nav-load-logo">
                 <img src="assets/imgz/logo2.webp" alt="St Monica Junior School Logo"
-                    class="h-60 w-60 m-20 object-contain hover:scale-105 transition-transform duration-200" />
+                    class="h-20 w-20 m-0 lg:h-60 lg:w-60 lg:m-20 object-contain hover:scale-105 transition-transform duration-200" />
             </a>
             <!-- Nav Links (Desktop) -->
             <div class="hidden lg:flex items-center gap-6 flex-nowrap mr-14">
-                <a class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
+                <a class="nav-load-item text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
                     href="index.html">Home</a>
-                <a class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
+                <a class="nav-load-item text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
                     href="about.html">About Us</a>
 
                 <!-- School Life Dropdown -->
-                <div class="relative group">
+                <div class="relative group nav-load-item">
                     <button
                         class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 flex items-center gap-1 whitespace-nowrap">
                         School Life
@@ -168,15 +171,15 @@
                     </div>
                 </div>
                 
-                <a class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] border-b-2 border-[#d93633] pb-1 hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap" href="gallery.html">Gallery</a>
-                <a class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap" href="contact.html">Contact</a>
+                <a class="nav-load-item text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] border-b-2 border-[#d93633] pb-1 hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap" href="gallery.html">Gallery</a>
+                <a class="nav-load-item text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap" href="contact.html">Contact</a>
                 
-                <button class="bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm whitespace-nowrap ml-2">
+                <a href="contact.html#apply" class="nav-load-item inline-block text-center bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm whitespace-nowrap ml-2">
                     Join Us
-                </button>
+                </a>
             </div>
             <!-- Mobile Menu Icon -->
-            <div class="lg:hidden">
+            <div class="lg:hidden nav-load-item">
                 <button id="mobileMenuBtn" class="focus:outline-none">
                     <span id="mobileMenuIcon" class="material-symbols-outlined text-[#1e2a4a] text-[32px]">menu</span>
                 </button>
@@ -215,25 +218,39 @@
                 <a class="block text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors pb-2"
                     href="contact.html">Contact</a>
                 
-                <button class="w-full bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm mt-4">
+                <a href="contact.html#apply" class="block text-center w-full bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm mt-4">
                     Join Us
-                </button>
+                </a>
             </div>
         </div>
     </nav>
-    </nav>
 
     <!-- Main Content -->
-    <main class="flex-grow">
+    <main class="flex-grow pt-24">
         <!-- Hero Section -->
-        <section class="relative pt-20 pb-32 overflow-hidden bg-[#1e2a4a] text-white">
-            <div class="absolute inset-0 opacity-10">
-                <div class="absolute inset-0" style="background-image: radial-gradient(#bac5ee 1px, transparent 1px); background-size: 20px 20px;"></div>
-            </div>
-            <div class="max-w-[1200px] mx-auto px-4 md:px-20 relative z-10 text-center">
-                <h1 class="text-[32px] md:text-[48px] leading-[40px] md:leading-[56px] font-bold tracking-[-0.02em] text-white mb-6">Our Gallery</h1>
-                <p class="text-[18px] leading-[28px] text-white/90 max-w-3xl mx-auto">
-                    This is our visual story. Explore the vibrant life and precious moments at St. Monica Junior School visually.
+        <section class="relative py-20 md:py-28 px-4 md:px-20 overflow-hidden bg-[#d93633] text-white">
+            <div class="absolute inset-0 traditional-pattern opacity-30 animate-hero-pattern"></div>
+            <!-- Ambient floating glow orbs for depth -->
+            <div class="absolute -top-24 -left-24 w-80 h-80 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-24 -right-24 w-80 h-80 bg-black/15 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="max-w-[880px] mx-auto relative z-10 text-center space-y-6">
+                <!-- Pill Badge -->
+                <!-- <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/25 text-white text-xs font-semibold uppercase tracking-wider">
+                    <span class="material-symbols-outlined text-[16px]">photo_library</span> Moments & Memories
+                </div> -->
+
+                <!-- Main Heading -->
+                <h1 class="text-[34px] md:text-[52px] leading-[42px] md:leading-[60px] font-bold tracking-[-0.02em] text-white reveal-on-scroll" data-reveal-delay="0">
+                    Our Gallery
+                </h1>
+
+                <!-- Accent Bar -->
+                <div class="w-20 h-1 bg-white/80 mx-auto rounded-full reveal-on-scroll" data-reveal-delay="100"></div>
+
+                <!-- Description -->
+                <p class="text-[18px] md:text-[20px] leading-[28px] md:leading-[32px] text-white/95 max-w-2xl mx-auto font-normal reveal-on-scroll" data-reveal-delay="180">
+                    This is our visual story. Explore the vibrant life, cherished celebrations, and precious moments at St. Monica Junior School.
                 </p>
             </div>
         </section>
@@ -241,12 +258,12 @@
         <!-- Gallery Filters & Content -->
         <section class="pt-12 pb-24 px-4 md:px-20 max-w-[1200px] mx-auto w-full">
             <!-- Gallery Filters -->
-            <div class="mb-12 text-center">
+            <div class="mb-12 text-center reveal-on-scroll" data-reveal-delay="0">
                 <div class="flex flex-wrap gap-4 justify-center">
                     <button class="px-6 py-2 rounded-full bg-[#1e2a4a] text-white text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-md transition-transform hover:scale-105">All Photos</button>
-                    <button class="px-6 py-2 rounded-full border-2 border-[#c6c6cf] text-[#45464e] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:border-[#1e2a4a] hover:text-[#1e2a4a] transition-colors">Campus Life</button>
+                    <button class="px-6 py-2 rounded-full border-2 border-[#c6c6cf] text-[#45464e] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:border-[#1e2a4a] hover:text-[#1e2a4a] transition-colors">Administration</button>
                     <button class="px-6 py-2 rounded-full border-2 border-[#c6c6cf] text-[#45464e] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:border-[#1e2a4a] hover:text-[#1e2a4a] transition-colors">Academics</button>
-                    <button class="px-6 py-2 rounded-full border-2 border-[#c6c6cf] text-[#45464e] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:border-[#1e2a4a] hover:text-[#1e2a4a] transition-colors">Sports & Athletics</button>
+                    <button class="px-6 py-2 rounded-full border-2 border-[#c6c6cf] text-[#45464e] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:border-[#1e2a4a] hover:text-[#1e2a4a] transition-colors">Co-curricular Activities</button>
                     <button class="px-6 py-2 rounded-full border-2 border-[#c6c6cf] text-[#45464e] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:border-[#1e2a4a] hover:text-[#1e2a4a] transition-colors">Special Events</button>
                 </div>
             </div>
@@ -254,7 +271,7 @@
             <!-- Masonry Gallery Grid -->
             <div class="masonry-grid">
             <!-- Gallery Item 1 -->
-            <div class="masonry-item rounded-[0.5rem] overflow-hidden hover-lift bg-[#f3f3f3] border border-[#e2e2e2] relative group">
+            <div class="masonry-item rounded-[0.5rem] overflow-hidden hover-lift bg-[#f3f3f3] border border-[#e2e2e2] relative group reveal-zoom" data-reveal-delay="0">
                 <img class="w-full h-auto object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiTfvxn762d9lsukXv6r5tDEtGSCn8SJOwWMfHqytzYjwgn0M5B35eyTmkgy2DE6ZWiuum_Yhj36To8hq-oNalFcLHmoVvWinPi-LV1B1Smf145m13K-5siGtW6N3WtIL4hUre8ooYf0niW7bBXeyuU4PtokNkwRWbvUgwQ8hxUUpwG-1q-cX_WG3j31BJvmWQajpZhZun8IYgwqfb3D6UV1erT35dYvbVvuPmF_2ookMqpAhovL-VMQ" alt="Science Fair"/>
                 <div class="absolute inset-0 bg-[#1e2a4a]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
                     <span class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#ffb4ac] mb-1">Academics</span>
@@ -263,7 +280,7 @@
             </div>
 
             <!-- Gallery Item 2 -->
-            <div class="masonry-item rounded-[0.5rem] overflow-hidden hover-lift bg-[#f3f3f3] border border-[#e2e2e2] relative group">
+            <div class="masonry-item rounded-[0.5rem] overflow-hidden hover-lift bg-[#f3f3f3] border border-[#e2e2e2] relative group reveal-zoom" data-reveal-delay="100">
                 <img class="w-full h-auto object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjzBOYjDeySqiy8O-rvvkKAo_1biN9VAF3D5PZVzpO5P2aore8kpnEk-jhY0aQw28K4mvqICbgIq3yrOV_47jZZSQl2Veegsy_HsLy9z6WvF4TzjJNSA078KUz00Zlfku8qLDsjQkJgg89UohBn5VlAFLO5tlQw0scJW8-aMFoR_46yki5p1JR9pWfzKFNCd_OJouJxhJ1G0RvVLmpncGF8X9C7tmjKq3X1ZryboiJylKwkw9B7McllA" alt="Football"/>
                 <div class="absolute inset-0 bg-[#1e2a4a]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
                     <span class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#ffb4ac] mb-1">Sports & Athletics</span>
@@ -272,7 +289,7 @@
             </div>
 
             <!-- Gallery Item 3 -->
-            <div class="masonry-item rounded-[0.5rem] overflow-hidden hover-lift bg-[#f3f3f3] border border-[#e2e2e2] relative group">
+            <div class="masonry-item rounded-[0.5rem] overflow-hidden hover-lift bg-[#f3f3f3] border border-[#e2e2e2] relative group reveal-zoom" data-reveal-delay="200">
                 <img class="w-full h-auto object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhh3cdyIuBaMtd4ZuUFprQWx4WXCLpw_ctC0Cu9Uoohr6bCZ25j7UpcybSypevOArRr0H6pfXsp6wCyLxfNIHv8TdCIhsBmhYUm_hNFkoiA8oT-CO9b1xR36qW7N0RyiRKZhpXWxzj05wNHOHa7SxyRobx39btoWpBvhcMZsq4RQLwch5ihiKwoESmyymj0Lv5ENcrA79rpDoZl2MQl-bjWNpXG3wmArLzsCYgICr1Ua_anrqRN566Tw" alt="Campus"/>
                 <div class="absolute inset-0 bg-[#1e2a4a]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
                     <span class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#ffb4ac] mb-1">Campus Life</span>
@@ -281,7 +298,7 @@
             </div>
 
             <!-- Gallery Item 4 -->
-            <div class="masonry-item rounded-[0.5rem] overflow-hidden hover-lift bg-[#f3f3f3] border border-[#e2e2e2] relative group">
+            <div class="masonry-item rounded-[0.5rem] overflow-hidden hover-lift bg-[#f3f3f3] border border-[#e2e2e2] relative group reveal-zoom" data-reveal-delay="100">
                 <img class="w-full h-auto object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBuZlq7OKdha-Ec2Q2GmPR42dcIXv4kz8MRKSIO0LQdo62gPDZS_Jia_sfMPxVhfTG-NBRSzOhFRp6ZGHyptiDN_Xpctm_moFxwEU1cqYaL-HRbRw_Lk5UmTrR8EDiW8F4ird40qZpdxbsAxYGhNvuXCx3Junxnq40ZmVXxlQSDivqGZNtKt2KAGcwVyXiZFXeCRxtHLBaa3tTQzMzkZxnll5Gmfhc1kZKIY_Mn-zSqcaeU_mF9uUKWQ" alt="Arts"/>
                 <div class="absolute inset-0 bg-[#1e2a4a]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
                     <span class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#ffb4ac] mb-1">Academics</span>
@@ -290,7 +307,7 @@
             </div>
 
             <!-- Gallery Item 5 -->
-            <div class="masonry-item rounded-[0.5rem] overflow-hidden hover-lift bg-[#f3f3f3] border border-[#e2e2e2] relative group">
+            <div class="masonry-item rounded-[0.5rem] overflow-hidden hover-lift bg-[#f3f3f3] border border-[#e2e2e2] relative group reveal-zoom" data-reveal-delay="200">
                 <img class="w-full h-auto object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjHE4MuErBw3ipQpLAsmrwpNBT5FBWAFo1JBlaWpU86O6c1pa8JyTKT9rVCG6XWzFMAGOTA3xdIbPuaN5bKN7DEy87-adqjA5zR9MnWIv9dAZFd5IbLgFXB7Ysxcob8MloLJiTbEKyt00zoMeLr9a3-bn_-IQLTOf6MVosAZoO06bNKDAWBR7EXryOxGmQQ0fixtsoeXQkkRAseTWkoGyYmiIax_2HHN72KXM10Nqnj6rb4mqCW13lqw" alt="Cultural Day"/>
                 <div class="absolute inset-0 bg-[#1e2a4a]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
                     <span class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#ffb4ac] mb-1">Special Events</span>
@@ -299,7 +316,7 @@
             </div>
 
             <!-- Gallery Item 6 -->
-            <div class="masonry-item rounded-[0.5rem] overflow-hidden hover-lift bg-[#f3f3f3] border border-[#e2e2e2] relative group">
+            <div class="masonry-item rounded-[0.5rem] overflow-hidden hover-lift bg-[#f3f3f3] border border-[#e2e2e2] relative group reveal-zoom" data-reveal-delay="300">
                 <img class="w-full h-auto object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqEtiunPCGMKrwvxg5nZzwtWE5m1QHlWGq92UjGnXtdnLisTYL0uBRGz3GVsQPkOgHiaExkV7oOcA943MAt0_wdI5PscxIi_8JnrlNYta0oDtGOTcfeZnygdYJqGH7Sq_7BLwhX1z-b_YVlrzldtxI6jbec8qR7-8fTI08TO6bK9lgbpUWhhD3zG5PmxJyG9HF-aJicEeztpnmbYVNVxsGjZElEECq4S-zYWkm8UV-8A0khfMoW8PjcQ" alt="Library"/>
                 <div class="absolute inset-0 bg-[#1e2a4a]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
                     <span class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#ffb4ac] mb-1">Campus Life</span>
@@ -309,7 +326,7 @@
             </div>
 
             <!-- Load More Button -->
-            <div class="mt-16 text-center">
+            <div class="mt-16 text-center reveal-on-scroll" data-reveal-delay="100">
                 <button class="inline-flex items-center gap-2 px-8 py-3 rounded-full border-2 border-[#1e2a4a] text-[#1e2a4a] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:bg-[#dae2ff] hover:text-[#0d1a39] transition-colors duration-300">
                     Load More Memories
                     <span class="material-symbols-outlined text-[20px]">expand_more</span>
@@ -319,21 +336,20 @@
     </main>
 
     <!-- Footer -->
-    <footer class="w-full mt-auto bg-on-surface-charcoal text-surface-white">
+    <footer class="w-full mt-auto bg-on-surface-charcoal text-surface-white footer-scroll">
         <div class="max-w-[1400px] mx-auto px-4 lg:px-8 py-16">
             <!-- Main Footer Content -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
                 <!-- Brand Column -->
-                <div class="space-y-4">
+                <div class="space-y-4 footer-scroll-col">
                     <div class="flex items-center gap-3 mb-4">
                         <img src="assets/imgz/logo2-cut.png" alt="St Monica Junior School Logo"
-                            class="h-48 w-48 object-contain" />
-
+                            class="footer-scroll-logo h-48 w-48 object-contain" />
                     </div>
                 </div>
 
                 <!-- Quick Links -->
-                <div>
+                <div class="footer-scroll-col">
                     <h4 class="text-[16px] leading-[24px] font-semibold text-white mb-6 uppercase tracking-wider">Quick
                         Links</h4>
                     <ul class="space-y-3">
@@ -357,7 +373,7 @@
                 </div>
 
                 <!-- Contact Info -->
-                <div>
+                <div class="footer-scroll-col">
                     <h4 class="text-[16px] leading-[24px] font-semibold text-white mb-6 uppercase tracking-wider">
                         Contact</h4>
                     <ul class="space-y-4">
@@ -383,7 +399,7 @@
                 </div>
 
                 <!-- Newsletter -->
-                <div class="">
+                <div class="footer-scroll-col">
                     <h4 class="text-[16px] leading-[24px] font-semibold text-white mb-6 uppercase tracking-wider">
                         Newsletter</h4>
                     <p class="text-[14px] leading-[20px] text-white/70 mb-4">Subscribe for school news.</p>
@@ -454,5 +470,45 @@
             }
         });
     </script>
+
+    <!-- Scroll Reveal Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                threshold: 0.15,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const delay = entry.target.getAttribute('data-reveal-delay') || 0;
+                        setTimeout(() => {
+                            entry.target.classList.add('is-visible');
+                        }, delay);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal-on-scroll, .reveal-on-scroll-left, .reveal-on-scroll-right, .reveal-zoom').forEach(el => {
+                observer.observe(el);
+            });
+
+            const footer = document.querySelector('.footer-scroll');
+            if (footer) {
+                const footerObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            footerObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+                footerObserver.observe(footer);
+            }
+        });
+    </script>
+    <script src="assets/js/cms-client.js"></script>
 </body>
 </html>

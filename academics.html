@@ -121,7 +121,7 @@
             <!-- Brand with Logo -->
             <a href="index.html" class="flex items-center nav-load-logo">
                 <img src="assets/imgz/logo2.webp" alt="St Monica Junior School Logo"
-                    class="h-60 w-60 m-20 object-contain hover:scale-105 transition-transform duration-200" />
+                    class="h-20 w-20 m-0 lg:h-60 lg:w-60 lg:m-20 object-contain hover:scale-105 transition-transform duration-200" />
             </a>
             <!-- Nav Links (Desktop) -->
             <div class="hidden lg:flex items-center gap-6 flex-nowrap mr-14">
@@ -163,10 +163,10 @@
                 <a class="nav-load-item text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
                     href="contact.html">Contact</a>
 
-                <button
-                    class="nav-load-item bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm whitespace-nowrap ml-2">
+                <a href="contact.html#apply"
+                    class="nav-load-item inline-block text-center bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm whitespace-nowrap ml-2">
                     Join Us
-                </button>
+                </a>
             </div>
             <!-- Mobile Menu Icon -->
             <div class="lg:hidden nav-load-item">
@@ -208,9 +208,9 @@
                 <a class="block text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors pb-2"
                     href="contact.html">Contact</a>
                 
-                <button class="w-full bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm mt-4">
+                <a href="contact.html#apply" class="block text-center w-full bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm mt-4">
                     Join Us
-                </button>
+                </a>
             </div>
         </div>
     </nav>
@@ -825,7 +825,7 @@
                         <p class="text-[16px] leading-[24px] text-[#2C2C2C] mb-6">
                             We believe every student can succeed. Our tailored support programs ensure no learner is left behind.
                         </p>
-                        <div class="grid grid-cols-2 gap-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div class="flex flex-col gap-2 p-3 rounded-lg hover:bg-[#f9f9f9] hover:translate-x-1 transition-all duration-200 group/item">
                                 <span class="material-symbols-outlined text-[#d93633] text-[28px] group-hover/item:scale-110 transition-transform duration-200">group</span>
                                 <span class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#2C2C2C]">Peer Counseling</span>
@@ -1117,5 +1117,6 @@
             }
         });
     </script>
+    <script src="assets/js/cms-client.js"></script>
 </body>
 </html>

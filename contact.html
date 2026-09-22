@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="light" lang="en">
+<html class="light scroll-smooth" lang="en">
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -105,25 +105,218 @@
             },
         }
     </script>
+    <style>
+        .traditional-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30L30 0ZM30 15L45 30L30 45L15 30L30 15Z' fill='%23bac5ee' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+
+        /* Scroll Reveal & Interactive Styles for Contact Page */
+        .contact-info-card {
+            position: relative;
+            background-color: #ffffff;
+            border: 1px solid #e2e2e2;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            -webkit-tap-highlight-color: transparent;
+            cursor: pointer;
+            will-change: transform, box-shadow, background-color, border-color;
+        }
+
+        .contact-info-card h3,
+        .contact-info-card p {
+            transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .contact-card-icon {
+            transform: scale(0.82);
+            opacity: 0.85;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease, background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1), color 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+            will-change: transform, opacity, background-color;
+        }
+
+        .reveal-on-scroll.is-visible .contact-card-icon,
+        .reveal-on-scroll-left.is-visible .contact-card-icon,
+        .reveal-on-scroll-right.is-visible .contact-card-icon {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        /* Hover, Active, and Touch-Active states for Desktop & Touch Screen Devices */
+        .contact-info-card:hover,
+        .contact-info-card:active,
+        .contact-info-card.is-touch-active {
+            background-color: #1e2a4a !important;
+            border-color: #1e2a4a !important;
+            box-shadow: 0 20px 25px -5px rgba(30, 42, 74, 0.3), 0 10px 10px -5px rgba(30, 42, 74, 0.15) !important;
+            transform: translateY(-8px) !important;
+        }
+
+        .contact-info-card:hover h3,
+        .contact-info-card:active h3,
+        .contact-info-card.is-touch-active h3 {
+            color: #ffffff !important;
+        }
+
+        .contact-info-card:hover p,
+        .contact-info-card:active p,
+        .contact-info-card.is-touch-active p {
+            color: rgba(255, 255, 255, 0.92) !important;
+        }
+
+        .contact-info-card:hover .contact-card-icon,
+        .contact-info-card:active .contact-card-icon,
+        .contact-info-card.is-touch-active .contact-card-icon {
+            background-color: #ffffff !important;
+            color: #1e2a4a !important;
+            transform: scale(1.1) rotate(6deg) !important;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.18), 0 4px 6px -2px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .contact-info-card:hover .contact-card-icon span,
+        .contact-info-card:active .contact-card-icon span,
+        .contact-info-card.is-touch-active .contact-card-icon span {
+            color: #1e2a4a !important;
+        }
+
+        /* Form Staggered Entrance & Interactive Hover Effects */
+        .contact-form-card {
+            position: relative;
+            background-color: #ffffff;
+            border: 1px solid #e2e2e2;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease;
+            overflow: hidden;
+            will-change: transform, box-shadow;
+        }
+
+        .contact-form-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #1e2a4a 0%, #d93633 100%);
+            transform: scaleX(0.18);
+            transform-origin: left;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+            opacity: 0.6;
+        }
+
+        .contact-form-card:hover,
+        .contact-form-card:focus-within {
+            transform: translateY(-6px);
+            border-color: #bac5ee;
+            box-shadow: 0 24px 38px -12px rgba(30, 42, 74, 0.13), 0 12px 18px -6px rgba(0, 0, 0, 0.04);
+        }
+
+        .contact-form-card:hover::before,
+        .contact-form-card:focus-within::before {
+            transform: scaleX(1);
+            opacity: 1;
+        }
+
+        .form-heading-line {
+            display: block;
+            width: 36px;
+            height: 3px;
+            background: #d93633;
+            border-radius: 9999px;
+            margin-top: 8px;
+            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease;
+        }
+
+        .contact-form-card:hover .form-heading-line,
+        .contact-form-card:focus-within .form-heading-line {
+            width: 68px;
+        }
+
+        /* Form Input Hover & Focus refinements */
+        .contact-form-card input,
+        .contact-form-card textarea {
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .contact-form-card input:hover,
+        .contact-form-card textarea:hover {
+            background-color: #ffffff;
+            border-color: #8691b7;
+            box-shadow: 0 2px 6px rgba(30, 42, 74, 0.05);
+        }
+
+        .contact-form-card input:focus,
+        .contact-form-card textarea:focus {
+            background-color: #ffffff;
+            border-color: #1e2a4a;
+            box-shadow: 0 0 0 3px rgba(30, 42, 74, 0.12);
+        }
+
+        .contact-form-btn {
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .contact-form-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -4px rgba(217, 54, 51, 0.4);
+            background-color: #b51a1e;
+        }
+
+        .contact-form-btn:active {
+            transform: translateY(0);
+        }
+
+        .form-row-animate {
+            opacity: 0;
+            transform: translateY(18px);
+            transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+        .reveal-on-scroll-left.is-visible .form-row-animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .form-row-animate:nth-child(1) { transition-delay: 0.1s; }
+        .form-row-animate:nth-child(2) { transition-delay: 0.2s; }
+        .form-row-animate:nth-child(3) { transition-delay: 0.3s; }
+        .form-row-animate:nth-child(4) { transition-delay: 0.4s; }
+
+        /* Map Container Entrance & Depth */
+        .map-wrapper {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+            will-change: transform, box-shadow;
+        }
+        .map-wrapper:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: #bac5ee;
+        }
+
+        /* Ambient Glow Pulse */
+        @keyframes ambientFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(12px, -12px) scale(1.08); }
+        }
+        .animate-ambient-glow {
+            animation: ambientFloat 9s ease-in-out infinite alternate;
+        }
+    </style>
 </head>
 <body class="bg-surface-white text-on-surface-charcoal font-body-md antialiased flex flex-col min-h-screen">
     <!-- TopNavBar -->
-    <nav class="fixed top-0 w-full bg-white shadow-sm z-50 transition-all duration-300">
+    <nav id="mainNavbar" class="nav-load fixed top-0 w-full bg-white shadow-sm z-50 transition-all duration-300">
         <div class="flex justify-between items-center h-24 py-2 px-4 lg:px-8 max-w-[1400px] mx-auto">
             <!-- Brand with Logo -->
-            <a href="index.html" class="flex items-center">
+            <a href="index.html" class="flex items-center nav-load-logo">
                 <img src="assets/imgz/logo2.webp" alt="St Monica Junior School Logo"
-                    class="h-60 w-60 m-20 object-contain hover:scale-105 transition-transform duration-200" />
+                    class="h-20 w-20 m-0 lg:h-60 lg:w-60 lg:m-20 object-contain hover:scale-105 transition-transform duration-200" />
             </a>
             <!-- Nav Links (Desktop) -->
             <div class="hidden lg:flex items-center gap-6 flex-nowrap mr-14">
-                <a class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
+                <a class="nav-load-item text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
                     href="index.html">Home</a>
-                <a class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
+                <a class="nav-load-item text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
                     href="about.html">About Us</a>
 
                 <!-- School Life Dropdown -->
-                <div class="relative group">
+                <div class="relative group nav-load-item">
                     <button
                         class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 flex items-center gap-1 whitespace-nowrap">
                         School Life
@@ -150,13 +343,13 @@
                     </div>
                 </div>
 
-                <a class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
+                <a class="nav-load-item text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
                     href="gallery.html">Gallery</a>
-                <a class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] border-b-2 border-[#d93633] pb-1 hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
+                <a class="nav-load-item text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] border-b-2 border-[#d93633] pb-1 hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
                     href="contact.html">Contact</a>
 
                 <button id="joinUsBtn"
-                    class="bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm whitespace-nowrap ml-2">
+                    class="nav-load-item bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm whitespace-nowrap ml-2">
                     Join Us
                 </button>
             </div>
@@ -208,15 +401,17 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="flex-grow">
+    <main class="flex-grow relative pt-24">
         <!-- Hero Section -->
-        <section class="relative pt-20 pb-32 overflow-hidden bg-[#1e2a4a] text-white">
-            <div class="absolute inset-0 opacity-10">
-                <div class="absolute inset-0" style="background-image: radial-gradient(#bac5ee 1px, transparent 1px); background-size: 20px 20px;"></div>
-            </div>
+        <section class="relative py-20 md:py-28 px-4 md:px-20 overflow-hidden bg-[#d93633] text-white">
+            <div class="absolute inset-0 traditional-pattern opacity-30 animate-hero-pattern"></div>
+            <!-- Ambient floating glow orbs for depth -->
+            <div class="absolute -top-24 -left-24 w-80 h-80 bg-white/10 rounded-full blur-3xl pointer-events-none animate-ambient-glow"></div>
+            <div class="absolute -bottom-24 -right-24 w-80 h-80 bg-black/15 rounded-full blur-3xl pointer-events-none animate-ambient-glow" style="animation-delay: -4.5s;"></div>
+
             <div class="max-w-[1200px] mx-auto px-4 md:px-20 relative z-10 text-center">
-                <h1 class="text-[32px] md:text-[48px] leading-[40px] md:leading-[56px] font-bold tracking-[-0.02em] text-white mb-6">Get in Touch</h1>
-                <p class="text-[18px] leading-[28px] text-white/90 max-w-3xl mx-auto">
+                <h1 class="text-[32px] md:text-[48px] leading-[40px] md:leading-[56px] font-bold tracking-[-0.02em] text-white mb-6 reveal-on-scroll" data-reveal-delay="0">Get in Touch</h1>
+                <p class="text-[18px] leading-[28px] text-white/90 max-w-3xl mx-auto reveal-on-scroll" data-reveal-delay="150">
                     St. Monica Junior School is located about 2 Km from Kasanje Town (Kkoba village), in Wakiso District.
                 </p>
             </div>
@@ -226,9 +421,9 @@
         <section class="py-12 px-4 md:px-20 max-w-[1200px] mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
                 <!-- Location Card -->
-                <div class="bg-white p-8 rounded-[0.5rem] shadow-sm border border-[#e2e2e2] text-center hover:shadow-md transition-shadow">
-                    <div class="inline-flex items-center justify-center w-16 h-16 bg-[#1e2a4a]/10 rounded-full mb-4">
-                        <span class="material-symbols-outlined text-[#1e2a4a] text-[32px]">location_on</span>
+                <div class="contact-info-card bg-white p-8 rounded-[0.5rem] shadow-sm border border-[#e2e2e2] text-center reveal-on-scroll-left group cursor-pointer" data-reveal-delay="0">
+                    <div class="contact-card-icon inline-flex items-center justify-center w-16 h-16 bg-[#1e2a4a]/10 rounded-full mb-4 transition-all duration-300">
+                        <span class="material-symbols-outlined text-[#1e2a4a] text-[32px] transition-colors duration-300">location_on</span>
                     </div>
                     <h3 class="text-[18px] leading-[28px] font-semibold text-[#1e2a4a] mb-2">Visit Us</h3>
                     <p class="text-[16px] leading-[24px] text-[#45464e]">
@@ -239,9 +434,9 @@
                 </div>
 
                 <!-- Email Card -->
-                <div class="bg-white p-8 rounded-[0.5rem] shadow-sm border border-[#e2e2e2] text-center hover:shadow-md transition-shadow">
-                    <div class="inline-flex items-center justify-center w-16 h-16 bg-[#1e2a4a]/10 rounded-full mb-4">
-                        <span class="material-symbols-outlined text-[#1e2a4a] text-[32px]">mail</span>
+                <div class="contact-info-card bg-white p-8 rounded-[0.5rem] shadow-sm border border-[#e2e2e2] text-center reveal-on-scroll group cursor-pointer" data-reveal-delay="150">
+                    <div class="contact-card-icon inline-flex items-center justify-center w-16 h-16 bg-[#1e2a4a]/10 rounded-full mb-4 transition-all duration-300">
+                        <span class="material-symbols-outlined text-[#1e2a4a] text-[32px] transition-colors duration-300">mail</span>
                     </div>
                     <h3 class="text-[18px] leading-[28px] font-semibold text-[#1e2a4a] mb-2">Email Us</h3>
                     <p class="text-[16px] leading-[24px] text-[#45464e]">
@@ -251,9 +446,9 @@
                 </div>
 
                 <!-- Phone Card -->
-                <div class="bg-white p-8 rounded-[0.5rem] shadow-sm border border-[#e2e2e2] text-center hover:shadow-md transition-shadow">
-                    <div class="inline-flex items-center justify-center w-16 h-16 bg-[#1e2a4a]/10 rounded-full mb-4">
-                        <span class="material-symbols-outlined text-[#1e2a4a] text-[32px]">phone</span>
+                <div class="contact-info-card bg-white p-8 rounded-[0.5rem] shadow-sm border border-[#e2e2e2] text-center reveal-on-scroll-right group cursor-pointer" data-reveal-delay="300">
+                    <div class="contact-card-icon inline-flex items-center justify-center w-16 h-16 bg-[#1e2a4a]/10 rounded-full mb-4 transition-all duration-300">
+                        <span class="material-symbols-outlined text-[#1e2a4a] text-[32px] transition-colors duration-300">phone</span>
                     </div>
                     <h3 class="text-[18px] leading-[28px] font-semibold text-[#1e2a4a] mb-2">Call Us</h3>
                     <p class="text-[16px] leading-[24px] text-[#45464e]">
@@ -268,36 +463,41 @@
         <section class="py-12 px-4 md:px-20 max-w-[1200px] mx-auto">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
                 <!-- Contact Form (Left, spanning 7 cols) -->
-                <div class="lg:col-span-7 bg-white p-8 rounded-[0.5rem] shadow-sm border border-[#e2e2e2]">
-                    <h2 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] mb-6">Send us a Message</h2>
-                    <form id="contactForm" class="space-y-6">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="contact-form-card lg:col-span-7 bg-white p-8 md:p-10 rounded-[0.5rem] shadow-sm border border-[#e2e2e2] reveal-on-scroll-left" data-reveal-delay="0">
+                    <h2 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] mb-6">
+                        Send us a Message
+                        <span class="form-heading-line"></span>
+                    </h2>
+                    <form id="contactForm" class="space-y-6" novalidate>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 form-row-animate">
                             <div>
                                 <label class="block text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#2C2C2C] mb-2" for="name">Name</label>
-                                <input class="w-full bg-[#f9f9f9] border border-[#c6c6cf] rounded-[0.25rem] px-4 py-3 text-[16px] leading-[24px] focus:outline-none focus:border-[#1e2a4a] focus:ring-1 focus:ring-[#1e2a4a] transition-colors" id="name" name="name" placeholder="Your full name" type="text"/>
+                                <input class="w-full bg-[#f9f9f9] border border-[#c6c6cf] rounded-[0.25rem] px-4 py-3 text-[16px] leading-[24px] focus:outline-none focus:border-[#1e2a4a] focus:ring-1 focus:ring-[#1e2a4a] transition-all" id="name" name="name" placeholder="Your full name" type="text"/>
                             </div>
                             <div>
                                 <label class="block text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#2C2C2C] mb-2" for="email">Email</label>
-                                <input class="w-full bg-[#f9f9f9] border border-[#c6c6cf] rounded-[0.25rem] px-4 py-3 text-[16px] leading-[24px] focus:outline-none focus:border-[#1e2a4a] focus:ring-1 focus:ring-[#1e2a4a] transition-colors" id="email" name="email" placeholder="your.email@example.com" type="email"/>
+                                <input class="w-full bg-[#f9f9f9] border border-[#c6c6cf] rounded-[0.25rem] px-4 py-3 text-[16px] leading-[24px] focus:outline-none focus:border-[#1e2a4a] focus:ring-1 focus:ring-[#1e2a4a] transition-all" id="email" name="email" placeholder="your.email@example.com" type="email"/>
                             </div>
                         </div>
-                        <div>
+                        <div class="form-row-animate">
                             <label class="block text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#2C2C2C] mb-2" for="subject">Subject</label>
-                            <input class="w-full bg-[#f9f9f9] border border-[#c6c6cf] rounded-[0.25rem] px-4 py-3 text-[16px] leading-[24px] focus:outline-none focus:border-[#1e2a4a] focus:ring-1 focus:ring-[#1e2a4a] transition-colors" id="subject" name="subject" placeholder="How can we help?" type="text"/>
+                            <input class="w-full bg-[#f9f9f9] border border-[#c6c6cf] rounded-[0.25rem] px-4 py-3 text-[16px] leading-[24px] focus:outline-none focus:border-[#1e2a4a] focus:ring-1 focus:ring-[#1e2a4a] transition-all" id="subject" name="subject" placeholder="How can we help?" type="text"/>
                         </div>
-                        <div>
+                        <div class="form-row-animate">
                             <label class="block text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#2C2C2C] mb-2" for="message">Message</label>
-                            <textarea class="w-full bg-[#f9f9f9] border border-[#c6c6cf] rounded-[0.25rem] px-4 py-3 text-[16px] leading-[24px] focus:outline-none focus:border-[#1e2a4a] focus:ring-1 focus:ring-[#1e2a4a] transition-colors resize-none" id="message" name="message" placeholder="Write your message here..." rows="5"></textarea>
+                            <textarea class="w-full bg-[#f9f9f9] border border-[#c6c6cf] rounded-[0.25rem] px-4 py-3 text-[16px] leading-[24px] focus:outline-none focus:border-[#1e2a4a] focus:ring-1 focus:ring-[#1e2a4a] transition-all resize-none" id="message" name="message" placeholder="Write your message here..." rows="5"></textarea>
                         </div>
-                        <button class="bg-[#d93633] text-white text-[14px] leading-[20px] tracking-[0.05em] font-semibold py-3 px-8 rounded-full hover:bg-[#b51a1e] transition-colors w-full md:w-auto shadow-sm" type="submit">
-                            Send Message
-                        </button>
+                        <div class="form-row-animate">
+                            <button class="contact-form-btn bg-[#d93633] text-white text-[14px] leading-[20px] tracking-[0.05em] font-semibold py-3.5 px-8 rounded-full shadow-sm w-full md:w-auto" type="submit">
+                                Send Message
+                            </button>
+                        </div>
                     </form>
                 </div>
 
                 <!-- Map (Right, spanning 5 cols) -->
-                <div class="lg:col-span-5 flex flex-col gap-6">
-                    <div class="h-full min-h-[400px] rounded-[0.5rem] overflow-hidden shadow-sm">
+                <div class="lg:col-span-5 flex flex-col gap-6 reveal-on-scroll-right" data-reveal-delay="150">
+                    <div class="map-wrapper h-full min-h-[400px] rounded-[0.5rem] overflow-hidden shadow-sm border border-[#e2e2e2]">
                         <iframe class="w-full h-full" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.8027083140364!2d32.400966173966786!3d0.1602842642463911!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x177d9d78438ea433%3A0x1a41e79700174128!2sSt%20Monica%20Junior%20School%2C%20Kasanjye!5e0!3m2!1sen!2sug!4v1724341837360!5m2!1sen!2sug" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
@@ -306,21 +506,21 @@
     </main>
 
     <!-- Footer -->
-    <footer class="w-full mt-auto bg-on-surface-charcoal text-surface-white">
+    <footer class="footer-scroll w-full mt-auto bg-on-surface-charcoal text-surface-white">
         <div class="max-w-[1400px] mx-auto px-4 lg:px-8 py-16">
             <!-- Main Footer Content -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
                 <!-- Brand Column -->
-                <div class="space-y-4">
+                <div class="space-y-4 footer-scroll-col">
                     <div class="flex items-center gap-3 mb-4">
                         <img src="assets/imgz/logo2-cut.png" alt="St Monica Junior School Logo"
-                            class="h-48 w-48 object-contain" />
+                            class="h-48 w-48 object-contain footer-scroll-logo" />
 
                     </div>
                 </div>
 
                 <!-- Quick Links -->
-                <div>
+                <div class="footer-scroll-col">
                     <h4 class="text-[16px] leading-[24px] font-semibold text-white mb-6 uppercase tracking-wider">Quick
                         Links</h4>
                     <ul class="space-y-3">
@@ -344,7 +544,7 @@
                 </div>
 
                 <!-- Contact Info -->
-                <div>
+                <div class="footer-scroll-col">
                     <h4 class="text-[16px] leading-[24px] font-semibold text-white mb-6 uppercase tracking-wider">
                         Contact</h4>
                     <ul class="space-y-4">
@@ -370,7 +570,7 @@
                 </div>
 
                 <!-- Newsletter -->
-                <div class="">
+                <div class="footer-scroll-col">
                     <h4 class="text-[16px] leading-[24px] font-semibold text-white mb-6 uppercase tracking-wider">
                         Newsletter</h4>
                     <p class="text-[14px] leading-[20px] text-white/70 mb-4">Subscribe for school news.</p>
@@ -428,7 +628,7 @@
 
             <!-- Modal Body -->
             <div class="p-6">
-                <form id="applicationForm" class="space-y-6">
+                <form id="applicationForm" class="space-y-6" novalidate>
                     <!-- Parent's Name -->
                     <div>
                         <label class="block text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#2C2C2C] mb-2" for="parentName">
@@ -543,5 +743,103 @@
             }
         });
     </script>
+
+    <!-- Scroll Reveal Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            
+            const revealElements = document.querySelectorAll(
+                '.reveal-on-scroll, .reveal-on-scroll-left, .reveal-on-scroll-right, .reveal-zoom'
+            );
+
+            if (prefersReducedMotion) {
+                revealElements.forEach(el => el.classList.add('is-visible'));
+                const footer = document.querySelector('.footer-scroll');
+                if (footer) footer.classList.add('is-visible');
+                return;
+            }
+
+            // Standard IntersectionObserver for scroll animations
+            const observerOptions = {
+                threshold: 0.12,
+                rootMargin: '0px 0px -40px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const delay = parseInt(entry.target.getAttribute('data-reveal-delay') || '0', 10);
+                        if (delay > 0) {
+                            setTimeout(() => {
+                                entry.target.classList.add('is-visible');
+                            }, delay);
+                        } else {
+                            entry.target.classList.add('is-visible');
+                        }
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            revealElements.forEach(el => observer.observe(el));
+
+            // Footer Scroll Reveal Observer
+            const footer = document.querySelector('.footer-scroll');
+            if (footer) {
+                const footerObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            footerObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+                footerObserver.observe(footer);
+            }
+
+            // Navbar scroll elevation
+            const mainNavbar = document.getElementById('mainNavbar');
+            if (mainNavbar) {
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 30) {
+                        mainNavbar.classList.add('shadow-md');
+                        mainNavbar.classList.remove('shadow-sm');
+                    } else {
+                        mainNavbar.classList.add('shadow-sm');
+                        mainNavbar.classList.remove('shadow-md');
+                    }
+                }, { passive: true });
+            }
+
+            // Touch screen interactions for Contact Info Cards
+            const contactCards = document.querySelectorAll('.contact-info-card');
+            contactCards.forEach(card => {
+                let touchTimer;
+                card.addEventListener('touchstart', function() {
+                    contactCards.forEach(c => { if (c !== card) c.classList.remove('is-touch-active'); });
+                    card.classList.add('is-touch-active');
+                    clearTimeout(touchTimer);
+                }, { passive: true });
+
+                card.addEventListener('touchend', function() {
+                    touchTimer = setTimeout(() => {
+                        card.classList.remove('is-touch-active');
+                    }, 2000);
+                }, { passive: true });
+
+                card.addEventListener('touchcancel', function() {
+                    card.classList.remove('is-touch-active');
+                }, { passive: true });
+            });
+
+            document.addEventListener('touchstart', function(e) {
+                if (!e.target.closest('.contact-info-card')) {
+                    contactCards.forEach(c => c.classList.remove('is-touch-active'));
+                }
+            }, { passive: true });
+        });
+    </script>
+    <script src="assets/js/cms-client.js"></script>
 </body>
 </html>

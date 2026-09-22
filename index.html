@@ -111,22 +111,22 @@
 
 <body class="bg-surface-white text-on-surface-charcoal font-body-md antialiased flex flex-col min-h-screen">
     <!-- TopNavBar -->
-    <nav id="navbar" class="fixed top-0 w-full bg-transparent z-50 transition-all duration-300">
+    <nav id="navbar" class="nav-load fixed top-0 w-full bg-transparent z-50 transition-all duration-300">
         <div class="flex justify-between items-center h-24 py-2 px-4 lg:px-8 max-w-[1400px] mx-auto">
             <!-- Brand with Logo -->
-            <a href="index.html" class="flex items-center">
-                <img src="assets/imgz/logo2.webp" alt="St Monica Junior School Logo"
-                    class="h-60 w-60 m-20 object-contain hover:scale-105 transition-transform duration-200" />
+            <a href="index.html" class="flex items-center nav-load-logo">
+                <img src="assets/imgz/logo2-edited.png" alt="St Monica Junior School Logo"
+                    class="h-20 w-20 m-0 lg:h-32 lg:w-60 lg:m-20 object-contain hover:scale-105 transition-transform duration-200" />
             </a>
             <!-- Nav Links (Desktop) -->
             <div class="hidden lg:flex items-center gap-6 flex-nowrap mr-14">
-                <a class="nav-link text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-white border-b-2 border-[#d93633] pb-1 hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
+                <a class="nav-link nav-load-item text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-white border-b-2 border-[#d93633] pb-1 hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
                     href="index.html">Home</a>
-                <a class="nav-link text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-white hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
+                <a class="nav-link nav-load-item text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-white hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
                     href="about.html">About Us</a>
 
                 <!-- School Life Dropdown -->
-                <div class="relative group">
+                <div class="relative group nav-load-item">
                     <button
                         class="nav-link text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-white hover:text-[#d93633] transition-colors duration-200 flex items-center gap-1 whitespace-nowrap">
                         School Life
@@ -153,18 +153,18 @@
                     </div>
                 </div>
 
-                <a class="nav-link text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-white hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
+                <a class="nav-link nav-load-item text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-white hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
                     href="gallery.html">Gallery</a>
-                <a class="nav-link text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-white hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
+                <a class="nav-link nav-load-item text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-white hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
                     href="contact.html">Contact</a>
 
-                <button
-                    class="bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm whitespace-nowrap ml-2">
+                <a href="contact.html#apply"
+                    class="nav-load-item inline-block text-center bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm whitespace-nowrap ml-2">
                     Join Us
-                </button>
+                </a>
             </div>
             <!-- Mobile Menu Icon -->
-            <div class="lg:hidden">
+            <div class="lg:hidden nav-load-item">
                 <button id="mobileMenuBtn" class="focus:outline-none">
                     <span id="mobileMenuIcon" class="material-symbols-outlined text-white text-[32px]">menu</span>
                 </button>
@@ -203,9 +203,9 @@
                 <a class="block text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors pb-2"
                     href="contact.html">Contact</a>
                 
-                <button class="w-full bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm mt-4">
+                <a href="contact.html#apply" class="block text-center w-full bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm mt-4">
                     Join Us
-                </button>
+                </a>
             </div>
         </div>
     </nav>
@@ -214,77 +214,81 @@
     <main class="flex-grow">
         <!-- Hero Section -->
         <!-- Carousel Section -->
-        <section class="carousel h-[700px] relative">
+        <section class="hero-carousel-section relative w-full overflow-hidden">
             <div class="carousel">
                 <!-- list item -->
                 <div class="list">
-                    <div class="item">
-                        <img src="assets/imgz/hero1-light.webp">
+                    <div class="item slide-welcome">
+                        <img src="assets/imgz/hero1-light.webp" alt="Welcome to St. Monica Junior School">
                         <div class="content">
                             <div class="title">
                                 <h1>Welcome to St.Monica Junior School</h1>
                             </div>
-                            <div class="des mt-7">
-                                Welcome to St.Monica Junior School website and community. Explore all the school information you need to know from here
+                            <div class="des">
+                                Welcome to St.Monica Junior School website and community. Explore all the school information you need to know from here.
                             </div>
-                            <div class="buttons absolute">
+                            <div class="buttons">
                                 <a href="about.html"
-                                    class="bg-red-600 cursor-pointer mt-8 text-white px-8 py-3 rounded-full hover:bg-red-700 transition duration-300 inline-flex items-center book-appointment">
+                                    class="bg-[#d93633] text-white px-7 py-3 rounded-full hover:bg-[#b51a1e] transition duration-300 inline-flex items-center book-appointment">
                                     <span>Know More</span>
-                                    <i class="fas fa-arrow-right ml-2"></i>
+                                    <i class="fas fa-arrow-right ml-2 text-sm"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="item">
-                        <img src="assets/imgz/hero2.webp">
+                    <div class="item slide-academics">
+                        <img src="assets/imgz/hero2.webp" alt="Providing Quality Education at St. Monica">
                         <div class="content">
-                            <div class="title">Providing Quality Education</div>
-                            <div class="des mt-7">
-                                We provide quality education to our pupils for a bright future and build skills for success in a global world
+                            <div class="title">
+                                <h2>Providing Quality Education</h2>
                             </div>
-                            <div class="buttons absolute">
+                            <div class="des">
+                                We provide quality education to our pupils for a bright future and build essential skills for success in an interconnected world.
+                            </div>
+                            <div class="buttons">
                                 <a href="academics.html"
-                                    class="bg-red-600 cursor-pointer mt-8 text-white px-8 py-3 rounded-full hover:bg-red-700 transition duration-300 inline-flex items-center">
+                                    class="bg-[#d93633] text-white px-7 py-3 rounded-full hover:bg-[#b51a1e] transition duration-300 inline-flex items-center">
                                     <span>Our Academics</span>
-                                    <i class="fas fa-arrow-right ml-2"></i>
+                                    <i class="fas fa-arrow-right ml-2 text-sm"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="item">
-                        <img src="assets/imgz/hero3.webp">
+                    <div class="item slide-compound">
+                        <img src="assets/imgz/hero3.webp" alt="Beautiful Compound and Structures">
                         <div class="content">
-                            <div class="title">Beautiful Compound And Structures</div>
-                            <div class="des mt-7">
-                                St.Monica boosts a serene and beautiful compound, complete with modern
-                                structures to provide a safe and condusive learning environment to our pupils
+                            <div class="title">
+                                <h2>Beautiful Compound &amp; Structures</h2>
                             </div>
-                            <div class="buttons absolute">
+                            <div class="des">
+                                St.Monica boasts a serene, green campus with modern architectural structures that foster a safe, conducive learning environment.
+                            </div>
+                            <div class="buttons">
                                 <a href="gallery.html"
-                                    class="bg-red-600 cursor-pointer mt-8 text-white px-8 py-3 rounded-full hover:bg-red-700 transition duration-300 inline-flex items-center">
+                                    class="bg-[#d93633] text-white px-7 py-3 rounded-full hover:bg-[#b51a1e] transition duration-300 inline-flex items-center">
                                     <span>Explore Our Gallery</span>
-                                    <i class="fas fa-arrow-right ml-2"></i>
+                                    <i class="fas fa-arrow-right ml-2 text-sm"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="item">
-                        <img src="assets/imgz/farming.webp">
+                    <div class="item slide-activities">
+                        <img src="assets/imgz/farming.webp" alt="Co-curricular Activities and Practical Learning">
                         <div class="content">
-                            <div class="title">Co-curricular Activities</div>
-                            <div class="des mt-7">
-                                At St.Monica, our pupils engage in co-curricular activities and we have a fully stocked Library that allows our
-                                pupils to seek more knowledge
+                            <div class="title">
+                                <h2>Co-curricular Activities</h2>
                             </div>
-                            <div class="buttons absolute">
+                            <div class="des">
+                                Hands-on learning through vibrant clubs, agriculture, sports, and a modern library that inspires our pupils to discover and thrive.
+                            </div>
+                            <div class="buttons">
                                 <a href="cocurricular.html"
-                                    class="bg-red-600 cursor-pointer mt-8 text-white px-8 py-3 rounded-full hover:bg-red-700 transition duration-300 inline-flex items-center">
+                                    class="bg-[#d93633] text-white px-7 py-3 rounded-full hover:bg-[#b51a1e] transition duration-300 inline-flex items-center">
                                     <span>Co-curricular Activities</span>
-                                    <i class="fas fa-arrow-right ml-2"></i>
+                                    <i class="fas fa-arrow-right ml-2 text-sm"></i>
                                 </a>
                             </div>
                         </div>
@@ -294,23 +298,27 @@
                 <!-- list thumbnail -->
                 <div class="thumbnail">
                     <div class="item">
-                        <img src="assets/imgz/hero1-light.webp">
+                        <img src="assets/imgz/hero1-light.webp" alt="Thumbnail 1">
                     </div>
                     <div class="item">
-                        <img src="assets/imgz/hero2.webp">
+                        <img src="assets/imgz/hero2.webp" alt="Thumbnail 2">
                     </div>
                     <div class="item">
-                        <img src="assets/imgz/hero3.webp">
+                        <img src="assets/imgz/hero3.webp" alt="Thumbnail 3">
                     </div>
                     <div class="item">
-                        <img src="assets/imgz/farming.webp">
+                        <img src="assets/imgz/farming.webp" alt="Thumbnail 4">
                     </div>
                 </div>
 
                 <!-- next prev buttons -->
                 <div class="arrows">
-                    <button id="prev"><</button>
-                    <button id="next">></button>
+                    <button id="prev" aria-label="Previous slide">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button id="next" aria-label="Next slide">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
 
                 <!-- time running indicator -->
@@ -320,10 +328,10 @@
 
 
         <!-- Warm Welcome from Headteacher -->
-        <section class="py-24 px-24 lg:px-48 bg-surface-white">
+        <section class="py-24 px-4 md:px-12 lg:px-48 bg-surface-white">
             <div class="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <!-- Image Left -->
-                <div class="director-image opacity-0 -translate-x-20 relative h-[500px] rounded-xl overflow-hidden shadow-lg">
+                <div class="director-image opacity-0 -translate-x-20 relative h-[320px] md:h-[420px] lg:h-[500px] rounded-xl overflow-hidden shadow-lg">
                     <img class="w-full h-full object-cover"
                         src="assets/imgz/Director-copy.jpg"
                         alt="Headteacher" />
@@ -335,7 +343,7 @@
                 </div>
                 <!-- Text Right -->
                 <div class="director-text opacity-0 translate-x-20 space-y-6">
-                    <h2 class="text-[32px] leading-[40px] font-semibold text-[#1e2a4a] flex items-center gap-4">
+                    <h2 class="text-[32px] leading-[40px] font-semibold text-[#1e2a4a] flex items-center justify-center gap-4">
                         <span class="w-12 h-1 bg-[#d93633] block"></span>
                         Message from Our Director
                     </h2>
@@ -353,11 +361,11 @@
         </section>
 
         <!-- Why Choose Us -->
-        <section class="py-24 px-8 lg:px-48 bg-[#f3f3f3]">
+        <section class="py-24 px-4 md:px-12 lg:px-48 bg-[#f3f3f3]">
             <div class="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <!-- Text Left -->
                 <div class="why-choose-text opacity-0 -translate-x-20 space-y-6">
-                    <h2 class="text-[32px] leading-[40px] font-semibold text-[#1e2a4a]">Why Choose St Monica?</h2>
+                    <h2 class="text-[32px] leading-[40px] font-semibold text-[#1e2a4a] text-center">Why Choose St Monica?</h2>
                     <p class="text-[18px] leading-[28px] text-[#2C2C2C]">
                         We are committed to providing a nurturing environment where each child can thrive academically,
                         socially, and emotionally.
@@ -405,7 +413,7 @@
                     </div>
                 </div>
                 <!-- Image Right -->
-                <div class="why-choose-image opacity-0 translate-x-20 relative h-[550px] rounded-xl overflow-hidden shadow-lg">
+                <div class="why-choose-image opacity-0 translate-x-20 relative h-[320px] md:h-[420px] lg:h-[550px] rounded-xl overflow-hidden shadow-lg">
                     <img class="w-full h-full object-cover"
                         src="assets/imgz/Communion.webp"
                         alt="Students learning" />
@@ -414,7 +422,7 @@
         </section>
 
         <!-- Vision & Motto -->
-        <section class="py-24 px-8 lg:px-16 bg-[#d93633]">
+        <section class="py-24 px-4 md:px-8 lg:px-16 bg-[#d93633]">
             <div class="max-w-[1400px] mx-auto">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <!-- Vision -->
@@ -452,7 +460,7 @@
         </section>
 
         <!-- School Staff Summary -->
-        <section class="py-24 px-8 lg:px-48 bg-white">
+        <section class="py-24 px-4 md:px-12 lg:px-48 bg-white">
             <div class="max-w-[1400px] mx-auto">
                 <div class="text-center mb-12">
                     <h2 class="text-[32px] leading-[40px] font-semibold text-[#1e2a4a] mb-4">Our Dedicated Team</h2>
@@ -511,7 +519,7 @@
         </section>
 
         <!-- Counter Section -->
-        <section class="py-20 px-8 lg:px-16 bg-[#d93633] relative overflow-hidden bg-fixed bg-center bg-cover" style="background-image: url('assets/imgz/Communion.webp'); background-attachment: fixed;">
+        <section class="py-20 px-4 md:px-8 lg:px-16 bg-[#d93633] relative overflow-hidden bg-fixed bg-center bg-cover" style="background-image: url('assets/imgz/Communion.webp'); background-attachment: fixed;">
             <!-- Overlay for better text readability -->
             <div class="absolute inset-0 bg-[#FF000D]/80"></div>
             
@@ -552,7 +560,7 @@
         </section>
 
         <!-- News & Events -->
-        <section class="py-24 px-8 lg:px-48 bg-[#f3f3f3]">
+        <section class="py-24 px-4 md:px-12 lg:px-48 bg-[#f3f3f3]">
             <div class="max-w-[1400px] mx-auto">
                 <div class="text-center mb-12 news-header opacity-0 translate-y-20">
                     <h2 class="text-[32px] leading-[40px] font-semibold text-[#1e2a4a] mb-2">News & Events</h2>
@@ -629,13 +637,18 @@
         </section>
 
         <!-- Testimonials -->
-        <section class="py-24 px-8 lg:px-16 bg-white">
+        <section class="py-24 px-4 md:px-8 lg:px-16 bg-white">
             <div class="max-w-[1400px] mx-auto">
                 <div class="text-center mb-12 testimonial-header opacity-0 translate-y-20">
                     <h2 class="text-[32px] leading-[40px] font-semibold text-[#1e2a4a] mb-4">What Parents Say</h2>
-                    <p class="text-[18px] leading-[28px] text-[#2C2C2C] max-w-2xl mx-auto">
+                    <p class="text-[18px] leading-[28px] text-[#2C2C2C] max-w-2xl mx-auto mb-6">
                         Hear from our community about their experience at St Monica Junior School
                     </p>
+                    <button type="button" id="rateUsBtn"
+                        class="inline-flex items-center gap-2 bg-[#1e2a4a] text-white text-[14px] font-semibold py-3 px-6 rounded-full hover:bg-[#d93633] transition-colors duration-300 shadow-sm">
+                        <span class="material-symbols-outlined text-[18px]">star_rate</span>
+                        <span>Rate Us</span>
+                    </button>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <!-- Testimonial 1 -->
@@ -735,8 +748,103 @@
             </div>
         </section>
 
+        <!-- Rate Us Modal -->
+        <div id="rateUsModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+            <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
+                <!-- Modal Header -->
+                <div class="flex items-center justify-between bg-[#1e2a4a] text-white px-6 py-5 rounded-t-2xl sticky top-0 z-10">
+                    <div>
+                        <h3 class="text-[18px] font-bold">Rate Your Experience</h3>
+                        <p class="text-[12px] text-white/70 mt-0.5">Tell us what you think about St Monica Junior School</p>
+                    </div>
+                    <button type="button" id="closeRateUsModalBtn" class="text-white hover:bg-white/10 p-2 rounded-full transition-colors">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="p-6" id="rateUsModalBody">
+                    <form id="rateUsForm" novalidate>
+                        <div class="mb-5">
+                            <label class="block text-[14px] font-semibold text-[#1e2a4a] mb-2">
+                                Your Rating <span class="text-[#d93633]">*</span>
+                            </label>
+                            <div id="starRatingInput" class="flex gap-1">
+                                <button type="button" class="star-btn" data-value="1" aria-label="1 star">
+                                    <span class="material-symbols-outlined text-[32px] text-[#c6c6cf]">star</span>
+                                </button>
+                                <button type="button" class="star-btn" data-value="2" aria-label="2 stars">
+                                    <span class="material-symbols-outlined text-[32px] text-[#c6c6cf]">star</span>
+                                </button>
+                                <button type="button" class="star-btn" data-value="3" aria-label="3 stars">
+                                    <span class="material-symbols-outlined text-[32px] text-[#c6c6cf]">star</span>
+                                </button>
+                                <button type="button" class="star-btn" data-value="4" aria-label="4 stars">
+                                    <span class="material-symbols-outlined text-[32px] text-[#c6c6cf]">star</span>
+                                </button>
+                                <button type="button" class="star-btn" data-value="5" aria-label="5 stars">
+                                    <span class="material-symbols-outlined text-[32px] text-[#c6c6cf]">star</span>
+                                </button>
+                            </div>
+                            <input type="hidden" id="ratingValue" name="rating" value="0">
+                            <span id="ratingError" class="hidden text-[12px] text-[#d93633] mt-1 block">Please select a star rating</span>
+                        </div>
+
+                        <div class="mb-5">
+                            <label for="raterName" class="block text-[14px] font-semibold text-[#1e2a4a] mb-2">
+                                Your Name <span class="text-[#d93633]">*</span>
+                            </label>
+                            <input type="text" id="raterName" name="name" placeholder="e.g. Mrs. Jane Nakato"
+                                class="w-full border border-[#c6c6cf] rounded-lg px-4 py-3 text-[14px] focus:outline-none focus:border-[#1e2a4a]">
+                            <span class="form-error hidden text-[12px] text-[#d93633] mt-1 block"></span>
+                        </div>
+
+                        <div class="mb-5">
+                            <label for="raterRole" class="block text-[14px] font-semibold text-[#1e2a4a] mb-2">
+                                You Are a <span class="text-[#d93633]">*</span>
+                            </label>
+                            <select id="raterRole" name="role"
+                                class="w-full border border-[#c6c6cf] rounded-lg px-4 py-3 text-[14px] bg-white focus:outline-none focus:border-[#1e2a4a]">
+                                <option value="Parent">Parent</option>
+                                <option value="Student">Student</option>
+                                <option value="Old Student">Old Student (Alumni)</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <input type="text" id="raterRoleOther" placeholder="Please specify"
+                                class="hidden mt-2 w-full border border-[#c6c6cf] rounded-lg px-4 py-3 text-[14px] focus:outline-none focus:border-[#1e2a4a]">
+                        </div>
+
+                        <div class="mb-2">
+                            <label for="raterMessage" class="block text-[14px] font-semibold text-[#1e2a4a] mb-2">
+                                Your Message <span class="text-[#d93633]">*</span>
+                            </label>
+                            <textarea id="raterMessage" name="content" rows="4"
+                                placeholder="Share your experience with St Monica Junior School..."
+                                class="w-full border border-[#c6c6cf] rounded-lg px-4 py-3 text-[14px] focus:outline-none focus:border-[#1e2a4a] resize-none"></textarea>
+                            <span class="form-error hidden text-[12px] text-[#d93633] mt-1 block"></span>
+                        </div>
+
+                        <p class="text-[11px] text-[#45464e] mb-5">
+                            Your review will be shown on our website after being reviewed by our administration.
+                        </p>
+
+                        <div class="flex items-center justify-end gap-3">
+                            <button type="button" id="cancelRateUsBtn"
+                                class="text-[14px] font-semibold text-[#45464e] py-3 px-6 rounded-full hover:bg-[#f3f3f3] transition-colors">
+                                Cancel
+                            </button>
+                            <button type="submit" id="submitRateUsBtn"
+                                class="bg-[#d93633] text-white text-[14px] font-semibold py-3 px-8 rounded-full hover:bg-[#b51a1e] transition-colors shadow-sm">
+                                Submit Review
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <!-- Location Map -->
-        <section class="py-24 px-8 lg:px-16 bg-[#f3f3f3]">
+        <section class="py-24 px-4 md:px-8 lg:px-16 bg-[#f3f3f3]">
             <div class="max-w-[1400px] mx-auto">
                 <div class="text-center mb-12 visit-header opacity-0 translate-y-20">
                     <h2 class="text-[32px] leading-[40px] font-semibold text-[#1e2a4a] mb-4">Visit Us</h2>
@@ -798,7 +906,7 @@
                     </div>
                     <!-- Map -->
                     <div class="lg:col-span-2 visit-map opacity-0 translate-x-20">
-                        <div class="bg-white rounded-xl overflow-hidden shadow-lg h-full min-h-[500px]">
+                        <div class="bg-white rounded-xl overflow-hidden shadow-lg h-full min-h-[320px] lg:min-h-[500px]">
                             <iframe class="embed-responsive-item w-full h-full" 
                                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.8027083140364!2d32.400966173966786!3d0.1602842642463911!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x177d9d78438ea433%3A0x1a41e79700174128!2sSt%20Monica%20Junior%20School%2C%20Kasanjye!5e0!3m2!1sen!2sug!4v1724341837360!5m2!1sen!2sug" 
                                 style="border:0;" allowfullscreen="" loading="lazy" 
@@ -926,48 +1034,55 @@
         let prevDom = document.getElementById('prev');
 
         let carouselDom = document.querySelector('.carousel');
-        let SliderDom = carouselDom.querySelector('.carousel .list');
-        let thumbnailBorderDom = document.querySelector('.carousel .thumbnail');
-        let thumbnailItemsDom = thumbnailBorderDom.querySelectorAll('.item');
-        let timeDom = document.querySelector('.carousel .time');
+        let SliderDom = carouselDom ? (carouselDom.querySelector('.list') || document.querySelector('.carousel .list')) : null;
+        let thumbnailBorderDom = carouselDom ? (carouselDom.querySelector('.thumbnail') || document.querySelector('.carousel .thumbnail')) : null;
+        let thumbnailItemsDom = thumbnailBorderDom ? thumbnailBorderDom.querySelectorAll('.item') : [];
+        let timeDom = carouselDom ? (carouselDom.querySelector('.time') || document.querySelector('.carousel .time')) : null;
 
-        // Move first thumbnail to end on page load
-        thumbnailBorderDom.appendChild(thumbnailItemsDom[0]);
+        // Move first thumbnail to end on page load if present
+        if (thumbnailBorderDom && thumbnailItemsDom.length > 0) {
+            thumbnailBorderDom.appendChild(thumbnailItemsDom[0]);
+        }
 
         // Timing configuration
-        let timeRunning = 3000;      // 3 seconds for animation to complete
+        let timeRunning = 1200;      // Responsive transition duration
         let timeAutoNext = 7000;     // 7 seconds before auto-advance
 
         // Next button click handler
-        nextDom.onclick = function () {
-            showSlider('next');
+        if (nextDom) {
+            nextDom.onclick = function () {
+                showSlider('next');
+            }
         }
 
         // Previous button click handler
-        prevDom.onclick = function () {
-            showSlider('prev');
+        if (prevDom) {
+            prevDom.onclick = function () {
+                showSlider('prev');
+            }
         }
 
         // Auto-advance timer
         let runTimeOut;
         let runNextAuto = setTimeout(() => {
-            next.click();
-        }, timeAutoNext)
+            if (nextDom) nextDom.click();
+        }, timeAutoNext);
 
         // Main slider function
         function showSlider(type) {
-            let SliderItemsDom = SliderDom.querySelectorAll('.carousel .list .item');
-            let thumbnailItemsDom = document.querySelectorAll('.carousel .thumbnail .item');
+            if (!SliderDom || !carouselDom) return;
+            let SliderItemsDom = SliderDom.querySelectorAll('.item');
+            let thumbnailItemsDom = thumbnailBorderDom ? thumbnailBorderDom.querySelectorAll('.item') : [];
 
             if (type === 'next') {
                 // Move first slide to end
-                SliderDom.appendChild(SliderItemsDom[0]);
-                thumbnailBorderDom.appendChild(thumbnailItemsDom[0]);
+                if (SliderItemsDom.length > 0) SliderDom.appendChild(SliderItemsDom[0]);
+                if (thumbnailBorderDom && thumbnailItemsDom.length > 0) thumbnailBorderDom.appendChild(thumbnailItemsDom[0]);
                 carouselDom.classList.add('next');
             } else {
                 // Move last slide to beginning
-                SliderDom.prepend(SliderItemsDom[SliderItemsDom.length - 1]);
-                thumbnailBorderDom.prepend(thumbnailItemsDom[thumbnailItemsDom.length - 1]);
+                if (SliderItemsDom.length > 0) SliderDom.prepend(SliderItemsDom[SliderItemsDom.length - 1]);
+                if (thumbnailBorderDom && thumbnailItemsDom.length > 0) thumbnailBorderDom.prepend(thumbnailItemsDom[thumbnailItemsDom.length - 1]);
                 carouselDom.classList.add('prev');
             }
 
@@ -1089,8 +1204,23 @@
             entries.forEach((entry, index) => {
                 if (entry.isIntersecting) {
                     setTimeout(() => {
-                        entry.target.classList.remove('opacity-0', 'translate-y-20');
-                        entry.target.classList.add('opacity-100', 'translate-y-0');
+                        const target = entry.target;
+                        target.classList.remove('opacity-0');
+                        target.classList.add('opacity-100');
+                        // Reset whichever directional offset this element actually
+                        // starts with (vertical reveal vs. horizontal slide-in) -
+                        // elements like .director-image/.why-choose-image use
+                        // -translate-x-20/translate-x-20, not translate-y-20.
+                        if (target.classList.contains('-translate-x-20')) {
+                            target.classList.remove('-translate-x-20');
+                            target.classList.add('translate-x-0');
+                        } else if (target.classList.contains('translate-x-20')) {
+                            target.classList.remove('translate-x-20');
+                            target.classList.add('translate-x-0');
+                        } else {
+                            target.classList.remove('translate-y-20');
+                            target.classList.add('translate-y-0');
+                        }
                     }, index * 200); // Stagger animation by 200ms
                     observer.unobserve(entry.target);
                 }
@@ -1269,6 +1399,8 @@
             footerObserver.observe(footer);
         }
     </script>
+    <script src="assets/js/cms-client.js"></script>
+    <script src="assets/js/rate-us.js"></script>
 </body>
 
 </html>

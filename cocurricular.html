@@ -106,26 +106,178 @@
         .pattern-overlay {
             background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23dae2ff' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
+        .traditional-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30L30 0ZM30 15L45 30L30 45L15 30L30 15Z' fill='%23bac5ee' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+
+        /* Scroll Progress Bar */
+        #scrollProgressBar {
+            transform-origin: left;
+            transition: width 0.1s cubic-bezier(0.2, 0.8, 0.4, 1);
+        }
+
+        /* Enhanced Reveal Animations with Fine-Tuned Cubic-Bezier Easing */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-on-scroll-left {
+            opacity: 0;
+            transform: translateX(-36px);
+            transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+        .reveal-on-scroll-left.is-visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-on-scroll-right {
+            opacity: 0;
+            transform: translateX(36px);
+            transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+        .reveal-on-scroll-right.is-visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Zoom & Depth entrance for Image Cards */
+        .reveal-zoom {
+            opacity: 0;
+            transform: scale(0.93) translateY(20px);
+            filter: blur(4px);
+            transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform, filter;
+        }
+        .reveal-zoom.is-visible {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            filter: blur(0);
+        }
+
+        /* Expanding decorative accent lines */
+        .reveal-expand-line {
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform;
+        }
+        .reveal-expand-line.expand-center {
+            transform-origin: center;
+        }
+        .reveal-expand-line.is-visible {
+            transform: scaleX(1);
+        }
+
+        /* Badge Pop Animation */
+        .reveal-badge-pop {
+            opacity: 0;
+            transform: scale(0.75) translateY(10px);
+            transition: opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            will-change: opacity, transform;
+        }
+        .reveal-badge-pop.is-visible {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        /* Feature Pill / Tag Stagger */
+        .reveal-pill {
+            opacity: 0;
+            transform: translateY(16px) scale(0.92);
+            transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+        .reveal-pill.is-visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Card Entrance for Other Activities */
+        .reveal-card-pop {
+            opacity: 0;
+            transform: translateY(40px) scale(0.95);
+            transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+            will-change: opacity, transform;
+        }
+        .reveal-card-pop.is-visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Icon entrance animation inside cards */
+        .icon-pop {
+            transform: scale(0.6) rotate(-15deg);
+            opacity: 0;
+            transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.7s ease;
+            will-change: transform, opacity;
+        }
+        .reveal-card-pop.is-visible .icon-pop {
+            transform: scale(1) rotate(0deg);
+            opacity: 1;
+        }
+
+        /* Subtle Shimmer Sheen on image hover */
+        .image-shimmer {
+            position: relative;
+            overflow: hidden;
+        }
+        .image-shimmer::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.18) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: translateX(-100%) rotate(35deg);
+            transition: transform 0.9s ease;
+            pointer-events: none;
+        }
+        .image-shimmer:hover::after {
+            transform: translateX(100%) rotate(35deg);
+        }
+
+        /* Floating Back-To-Top button */
+        #backToTopBtn.is-shown {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0) scale(1);
+        }
     </style>
 </head>
 <body class="bg-surface-white text-on-surface-charcoal font-body-md antialiased flex flex-col min-h-screen">
     <!-- TopNavBar -->
-    <nav class="fixed top-0 w-full bg-white shadow-sm z-50 transition-all duration-300">
+    <nav class="nav-load fixed top-0 w-full bg-white shadow-sm z-50 transition-all duration-300">
         <div class="flex justify-between items-center h-24 py-2 px-4 lg:px-8 max-w-[1400px] mx-auto">
             <!-- Brand with Logo -->
-            <a href="index.html" class="flex items-center">
+            <a href="index.html" class="flex items-center nav-load-logo">
                 <img src="assets/imgz/logo2.webp" alt="St Monica Junior School Logo"
-                    class="h-60 w-60 m-20 object-contain hover:scale-105 transition-transform duration-200" />
+                    class="h-20 w-20 m-0 lg:h-60 lg:w-60 lg:m-20 object-contain hover:scale-105 transition-transform duration-200" />
             </a>
             <!-- Nav Links (Desktop) -->
             <div class="hidden lg:flex items-center gap-6 flex-nowrap mr-14">
-                <a class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
+                <a class="nav-load-item text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
                     href="index.html">Home</a>
-                <a class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
+                <a class="nav-load-item text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
                     href="about.html">About Us</a>
 
                 <!-- School Life Dropdown -->
-                <div class="relative group">
+                <div class="relative group nav-load-item">
                     <button
                         class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] border-b-2 border-[#d93633] pb-1 hover:text-[#d93633] transition-colors duration-200 flex items-center gap-1 whitespace-nowrap">
                         School Life
@@ -152,18 +304,18 @@
                     </div>
                 </div>
 
-                <a class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
+                <a class="nav-load-item text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
                     href="gallery.html">Gallery</a>
-                <a class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
+                <a class="nav-load-item text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
                     href="contact.html">Contact</a>
 
-                <button
-                    class="bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm whitespace-nowrap ml-2">
+                <a href="contact.html#apply"
+                    class="nav-load-item inline-block text-center bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm whitespace-nowrap ml-2">
                     Join Us
-                </button>
+                </a>
             </div>
             <!-- Mobile Menu Icon -->
-            <div class="lg:hidden">
+            <div class="lg:hidden nav-load-item">
                 <button id="mobileMenuBtn" class="focus:outline-none">
                     <span id="mobileMenuIcon" class="material-symbols-outlined text-[#1e2a4a] text-[32px]">menu</span>
                 </button>
@@ -202,102 +354,190 @@
                 <a class="block text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors pb-2"
                     href="contact.html">Contact</a>
                 
-                <button class="w-full bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm mt-4">
+                <a href="contact.html#apply" class="block text-center w-full bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm mt-4">
                     Join Us
-                </button>
+                </a>
             </div>
         </div>
     </nav>
 
+    <!-- Scroll Progress Indicator -->
+    <div id="scrollProgressBar" class="fixed top-24 left-0 h-[3px] bg-gradient-to-r from-[#d93633] via-[#ff6b68] to-[#d93633] z-50 transition-all duration-100 w-0 pointer-events-none shadow-sm"></div>
+
     <!-- Main Content -->
-    <main class="flex-grow flex flex-col">
+    <main class="flex-grow relative pt-24">
         <!-- Hero Section -->
-        <section class="relative pt-24 pb-32 px-4 md:px-20 bg-[#eeeeee] overflow-hidden">
-            <div class="absolute inset-0 pattern-overlay opacity-50"></div>
-            <div class="max-w-[1200px] mx-auto relative z-10 grid md:grid-cols-2 gap-6 items-center">
-                <div class="space-y-6">
-                    <h1 class="text-[32px] md:text-[48px] leading-[40px] md:leading-[56px] font-bold tracking-[-0.02em] text-[#1e2a4a]">Beyond the Classroom</h1>
-                    <p class="text-[18px] leading-[28px] text-[#45464e] max-w-lg">
-                        At St. Monica Junior School Kasanje, we believe in nurturing the whole child. Our vibrant co-curricular programs offer students the opportunity to discover new passions, build teamwork, and develop leadership skills in a supportive, engaging environment.
-                    </p>
-                </div>
-                <div class="relative h-64 md:h-96 rounded-[0.5rem] overflow-hidden shadow-lg border border-[#e2e2e2]">
-                    <img alt="Students playing football" class="object-cover w-full h-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdLYE1-2mx4JzRQtd01MzozcJCls40qcnIscVaqdtFfWbecFN4XnN0nhbgBKIS1mILZpFFtuEDfF_FT_ezBLJ0YCWy_gkLvonLbzeiW2_GmcLWvBAaU-0t_ifWrhU3DAFu2VngFfH_NCzwv0VVt-22d-u1K-i9L2c30eUrQijg9ZhHkKvFtp2-Z80SCy66TKtS9WLStj_mmF8xPcKNIyB7yE9clyaqnhOtXPbXOBBvYI1g7gWwFp3ptQ"/>
-                </div>
+        <section class="relative py-20 md:py-28 px-4 md:px-20 overflow-hidden bg-[#d93633] text-white">
+            <div class="absolute inset-0 traditional-pattern opacity-30 animate-hero-pattern"></div>
+            <!-- Ambient floating glow orbs for depth -->
+            <div class="absolute -top-24 -left-24 w-80 h-80 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-24 -right-24 w-80 h-80 bg-black/15 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="max-w-[880px] mx-auto relative z-10 text-center space-y-6">
+                <!-- Animated Heading -->
+                <h1 class="text-[34px] md:text-[54px] leading-[42px] md:leading-[62px] font-bold tracking-[-0.02em] text-white reveal-on-scroll" data-reveal-delay="150">
+                    Beyond the Classroom
+                </h1>
+
+                <!-- Expanding Accent Bar -->
+                <div class="w-20 h-1 bg-white/80 mx-auto rounded-full reveal-expand-line expand-center" data-reveal-delay="250"></div>
+
+                <!-- Animated Description -->
+                <p class="text-[18px] md:text-[20px] leading-[28px] md:leading-[32px] text-white/95 max-w-2xl mx-auto font-normal reveal-on-scroll" data-reveal-delay="350">
+                    At St. Monica Junior School Kasanje, we believe in nurturing the whole child. Our vibrant co-curricular programs offer students the opportunity to discover new passions, build teamwork, and develop leadership skills in a supportive, engaging environment.
+                </p>
             </div>
         </section>
 
-        <!-- Our Co-curricular Activities Section -->
-        <section class="py-20 px-4 md:px-20 bg-white">
-            <div class="max-w-[1200px] mx-auto">
-                <div class="mb-12 text-center">
-                    <h2 class="text-[32px] leading-[40px] font-semibold tracking-[-0.01em] text-[#1e2a4a] mb-4">Our Co-curricular Activities</h2>
-                    <p class="text-[18px] leading-[28px] text-[#2C2C2C] max-w-3xl mx-auto">
+        <!-- Our Co-curricular Activities Section (Full Section with Parallax Background) -->
+        <section id="cocurricular-activities" class="py-24 px-4 md:px-20 bg-[#1e2a4a] text-white relative overflow-hidden bg-fixed bg-center bg-cover group" style="background-image: url('assets/imgz/matching.webp'); background-attachment: fixed;">
+            <!-- Dark Navy Blue Banner / Overlay on top of background image (Guarantees high contrast & legibility) -->
+            <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(180deg, rgba(8, 21, 52, 0.94) 0%, rgba(14, 26, 57, 0.90) 50%, rgba(8, 21, 52, 0.95) 100%);"></div>
+            <div class="absolute inset-0 traditional-pattern opacity-15 pointer-events-none"></div>
+            
+            <div class="max-w-[1200px] mx-auto relative z-10 space-y-20">
+                <!-- Section Header Navy Blue Banner on Top -->
+                <div class="text-center max-w-3xl mx-auto bg-[#081534]/80 backdrop-blur-md border border-white/15 rounded-2xl py-8 px-6 md:px-10 shadow-2xl">
+                    <h2 class="text-[32px] md:text-[42px] leading-[40px] md:leading-[50px] font-bold tracking-[-0.01em] text-white mb-3 reveal-on-scroll" data-reveal-delay="0">Our Co-curricular Activities</h2>
+                    <div class="w-20 h-1 bg-[#d93633] mx-auto mb-4 rounded-full reveal-expand-line expand-center transition-all duration-500 group-hover:w-32" data-reveal-delay="100"></div>
+                    <p class="text-[17px] md:text-[19px] leading-[26px] md:leading-[30px] text-white/95 max-w-2xl mx-auto reveal-on-scroll" data-reveal-delay="180">
                         Beyond the classroom, we offer a diverse range of activities that develop skills, foster teamwork, and create well-rounded individuals.
                     </p>
                 </div>
 
-                <!-- Ball Games Section -->
-                <div class="flex flex-col md:flex-row items-center gap-8 mt-12">
-                    <!-- Image on the left -->
-                    <div class="w-full md:w-1/2">
-                        <img class="w-full h-[400px] object-cover rounded-xl shadow-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdLYE1-2mx4JzRQtd01MzozcJCls40qcnIscVaqdtFfWbecFN4XnN0nhbgBKIS1mILZpFFtuEDfF_FT_ezBLJ0YCWy_gkLvonLbzeiW2_GmcLWvBAaU-0t_ifWrhU3DAFu2VngFfH_NCzwv0VVt-22d-u1K-i9L2c30eUrQijg9ZhHkKvFtp2-Z80SCy66TKtS9WLStj_mmF8xPcKNIyB7yE9clyaqnhOtXPbXOBBvYI1g7gWwFp3ptQ" alt="Students playing ball games"/>
+                <!-- 1. Ball Games Subsection -->
+                <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+                    <!-- Image on the left with zoom and shimmer -->
+                    <div class="w-full md:w-1/2 reveal-zoom" data-reveal-delay="50">
+                        <div class="overflow-hidden rounded-2xl shadow-2xl border border-white/20 group relative image-shimmer">
+                            <img class="w-full h-[380px] md:h-[400px] object-cover group-hover:scale-105 transition-transform duration-700 ease-out" src="assets/imgz/hero5.webp" alt="Students playing ball games"/>
+                            <div class="absolute bottom-4 left-4 bg-[#1e2a4a]/90 backdrop-blur-sm border border-white/20 px-3.5 py-1.5 rounded-full text-xs font-semibold text-white shadow-lg flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-[16px] text-amber-300">emoji_events</span> Inter-School Tournaments
+                            </div>
+                        </div>
                     </div>
                     
-                    <!-- Text on the right -->
-                    <div class="w-full md:w-1/2">
-                        <h3 class="text-[28px] leading-[36px] font-semibold text-[#1e2a4a] mb-4">Ball Games</h3>
-                        <p class="text-[16px] leading-[24px] text-[#2C2C2C]">
+                    <!-- Text on the right inside a navy glassmorphic banner card -->
+                    <div class="w-full md:w-1/2 space-y-4 bg-[#081534]/75 backdrop-blur-md border border-white/15 p-6 md:p-8 rounded-2xl shadow-xl">
+                        <h3 class="text-[28px] md:text-[32px] leading-[36px] md:leading-[40px] font-semibold text-white reveal-on-scroll-right" data-reveal-delay="150">Ball Games</h3>
+                        <div class="w-12 h-1 bg-[#d93633] rounded-full reveal-expand-line" data-reveal-delay="200"></div>
+                        <p class="text-[16px] md:text-[17px] leading-[26px] md:leading-[28px] text-white/95 reveal-on-scroll-right" data-reveal-delay="250">
                             Pupils enjoy a range of games from football to netball. It teaches them about the importance of teamwork. Our pupils compete in a wide range of tournaments, giving them the chance to travel, meet, and play against children from elsewhere in their country.
                         </p>
+                        <!-- Staggered Feature Badges -->
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="reveal-pill inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 backdrop-blur-sm border border-white/15 text-white text-xs font-semibold" data-reveal-delay="300">
+                                <span class="material-symbols-outlined text-[15px] text-[#ff6b68]">check_circle</span> Football & Netball
+                            </span>
+                            <span class="reveal-pill inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 backdrop-blur-sm border border-white/15 text-white text-xs font-semibold" data-reveal-delay="380">
+                                <span class="material-symbols-outlined text-[15px] text-[#ff6b68]">check_circle</span> Athletics
+                            </span>
+                            <span class="reveal-pill inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 backdrop-blur-sm border border-white/15 text-white text-xs font-semibold" data-reveal-delay="460">
+                                <span class="material-symbols-outlined text-[15px] text-[#ff6b68]">check_circle</span> Teamwork & Discipline
+                            </span>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Second Activity Section (Image on Right) -->
-                <div class="flex flex-col md:flex-row-reverse items-center gap-8 mt-16">
-                    <!-- Image on the right -->
-                    <div class="w-full md:w-1/2">
-                        <img class="w-full h-[400px] object-cover rounded-xl shadow-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0U6f-3O2PyyHMMNXY-DWbo7igoVh3Qqi5puSbk-VuFyb_EzjMVVAEWm0LJGxJrOIv5L_6qtMN9m-WQrUNHMF9IVAIvuHddbl4y7r2ub4O_D-EagqgiKTaDHnl_9rD_4Z3aX3vDDaM4Zgtla-SKeCHXwQDOUyrech-orKUoO20gAFRrKsnAWyavJ9l0QX88DHcJVcHov84vPDmPFQNXwvoYIvnPzueOy1AHH4Fe2DZ2YGJ8vPNmqR1eA" alt="Music and performing arts"/>
+                <!-- 2. Music & Performing Arts Subsection -->
+                <div class="flex flex-col md:flex-row-reverse items-center gap-8 md:gap-12 pt-12 border-t border-white/15">
+                    <!-- Image on the right with zoom and shimmer -->
+                    <div class="w-full md:w-1/2 reveal-zoom" data-reveal-delay="50">
+                        <div class="overflow-hidden rounded-2xl shadow-2xl border border-white/20 group relative image-shimmer">
+                            <img class="w-full h-[380px] md:h-[400px] object-cover group-hover:scale-105 transition-transform duration-700 ease-out" src="assets/imgz/dancing.webp" alt="Music and performing arts"/>
+                            <div class="absolute bottom-4 right-4 bg-[#1e2a4a]/90 backdrop-blur-sm border border-white/20 px-3.5 py-1.5 rounded-full text-xs font-semibold text-white shadow-lg flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-[16px] text-amber-300">theater_comedy</span> Cultural Festivals
+                            </div>
+                        </div>
                     </div>
                     
-                    <!-- Text on the left -->
-                    <div class="w-full md:w-1/2">
-                        <h3 class="text-[28px] leading-[36px] font-semibold text-[#1e2a4a] mb-4">Music & Performing Arts</h3>
-                        <p class="text-[16px] leading-[24px] text-[#2C2C2C]">
+                    <!-- Text on the left inside a navy glassmorphic banner card -->
+                    <div class="w-full md:w-1/2 space-y-4 bg-[#081534]/75 backdrop-blur-md border border-white/15 p-6 md:p-8 rounded-2xl shadow-xl">
+                        <h3 class="text-[28px] md:text-[32px] leading-[36px] md:leading-[40px] font-semibold text-white reveal-on-scroll-left" data-reveal-delay="150">Music & Performing Arts</h3>
+                        <div class="w-12 h-1 bg-[#d93633] rounded-full reveal-expand-line" data-reveal-delay="200"></div>
+                        <p class="text-[16px] md:text-[17px] leading-[26px] md:leading-[28px] text-white/95 reveal-on-scroll-left" data-reveal-delay="250">
                             Our music and performing arts program nurtures creative expression through singing, dancing, and drama. Students learn traditional Ugandan instruments and contemporary music, building confidence and stage presence through regular performances and concerts that celebrate our rich cultural heritage.
                         </p>
+                        <!-- Staggered Feature Badges -->
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="reveal-pill inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 backdrop-blur-sm border border-white/15 text-white text-xs font-semibold" data-reveal-delay="300">
+                                <span class="material-symbols-outlined text-[15px] text-[#ff6b68]">check_circle</span> Music, Dance & Drama
+                            </span>
+                            <span class="reveal-pill inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 backdrop-blur-sm border border-white/15 text-white text-xs font-semibold" data-reveal-delay="380">
+                                <span class="material-symbols-outlined text-[15px] text-[#ff6b68]">check_circle</span> Choirs
+                            </span>
+                            <span class="reveal-pill inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 backdrop-blur-sm border border-white/15 text-white text-xs font-semibold" data-reveal-delay="460">
+                                <span class="material-symbols-outlined text-[15px] text-[#ff6b68]">check_circle</span> Annual Speech Days
+                            </span>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Third Activity Section (Image on Left) -->
-                <div class="flex flex-col md:flex-row items-center gap-8 mt-16">
-                    <!-- Image on the left -->
-                    <div class="w-full md:w-1/2">
-                        <img class="w-full h-[400px] object-cover rounded-xl shadow-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaBqEhlLyRdhEET1aCi_DV_0VXEfGuoJqCbPz1dxIVmo3Om4EItGfgDHO36a6_xElSBWl7NmLOgn3tc1gLV3XHNZarivwPrstbd9b-xZFb3s7nQ-td59pTpibCSG9S-bxd1ZwyRx_SHgU6vNMurB0MjX668laG_F7olURiu2MuqkR_T7v3orKXo0S5XCmtSKV_e7d2wCjl5ZS4wdewwIFjpogDd4UEizCd-jlY-EuT0H9mxFnCH7D6vg" alt="Student clubs and activities"/>
+                <!-- 3. Student Clubs & Societies Subsection -->
+                <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 pt-12 border-t border-white/15">
+                    <!-- Image on the left with zoom and shimmer -->
+                    <div class="w-full md:w-1/2 reveal-zoom" data-reveal-delay="50">
+                        <div class="overflow-hidden rounded-2xl shadow-2xl border border-white/20 group relative image-shimmer">
+                            <img class="w-full h-[380px] md:h-[400px] object-cover group-hover:scale-105 transition-transform duration-700 ease-out" src="assets/imgz/matching.webp" alt="Student clubs and activities"/>
+                            <div class="absolute bottom-4 left-4 bg-[#1e2a4a]/90 backdrop-blur-sm border border-white/20 px-3.5 py-1.5 rounded-full text-xs font-semibold text-white shadow-lg flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-[16px] text-amber-300">military_tech</span> Character & Leadership
+                            </div>
+                        </div>
                     </div>
                     
-                    <!-- Text on the right -->
-                    <div class="w-full md:w-1/2">
-                        <h3 class="text-[28px] leading-[36px] font-semibold text-[#1e2a4a] mb-4">Student Clubs & Societies</h3>
-                        <p class="text-[16px] leading-[24px] text-[#2C2C2C]">
+                    <!-- Text on the right inside a navy glassmorphic banner card -->
+                    <div class="w-full md:w-1/2 space-y-4 bg-[#081534]/75 backdrop-blur-md border border-white/15 p-6 md:p-8 rounded-2xl shadow-xl">
+                        <h3 class="text-[28px] md:text-[32px] leading-[36px] md:leading-[40px] font-semibold text-white reveal-on-scroll-right" data-reveal-delay="150">Student Clubs & Societies</h3>
+                        <div class="w-12 h-1 bg-[#d93633] rounded-full reveal-expand-line" data-reveal-delay="200"></div>
+                        <p class="text-[16px] md:text-[17px] leading-[26px] md:leading-[28px] text-white/95 reveal-on-scroll-right" data-reveal-delay="250">
                             Our diverse range of clubs and societies provides students with opportunities to explore their interests beyond academics. From the Scouting movement to the Red Cross Club, Environment Club, and Debate Society, students develop leadership skills, community awareness, and social responsibility while pursuing their passions.
                         </p>
+                        <!-- Staggered Feature Badges -->
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="reveal-pill inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 backdrop-blur-sm border border-white/15 text-white text-xs font-semibold" data-reveal-delay="300">
+                                <span class="material-symbols-outlined text-[15px] text-[#ff6b68]">check_circle</span> Debates
+                            </span>
+                            <span class="reveal-pill inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 backdrop-blur-sm border border-white/15 text-white text-xs font-semibold" data-reveal-delay="380">
+                                <span class="material-symbols-outlined text-[15px] text-[#ff6b68]">check_circle</span> Quiz
+                            </span>
+                            <span class="reveal-pill inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 backdrop-blur-sm border border-white/15 text-white text-xs font-semibold" data-reveal-delay="460">
+                                <span class="material-symbols-outlined text-[15px] text-[#ff6b68]">check_circle</span> Community Work
+                            </span>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Fourth Activity Section (Image on Right) -->
-                <div class="flex flex-col md:flex-row-reverse items-center gap-8 mt-16">
-                    <!-- Image on the right -->
-                    <div class="w-full md:w-1/2">
-                        <img class="w-full h-[400px] object-cover rounded-xl shadow-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYiWGWVDFo0-3OriqPbRa3gknRTHg7JoOqgsIlDjGoWW9GIr3wnDYmijcS7dcwvdVWc9x2AXlTMiswivsuN75YwaKObAQ2_hHTx_zfC9K-4oSA4Ceq6EMc9TbJcrg-qxSKmk4sC8-eOcDQ--bumQIwEil_2uGEtk51J51y4rR8-c6ozDhiuj3cBTNMW5GJaOeCSAEIYcVyPZ08uoFL4gB1mFGELT_Hr-8ntZHeoPpZRpA42axLsqYBLQ" alt="Arts and crafts activities"/>
+                <!-- 4. Arts & Crafts Subsection -->
+                <div class="flex flex-col md:flex-row-reverse items-center gap-8 md:gap-12 pt-12 border-t border-white/15">
+                    <!-- Image on the right with zoom and shimmer -->
+                    <div class="w-full md:w-1/2 reveal-zoom" data-reveal-delay="50">
+                        <div class="overflow-hidden rounded-2xl shadow-2xl border border-white/20 group relative image-shimmer">
+                            <img class="w-full h-[380px] md:h-[400px] object-cover group-hover:scale-105 transition-transform duration-700 ease-out" src="assets/imgz/planting.webp" alt="Arts and crafts activities"/>
+                            <div class="absolute bottom-4 right-4 bg-[#1e2a4a]/90 backdrop-blur-sm border border-white/20 px-3.5 py-1.5 rounded-full text-xs font-semibold text-white shadow-lg flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-[16px] text-amber-300">brush</span> Creative Studio
+                            </div>
+                        </div>
                     </div>
                     
-                    <!-- Text on the left -->
-                    <div class="w-full md:w-1/2">
-                        <h3 class="text-[28px] leading-[36px] font-semibold text-[#1e2a4a] mb-4">Arts & Crafts</h3>
-                        <p class="text-[16px] leading-[24px] text-[#2C2C2C]">
+                    <!-- Text on the left inside a navy glassmorphic banner card -->
+                    <div class="w-full md:w-1/2 space-y-4 bg-[#081534]/75 backdrop-blur-md border border-white/15 p-6 md:p-8 rounded-2xl shadow-xl">
+                        <h3 class="text-[28px] md:text-[32px] leading-[36px] md:leading-[40px] font-semibold text-white reveal-on-scroll-left" data-reveal-delay="150">Arts & Crafts</h3>
+                        <div class="w-12 h-1 bg-[#d93633] rounded-full reveal-expand-line" data-reveal-delay="200"></div>
+                        <p class="text-[16px] md:text-[17px] leading-[26px] md:leading-[28px] text-white/95 reveal-on-scroll-left" data-reveal-delay="250">
                             Our arts and crafts program encourages creativity and self-expression through various mediums including painting, drawing, pottery, and traditional Ugandan crafts. Students develop fine motor skills, artistic techniques, and cultural appreciation while creating beautiful works of art that showcase their imagination and talent.
                         </p>
+                        <!-- Staggered Feature Badges -->
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="reveal-pill inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 backdrop-blur-sm border border-white/15 text-white text-xs font-semibold" data-reveal-delay="300">
+                                <span class="material-symbols-outlined text-[15px] text-[#ff6b68]">check_circle</span> Farming Skills
+                            </span>
+                            <span class="reveal-pill inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 backdrop-blur-sm border border-white/15 text-white text-xs font-semibold" data-reveal-delay="380">
+                                <span class="material-symbols-outlined text-[15px] text-[#ff6b68]">check_circle</span> Drawing
+                            </span>
+                            <span class="reveal-pill inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 backdrop-blur-sm border border-white/15 text-white text-xs font-semibold" data-reveal-delay="460">
+                                <span class="material-symbols-outlined text-[15px] text-[#ff6b68]">check_circle</span> Pottery
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -306,21 +546,22 @@
         <!-- Other Activities Section -->
         <section class="py-20 px-4 md:px-20 bg-[#f9f9f9]">
             <div class="max-w-[1200px] mx-auto">
-                <div class="mb-12 text-center">
-                    <h2 class="text-[32px] leading-[40px] font-semibold tracking-[-0.01em] text-[#1e2a4a] mb-4">Other Activities</h2>
-                    <p class="text-[18px] leading-[28px] text-[#2C2C2C] max-w-3xl mx-auto">
+                <div class="mb-14 text-center">
+                    <h2 class="text-[32px] leading-[40px] font-semibold tracking-[-0.01em] text-[#1e2a4a] mb-3 reveal-on-scroll" data-reveal-delay="0">Other Activities</h2>
+                    <div class="w-16 h-1 bg-[#d93633] mx-auto mb-4 rounded-full reveal-expand-line expand-center" data-reveal-delay="100"></div>
+                    <p class="text-[18px] leading-[28px] text-[#2C2C2C] max-w-3xl mx-auto reveal-on-scroll" data-reveal-delay="180">
                         Additional enrichment opportunities that broaden horizons and develop essential life skills.
                     </p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     <!-- Reading Competitions Card -->
-                    <div class="bg-white rounded-xl p-8 border border-[#c6c6cf] hover:shadow-lg transition-all group">
+                    <div class="bg-white rounded-xl p-8 border border-[#c6c6cf] hover:border-[#1e2a4a] hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group reveal-card-pop" data-reveal-delay="0">
                         <div class="flex flex-col items-center text-center">
-                            <div class="w-16 h-16 bg-gradient-to-br from-[#1e2a4a] to-[#3a4667] rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <div class="w-16 h-16 bg-gradient-to-br from-[#1e2a4a] to-[#3a4667] rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-md icon-pop">
                                 <span class="material-symbols-outlined text-white text-[32px]">menu_book</span>
                             </div>
-                            <h3 class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] mb-3">Reading Competitions</h3>
+                            <h3 class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] mb-3 group-hover:text-[#d93633] transition-colors">Reading Competitions</h3>
                             <p class="text-[16px] leading-[24px] text-[#2C2C2C]">
                                 Fostering a love for literature through exciting reading challenges and competitions.
                             </p>
@@ -328,12 +569,12 @@
                     </div>
 
                     <!-- Agricultural Activities Card -->
-                    <div class="bg-white rounded-xl p-8 border border-[#c6c6cf] hover:shadow-lg transition-all group">
+                    <div class="bg-white rounded-xl p-8 border border-[#c6c6cf] hover:border-[#d93633] hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group reveal-card-pop" data-reveal-delay="120">
                         <div class="flex flex-col items-center text-center">
-                            <div class="w-16 h-16 bg-gradient-to-br from-[#d93633] to-[#b51a1e] rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <div class="w-16 h-16 bg-gradient-to-br from-[#d93633] to-[#b51a1e] rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-md icon-pop">
                                 <span class="material-symbols-outlined text-white text-[32px]">agriculture</span>
                             </div>
-                            <h3 class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] mb-3">Agricultural Activities</h3>
+                            <h3 class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] mb-3 group-hover:text-[#d93633] transition-colors">Agricultural Activities</h3>
                             <p class="text-[16px] leading-[24px] text-[#2C2C2C]">
                                 Hands-on farming experiences teaching sustainability and respect for nature.
                             </p>
@@ -341,12 +582,12 @@
                     </div>
 
                     <!-- Student Leadership Card -->
-                    <div class="bg-white rounded-xl p-8 border border-[#c6c6cf] hover:shadow-lg transition-all group">
+                    <div class="bg-white rounded-xl p-8 border border-[#c6c6cf] hover:border-[#1e2a4a] hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group reveal-card-pop" data-reveal-delay="240">
                         <div class="flex flex-col items-center text-center">
-                            <div class="w-16 h-16 bg-gradient-to-br from-[#1e2a4a] to-[#3a4667] rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <div class="w-16 h-16 bg-gradient-to-br from-[#1e2a4a] to-[#3a4667] rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-md icon-pop">
                                 <span class="material-symbols-outlined text-white text-[32px]">workspace_premium</span>
                             </div>
-                            <h3 class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] mb-3">Student Leadership</h3>
+                            <h3 class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] mb-3 group-hover:text-[#d93633] transition-colors">Student Leadership</h3>
                             <p class="text-[16px] leading-[24px] text-[#2C2C2C]">
                                 Developing leadership skills through prefect systems and student council roles.
                             </p>
@@ -354,12 +595,12 @@
                     </div>
 
                     <!-- Study Trips Card -->
-                    <div class="bg-white rounded-xl p-8 border border-[#c6c6cf] hover:shadow-lg transition-all group">
+                    <div class="bg-white rounded-xl p-8 border border-[#c6c6cf] hover:border-[#d93633] hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group reveal-card-pop" data-reveal-delay="360">
                         <div class="flex flex-col items-center text-center">
-                            <div class="w-16 h-16 bg-gradient-to-br from-[#d93633] to-[#b51a1e] rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <div class="w-16 h-16 bg-gradient-to-br from-[#d93633] to-[#b51a1e] rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-md icon-pop">
                                 <span class="material-symbols-outlined text-white text-[32px]">luggage</span>
                             </div>
-                            <h3 class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] mb-3">Study Trips</h3>
+                            <h3 class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] mb-3 group-hover:text-[#d93633] transition-colors">Study Trips</h3>
                             <p class="text-[16px] leading-[24px] text-[#2C2C2C]">
                                 Educational excursions connecting classroom learning to real-world experiences.
                             </p>
@@ -370,22 +611,27 @@
         </section>
     </main>
 
+    <!-- Floating Back-to-Top Button -->
+    <button id="backToTopBtn" aria-label="Back to top" class="fixed bottom-8 right-8 z-40 w-12 h-12 bg-[#d93633] text-white rounded-full shadow-2xl flex items-center justify-center opacity-0 translate-y-4 scale-90 pointer-events-none transition-all duration-300 hover:bg-[#b51a1e] hover:scale-110 active:scale-95 group focus:outline-none">
+        <span class="material-symbols-outlined text-[24px] group-hover:-translate-y-0.5 transition-transform">arrow_upward</span>
+    </button>
+
     <!-- Footer -->
-    <footer class="w-full mt-auto bg-on-surface-charcoal text-surface-white">
+    <footer class="footer-scroll w-full mt-auto bg-on-surface-charcoal text-surface-white">
         <div class="max-w-[1400px] mx-auto px-4 lg:px-8 py-16">
             <!-- Main Footer Content -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
                 <!-- Brand Column -->
-                <div class="space-y-4">
+                <div class="footer-scroll-col space-y-4">
                     <div class="flex items-center gap-3 mb-4">
                         <img src="assets/imgz/logo2-cut.png" alt="St Monica Junior School Logo"
-                            class="h-48 w-48 object-contain" />
+                            class="footer-scroll-logo h-48 w-48 object-contain" />
 
                     </div>
                 </div>
 
                 <!-- Quick Links -->
-                <div>
+                <div class="footer-scroll-col">
                     <h4 class="text-[16px] leading-[24px] font-semibold text-white mb-6 uppercase tracking-wider">Quick
                         Links</h4>
                     <ul class="space-y-3">
@@ -409,7 +655,7 @@
                 </div>
 
                 <!-- Contact Info -->
-                <div>
+                <div class="footer-scroll-col">
                     <h4 class="text-[16px] leading-[24px] font-semibold text-white mb-6 uppercase tracking-wider">
                         Contact</h4>
                     <ul class="space-y-4">
@@ -435,7 +681,7 @@
                 </div>
 
                 <!-- Newsletter -->
-                <div class="">
+                <div class="footer-scroll-col">
                     <h4 class="text-[16px] leading-[24px] font-semibold text-white mb-6 uppercase tracking-wider">
                         Newsletter</h4>
                     <p class="text-[14px] leading-[20px] text-white/70 mb-4">Subscribe for school news.</p>
@@ -506,5 +752,100 @@
             }
         });
     </script>
+
+    <!-- Enhanced Scroll & Animation Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. IntersectionObserver for Reveal Animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -40px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const delay = parseInt(entry.target.getAttribute('data-reveal-delay') || 0, 10);
+                        setTimeout(() => {
+                            entry.target.classList.add('is-visible');
+                        }, delay);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const revealSelectors = [
+                '.reveal-on-scroll',
+                '.reveal-on-scroll-left',
+                '.reveal-on-scroll-right',
+                '.reveal-zoom',
+                '.reveal-expand-line',
+                '.reveal-badge-pop',
+                '.reveal-pill',
+                '.reveal-card-pop'
+            ].join(', ');
+
+            document.querySelectorAll(revealSelectors).forEach(el => {
+                observer.observe(el);
+            });
+
+            // 2. Footer Scroll Reveal
+            const footer = document.querySelector('.footer-scroll');
+            if (footer) {
+                const footerObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            footerObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+                footerObserver.observe(footer);
+            }
+
+            // 3. Scroll Progress Indicator & Back-to-Top Button
+            const progressBar = document.getElementById('scrollProgressBar');
+            const backToTopBtn = document.getElementById('backToTopBtn');
+
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+                        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+                        
+                        // Progress bar width
+                        if (progressBar && scrollHeight > 0) {
+                            const progressPercent = Math.min(100, Math.max(0, (scrollTop / scrollHeight) * 100));
+                            progressBar.style.width = `${progressPercent}%`;
+                        }
+
+                        // Back to Top button visibility
+                        if (backToTopBtn) {
+                            if (scrollTop > 350) {
+                                backToTopBtn.classList.add('is-shown');
+                            } else {
+                                backToTopBtn.classList.remove('is-shown');
+                            }
+                        }
+
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }, { passive: true });
+
+            // 4. Back to Top Click Action
+            if (backToTopBtn) {
+                backToTopBtn.addEventListener('click', () => {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+        });
+    </script>
+    <script src="assets/js/cms-client.js"></script>
 </body>
 </html>
