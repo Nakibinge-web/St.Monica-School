@@ -5,7 +5,7 @@
 if (!defined('CMS_ROOT')) define('CMS_ROOT', dirname(__DIR__));
 
 require_once CMS_ROOT . '/includes/auth.php';
-require_auth();
+require_module('gallery');
 
 $pageTitle = 'Upload Gallery Photos';
 $activeMenu = 'gallery';

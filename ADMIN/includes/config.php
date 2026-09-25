@@ -28,6 +28,15 @@ if (file_exists($envFile)) {
     }
 }
 
+// Enforce a consistent timezone across applications, scheduling, and logs
+date_default_timezone_set(getenv('APP_TIMEZONE') ?: 'Africa/Kampala');
+
+// Resolve environment / debug mode (defaults to safe production settings when unset)
+$appEnv = getenv('APP_ENV') ?: 'production';
+$appDebug = getenv('APP_DEBUG') !== false
+    ? filter_var(getenv('APP_DEBUG'), FILTER_VALIDATE_BOOLEAN)
+    : ($appEnv !== 'production');
+
 // Detect protocol and host for dynamic base URL
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://';
 $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
@@ -57,10 +66,30 @@ return [
         'title'           => 'St. Monica Junior School — Admin Panel',
         'school_name'     => 'St. Monica Junior School Kasanje',
         'motto'           => 'Always Aim Higher',
-        'version'         => '1.0.0',
+        'version'         => '3.0.0',
         'session_name'    => 'st_monica_admin_session',
         'session_timeout' => 7200, // 2 hours
-        'debug'           => true
+        'env'             => $appEnv,
+        'debug'           => $appDebug,
+        'timezone'        => getenv('APP_TIMEZONE') ?: 'Africa/Kampala'
+    ],
+
+    // Outgoing Mail (SMTP) Configuration - used by ADMIN/services/EmailService.php
+    'mail' => [
+        'host'        => getenv('MAIL_HOST') ?: '',
+        'port'        => (int)(getenv('MAIL_PORT') ?: 587),
+        'encryption'  => getenv('MAIL_ENCRYPTION') ?: 'tls',
+        'username'    => getenv('MAIL_USERNAME') ?: '',
+        'password'    => getenv('MAIL_PASSWORD') !== false ? getenv('MAIL_PASSWORD') : '',
+        'from_address'=> getenv('MAIL_FROM_ADDRESS') ?: 'no-reply@stmonicakasanje.ac.ug',
+        'from_name'   => getenv('MAIL_FROM_NAME') ?: 'St. Monica Junior School'
+    ],
+
+    // Backup Storage
+    'backup' => [
+        'dir'           => getenv('BACKUP_DIR') ?: (CMS_ROOT . '/storage/backups'),
+        'mysqldump_bin' => getenv('MYSQLDUMP_BIN') ?: null,
+        'mysql_bin'     => getenv('MYSQL_BIN') ?: null
     ],
 
     // Upload Paths

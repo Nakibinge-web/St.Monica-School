@@ -11,7 +11,7 @@ require_once CMS_ROOT . '/includes/database.php';
 
 try {
     $department = trim($_GET['department'] ?? '');
-    $where = ["`status` = 'published'"];
+    $where = ["`status` = 'published'", "`deleted_at` IS NULL"];
     $params = [];
 
     if (!empty($department)) {
@@ -24,5 +24,5 @@ try {
 
     json_response(true, 'Staff team retrieved successfully.', $staff);
 } catch (Exception $e) {
-    json_response(false, 'Failed to retrieve staff team: ' . $e->getMessage(), null, 500);
+    json_error($e, 'Failed to retrieve staff team.');
 }

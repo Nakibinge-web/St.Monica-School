@@ -10,6 +10,8 @@ require_module('admissions');
 $search = trim($_GET['search'] ?? '');
 $statusFilter = trim($_GET['status'] ?? '');
 $classFilter = trim($_GET['class'] ?? '');
+$dateFrom = trim($_GET['date_from'] ?? '');
+$dateTo = trim($_GET['date_to'] ?? '');
 
 $where = ['1 = 1'];
 $params = [];
@@ -25,6 +27,14 @@ if (!empty($statusFilter)) {
 if (!empty($classFilter)) {
     $where[] = "`pupil_class` = :class";
     $params['class'] = $classFilter;
+}
+if (!empty($dateFrom)) {
+    $where[] = "DATE(`submitted_at`) >= :date_from";
+    $params['date_from'] = $dateFrom;
+}
+if (!empty($dateTo)) {
+    $where[] = "DATE(`submitted_at`) <= :date_to";
+    $params['date_to'] = $dateTo;
 }
 
 $whereSql = implode(' AND ', $where);

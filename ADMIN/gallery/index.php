@@ -5,7 +5,7 @@
 if (!defined('CMS_ROOT')) define('CMS_ROOT', dirname(__DIR__));
 
 require_once CMS_ROOT . '/includes/auth.php';
-require_auth();
+require_module('gallery');
 
 $pageTitle = 'Media Gallery Management';
 $activeMenu = 'gallery';
@@ -13,7 +13,7 @@ $activeMenu = 'gallery';
 $categoryFilter = trim($_GET['category'] ?? '');
 $statusFilter = trim($_GET['status'] ?? '');
 
-$where = ['1 = 1'];
+$where = ['`deleted_at` IS NULL'];
 $params = [];
 
 if (!empty($categoryFilter)) {
@@ -55,10 +55,10 @@ include CMS_ROOT . '/includes/header.php';
 <div class="cms-card p-4 mb-6">
     <div class="flex flex-wrap items-center gap-2">
         <a href="<?= admin_url('gallery/') ?>" class="px-3.5 py-1.5 rounded-full text-xs font-semibold <?= empty($categoryFilter) ? 'bg-[#1e2a4a] text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200' ?> transition">
-            All Photos (<?= (int)Database::fetchColumn("SELECT COUNT(*) FROM `gallery`") ?>)
+            All Photos (<?= (int)Database::fetchColumn("SELECT COUNT(*) FROM `gallery` WHERE `deleted_at` IS NULL") ?>)
         </a>
-        <?php foreach ($categories as $cat): 
-            $catCount = (int)Database::fetchColumn("SELECT COUNT(*) FROM `gallery` WHERE `category` = :cat", ['cat' => $cat]);
+        <?php foreach ($categories as $cat):
+            $catCount = (int)Database::fetchColumn("SELECT COUNT(*) FROM `gallery` WHERE `deleted_at` IS NULL AND `category` = :cat", ['cat' => $cat]);
         ?>
             <a href="<?= admin_url('gallery/?category=' . urlencode($cat)) ?>" class="px-3.5 py-1.5 rounded-full text-xs font-semibold <?= $categoryFilter === $cat ? 'bg-red-600 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200' ?> transition">
                 <?= e($cat) ?> (<?= $catCount ?>)

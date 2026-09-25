@@ -13,33 +13,84 @@ $activeMenu = 'dashboard';
 // Fetch summary metrics safely
 try {
     // Core Phase One metrics
-    $totalStaff     = (int)Database::fetchColumn("SELECT COUNT(*) FROM `staff`");
-    $publishedNews  = (int)Database::fetchColumn("SELECT COUNT(*) FROM `news_events` WHERE `type` = 'news' AND `status` = 'published'");
-    $upcomingEvents = (int)Database::fetchColumn("SELECT COUNT(*) FROM `news_events` WHERE `type` IN ('event', 'sports') AND `status` = 'published'");
-    $draftNews      = (int)Database::fetchColumn("SELECT COUNT(*) FROM `news_events` WHERE `status` = 'draft'");
-    $totalGallery   = (int)Database::fetchColumn("SELECT COUNT(*) FROM `gallery` WHERE `status` = 'published'");
+    $totalStaff     = (int)Database::fetchColumn("SELECT COUNT(*) FROM `staff` WHERE `deleted_at` IS NULL");
+    $publishedNews  = (int)Database::fetchColumn("SELECT COUNT(*) FROM `news_events` WHERE `type` = 'news' AND `status` = 'published' AND `deleted_at` IS NULL");
+    $upcomingEvents = (int)Database::fetchColumn("SELECT COUNT(*) FROM `news_events` WHERE `type` IN ('event', 'sports') AND `status` = 'published' AND `deleted_at` IS NULL");
+    $draftNews      = (int)Database::fetchColumn("SELECT COUNT(*) FROM `news_events` WHERE `status` = 'draft' AND `deleted_at` IS NULL");
+    $totalGallery   = (int)Database::fetchColumn("SELECT COUNT(*) FROM `gallery` WHERE `status` = 'published' AND `deleted_at` IS NULL");
 
     // Phase Two metrics
     $totalAdmissions = (int)Database::fetchColumn("SELECT COUNT(*) FROM `admissions`");
     $newAdmissions   = (int)Database::fetchColumn("SELECT COUNT(*) FROM `admissions` WHERE `status` = 'New'");
     $totalMedia      = (int)Database::fetchColumn("SELECT COUNT(*) FROM `media_library`");
-    $testimonials    = (int)Database::fetchColumn("SELECT COUNT(*) FROM `testimonials` WHERE `status` = 'published'");
+    $testimonials    = (int)Database::fetchColumn("SELECT COUNT(*) FROM `testimonials` WHERE `status` = 'published' AND `deleted_at` IS NULL");
     
     // Recent applications for Admissions widget
-    $recentAdmissions = Database::fetchAll("SELECT * FROM `admissions` ORDER BY `created_at` DESC LIMIT 5");
+    $recentAdmissions = Database::fetchAll("SELECT * FROM `admissions` ORDER BY `submitted_at` DESC LIMIT 5");
 
     // Fetch recent activity
     $recentActivities = Database::fetchAll("SELECT * FROM `activity_logs` ORDER BY `created_at` DESC LIMIT 6");
     
     // Fetch latest news/events
-    $latestArticles = Database::fetchAll("SELECT * FROM `news_events` ORDER BY `created_at` DESC LIMIT 4");
+    $latestArticles = Database::fetchAll("SELECT * FROM `news_events` WHERE `deleted_at` IS NULL ORDER BY `created_at` DESC LIMIT 4");
 
     // Fetch school contact info preview
     $contactInfo = Database::fetchOne("SELECT * FROM `contact_information` LIMIT 1");
+
+    // Date-bucketed admission counters
+    $admissionsThisWeek  = (int)Database::fetchColumn("SELECT COUNT(*) FROM `admissions` WHERE YEARWEEK(`submitted_at`, 1) = YEARWEEK(NOW(), 1)");
+    $admissionsThisMonth = (int)Database::fetchColumn("SELECT COUNT(*) FROM `admissions` WHERE YEAR(`submitted_at`) = YEAR(NOW()) AND MONTH(`submitted_at`) = MONTH(NOW())");
+    $admissionsThisYear  = (int)Database::fetchColumn("SELECT COUNT(*) FROM `admissions` WHERE YEAR(`submitted_at`) = YEAR(NOW())");
+
+    // Applications over the last 6 months (real data, grouped by month)
+    $admissionsByMonthRaw = Database::fetchAll(
+        "SELECT DATE_FORMAT(`submitted_at`, '%Y-%m') AS ym, COUNT(*) AS total
+         FROM `admissions`
+         WHERE `submitted_at` >= (DATE_SUB(CURDATE(), INTERVAL 5 MONTH) - INTERVAL DAY(CURDATE())-1 DAY)
+         GROUP BY ym ORDER BY ym ASC"
+    );
+    $admissionsByMonth = [];
+    for ($i = 5; $i >= 0; $i--) {
+        $ym = date('Y-m', strtotime("-{$i} months"));
+        $admissionsByMonth[$ym] = ['label' => date('M', strtotime("-{$i} months")), 'total' => 0];
+    }
+    foreach ($admissionsByMonthRaw as $row) {
+        if (isset($admissionsByMonth[$row['ym']])) {
+            $admissionsByMonth[$row['ym']]['total'] = (int)$row['total'];
+        }
+    }
+
+    // Application status distribution (real data)
+    $statusDistributionRaw = Database::fetchAll("SELECT `status`, COUNT(*) AS total FROM `admissions` GROUP BY `status`");
+    $statusDistribution = [];
+    foreach ($statusDistributionRaw as $row) {
+        $statusDistribution[$row['status']] = (int)$row['total'];
+    }
+
+    // Website content activity over the last 6 months, sourced from the existing activity log
+    $contentActivityRaw = Database::fetchAll(
+        "SELECT DATE_FORMAT(`created_at`, '%Y-%m') AS ym, COUNT(*) AS total
+         FROM `activity_logs`
+         WHERE `module` IN ('news_events', 'gallery', 'homepage', 'staff', 'testimonials', 'about')
+         AND `created_at` >= (DATE_SUB(CURDATE(), INTERVAL 5 MONTH) - INTERVAL DAY(CURDATE())-1 DAY)
+         GROUP BY ym ORDER BY ym ASC"
+    );
+    $contentActivity = [];
+    for ($i = 5; $i >= 0; $i--) {
+        $ym = date('Y-m', strtotime("-{$i} months"));
+        $contentActivity[$ym] = ['label' => date('M', strtotime("-{$i} months")), 'total' => 0];
+    }
+    foreach ($contentActivityRaw as $row) {
+        if (isset($contentActivity[$row['ym']])) {
+            $contentActivity[$row['ym']]['total'] = (int)$row['total'];
+        }
+    }
 } catch (Exception $e) {
     $totalStaff = $publishedNews = $upcomingEvents = $draftNews = $totalGallery = 0;
     $totalAdmissions = $newAdmissions = $totalMedia = $testimonials = 0;
+    $admissionsThisWeek = $admissionsThisMonth = $admissionsThisYear = 0;
     $recentAdmissions = $recentActivities = $latestArticles = [];
+    $admissionsByMonth = $statusDistribution = $contentActivity = [];
     $contactInfo = null;
     $dbError = $e->getMessage();
 }
@@ -183,6 +234,49 @@ include CMS_ROOT . '/includes/header.php';
         </div>
     </div>
 </div>
+
+<?php if (can_manage('admissions')): ?>
+<!-- Date-Bucketed Admissions Counters -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-8">
+    <div class="cms-card p-4 flex items-center justify-between">
+        <div>
+            <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Applications This Week</p>
+            <h3 class="text-xl font-bold text-slate-900 mt-0.5"><?= $admissionsThisWeek ?></h3>
+        </div>
+        <span class="material-symbols-outlined text-[28px] text-slate-300">date_range</span>
+    </div>
+    <div class="cms-card p-4 flex items-center justify-between">
+        <div>
+            <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Applications This Month</p>
+            <h3 class="text-xl font-bold text-slate-900 mt-0.5"><?= $admissionsThisMonth ?></h3>
+        </div>
+        <span class="material-symbols-outlined text-[28px] text-slate-300">calendar_month</span>
+    </div>
+    <div class="cms-card p-4 flex items-center justify-between">
+        <div>
+            <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Applications This Year</p>
+            <h3 class="text-xl font-bold text-slate-900 mt-0.5"><?= $admissionsThisYear ?></h3>
+        </div>
+        <span class="material-symbols-outlined text-[28px] text-slate-300">event_available</span>
+    </div>
+</div>
+
+<!-- Reporting Charts -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
+    <div class="cms-card p-6 lg:col-span-5">
+        <h3 class="text-sm font-bold text-slate-900 brand-font uppercase tracking-wider mb-4">Applications Over Time</h3>
+        <canvas id="admissionsChart" height="220"></canvas>
+    </div>
+    <div class="cms-card p-6 lg:col-span-4">
+        <h3 class="text-sm font-bold text-slate-900 brand-font uppercase tracking-wider mb-4">Application Status</h3>
+        <canvas id="statusChart" height="220"></canvas>
+    </div>
+    <div class="cms-card p-6 lg:col-span-3">
+        <h3 class="text-sm font-bold text-slate-900 brand-font uppercase tracking-wider mb-4">Content Activity</h3>
+        <canvas id="contentActivityChart" height="220"></canvas>
+    </div>
+</div>
+<?php endif; ?>
 
 <!-- Main Dashboard Grid: Left (8 cols) & Right (4 cols) -->
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
@@ -515,4 +609,67 @@ include CMS_ROOT . '/includes/header.php';
     </div>
 </div>
 
+<?php if (can_manage('admissions')): ?>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script>
+(function() {
+    const monthLabels = <?= json_encode(array_column($admissionsByMonth, 'label')) ?>;
+    const admissionsData = <?= json_encode(array_column($admissionsByMonth, 'total')) ?>;
+    const contentLabels = <?= json_encode(array_column($contentActivity, 'label')) ?>;
+    const contentData = <?= json_encode(array_column($contentActivity, 'total')) ?>;
+
+    const statusOrder = ['New', 'Under Review', 'Contacted', 'Accepted', 'Rejected', 'Withdrawn'];
+    const statusColors = {
+        'New': '#dc2626', 'Under Review': '#d97706', 'Contacted': '#2563eb',
+        'Accepted': '#059669', 'Rejected': '#64748b', 'Withdrawn': '#7c3aed'
+    };
+    const statusDist = <?= json_encode($statusDistribution) ?>;
+    const statusLabels = statusOrder.filter(s => (statusDist[s] || 0) > 0);
+    const statusValues = statusLabels.map(s => statusDist[s]);
+    const statusBg = statusLabels.map(s => statusColors[s]);
+
+    if (document.getElementById('admissionsChart')) {
+        new Chart(document.getElementById('admissionsChart'), {
+            type: 'bar',
+            data: {
+                labels: monthLabels,
+                datasets: [{ label: 'Applications', data: admissionsData, backgroundColor: '#1e2a4a', borderRadius: 4 }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { display: false } },
+                scales: { y: { beginAtZero: true, ticks: { precision: 0 } } }
+            }
+        });
+    }
+
+    if (document.getElementById('statusChart')) {
+        if (statusLabels.length === 0) {
+            document.getElementById('statusChart').parentElement.insertAdjacentHTML('beforeend', '<p class="text-xs text-slate-400 text-center py-8">No application data yet.</p>');
+        } else {
+            new Chart(document.getElementById('statusChart'), {
+                type: 'doughnut',
+                data: { labels: statusLabels, datasets: [{ data: statusValues, backgroundColor: statusBg, borderWidth: 2, borderColor: '#fff' }] },
+                options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } } } }
+            });
+        }
+    }
+
+    if (document.getElementById('contentActivityChart')) {
+        new Chart(document.getElementById('contentActivityChart'), {
+            type: 'line',
+            data: {
+                labels: contentLabels,
+                datasets: [{ label: 'Content Updates', data: contentData, borderColor: '#d93633', backgroundColor: 'rgba(217,54,51,0.1)', tension: 0.3, fill: true }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { display: false } },
+                scales: { y: { beginAtZero: true, ticks: { precision: 0 } } }
+            }
+        });
+    }
+})();
+</script>
+<?php endif; ?>
 <?php include CMS_ROOT . '/includes/footer.php'; ?>

@@ -5,7 +5,7 @@
 if (!defined('CMS_ROOT')) define('CMS_ROOT', dirname(__DIR__));
 
 require_once CMS_ROOT . '/includes/auth.php';
-require_auth();
+require_module('news-events');
 
 $id = (int)($_GET['id'] ?? 0);
 $item = Database::fetchOne("SELECT * FROM `news_events` WHERE `id` = :id", ['id' => $id]);
@@ -64,6 +64,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
         try {
             $cleanContent = sanitize_html($content);
             $scheduledAt = !empty($_POST['scheduled_publish_at']) ? $_POST['scheduled_publish_at'] : null;
+            $expiresAt = !empty($_POST['expires_at']) ? date('Y-m-d H:i:s', strtotime($_POST['expires_at'])) : null;
 
             $updateData = [
                 'title'          => $title,
@@ -73,7 +74,8 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
                 'content'        => $cleanContent,
                 'event_date'     => $eventDate,
                 'event_location' => $eventLocation,
-                'status'         => $status
+                'status'         => $status,
+                'expires_at'     => $expiresAt
             ];
 
             if ($imagePath) {
@@ -215,10 +217,23 @@ include CMS_ROOT . '/includes/header.php';
 
             <div class="sm:col-span-6">
                 <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Scheduled Publication Date / Time</label>
-                <input type="datetime-local" name="scheduled_publish_at" 
-                       value="<?= !empty($item['published_at']) ? date('Y-m-d\TH:i', strtotime($item['published_at'])) : '' ?>" 
+                <input type="datetime-local" name="scheduled_publish_at"
+                       value="<?= !empty($item['published_at']) ? date('Y-m-d\TH:i', strtotime($item['published_at'])) : '' ?>"
                        class="cms-input">
                 <p class="text-[11px] text-slate-400 mt-1">Leave blank to keep current publish time.</p>
+            </div>
+
+            <div class="sm:col-span-6">
+                <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">
+                    Auto-Expire Date / Time
+                    <?php if (!empty($item['expires_at']) && strtotime($item['expires_at']) <= time()): ?>
+                        <span class="ml-1 px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-800 align-middle">Expired</span>
+                    <?php endif; ?>
+                </label>
+                <input type="datetime-local" name="expires_at"
+                       value="<?= !empty($item['expires_at']) ? date('Y-m-d\TH:i', strtotime($item['expires_at'])) : '' ?>"
+                       class="cms-input">
+                <p class="text-[11px] text-slate-400 mt-1">Optional: the post automatically stops appearing on the public site after this time. Leave blank for no expiry.</p>
             </div>
         </div>
 

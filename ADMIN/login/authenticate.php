@@ -29,6 +29,14 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     redirect(admin_url('login/login.php'));
 }
 
+if (is_login_locked($email)) {
+    log_activity('Blocked Login Attempt (Rate Limited)', 'Too many recent failed attempts for: ' . $email, 'auth');
+    set_flash('danger', 'Too many failed sign-in attempts for this account. Please wait 15 minutes and try again.');
+    redirect(admin_url('login/login.php'));
+}
+
+$remember = !empty($_POST['remember']);
+
 try {
     $admin = Database::fetchOne("SELECT * FROM `admins` WHERE `email` = :email LIMIT 1", ['email' => $email]);
 
@@ -41,11 +49,11 @@ try {
         }
 
         // Successful login
-        login_admin($admin);
-        
+        login_admin($admin, $remember);
+
         $redirectTo = $_SESSION['redirect_to'] ?? admin_url('dashboard/');
         unset($_SESSION['redirect_to']);
-        
+
         set_flash('success', 'Welcome back, ' . $admin['name'] . '!');
         redirect($redirectTo);
     } else {
@@ -56,6 +64,6 @@ try {
         redirect(admin_url('login/login.php'));
     }
 } catch (Exception $e) {
-    set_flash('danger', 'Database error encountered during authentication: ' . $e->getMessage());
+    set_flash('danger', 'A system error occurred during sign in. Please try again shortly.');
     redirect(admin_url('login/login.php'));
 }

@@ -5,7 +5,7 @@
 if (!defined('CMS_ROOT')) define('CMS_ROOT', dirname(__DIR__));
 
 require_once CMS_ROOT . '/includes/auth.php';
-require_auth();
+require_module('news-events');
 
 $pageTitle = 'News & Events Management';
 $activeMenu = 'news-events';
@@ -14,7 +14,7 @@ $search = trim($_GET['search'] ?? '');
 $typeFilter = $_GET['type'] ?? '';
 $statusFilter = $_GET['status'] ?? '';
 
-$where = ['1 = 1'];
+$where = ['`deleted_at` IS NULL'];
 $params = [];
 
 if ($search !== '') {
@@ -149,6 +149,9 @@ include CMS_ROOT . '/includes/header.php';
                                 <span class="cms-badge <?= $item['status'] === 'published' ? 'badge-published' : 'badge-draft' ?>">
                                     <?= ucfirst($item['status']) ?>
                                 </span>
+                                <?php if (!empty($item['expires_at']) && strtotime($item['expires_at']) <= time()): ?>
+                                    <span class="cms-badge bg-amber-100 text-amber-800 ml-1">Expired</span>
+                                <?php endif; ?>
                             </td>
                             <td class="text-right">
                                 <div class="flex items-center justify-end gap-2">

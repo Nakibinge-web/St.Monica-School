@@ -18,7 +18,7 @@ try {
 
     $coreValues = Database::fetchAll("SELECT `id`, `title`, `display_order` FROM `core_values` WHERE `status` = 'active' ORDER BY `display_order` ASC");
     $facilities = Database::fetchAll("SELECT `id`, `title`, `description`, `image`, `display_order` FROM `facilities` WHERE `status` = 'active' ORDER BY `display_order` ASC");
-    $administrators = Database::fetchAll("SELECT `id`, `name`, `position`, `department`, `biography`, `email`, `photo` FROM `staff` WHERE `status` = 'published' AND `department` = 'Administration' ORDER BY `display_order` ASC");
+    $administrators = Database::fetchAll("SELECT `id`, `name`, `position`, `department`, `biography`, `email`, `photo` FROM `staff` WHERE `status` = 'published' AND `deleted_at` IS NULL AND `department` = 'Administration' ORDER BY `display_order` ASC");
 
     json_response(true, 'About Us content loaded successfully.', [
         'sections'       => $sections,
@@ -27,5 +27,5 @@ try {
         'administrators' => $administrators
     ]);
 } catch (Exception $e) {
-    json_response(false, 'Failed to retrieve About Us data: ' . $e->getMessage(), null, 500);
+    json_error($e, 'Failed to retrieve About Us data.');
 }

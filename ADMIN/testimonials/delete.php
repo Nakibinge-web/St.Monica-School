@@ -20,16 +20,11 @@ if ($id > 0) {
         $item = Database::fetchOne("SELECT * FROM `testimonials` WHERE `id` = :id", ['id' => $id]);
 
         if ($item) {
-            Database::delete('testimonials', 'id = :id', ['id' => $id]);
-
-            // Clean up uploaded image if present
-            if (!empty($item['photo']) && str_contains($item['photo'], 'ADMIN/uploads/')) {
-                $fullPath = CMS_ROOT . '/uploads/' . basename(dirname($item['photo'])) . '/' . basename($item['photo']);
-                if (file_exists($fullPath)) @unlink($fullPath);
-            }
+            // Soft delete: the record and photo are kept so it can be restored from Trash.
+            Database::update('testimonials', ['deleted_at' => date('Y-m-d H:i:s')], 'id = :id', ['id' => $id]);
 
             log_activity('Deleted Testimonial', "Deleted testimonial by {$item['name']}", 'testimonials', $id);
-            set_flash('success', "{$item['name']} deleted successfully.");
+            set_flash('success', "Testimonial by '{$item['name']}' moved to Trash.");
         } else {
             set_flash('danger', 'Testimonial not found.');
         }

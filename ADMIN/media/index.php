@@ -13,6 +13,8 @@ $activeMenu = 'media';
 $search = trim($_GET['search'] ?? '');
 $typeFilter = trim($_GET['type'] ?? '');
 $categoryFilter = trim($_GET['category'] ?? '');
+$dateFrom = trim($_GET['date_from'] ?? '');
+$dateTo = trim($_GET['date_to'] ?? '');
 $page = max(1, (int)($_GET['page'] ?? 1));
 $perPage = 16;
 
@@ -30,6 +32,14 @@ if (!empty($typeFilter)) {
 if (!empty($categoryFilter)) {
     $where[] = "`category` = :cat";
     $params['cat'] = $categoryFilter;
+}
+if (!empty($dateFrom)) {
+    $where[] = "DATE(`created_at`) >= :date_from";
+    $params['date_from'] = $dateFrom;
+}
+if (!empty($dateTo)) {
+    $where[] = "DATE(`created_at`) <= :date_to";
+    $params['date_to'] = $dateTo;
 }
 
 $whereSql = implode(' AND ', $where);
@@ -50,40 +60,8 @@ try {
 
 $totalPages = ceil($totalRows / $perPage);
 
-// Helper function to format bytes nicely
-function format_bytes(int $bytes): string {
-    if ($bytes >= 1048576) {
-        return number_format($bytes / 1048576, 1) . ' MB';
-    } elseif ($bytes >= 1024) {
-        return number_format($bytes / 1024, 0) . ' KB';
-    }
-    return $bytes . ' B';
-}
-
-// Function to find where a media file is used across the CMS
-function get_media_usage(string $filePath): array {
-    $usages = [];
-    try {
-        if (Database::fetchColumn("SELECT COUNT(*) FROM `hero_slides` WHERE `image` = :p", ['p' => $filePath]) > 0) {
-            $usages[] = 'Hero Carousel';
-        }
-        if (Database::fetchColumn("SELECT COUNT(*) FROM `staff` WHERE `photo` = :p", ['p' => $filePath]) > 0) {
-            $usages[] = 'Staff Directory';
-        }
-        if (Database::fetchColumn("SELECT COUNT(*) FROM `news_events` WHERE `featured_image` = :p", ['p' => $filePath]) > 0) {
-            $usages[] = 'News & Events';
-        }
-        if (Database::fetchColumn("SELECT COUNT(*) FROM `gallery` WHERE `file_path` = :p", ['p' => $filePath]) > 0) {
-            $usages[] = 'Gallery';
-        }
-        if (Database::fetchColumn("SELECT COUNT(*) FROM `facilities` WHERE `image` = :p", ['p' => $filePath]) > 0) {
-            $usages[] = 'Facilities';
-        }
-    } catch (Exception $e) {
-        // Table might not be ready
-    }
-    return $usages;
-}
+// format_bytes() and get_media_usage() are defined in includes/functions.php,
+// shared with media/delete.php and media/cleanup.php.
 
 $categories = ['Campus Life', 'Academics', 'Sports & MDD', 'Special Events', 'Facilities', 'Administration', 'General'];
 
@@ -96,6 +74,10 @@ include CMS_ROOT . '/includes/header.php';
         <p class="text-sm text-slate-500 mt-1">Upload, search, optimize, and manage reusable school photos, videos, and media assets.</p>
     </div>
     <div class="flex items-center gap-3">
+        <a href="<?= admin_url('media/cleanup.php') ?>" class="cms-btn cms-btn-outline text-xs">
+            <span class="material-symbols-outlined text-[16px]">cleaning_services</span>
+            <span>Cleanup Tool</span>
+        </a>
         <a href="<?= admin_url('gallery/') ?>" class="cms-btn cms-btn-outline text-xs">
             <span class="material-symbols-outlined text-[16px]">photo_library</span>
             <span>Gallery Albums</span>
@@ -110,13 +92,13 @@ include CMS_ROOT . '/includes/header.php';
 <!-- Search & Filters Bar -->
 <div class="cms-card p-4 mb-6">
     <form method="GET" action="<?= admin_url('media/') ?>" class="grid grid-cols-1 sm:grid-cols-12 gap-3">
-        <div class="sm:col-span-5 relative">
+        <div class="sm:col-span-4 relative">
             <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">search</span>
             <input type="text" name="search" value="<?= e($search) ?>" placeholder="Search by title, alt text, or filename..."
                    class="cms-input pl-10 text-sm">
         </div>
 
-        <div class="sm:col-span-3">
+        <div class="sm:col-span-2">
             <select name="type" class="cms-select text-sm">
                 <option value="">All Media Types</option>
                 <option value="image" <?= $typeFilter === 'image' ? 'selected' : '' ?>>Images Only</option>
@@ -134,9 +116,16 @@ include CMS_ROOT . '/includes/header.php';
             </select>
         </div>
 
+        <div class="sm:col-span-1">
+            <input type="date" name="date_from" value="<?= e($dateFrom) ?>" title="Uploaded From" class="cms-input text-xs">
+        </div>
+        <div class="sm:col-span-1">
+            <input type="date" name="date_to" value="<?= e($dateTo) ?>" title="Uploaded To" class="cms-input text-xs">
+        </div>
+
         <div class="sm:col-span-2 flex gap-2">
             <button type="submit" class="cms-btn cms-btn-primary flex-1 text-xs">Filter</button>
-            <?php if ($search || $typeFilter || $categoryFilter): ?>
+            <?php if ($search || $typeFilter || $categoryFilter || $dateFrom || $dateTo): ?>
                 <a href="<?= admin_url('media/') ?>" class="cms-btn cms-btn-outline text-xs" title="Clear Filters">
                     <span class="material-symbols-outlined text-[16px]">clear</span>
                 </a>
@@ -252,7 +241,7 @@ include CMS_ROOT . '/includes/header.php';
     <?php endif; ?>
 
     <!-- Pagination -->
-    <?= render_pagination($page, $totalPages, admin_url('media/'), array_filter(['search' => $search, 'type' => $typeFilter, 'category' => $categoryFilter])) ?>
+    <?= render_pagination($page, $totalPages, admin_url('media/'), array_filter(['search' => $search, 'type' => $typeFilter, 'category' => $categoryFilter, 'date_from' => $dateFrom, 'date_to' => $dateTo])) ?>
 </div>
 
 <?php include CMS_ROOT . '/includes/footer.php'; ?>

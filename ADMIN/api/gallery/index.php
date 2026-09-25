@@ -11,7 +11,7 @@ require_once CMS_ROOT . '/includes/database.php';
 
 try {
     $category = trim($_GET['category'] ?? '');
-    $where = ["`status` = 'published'"];
+    $where = ["`status` = 'published'", "`deleted_at` IS NULL"];
     $params = [];
 
     if (!empty($category) && $category !== 'All Photos') {
@@ -24,5 +24,5 @@ try {
 
     json_response(true, 'Gallery images retrieved successfully.', $gallery);
 } catch (Exception $e) {
-    json_response(false, 'Failed to retrieve gallery: ' . $e->getMessage(), null, 500);
+    json_error($e, 'Failed to retrieve gallery.');
 }

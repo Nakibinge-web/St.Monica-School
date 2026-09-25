@@ -14,6 +14,8 @@ $activeMenu = 'admissions';
 $search = trim($_GET['search'] ?? '');
 $statusFilter = trim($_GET['status'] ?? '');
 $classFilter = trim($_GET['class'] ?? '');
+$dateFrom = trim($_GET['date_from'] ?? '');
+$dateTo = trim($_GET['date_to'] ?? '');
 $page = max(1, (int)($_GET['page'] ?? 1));
 $perPage = 10;
 
@@ -47,6 +49,14 @@ if (!empty($statusFilter)) {
 if (!empty($classFilter)) {
     $where[] = "`pupil_class` = :class";
     $params['class'] = $classFilter;
+}
+if (!empty($dateFrom)) {
+    $where[] = "DATE(`submitted_at`) >= :date_from";
+    $params['date_from'] = $dateFrom;
+}
+if (!empty($dateTo)) {
+    $where[] = "DATE(`submitted_at`) <= :date_to";
+    $params['date_to'] = $dateTo;
 }
 
 $whereSql = implode(' AND ', $where);
@@ -144,13 +154,13 @@ include CMS_ROOT . '/includes/header.php';
 <!-- Search & Filters -->
 <div class="cms-card p-4 mb-6">
     <form method="GET" action="<?= admin_url('admissions/') ?>" class="grid grid-cols-1 sm:grid-cols-12 gap-3">
-        <div class="sm:col-span-5 relative">
+        <div class="sm:col-span-4 relative">
             <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">search</span>
             <input type="text" name="search" value="<?= e($search) ?>" placeholder="Search by name, app #, parent or phone..."
                    class="cms-input pl-10 text-sm">
         </div>
 
-        <div class="sm:col-span-3">
+        <div class="sm:col-span-2">
             <select name="status" class="cms-select text-sm">
                 <option value="">All Statuses</option>
                 <?php foreach ($statusesList as $s): ?>
@@ -168,9 +178,16 @@ include CMS_ROOT . '/includes/header.php';
             </select>
         </div>
 
+        <div class="sm:col-span-1">
+            <input type="date" name="date_from" value="<?= e($dateFrom) ?>" title="Submitted From" class="cms-input text-xs">
+        </div>
+        <div class="sm:col-span-1">
+            <input type="date" name="date_to" value="<?= e($dateTo) ?>" title="Submitted To" class="cms-input text-xs">
+        </div>
+
         <div class="sm:col-span-2 flex gap-2">
             <button type="submit" class="cms-btn cms-btn-primary flex-1 text-xs">Filter</button>
-            <?php if ($search || $statusFilter || $classFilter): ?>
+            <?php if ($search || $statusFilter || $classFilter || $dateFrom || $dateTo): ?>
                 <a href="<?= admin_url('admissions/') ?>" class="cms-btn cms-btn-outline text-xs" title="Clear Filters">
                     <span class="material-symbols-outlined text-[16px]">clear</span>
                 </a>
@@ -273,7 +290,7 @@ include CMS_ROOT . '/includes/header.php';
     </div>
 
     <!-- Pagination -->
-    <?= render_pagination($page, $totalPages, admin_url('admissions/'), array_filter(['search' => $search, 'status' => $statusFilter, 'class' => $classFilter])) ?>
+    <?= render_pagination($page, $totalPages, admin_url('admissions/'), array_filter(['search' => $search, 'status' => $statusFilter, 'class' => $classFilter, 'date_from' => $dateFrom, 'date_to' => $dateTo])) ?>
 </div>
 
 <?php include CMS_ROOT . '/includes/footer.php'; ?>

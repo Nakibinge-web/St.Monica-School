@@ -24,13 +24,27 @@ try {
     $stats = Database::fetchAll("SELECT `id`, `number_value`, `suffix`, `label`, `icon`, `display_order` FROM `statistics` WHERE `status` = 'active' ORDER BY `display_order` ASC, `id` ASC");
 
     // 5. Featured Staff Team for Homepage
-    $featuredStaff = Database::fetchAll("SELECT `id`, `name`, `position`, `department`, `biography`, `email`, `photo` FROM `staff` WHERE `status` = 'published' AND `is_featured` = 1 ORDER BY `display_order` ASC, `id` ASC LIMIT 6");
+    $featuredStaff = Database::fetchAll("SELECT `id`, `name`, `position`, `department`, `biography`, `email`, `photo` FROM `staff` WHERE `status` = 'published' AND `deleted_at` IS NULL AND `is_featured` = 1 ORDER BY `display_order` ASC, `id` ASC LIMIT 6");
 
     // 6. Latest News & Events
-    $latestNews = Database::fetchAll("SELECT `id`, `title`, `slug`, `type`, `excerpt`, `featured_image`, `event_date`, `event_location`, `created_at` FROM `news_events` WHERE `status` = 'published' ORDER BY `created_at` DESC LIMIT 3");
+    $latestNews = Database::fetchAll("SELECT `id`, `title`, `slug`, `type`, `excerpt`, `featured_image`, `event_date`, `event_location`, `created_at` FROM `news_events` WHERE `status` = 'published' AND `deleted_at` IS NULL AND (`published_at` IS NULL OR `published_at` <= NOW()) AND (`expires_at` IS NULL OR `expires_at` > NOW()) ORDER BY `created_at` DESC LIMIT 3");
 
     // 7. Contact Information
     $contact = Database::fetchOne("SELECT `school_name`, `phone`, `alternative_phone`, `email`, `admissions_email`, `opening_hours`, `address`, `village`, `district`, `map_url`, `whatsapp`, `facebook`, `instagram`, `youtube` FROM `contact_information` LIMIT 1");
+
+    // 8. Active Announcements (short urgent notices)
+    $announcements = [];
+    try {
+        $announcements = Database::fetchAll(
+            "SELECT `id`, `title`, `message`, `start_date`, `end_date` FROM `announcements`
+             WHERE `status` = 'active'
+             AND (`start_date` IS NULL OR `start_date` <= CURDATE())
+             AND (`end_date` IS NULL OR `end_date` >= CURDATE())
+             ORDER BY `display_order` ASC, `id` DESC"
+        );
+    } catch (Exception $e) {
+        // Table may not exist yet on an unmigrated install
+    }
 
     json_response(true, 'Homepage CMS data loaded successfully.', [
         'hero_slides'      => $slides,
@@ -42,8 +56,9 @@ try {
         'statistics'       => $stats,
         'featured_staff'   => $featuredStaff,
         'latest_news'      => $latestNews,
-        'contact'          => $contact
+        'contact'          => $contact,
+        'announcements'    => $announcements
     ]);
 } catch (Exception $e) {
-    json_response(false, 'Failed to retrieve homepage data: ' . $e->getMessage(), null, 500);
+    json_error($e, 'Failed to retrieve homepage data.');
 }

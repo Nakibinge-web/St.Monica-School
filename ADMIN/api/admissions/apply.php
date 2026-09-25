@@ -8,6 +8,8 @@ if (!defined('CMS_ROOT')) define('CMS_ROOT', dirname(dirname(__DIR__)));
 require_once CMS_ROOT . '/includes/config.php';
 require_once CMS_ROOT . '/includes/functions.php';
 require_once CMS_ROOT . '/includes/database.php';
+require_once CMS_ROOT . '/services/NotificationService.php';
+require_once CMS_ROOT . '/services/EmailService.php';
 
 // Handle CORS preflight
 if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
@@ -99,6 +101,37 @@ try {
         $newId
     );
 
+    NotificationService::create(
+        'New admission application',
+        "{$pupilName} ({$pupilClass}) submitted application {$applicationNumber}.",
+        admin_url('admissions/view.php?id=' . $newId),
+        'admission'
+    );
+
+    // Best-effort notification emails; never block the public response
+    try {
+        $staffRecipients = Database::fetchAll("SELECT `name`, `email` FROM `admins` WHERE `status` = 'active' AND `role` IN ('super_admin', 'administrator', 'admissions_manager')");
+        foreach ($staffRecipients as $staff) {
+            EmailService::sendTemplate('new_application_staff', $staff['email'], [
+                'application_number' => $applicationNumber,
+                'pupil_name'         => $pupilName,
+                'pupil_class'        => $pupilClass,
+                'parent_name'        => $parentName,
+                'school_name'        => 'St. Monica Junior School Kasanje'
+            ], $staff['name']);
+        }
+        if (!empty($email)) {
+            EmailService::sendTemplate('application_received', $email, [
+                'parent_name'        => $parentName,
+                'pupil_name'         => $pupilName,
+                'application_number' => $applicationNumber,
+                'school_name'        => 'St. Monica Junior School Kasanje'
+            ], $parentName);
+        }
+    } catch (Exception $mailEx) {
+        // Notification email is best-effort only
+    }
+
     json_response(true, "Application submitted successfully! Your tracking reference is {$applicationNumber}.", [
         'application_number' => $applicationNumber,
         'pupil_name'         => $pupilName,
@@ -109,5 +142,5 @@ try {
     ], 201);
 
 } catch (Exception $e) {
-    json_response(false, 'Unable to submit application at this time: ' . $e->getMessage(), null, 500);
+    json_error($e, 'Unable to submit application at this time.');
 }

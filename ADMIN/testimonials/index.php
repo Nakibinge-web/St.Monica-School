@@ -15,7 +15,7 @@ $statusFilter = trim($_GET['status'] ?? '');
 $page = max(1, (int)($_GET['page'] ?? 1));
 $perPage = 10;
 
-$where = ['1 = 1'];
+$where = ['`deleted_at` IS NULL'];
 $params = [];
 
 if ($search !== '') {

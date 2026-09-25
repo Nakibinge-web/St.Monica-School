@@ -1,19 +1,26 @@
 <?php
 /**
- * St. Monica Junior School CMS - Layout Sidebar (Phase Two)
+ * St. Monica Junior School CMS - Layout Sidebar (Phase Three)
  */
 $activeMenu = $activeMenu ?? '';
 $newAdmissionsCount = 0;
+$newEnquiriesCount = 0;
+$unreadNotifCount = 0;
 try {
     require_once CMS_ROOT . '/includes/database.php';
     $newAdmissionsCount = (int)Database::fetchColumn("SELECT COUNT(*) FROM `admissions` WHERE `status` = 'New'");
+    $newEnquiriesCount = (int)Database::fetchColumn("SELECT COUNT(*) FROM `enquiries` WHERE `status` = 'new'");
+    if (!empty($_SESSION['admin_id'])) {
+        require_once CMS_ROOT . '/services/NotificationService.php';
+        $unreadNotifCount = NotificationService::unreadCount((int)$_SESSION['admin_id']);
+    }
 } catch (Exception $e) {
     // Database table might not be initialized yet
 }
 ?>
-<aside id="adminSidebar" class="admin-sidebar fixed inset-y-0 left-0 top-16 z-40 flex flex-col justify-between py-6 px-4 overflow-y-auto lg:static lg:top-0 lg:z-auto">
+<aside id="adminSidebar" class="admin-sidebar fixed inset-y-0 left-0 top-16 z-40 flex flex-col justify-between py-6 px-4 overflow-y-auto lg:sticky lg:top-16 lg:z-auto lg:h-[calc(100vh-4rem)]">
     <div class="space-y-6">
-        <!-- Main Navigation -->
+        <!-- Overview -->
         <div>
             <div class="px-3 mb-2 text-[11px] font-bold text-slate-400 uppercase tracking-wider">Overview</div>
             <nav class="space-y-1">
@@ -21,16 +28,10 @@ try {
                     <span class="material-symbols-outlined text-[20px]">dashboard</span>
                     <span>Dashboard</span>
                 </a>
-                <?php if (can_manage('*')): ?>
-                <a href="<?= admin_url('logs/') ?>" class="sidebar-link <?= ($activeMenu === 'logs') ? 'active' : '' ?>">
-                    <span class="material-symbols-outlined text-[20px]">receipt_long</span>
-                    <span>Activity Logs</span>
-                </a>
-                <?php endif; ?>
             </nav>
         </div>
 
-        <!-- Admissions Management -->
+        <!-- Admissions -->
         <?php if (can_manage('admissions')): ?>
         <div>
             <div class="px-3 mb-2 text-[11px] font-bold text-slate-400 uppercase tracking-wider">Admissions</div>
@@ -54,10 +55,10 @@ try {
         </div>
         <?php endif; ?>
 
-        <!-- Website Sections -->
+        <!-- Website -->
         <?php if (can_manage('homepage') || can_manage('about') || can_manage('contact') || can_manage('seo')): ?>
         <div>
-            <div class="px-3 mb-2 text-[11px] font-bold text-slate-400 uppercase tracking-wider">Pages & SEO</div>
+            <div class="px-3 mb-2 text-[11px] font-bold text-slate-400 uppercase tracking-wider">Website</div>
             <nav class="space-y-1">
                 <?php if (can_manage('homepage')): ?>
                 <a href="<?= admin_url('homepage/') ?>" class="sidebar-link <?= ($activeMenu === 'homepage') ? 'active' : '' ?>">
@@ -90,10 +91,10 @@ try {
         </div>
         <?php endif; ?>
 
-        <!-- Dynamic Content Management -->
-        <?php if (can_manage('staff') || can_manage('news-events') || can_manage('testimonials') || can_manage('media') || can_manage('gallery')): ?>
+        <!-- Content -->
+        <?php if (can_manage('staff') || can_manage('news-events') || can_manage('testimonials') || can_manage('media') || can_manage('gallery') || can_manage('announcements')): ?>
         <div>
-            <div class="px-3 mb-2 text-[11px] font-bold text-slate-400 uppercase tracking-wider">Content & Media</div>
+            <div class="px-3 mb-2 text-[11px] font-bold text-slate-400 uppercase tracking-wider">Content</div>
             <nav class="space-y-1">
                 <?php if (can_manage('staff')): ?>
                 <a href="<?= admin_url('staff/') ?>" class="sidebar-link <?= ($activeMenu === 'staff') ? 'active' : '' ?>">
@@ -116,6 +117,13 @@ try {
                 </a>
                 <?php endif; ?>
 
+                <?php if (can_manage('gallery')): ?>
+                <a href="<?= admin_url('gallery/') ?>" class="sidebar-link <?= ($activeMenu === 'gallery') ? 'active' : '' ?>">
+                    <span class="material-symbols-outlined text-[20px]">photo_library</span>
+                    <span>Gallery Albums</span>
+                </a>
+                <?php endif; ?>
+
                 <?php if (can_manage('media')): ?>
                 <a href="<?= admin_url('media/') ?>" class="sidebar-link <?= ($activeMenu === 'media') ? 'active' : '' ?>">
                     <span class="material-symbols-outlined text-[20px]">perm_media</span>
@@ -123,19 +131,91 @@ try {
                 </a>
                 <?php endif; ?>
 
-                <?php if (can_manage('gallery')): ?>
-                <a href="<?= admin_url('gallery/') ?>" class="sidebar-link <?= ($activeMenu === 'gallery') ? 'active' : '' ?>">
-                    <span class="material-symbols-outlined text-[20px]">photo_library</span>
-                    <span>Gallery Albums</span>
+                <?php if (can_manage('announcements')): ?>
+                <a href="<?= admin_url('announcements/') ?>" class="sidebar-link <?= ($activeMenu === 'announcements') ? 'active' : '' ?>">
+                    <span class="material-symbols-outlined text-[20px]">campaign</span>
+                    <span>Announcements</span>
                 </a>
                 <?php endif; ?>
             </nav>
         </div>
         <?php endif; ?>
 
-        <!-- System & Account -->
+        <!-- Communications -->
+        <?php if (can_manage('notifications') || can_manage('inquiries') || has_role('super_admin')): ?>
+        <div>
+            <div class="px-3 mb-2 text-[11px] font-bold text-slate-400 uppercase tracking-wider">Communications</div>
+            <nav class="space-y-1">
+                <?php if (can_manage('notifications')): ?>
+                <a href="<?= admin_url('notifications/') ?>" class="sidebar-link <?= ($activeMenu === 'notifications') ? 'active' : '' ?> flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-[20px]">notifications</span>
+                        <span>Notifications</span>
+                    </div>
+                    <?php if ($unreadNotifCount > 0): ?>
+                        <span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-red-500 text-white shadow-sm"><?= $unreadNotifCount ?></span>
+                    <?php endif; ?>
+                </a>
+                <?php endif; ?>
+
+                <?php if (can_manage('inquiries')): ?>
+                <a href="<?= admin_url('inquiries/') ?>" class="sidebar-link <?= ($activeMenu === 'inquiries') ? 'active' : '' ?> flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-[20px]">mail</span>
+                        <span>Enquiries</span>
+                    </div>
+                    <?php if ($newEnquiriesCount > 0): ?>
+                        <span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-red-500 text-white shadow-sm"><?= $newEnquiriesCount ?></span>
+                    <?php endif; ?>
+                </a>
+                <?php endif; ?>
+
+                <?php if (has_role('super_admin')): ?>
+                <a href="<?= admin_url('email-templates/') ?>" class="sidebar-link <?= ($activeMenu === 'email-templates') ? 'active' : '' ?>">
+                    <span class="material-symbols-outlined text-[20px]">forward_to_inbox</span>
+                    <span>Email Templates</span>
+                </a>
+                <?php endif; ?>
+            </nav>
+        </div>
+        <?php endif; ?>
+
+        <!-- System -->
+        <?php if (has_role('super_admin')): ?>
         <div>
             <div class="px-3 mb-2 text-[11px] font-bold text-slate-400 uppercase tracking-wider">System</div>
+            <nav class="space-y-1">
+                <a href="<?= admin_url('logs/') ?>" class="sidebar-link <?= ($activeMenu === 'logs') ? 'active' : '' ?>">
+                    <span class="material-symbols-outlined text-[20px]">receipt_long</span>
+                    <span>Activity Log</span>
+                </a>
+                <a href="<?= admin_url('trash/') ?>" class="sidebar-link <?= ($activeMenu === 'trash') ? 'active' : '' ?>">
+                    <span class="material-symbols-outlined text-[20px]">delete</span>
+                    <span>Trash</span>
+                </a>
+                <a href="<?= admin_url('backups/') ?>" class="sidebar-link <?= ($activeMenu === 'backups') ? 'active' : '' ?>">
+                    <span class="material-symbols-outlined text-[20px]">backup</span>
+                    <span>Backups</span>
+                </a>
+                <a href="<?= admin_url('security/') ?>" class="sidebar-link <?= ($activeMenu === 'security') ? 'active' : '' ?>">
+                    <span class="material-symbols-outlined text-[20px]">security</span>
+                    <span>Security Center</span>
+                </a>
+                <a href="<?= admin_url('system/') ?>" class="sidebar-link <?= ($activeMenu === 'system') ? 'active' : '' ?>">
+                    <span class="material-symbols-outlined text-[20px]">monitor_heart</span>
+                    <span>System Health</span>
+                </a>
+                <a href="<?= admin_url('settings/') ?>" class="sidebar-link <?= ($activeMenu === 'settings') ? 'active' : '' ?>">
+                    <span class="material-symbols-outlined text-[20px]">tune</span>
+                    <span>Settings</span>
+                </a>
+            </nav>
+        </div>
+        <?php endif; ?>
+
+        <!-- Administration -->
+        <div>
+            <div class="px-3 mb-2 text-[11px] font-bold text-slate-400 uppercase tracking-wider">Administration</div>
             <nav class="space-y-1">
                 <?php if (has_role('super_admin')): ?>
                 <a href="<?= admin_url('users/') ?>" class="sidebar-link <?= ($activeMenu === 'users') ? 'active' : '' ?>">
@@ -153,10 +233,12 @@ try {
 
     <!-- Bottom Actions / Quick info -->
     <div class="pt-6 mt-6 border-t border-slate-700/50 space-y-2">
+        <?php if (has_role('super_admin')): ?>
         <a href="<?= admin_url('database/setup.php') ?>" class="sidebar-link text-xs opacity-75 hover:opacity-100">
             <span class="material-symbols-outlined text-[18px]">database</span>
             <span>Database Setup</span>
         </a>
+        <?php endif; ?>
         <a href="<?= admin_url('login/logout.php') ?>" class="sidebar-link text-red-300 hover:text-red-100 hover:bg-red-900/30">
             <span class="material-symbols-outlined text-[18px]">logout</span>
             <span>Sign Out</span>

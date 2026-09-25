@@ -139,6 +139,27 @@ function json_response(bool $success, string $message, mixed $data = null, int $
 }
 
 /**
+ * Respond to a caught exception on a public API endpoint without leaking
+ * internal error detail (SQL text, file paths, stack traces) to visitors.
+ * The generic message is always shown unless app.debug is explicitly enabled.
+ */
+function json_error(Throwable $e, string $genericMessage, int $statusCode = 500): void {
+    $debug = false;
+    try {
+        $config = require CMS_ROOT . '/includes/config.php';
+        $debug = !empty($config['app']['debug']);
+    } catch (Throwable $ignored) {
+        // Fall through with debug disabled
+    }
+
+    if ($debug) {
+        error_log('[St.Monica API] ' . $e->getMessage());
+    }
+
+    json_response(false, $debug ? ($genericMessage . ' (' . $e->getMessage() . ')') : $genericMessage, null, $statusCode);
+}
+
+/**
  * Handle image file upload with strict MIME & extension validation
  *
  * @param array $file $_FILES['input_name']
@@ -443,6 +464,53 @@ function render_pagination(int $currentPage, int $totalPages, string $baseUrl, a
 
     $html .= '</nav></div></div></div>';
     return $html;
+}
+
+/**
+ * Format a byte count into a human readable string
+ */
+function format_bytes(int $bytes): string {
+    if ($bytes >= 1048576) {
+        return number_format($bytes / 1048576, 1) . ' MB';
+    } elseif ($bytes >= 1024) {
+        return number_format($bytes / 1024, 0) . ' KB';
+    }
+    return $bytes . ' B';
+}
+
+/**
+ * Find where a media file (by relative path) is referenced across the CMS content tables.
+ * Used by the Media Library, delete confirmation, and the media cleanup tool so a file
+ * is never removed without the administrator knowing it is still in active use.
+ */
+function get_media_usage(string $filePath): array {
+    $usages = [];
+    try {
+        if (Database::fetchColumn("SELECT COUNT(*) FROM `hero_slides` WHERE `image` = :p", ['p' => $filePath]) > 0) {
+            $usages[] = 'Hero Carousel';
+        }
+        if (Database::fetchColumn("SELECT COUNT(*) FROM `staff` WHERE `photo` = :p", ['p' => $filePath]) > 0) {
+            $usages[] = 'Staff Directory';
+        }
+        if (Database::fetchColumn("SELECT COUNT(*) FROM `news_events` WHERE `featured_image` = :p", ['p' => $filePath]) > 0) {
+            $usages[] = 'News & Events';
+        }
+        if (Database::fetchColumn("SELECT COUNT(*) FROM `gallery` WHERE `file_path` = :p", ['p' => $filePath]) > 0) {
+            $usages[] = 'Gallery';
+        }
+        if (Database::fetchColumn("SELECT COUNT(*) FROM `facilities` WHERE `image` = :p", ['p' => $filePath]) > 0) {
+            $usages[] = 'Facilities';
+        }
+        if (Database::fetchColumn("SELECT COUNT(*) FROM `seo_settings` WHERE `og_image` = :p", ['p' => $filePath]) > 0) {
+            $usages[] = 'SEO Social Preview';
+        }
+        if (Database::fetchColumn("SELECT COUNT(*) FROM `testimonials` WHERE `photo` = :p", ['p' => $filePath]) > 0) {
+            $usages[] = 'Testimonials';
+        }
+    } catch (Exception $e) {
+        // Table might not be ready
+    }
+    return $usages;
 }
 
 /**

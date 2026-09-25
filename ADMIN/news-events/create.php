@@ -5,7 +5,7 @@
 if (!defined('CMS_ROOT')) define('CMS_ROOT', dirname(__DIR__));
 
 require_once CMS_ROOT . '/includes/auth.php';
-require_auth();
+require_module('news-events');
 
 $pageTitle = 'Create News or Event';
 $activeMenu = 'news-events';
@@ -60,9 +60,10 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
             $cleanContent = sanitize_html($content);
 
             $scheduledAt = !empty($_POST['scheduled_publish_at']) ? $_POST['scheduled_publish_at'] : null;
-            $publishedAt = ($status === 'published') 
-                ? ($scheduledAt ? date('Y-m-d H:i:s', strtotime($scheduledAt)) : date('Y-m-d H:i:s')) 
+            $publishedAt = ($status === 'published')
+                ? ($scheduledAt ? date('Y-m-d H:i:s', strtotime($scheduledAt)) : date('Y-m-d H:i:s'))
                 : null;
+            $expiresAt = !empty($_POST['expires_at']) ? date('Y-m-d H:i:s', strtotime($_POST['expires_at'])) : null;
 
             $newId = Database::insert('news_events', [
                 'title'          => $title,
@@ -74,7 +75,8 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
                 'event_date'     => $eventDate,
                 'event_location' => $eventLocation,
                 'status'         => $status,
-                'published_at'   => $publishedAt
+                'published_at'   => $publishedAt,
+                'expires_at'     => $expiresAt
             ]);
 
             log_activity('Created News/Event', "Title: {$title} (Status: {$status}, Type: {$type})", 'news_events', $newId);
@@ -185,6 +187,12 @@ include CMS_ROOT . '/includes/header.php';
                 <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Scheduled Publication Date / Time</label>
                 <input type="datetime-local" name="scheduled_publish_at" class="cms-input">
                 <p class="text-[11px] text-slate-400 mt-1">Optional: Leave blank to publish immediately.</p>
+            </div>
+
+            <div class="sm:col-span-6">
+                <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Auto-Expire Date / Time</label>
+                <input type="datetime-local" name="expires_at" class="cms-input">
+                <p class="text-[11px] text-slate-400 mt-1">Optional: post automatically stops appearing on the public site after this time (it stays here, editable).</p>
             </div>
         </div>
 

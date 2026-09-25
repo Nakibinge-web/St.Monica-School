@@ -19,6 +19,14 @@ if (empty($publicPage)) {
 $currentAdmin = current_admin();
 $pageTitle = $pageTitle ?? 'CMS Administration';
 $activeMenu = $activeMenu ?? '';
+
+$headerNotifications = [];
+$headerUnreadCount = 0;
+if ($currentAdmin) {
+    require_once CMS_ROOT . '/services/NotificationService.php';
+    $headerUnreadCount = NotificationService::unreadCount((int)$currentAdmin['id']);
+    $headerNotifications = NotificationService::recent((int)$currentAdmin['id'], 6);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en" class="h-full bg-slate-50">
@@ -66,6 +74,37 @@ $activeMenu = $activeMenu ?? '';
                     <span class="material-symbols-outlined text-[16px]">visibility</span>
                     <span class="hidden md:inline">View Public Site</span>
                 </a>
+
+                <?php if ($currentAdmin): ?>
+                <!-- Notification Bell -->
+                <div class="relative" id="notifBellWrapper">
+                    <button type="button" id="notifBellBtn" class="relative p-2 text-slate-500 hover:text-slate-900 rounded-lg hover:bg-slate-100 transition" title="Notifications">
+                        <span class="material-symbols-outlined text-[22px]">notifications</span>
+                        <?php if ($headerUnreadCount > 0): ?>
+                            <span class="absolute top-1 right-1 w-4 h-4 flex items-center justify-center rounded-full bg-red-600 text-white text-[9px] font-bold"><?= $headerUnreadCount > 9 ? '9+' : $headerUnreadCount ?></span>
+                        <?php endif; ?>
+                    </button>
+                    <div id="notifBellDropdown" class="hidden absolute right-0 mt-2 w-80 max-h-96 overflow-y-auto bg-white border border-slate-200 rounded-lg shadow-lg z-50">
+                        <div class="px-4 py-3 border-b border-slate-100 flex items-center justify-between">
+                            <span class="text-xs font-bold text-slate-700 uppercase tracking-wider">Notifications</span>
+                            <a href="<?= admin_url('notifications/') ?>" class="text-[11px] font-semibold text-red-600 hover:text-red-700">View All</a>
+                        </div>
+                        <?php if (empty($headerNotifications)): ?>
+                            <div class="px-4 py-8 text-center text-xs text-slate-400">No notifications yet.</div>
+                        <?php else: ?>
+                            <?php foreach ($headerNotifications as $n): ?>
+                                <a href="<?= !empty($n['link']) ? e($n['link']) : admin_url('notifications/') ?>" class="block px-4 py-3 border-b border-slate-50 last:border-0 hover:bg-slate-50 transition <?= !$n['is_read'] ? 'bg-red-50/40' : '' ?>">
+                                    <div class="text-xs font-semibold text-slate-800"><?= e($n['title']) ?></div>
+                                    <?php if (!empty($n['message'])): ?>
+                                        <div class="text-[11px] text-slate-500 mt-0.5 truncate"><?= e($n['message']) ?></div>
+                                    <?php endif; ?>
+                                    <div class="text-[10px] text-slate-400 mt-1"><?= date('M j, g:i A', strtotime($n['created_at'])) ?></div>
+                                </a>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <?php endif; ?>
 
                 <!-- Admin Profile dropdown/indicator -->
                 <div class="flex items-center gap-3 pl-3 sm:pl-6 border-l border-slate-200">

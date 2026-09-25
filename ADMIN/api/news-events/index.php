@@ -16,15 +16,15 @@ try {
 
     // Single item query
     if (!empty($slug)) {
-        $single = Database::fetchOne("SELECT * FROM `news_events` WHERE `slug` = :slug AND `status` = 'published' AND (`published_at` IS NULL OR `published_at` <= NOW()) LIMIT 1", ['slug' => $slug]);
+        $single = Database::fetchOne("SELECT * FROM `news_events` WHERE `slug` = :slug AND `status` = 'published' AND `deleted_at` IS NULL AND (`published_at` IS NULL OR `published_at` <= NOW()) AND (`expires_at` IS NULL OR `expires_at` > NOW()) LIMIT 1", ['slug' => $slug]);
         if ($single) {
             json_response(true, 'Article found.', $single);
         } else {
-            json_response(false, 'Article not found or scheduled for future publication.', null, 404);
+            json_response(false, 'Article not found, expired, or scheduled for future publication.', null, 404);
         }
     }
 
-    $where = ["`status` = 'published'", "(`published_at` IS NULL OR `published_at` <= NOW())"];
+    $where = ["`status` = 'published'", "`deleted_at` IS NULL", "(`published_at` IS NULL OR `published_at` <= NOW())", "(`expires_at` IS NULL OR `expires_at` > NOW())"];
     $params = [];
 
     if (in_array($type, ['news', 'event', 'sports'])) {
@@ -39,5 +39,5 @@ try {
 
     json_response(true, 'News & events loaded successfully.', $items);
 } catch (Exception $e) {
-    json_response(false, 'Failed to retrieve news & events: ' . $e->getMessage(), null, 500);
+    json_error($e, 'Failed to retrieve news & events.');
 }

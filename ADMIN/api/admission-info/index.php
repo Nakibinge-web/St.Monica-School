@@ -42,5 +42,5 @@ try {
         'contact'         => $contact
     ]);
 } catch (Exception $e) {
-    json_response(false, 'Failed to retrieve admission info: ' . $e->getMessage(), null, 500);
+    json_error($e, 'Failed to retrieve admission info.');
 }

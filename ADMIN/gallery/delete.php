@@ -5,7 +5,7 @@
 if (!defined('CMS_ROOT')) define('CMS_ROOT', dirname(__DIR__));
 
 require_once CMS_ROOT . '/includes/auth.php';
-require_auth();
+require_module('gallery');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     redirect(admin_url('gallery/'));
@@ -20,18 +20,11 @@ if ($id > 0) {
         $image = Database::fetchOne("SELECT * FROM `gallery` WHERE `id` = :id", ['id' => $id]);
 
         if ($image) {
-            Database::delete('gallery', 'id = :id', ['id' => $id]);
+            // Soft delete: the record and file are kept so it can be restored from Trash.
+            Database::update('gallery', ['deleted_at' => date('Y-m-d H:i:s')], 'id = :id', ['id' => $id]);
 
-            // Unlink if stored under ADMIN/uploads/gallery/
-            if (!empty($image['file_path']) && str_contains($image['file_path'], 'ADMIN/uploads/gallery/')) {
-                $fullPath = CMS_ROOT . '/uploads/gallery/' . basename($image['file_path']);
-                if (file_exists($fullPath)) {
-                    @unlink($fullPath);
-                }
-            }
-
-            log_activity('Deleted Gallery Media', "{$image['title']} (ID: {$id})");
-            set_flash('success', "Media '{$image['title']}' was removed from gallery.");
+            log_activity('Deleted Gallery Media', "{$image['title']} (ID: {$id})", 'gallery', $id);
+            set_flash('success', "Media '{$image['title']}' moved to Trash.");
         } else {
             set_flash('danger', 'Media item not found.');
         }

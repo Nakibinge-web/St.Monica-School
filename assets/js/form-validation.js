@@ -23,20 +23,25 @@ $(document).ready(function() {
         }, "Please enter a valid phone number (e.g., +256 700 000 000)");
     }
 
-    // Dynamic API URL resolver for Admissions Endpoint
-    function getApplyApiUrl() {
+    // Dynamic API URL resolver - builds an absolute URL to any ADMIN/api/* endpoint
+    function getApiUrl(relativeEndpoint) {
         if (window.location.protocol === 'file:') {
-            return 'http://localhost/St.monica/ADMIN/api/admissions/apply.php';
+            return 'http://localhost/St.monica/ADMIN/api/' + relativeEndpoint;
         }
         const origin = window.location.origin;
         const pathname = window.location.pathname;
         const stMonicaIdx = pathname.toLowerCase().indexOf('/st.monica');
         if (stMonicaIdx !== -1) {
-            return origin + pathname.substring(0, stMonicaIdx) + '/St.monica/ADMIN/api/admissions/apply.php';
+            return origin + pathname.substring(0, stMonicaIdx) + '/St.monica/ADMIN/api/' + relativeEndpoint;
         }
         const lastSlash = pathname.lastIndexOf('/');
         const base = (lastSlash !== -1) ? pathname.substring(0, lastSlash + 1) : '/';
-        return origin + base + 'ADMIN/api/admissions/apply.php';
+        return origin + base + 'ADMIN/api/' + relativeEndpoint;
+    }
+
+    // Kept for backward compatibility with any inline references
+    function getApplyApiUrl() {
+        return getApiUrl('admissions/apply.php');
     }
 
     // ==========================================
@@ -97,8 +102,50 @@ $(document).ready(function() {
                           .addClass('border-[#c6c6cf]');
             },
             submitHandler: function(form) {
-                showAlert('success', 'Thank you for reaching out! Your message has been received by our administration.');
-                form.reset();
+                const formData = {
+                    name: $('#contactForm [name="name"]').val().trim(),
+                    email: $('#contactForm [name="email"]').val().trim(),
+                    phone: $('#contactForm [name="phone"]').val() ? $('#contactForm [name="phone"]').val().trim() : '',
+                    subject: $('#contactForm [name="subject"]').val().trim(),
+                    message: $('#contactForm [name="message"]').val().trim()
+                };
+
+                const $submitBtn = $(form).find('button[type="submit"]');
+                const originalBtnHtml = $submitBtn.html();
+                $submitBtn.prop('disabled', true).html(`
+                    <span class="inline-flex items-center justify-center gap-2">
+                        <span class="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                        <span>Sending...</span>
+                    </span>
+                `);
+
+                $.ajax({
+                    url: getApiUrl('contact/submit.php'),
+                    method: 'POST',
+                    data: JSON.stringify(formData),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function(response) {
+                        $submitBtn.prop('disabled', false).html(originalBtnHtml);
+                        if (response && response.success) {
+                            showAlert('success', response.message || 'Thank you for reaching out! Your message has been received by our administration.');
+                            form.reset();
+                        } else {
+                            const msg = (response && response.message) ? response.message : 'Unable to send your message. Please verify all details.';
+                            showAlert('error', msg);
+                        }
+                    },
+                    error: function(xhr) {
+                        $submitBtn.prop('disabled', false).html(originalBtnHtml);
+                        let errMsg = 'Failed to send your message. Please check your connection and try again.';
+                        try {
+                            const res = JSON.parse(xhr.responseText);
+                            if (res && res.message) errMsg = res.message;
+                        } catch (e) {}
+                        showAlert('error', errMsg);
+                    }
+                });
+                return false;
             }
         });
     }
@@ -223,11 +270,9 @@ $(document).ready(function() {
                             const pupil = response.data && response.data.pupil_name ? response.data.pupil_name : formData.pupilName;
                             const pClass = response.data && response.data.pupil_class ? response.data.pupil_class : formData.pupilClass;
 
-                            // Show top-right confirmation alert
-                            showAlert('success', `Application received! Application Reference: <strong>${appNum}</strong> for <strong>${pupil}</strong>. The application has been sent to the Admissions office in the admin panel.`);
-
-                            // Show inline modal success view
-                            showModalSuccess(appNum, pupil, pClass);
+                            // Close the form modal and celebrate with a polished SweetAlert2 confirmation
+                            closeModal();
+                            showApplicationSuccessAlert(appNum, pupil, pClass);
                         } else {
                             const msg = (response && response.message) ? response.message : 'Unable to process application. Please verify all details.';
                             showAlert('error', msg);
@@ -255,52 +300,58 @@ $(document).ready(function() {
         });
     }
 
-    // Modal success confirmation view
-    function showModalSuccess(appNum, pupil, pClass) {
-        const formContainer = $('#applicationModal .p-6');
-        const originalFormHtml = formContainer.html();
+    // Escape HTML special characters before interpolating user-supplied values into markup
+    function escapeHtml(value) {
+        if (value === null || value === undefined) return '';
+        return String(value)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    }
 
-        formContainer.html(`
-            <div class="text-center py-6 px-2 space-y-4">
-                <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto shadow-sm">
-                    <span class="material-symbols-outlined text-4xl">check_circle</span>
-                </div>
-                <div>
-                    <h3 class="text-2xl font-bold text-slate-900">Application Submitted!</h3>
-                    <p class="text-sm text-slate-600 mt-1 max-w-md mx-auto">Your application details have been recorded and sent directly to the <strong>Admissions Office</strong> in the Admin Panel.</p>
-                </div>
-                <div class="bg-slate-50 border border-slate-200 rounded-lg p-5 text-left max-w-md mx-auto space-y-2">
-                    <div class="flex justify-between items-center py-1 text-xs border-b border-slate-200">
-                        <span class="text-slate-500 font-medium">Tracking Reference:</span>
-                        <span class="font-mono font-bold text-[#1e2a4a] text-sm bg-slate-200/60 px-2 py-0.5 rounded">${appNum}</span>
-                    </div>
-                    <div class="flex justify-between items-center py-1 text-xs border-b border-slate-200">
-                        <span class="text-slate-500 font-medium">Pupil Name:</span>
-                        <span class="font-semibold text-slate-800">${pupil}</span>
-                    </div>
-                    <div class="flex justify-between items-center py-1 text-xs border-b border-slate-200">
-                        <span class="text-slate-500 font-medium">Class Applied:</span>
-                        <span class="font-semibold text-slate-800">${pClass}</span>
-                    </div>
-                    <div class="flex justify-between items-center py-1 text-xs">
-                        <span class="text-slate-500 font-medium">Status:</span>
-                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-red-100 text-red-700">New Application</span>
-                    </div>
-                </div>
-                <div class="pt-2 flex justify-center">
-                    <button type="button" id="doneModalBtn" class="bg-[#1e2a4a] text-white text-xs font-semibold py-3 px-8 rounded-full hover:bg-slate-800 transition shadow-sm">
-                        Close & Continue
-                    </button>
-                </div>
-            </div>
-        `);
+    // Polished SweetAlert2 success dialog shown after a successful application submission
+    function showApplicationSuccessAlert(appNum, pupil, pClass) {
+        if (typeof Swal === 'undefined') {
+            // Graceful fallback in the rare case SweetAlert2 fails to load
+            showAlert('success', `Application received! Reference: <strong>${escapeHtml(appNum)}</strong> for <strong>${escapeHtml(pupil)}</strong>.`);
+            return;
+        }
 
-        $('#doneModalBtn').click(function() {
-            closeModal();
-            setTimeout(function() {
-                formContainer.html(originalFormHtml);
-                initApplicationValidation();
-            }, 300);
+        Swal.fire({
+            icon: 'success',
+            title: 'Application Submitted!',
+            html: `
+                <p class="swal-app-subtitle">Thank you! Your application has been received and sent directly to our <strong>Admissions Office</strong> for review.</p>
+                <div class="swal-app-details">
+                    <div class="swal-app-row">
+                        <span class="swal-app-label">Tracking Reference</span>
+                        <span class="swal-app-ref">${escapeHtml(appNum)}</span>
+                    </div>
+                    <div class="swal-app-row">
+                        <span class="swal-app-label">Pupil Name</span>
+                        <span class="swal-app-value">${escapeHtml(pupil)}</span>
+                    </div>
+                    <div class="swal-app-row">
+                        <span class="swal-app-label">Class Applied</span>
+                        <span class="swal-app-value">${escapeHtml(pClass)}</span>
+                    </div>
+                    <div class="swal-app-row">
+                        <span class="swal-app-label">Status</span>
+                        <span class="swal-app-status">New Application</span>
+                    </div>
+                </div>
+                <p class="swal-app-note">Please save your tracking reference for any follow-up enquiries.</p>
+            `,
+            confirmButtonText: 'Done',
+            buttonsStyling: false,
+            customClass: {
+                popup: 'swal-app-popup',
+                title: 'swal-app-title',
+                htmlContainer: 'swal-app-html',
+                confirmButton: 'swal-app-confirm-btn'
+            }
         });
     }
 

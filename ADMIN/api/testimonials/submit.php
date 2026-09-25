@@ -133,5 +133,5 @@ try {
     ], 201);
 
 } catch (Exception $e) {
-    json_response(false, 'Unable to submit your review at this time: ' . $e->getMessage(), null, 500);
+    json_error($e, 'Unable to submit your review at this time.');
 }

@@ -5,7 +5,7 @@
 if (!defined('CMS_ROOT')) define('CMS_ROOT', dirname(__DIR__));
 
 require_once CMS_ROOT . '/includes/auth.php';
-require_auth();
+require_module('staff');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     redirect(admin_url('staff/'));
@@ -20,19 +20,11 @@ if ($id > 0) {
         $staff = Database::fetchOne("SELECT * FROM `staff` WHERE `id` = :id", ['id' => $id]);
 
         if ($staff) {
-            // Delete DB record
-            Database::delete('staff', 'id = :id', ['id' => $id]);
+            // Soft delete: the record and photo are kept so it can be restored from Trash.
+            Database::update('staff', ['deleted_at' => date('Y-m-d H:i:s')], 'id = :id', ['id' => $id]);
 
-            // Clean up uploaded image if inside ADMIN/uploads/staff/
-            if (!empty($staff['photo']) && str_contains($staff['photo'], 'ADMIN/uploads/staff/')) {
-                $fullPath = CMS_ROOT . '/uploads/staff/' . basename($staff['photo']);
-                if (file_exists($fullPath)) {
-                    @unlink($fullPath);
-                }
-            }
-
-            log_activity('Deleted Staff Member', "{$staff['name']} (ID: {$id})");
-            set_flash('success', "Staff member '{$staff['name']}' has been deleted.");
+            log_activity('Deleted Staff Member', "{$staff['name']} (ID: {$id})", 'staff', $id);
+            set_flash('success', "Staff member '{$staff['name']}' moved to Trash.");
         } else {
             set_flash('danger', 'Staff member not found.');
         }

@@ -197,4 +197,19 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     });
+
+    // 7. Notification Bell Dropdown
+    const notifBellBtn = document.getElementById('notifBellBtn');
+    const notifBellDropdown = document.getElementById('notifBellDropdown');
+    if (notifBellBtn && notifBellDropdown) {
+        notifBellBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            notifBellDropdown.classList.toggle('hidden');
+        });
+        document.addEventListener('click', (e) => {
+            if (!notifBellDropdown.classList.contains('hidden') && !notifBellDropdown.contains(e.target) && e.target !== notifBellBtn) {
+                notifBellDropdown.classList.add('hidden');
+            }
+        });
+    }
 });

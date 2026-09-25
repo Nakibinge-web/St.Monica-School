@@ -78,11 +78,11 @@ $pageTitle = 'Sign In to Administration';
 
                 <div class="flex items-center justify-between text-xs pt-1">
                     <label class="flex items-center gap-2 cursor-pointer text-slate-600 select-none">
-                        <input type="checkbox" name="remember" class="rounded border-slate-300 text-red-600 focus:ring-red-500">
-                        <span>Remember me</span>
+                        <input type="checkbox" name="remember" value="1" class="rounded border-slate-300 text-red-600 focus:ring-red-500">
+                        <span>Remember me for 30 days</span>
                     </label>
-                    <a href="<?= public_url('index.html') ?>" class="text-red-600 hover:text-red-700 font-semibold transition">
-                        Back to Website &rarr;
+                    <a href="<?= admin_url('login/forgot-password.php') ?>" class="text-red-600 hover:text-red-700 font-semibold transition">
+                        Forgot Password?
                     </a>
                 </div>
 
@@ -92,16 +92,22 @@ $pageTitle = 'Sign In to Administration';
                 </button>
             </form>
 
+            <?php
+            $loginConfig = require CMS_ROOT . '/includes/config.php';
+            if (!empty($loginConfig['app']['debug'])):
+            ?>
             <div class="mt-6 pt-6 border-t border-slate-100 text-center">
                 <p class="text-xs text-slate-400">
                     Default Dev Login: <code class="text-slate-700 bg-slate-100 px-1 py-0.5 rounded">admin@stmonicakasanje.ac.ug</code> / <code class="text-slate-700 bg-slate-100 px-1 py-0.5 rounded">Admin@2026!</code>
                 </p>
             </div>
+            <?php endif; ?>
         </div>
 
         <!-- Footer Notice -->
         <p class="text-center text-xs text-slate-500 mt-6">
-            &copy; <?= date('Y') ?> St. Monica Junior School Kasanje. All rights reserved.
+            <a href="<?= public_url('index.html') ?>" class="text-slate-400 hover:text-white transition">&larr; Back to Website</a>
+            &bull; &copy; <?= date('Y') ?> St. Monica Junior School Kasanje. All rights reserved.
         </p>
     </div>
 </body>

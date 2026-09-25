@@ -5,7 +5,7 @@
 if (!defined('CMS_ROOT')) define('CMS_ROOT', dirname(__DIR__));
 
 require_once CMS_ROOT . '/includes/auth.php';
-require_auth();
+require_module('staff');
 
 $pageTitle = 'Staff Members Management';
 $activeMenu = 'staff';
@@ -16,7 +16,7 @@ $statusFilter = $_GET['status'] ?? '';
 $deptFilter = $_GET['dept'] ?? '';
 
 // Build prepared query
-$where = ['1 = 1'];
+$where = ['`deleted_at` IS NULL'];
 $params = [];
 
 if ($search !== '') {

@@ -1410,3 +1410,113 @@ body {
 input.is-invalid, select.is-invalid, textarea.is-invalid {
     border-color: #ba1a1a !important;
 }
+
+/* SweetAlert2 - Application Success Dialog */
+.swal-app-popup {
+    border-radius: 20px !important;
+    padding: 2rem 1.75rem 1.75rem !important;
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+.swal-app-title {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 22px !important;
+    font-weight: 700 !important;
+    color: #1e2a4a !important;
+    margin-top: 0.5rem !important;
+}
+
+.swal-app-html {
+    margin-top: 0.75rem !important;
+}
+
+.swal-app-subtitle {
+    font-size: 14px;
+    line-height: 20px;
+    color: #45464e;
+    margin: 0 0 16px;
+}
+
+.swal-app-details {
+    background: #f9f9f9;
+    border: 1px solid #e5e5ea;
+    border-radius: 12px;
+    padding: 6px 16px;
+    text-align: left;
+    margin-bottom: 14px;
+}
+
+.swal-app-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 9px 0;
+    border-bottom: 1px solid #ececf0;
+    font-size: 13px;
+}
+
+.swal-app-row:last-child {
+    border-bottom: none;
+}
+
+.swal-app-label {
+    color: #7a7b85;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.swal-app-ref {
+    font-family: 'Courier New', monospace;
+    font-weight: 700;
+    color: #1e2a4a;
+    background: #e9ecf5;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    letter-spacing: 0.03em;
+}
+
+.swal-app-value {
+    font-weight: 600;
+    color: #1e2a4a;
+    text-align: right;
+}
+
+.swal-app-status {
+    background: #fdeceb;
+    color: #d93633;
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 999px;
+}
+
+.swal-app-note {
+    font-size: 12px;
+    color: #9a9aa2;
+    margin: 0;
+}
+
+.swal-app-confirm-btn {
+    background-color: #1e2a4a !important;
+    color: #fff !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    padding: 12px 36px !important;
+    border-radius: 999px !important;
+    border: none !important;
+    box-shadow: none !important;
+    transition: background-color 0.2s ease !important;
+}
+
+.swal-app-confirm-btn:hover {
+    background-color: #d93633 !important;
+}
+
+.swal-app-confirm-btn:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 3px rgba(30, 42, 74, 0.25) !important;
+}

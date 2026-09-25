@@ -14,11 +14,11 @@ try {
     $testimonials = Database::fetchAll(
         "SELECT `id`, `name`, `role`, `child_info`, `rating`, `content`, `photo`, `initials`, `display_order` 
          FROM `testimonials` 
-         WHERE `status` = 'published' 
+         WHERE `status` = 'published' AND `deleted_at` IS NULL
          ORDER BY `display_order` ASC, `id` DESC"
     );
 
     json_response(true, 'Testimonials retrieved successfully.', $testimonials);
 } catch (Exception $e) {
-    json_response(false, 'Failed to retrieve testimonials: ' . $e->getMessage(), null, 500);
+    json_error($e, 'Failed to retrieve testimonials.');
 }

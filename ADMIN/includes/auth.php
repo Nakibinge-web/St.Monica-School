@@ -26,7 +26,8 @@ if (session_status() === PHP_SESSION_NONE) {
  */
 function is_logged_in(): bool {
     if (empty($_SESSION['admin_id'])) {
-        return false;
+        // No active session - fall back to a remember-me cookie, if present and valid
+        return attempt_remember_login();
     }
 
     // Check session expiration (default 2 hours inactivity)
@@ -34,6 +35,21 @@ function is_logged_in(): bool {
     if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > $maxLifetime)) {
         logout_admin();
         return false;
+    }
+
+    // Honor a Super Admin's explicit session revocation from the Security Center.
+    // Checked every request (cheap indexed lookup on a small table) so a revoke takes effect immediately.
+    try {
+        $revoked = Database::fetchColumn(
+            "SELECT COUNT(*) FROM `admin_sessions` WHERE `session_id` = :sid AND `revoked_at` IS NOT NULL",
+            ['sid' => session_id()]
+        );
+        if ((int)$revoked > 0) {
+            logout_admin();
+            return false;
+        }
+    } catch (Exception $e) {
+        // Table may not be migrated yet; fail open rather than lock everyone out
     }
 
     $_SESSION['last_activity'] = time();
@@ -74,12 +90,12 @@ function get_role_permissions(string $role): array {
         return ['*'];
     }
     if ($role === 'editor') {
-        return ['dashboard', 'homepage', 'about', 'staff', 'news-events', 'gallery', 'testimonials', 'media', 'seo', 'profile', 'preview'];
+        return ['dashboard', 'homepage', 'about', 'staff', 'news-events', 'gallery', 'testimonials', 'media', 'seo', 'profile', 'preview', 'announcements', 'inquiries', 'notifications'];
     }
     if ($role === 'admissions_manager') {
-        return ['dashboard', 'admissions', 'admission-info', 'profile'];
+        return ['dashboard', 'admissions', 'admission-info', 'profile', 'inquiries', 'notifications'];
     }
-    return ['dashboard', 'profile'];
+    return ['dashboard', 'profile', 'notifications'];
 }
 
 /**
@@ -132,7 +148,7 @@ function require_role(string|array $roles): void {
 /**
  * Log in an administrator record and initialize session securely
  */
-function login_admin(array $admin): void {
+function login_admin(array $admin, bool $remember = false): void {
     // Regenerate session ID to prevent session fixation attacks
     session_regenerate_id(true);
 
@@ -149,6 +165,22 @@ function login_admin(array $admin): void {
     } catch (Exception $e) {
         // Log silently
     }
+
+    // Record this session for the Security Center's active-sessions view
+    try {
+        Database::insert('admin_sessions', [
+            'admin_id'   => (int)$admin['id'],
+            'session_id' => session_id(),
+            'ip_address' => $_SERVER['REMOTE_ADDR'] ?? null,
+            'user_agent' => substr($_SERVER['HTTP_USER_AGENT'] ?? '', 0, 255)
+        ]);
+    } catch (Exception $e) {
+        // Table may not be migrated yet
+    }
+
+    if ($remember) {
+        issue_remember_token((int)$admin['id']);
+    }
 }
 
 /**
@@ -160,6 +192,17 @@ function logout_admin(): void {
     }
 
     log_activity('Admin Logout', 'Administrator signed out.');
+
+    // Mark this session revoked in the Security Center view
+    try {
+        if (!empty($_SESSION['admin_id'])) {
+            Database::update('admin_sessions', ['revoked_at' => date('Y-m-d H:i:s')], 'session_id = :sid AND revoked_at IS NULL', ['sid' => session_id()]);
+        }
+    } catch (Exception $e) {
+        // ignore
+    }
+
+    forget_remember_token();
 
     $_SESSION = [];
 
@@ -177,4 +220,122 @@ function logout_admin(): void {
     }
 
     session_destroy();
+}
+
+/**
+ * Issue a new selector/validator remember-me token and set its cookie.
+ * The validator is only ever stored hashed; the raw value lives solely in the cookie.
+ */
+function issue_remember_token(int $adminId): void {
+    try {
+        $selector = bin2hex(random_bytes(9));
+        $validator = bin2hex(random_bytes(32));
+        $ttlSeconds = 30 * 24 * 3600; // 30 days
+
+        Database::insert('remember_tokens', [
+            'admin_id'       => $adminId,
+            'selector'       => $selector,
+            'validator_hash' => hash('sha256', $validator),
+            'expires_at'     => date('Y-m-d H:i:s', time() + $ttlSeconds)
+        ]);
+
+        $secure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
+        setcookie('st_monica_remember', $selector . ':' . $validator, [
+            'expires'  => time() + $ttlSeconds,
+            'path'     => '/',
+            'secure'   => $secure,
+            'httponly' => true,
+            'samesite' => 'Strict'
+        ]);
+    } catch (Exception $e) {
+        // Remember-me is a convenience feature; never break login on failure
+    }
+}
+
+/**
+ * Attempt to authenticate the current visitor from a remember-me cookie.
+ * Rotates the token on success (old one is invalidated) and purges all of an
+ * admin's tokens if a stale/tampered selector is presented (possible theft).
+ */
+function attempt_remember_login(): bool {
+    if (empty($_COOKIE['st_monica_remember'])) {
+        return false;
+    }
+
+    $parts = explode(':', $_COOKIE['st_monica_remember'], 2);
+    if (count($parts) !== 2) {
+        clear_remember_cookie();
+        return false;
+    }
+    [$selector, $validator] = $parts;
+
+    try {
+        $token = Database::fetchOne("SELECT * FROM `remember_tokens` WHERE `selector` = :s AND `expires_at` > NOW()", ['s' => $selector]);
+        if (!$token) {
+            clear_remember_cookie();
+            return false;
+        }
+
+        if (!hash_equals($token['validator_hash'], hash('sha256', $validator))) {
+            // Selector matched but validator didn't - treat as potential token theft
+            Database::delete('remember_tokens', 'admin_id = :id', ['id' => $token['admin_id']]);
+            clear_remember_cookie();
+            return false;
+        }
+
+        $admin = Database::fetchOne("SELECT * FROM `admins` WHERE `id` = :id AND `status` = 'active'", ['id' => $token['admin_id']]);
+        if (!$admin) {
+            clear_remember_cookie();
+            return false;
+        }
+
+        Database::delete('remember_tokens', 'id = :id', ['id' => $token['id']]);
+        login_admin($admin, true);
+        return true;
+    } catch (Exception $e) {
+        return false;
+    }
+}
+
+/**
+ * Delete the DB record behind the current remember-me cookie (if any) and clear the cookie.
+ */
+function forget_remember_token(): void {
+    if (!empty($_COOKIE['st_monica_remember'])) {
+        $parts = explode(':', $_COOKIE['st_monica_remember'], 2);
+        if (count($parts) === 2) {
+            try {
+                Database::delete('remember_tokens', 'selector = :s', ['s' => $parts[0]]);
+            } catch (Exception $e) {
+                // ignore
+            }
+        }
+    }
+    clear_remember_cookie();
+}
+
+function clear_remember_cookie(): void {
+    if (isset($_COOKIE['st_monica_remember'])) {
+        setcookie('st_monica_remember', '', ['expires' => time() - 3600, 'path' => '/']);
+        unset($_COOKIE['st_monica_remember']);
+    }
+}
+
+/**
+ * Whether recent failed login attempts for this email should temporarily block sign-in.
+ * Reuses the existing activity log rather than a dedicated attempts table/table lock.
+ */
+function is_login_locked(string $email): bool {
+    try {
+        $count = Database::fetchColumn(
+            "SELECT COUNT(*) FROM `activity_logs`
+             WHERE `action` = 'Failed Login Attempt'
+             AND `details` LIKE :pattern
+             AND `created_at` >= (NOW() - INTERVAL 15 MINUTE)",
+            ['pattern' => 'Attempted email: ' . $email . '%']
+        );
+        return (int)$count >= 5;
+    } catch (Exception $e) {
+        return false;
+    }
 }

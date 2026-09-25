@@ -1,0 +1,10 @@
+# Environment & secrets
+.env
+
+# Backups (database dumps must never be committed)
+ADMIN/storage/backups/*.sql
+ADMIN/storage/backups/*.sql.gz
+
+# OS / editor noise
+Thumbs.db
+.DS_Store

@@ -5,7 +5,7 @@
 if (!defined('CMS_ROOT')) define('CMS_ROOT', dirname(__DIR__));
 
 require_once CMS_ROOT . '/includes/auth.php';
-require_auth();
+require_module('contact');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     redirect(admin_url('contact/'));

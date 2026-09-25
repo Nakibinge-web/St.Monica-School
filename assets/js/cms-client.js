@@ -48,9 +48,35 @@
     // ==========================================================
     // 1. GLOBAL CONTACT & FOOTER UPDATER
     // ==========================================================
+    // Shows a full-page maintenance notice to public visitors when enabled in
+    // ADMIN > Settings > Website. The ADMIN/ panel itself is a separate app and
+    // is never affected by this - administrators keep working normally there.
+    function applyMaintenanceMode(contact) {
+        if (!contact || !contact.maintenance_mode) return false;
+
+        const message = contact.maintenance_message || 'We are currently performing scheduled maintenance. Please check back shortly.';
+        const schoolName = contact.school_name || 'St. Monica Junior School';
+
+        document.documentElement.innerHTML = '';
+        const overlay = document.createElement('div');
+        overlay.style.cssText = 'position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:#0f172a;color:#fff;font-family:sans-serif;text-align:center;padding:24px;';
+        overlay.innerHTML = `
+            <div style="max-width:480px;">
+                <div style="width:64px;height:64px;border-radius:50%;background:rgba(217,54,51,0.15);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:28px;">🛠️</div>
+                <h1 style="font-size:22px;font-weight:700;margin-bottom:12px;">${escapeHtml(schoolName)}</h1>
+                <p style="font-size:15px;line-height:1.6;color:#cbd5e1;">${escapeHtml(message)}</p>
+                <p style="font-size:12px;color:#64748b;margin-top:24px;">We appreciate your patience and will be back online soon.</p>
+            </div>
+        `;
+        document.body ? document.body.appendChild(overlay) : document.documentElement.appendChild(overlay);
+        return true;
+    }
+
     async function updateGlobalContact() {
         const contact = await fetchApi('/contact/');
         if (!contact) return;
+
+        if (applyMaintenanceMode(contact)) return;
 
         // Phone numbers in footer and contact items
         const phoneItems = document.querySelectorAll('.footer-contact-item');

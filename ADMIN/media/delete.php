@@ -14,12 +14,19 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 require_csrf();
 
 $id = (int)($_GET['id'] ?? 0);
+$forceDelete = !empty($_POST['force']);
 
 if ($id > 0) {
     try {
         $item = Database::fetchOne("SELECT * FROM `media_library` WHERE `id` = :id", ['id' => $id]);
 
         if ($item) {
+            $usages = get_media_usage($item['file_path']);
+            if (!empty($usages) && !$forceDelete) {
+                set_flash('danger', "'{$item['title']}' is still in use (" . implode(', ', $usages) . ") and was not deleted. Remove it from those locations first, or use the media cleanup tool to force removal.");
+                redirect(admin_url('media/'));
+            }
+
             Database::delete('media_library', 'id = :id', ['id' => $id]);
 
             // Attempt to unlink file if in uploads directory

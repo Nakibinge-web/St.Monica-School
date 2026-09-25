@@ -42,5 +42,5 @@ try {
         json_response(true, 'All SEO settings retrieved.', $grouped);
     }
 } catch (Exception $e) {
-    json_response(false, 'Failed to fetch SEO settings: ' . $e->getMessage(), null, 500);
+    json_error($e, 'Failed to fetch SEO settings.');
 }

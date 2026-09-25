@@ -37,5 +37,5 @@ try {
 
     json_response(true, 'Media library assets retrieved.', $media);
 } catch (Exception $e) {
-    json_response(false, 'Failed to retrieve media assets: ' . $e->getMessage(), null, 500);
+    json_error($e, 'Failed to retrieve media assets.');
 }
