@@ -31,8 +31,8 @@ $where = ['1 = 1'];
 $params = [];
 
 if ($search !== '') {
-    $where[] = "(`name` LIKE :s OR `email` LIKE :s OR `subject` LIKE :s OR `message` LIKE :s)";
-    $params['s'] = "%{$search}%";
+    $where[] = "(`name` LIKE :s1 OR `email` LIKE :s2 OR `subject` LIKE :s3 OR `message` LIKE :s4)";
+    $params += ['s1' => "%{$search}%", 's2' => "%{$search}%", 's3' => "%{$search}%", 's4' => "%{$search}%"];
 }
 if (!empty($statusFilter)) {
     $where[] = "`status` = :status";

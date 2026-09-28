@@ -24,18 +24,19 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
 
     if (empty($name) || empty($position)) {
         set_flash('danger', 'Staff member name and position are required.');
+    } elseif ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        set_flash('danger', 'The contact email does not look valid. Correct it, or leave it empty since it is optional.');
     } else {
         $photoPath = 'assets/imgz/headteacher.webp'; // fallback default
-        $uploadError = null;
 
-        if (!empty($_FILES['photo']['name'])) {
-            $uploaded = handle_file_upload($_FILES['photo'], 'staff', $uploadError);
-            if ($uploaded) {
-                $photoPath = $uploaded;
-            } else {
-                set_flash('danger', 'Photo upload failed: ' . $uploadError);
+        // Photo chosen from the Media Library
+        if (!empty($_POST['photo'])) {
+            $selected = resolve_media_selection($_POST['photo']);
+            if (!$selected) {
+                set_flash('danger', 'The selected photo is no longer available in the Media Library. Please choose another.');
                 redirect(admin_url('staff/create.php'));
             }
+            $photoPath = $selected;
         }
 
         try {
@@ -44,7 +45,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
                 'position'      => $position,
                 'department'    => $department,
                 'biography'     => $biography,
-                'email'         => $email,
+                'email'         => $email !== '' ? $email : null, // optional
                 'photo'         => $photoPath,
                 'display_order' => $displayOrder,
                 'is_featured'   => $isFeatured,
@@ -110,8 +111,9 @@ include CMS_ROOT . '/includes/header.php';
 
             <!-- Email -->
             <div>
-                <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Contact Email</label>
+                <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Contact Email <span class="normal-case tracking-normal font-normal text-slate-400">(Optional)</span></label>
                 <input type="email" name="email" placeholder="staff@stmonicakasanje.ac.ug" class="cms-input">
+                <p class="text-xs text-slate-400 mt-1">Leave empty if this staff member has no public email.</p>
             </div>
 
             <!-- Display Order -->
@@ -129,13 +131,10 @@ include CMS_ROOT . '/includes/header.php';
             <!-- Photo Upload -->
             <div class="sm:col-span-2">
                 <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Staff Photo</label>
-                <input type="file" name="photo" accept="image/jpeg,image/png,image/webp" data-preview-target="staffPreviewImg" class="cms-input">
-                <p class="text-xs text-slate-400 mt-1">Portrait photo (JPG, PNG, or WEBP under 8MB).</p>
-
-                <div id="staffPreviewImgContainer" class="hidden mt-4">
-                    <p class="text-xs font-semibold text-slate-600 mb-1">Photo Preview:</p>
-                    <img id="staffPreviewImg" src="#" alt="Preview" class="h-32 w-32 rounded-full object-cover object-top border border-slate-300 shadow-sm">
-                </div>
+                <?= render_media_picker('photo', [
+                    'shape' => 'circle',
+                    'hint'  => 'Portrait photo recommended. If none is chosen, a default photo is used.',
+                ]) ?>
             </div>
 
             <!-- Settings -->
@@ -147,11 +146,12 @@ include CMS_ROOT . '/includes/header.php';
                 </select>
             </div>
 
-            <div class="flex items-center pt-6">
-                <label class="flex items-center gap-3 cursor-pointer text-sm font-semibold text-slate-700 select-none">
+            <div class="sm:col-span-2 flex flex-col gap-1 pt-2">
+                <label class="inline-flex items-center gap-3 cursor-pointer text-sm font-semibold text-slate-700 select-none whitespace-nowrap">
                     <input type="checkbox" name="is_featured" value="1" class="rounded border-slate-300 text-red-600 focus:ring-red-500">
                     <span>Feature on Homepage ("Our Dedicated Team")</span>
                 </label>
+                <p class="text-xs text-slate-400 ml-7">Published staff always appear on the About Us page. Tick this to also show them on the homepage.</p>
             </div>
         </div>
 

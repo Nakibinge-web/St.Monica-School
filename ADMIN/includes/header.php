@@ -25,7 +25,7 @@ $headerUnreadCount = 0;
 if ($currentAdmin) {
     require_once CMS_ROOT . '/services/NotificationService.php';
     $headerUnreadCount = NotificationService::unreadCount((int)$currentAdmin['id']);
-    $headerNotifications = NotificationService::recent((int)$currentAdmin['id'], 6);
+    $headerNotifications = NotificationService::recent((int)$currentAdmin['id'], 3);
 }
 ?>
 <!DOCTYPE html>
@@ -84,24 +84,69 @@ if ($currentAdmin) {
                             <span class="absolute top-1 right-1 w-4 h-4 flex items-center justify-center rounded-full bg-red-600 text-white text-[9px] font-bold"><?= $headerUnreadCount > 9 ? '9+' : $headerUnreadCount ?></span>
                         <?php endif; ?>
                     </button>
-                    <div id="notifBellDropdown" class="hidden absolute right-0 mt-2 w-80 max-h-96 overflow-y-auto bg-white border border-slate-200 rounded-lg shadow-lg z-50">
-                        <div class="px-4 py-3 border-b border-slate-100 flex items-center justify-between">
-                            <span class="text-xs font-bold text-slate-700 uppercase tracking-wider">Notifications</span>
-                            <a href="<?= admin_url('notifications/') ?>" class="text-[11px] font-semibold text-red-600 hover:text-red-700">View All</a>
+                    <div id="notifBellDropdown" class="hidden absolute right-0 mt-2 w-80 sm:w-96 bg-white border border-slate-200 rounded-xl shadow-xl z-50 overflow-hidden">
+                        <div class="px-4 py-3 bg-slate-50 border-b border-slate-100 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs font-bold text-slate-800 uppercase tracking-wider">Notifications</span>
+                                <?php if ($headerUnreadCount > 0): ?>
+                                    <span class="px-1.5 py-0.5 text-[10px] font-bold rounded-full bg-red-100 text-red-700"><?= $headerUnreadCount ?> new</span>
+                                <?php endif; ?>
+                            </div>
+                            <a href="<?= admin_url('notifications/') ?>" class="text-[11px] font-semibold text-red-600 hover:text-red-700 hover:underline">View All &rarr;</a>
                         </div>
                         <?php if (empty($headerNotifications)): ?>
-                            <div class="px-4 py-8 text-center text-xs text-slate-400">No notifications yet.</div>
+                            <div class="px-4 py-8 text-center text-xs text-slate-400">
+                                <span class="material-symbols-outlined text-3xl text-slate-300 block mb-1">notifications_off</span>
+                                No notifications yet.
+                            </div>
                         <?php else: ?>
-                            <?php foreach ($headerNotifications as $n): ?>
-                                <a href="<?= !empty($n['link']) ? e($n['link']) : admin_url('notifications/') ?>" class="block px-4 py-3 border-b border-slate-50 last:border-0 hover:bg-slate-50 transition <?= !$n['is_read'] ? 'bg-red-50/40' : '' ?>">
-                                    <div class="text-xs font-semibold text-slate-800"><?= e($n['title']) ?></div>
-                                    <?php if (!empty($n['message'])): ?>
-                                        <div class="text-[11px] text-slate-500 mt-0.5 truncate"><?= e($n['message']) ?></div>
-                                    <?php endif; ?>
-                                    <div class="text-[10px] text-slate-400 mt-1"><?= date('M j, g:i A', strtotime($n['created_at'])) ?></div>
-                                </a>
-                            <?php endforeach; ?>
+                            <div class="divide-y divide-slate-100">
+                                <?php foreach ($headerNotifications as $n): 
+                                    $nIcon = match($n['type'] ?? '') {
+                                        'admission' => 'how_to_reg',
+                                        'enquiry'   => 'mail',
+                                        'content'   => 'article',
+                                        'testimonial', 'review' => 'rate_review',
+                                        'newsletter' => 'mark_email_read',
+                                        default     => 'notifications'
+                                    };
+                                    $nColor = match($n['type'] ?? '') {
+                                        'admission' => 'text-blue-600 bg-blue-50',
+                                        'enquiry'   => 'text-emerald-600 bg-emerald-50',
+                                        'content'   => 'text-purple-600 bg-purple-50',
+                                        'testimonial', 'review' => 'text-amber-600 bg-amber-50',
+                                        'newsletter' => 'text-sky-600 bg-sky-50',
+                                        default     => 'text-slate-600 bg-slate-100'
+                                    };
+                                ?>
+                                    <a href="<?= !empty($n['link']) ? e($n['link']) : admin_url('notifications/') ?>" class="block px-4 py-3 hover:bg-slate-50 transition <?= !$n['is_read'] ? 'bg-red-50/40' : '' ?>">
+                                        <div class="flex items-start gap-2.5">
+                                            <span class="w-7 h-7 rounded-lg <?= $nColor ?> flex items-center justify-center flex-shrink-0 mt-0.5">
+                                                <span class="material-symbols-outlined text-[15px]"><?= $nIcon ?></span>
+                                            </span>
+                                            <div class="flex-1 min-w-0">
+                                                <div class="flex items-center justify-between gap-1">
+                                                    <div class="text-xs font-semibold text-slate-800 truncate"><?= e($n['title']) ?></div>
+                                                    <?php if (!$n['is_read']): ?>
+                                                        <span class="w-1.5 h-1.5 rounded-full bg-red-600 flex-shrink-0"></span>
+                                                    <?php endif; ?>
+                                                </div>
+                                                <?php if (!empty($n['message'])): ?>
+                                                    <div class="text-[11px] text-slate-500 mt-0.5 line-clamp-2"><?= e($n['message']) ?></div>
+                                                <?php endif; ?>
+                                                <div class="text-[10px] text-slate-400 mt-1"><?= date('M j, g:i A', strtotime($n['created_at'])) ?></div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                <?php endforeach; ?>
+                            </div>
                         <?php endif; ?>
+                        <div class="p-2.5 bg-slate-50 border-t border-slate-100 text-center">
+                            <a href="<?= admin_url('notifications/') ?>" class="text-xs font-semibold text-red-600 hover:text-red-700 inline-flex items-center gap-1 transition">
+                                <span>See all notifications in Notifications page</span>
+                                <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <?php endif; ?>

@@ -11,7 +11,7 @@ require_once CMS_ROOT . '/includes/database.php';
 require_once CMS_ROOT . '/services/SettingsService.php';
 
 try {
-    $contact = Database::fetchOne("SELECT `school_name`, `phone`, `alternative_phone`, `email`, `admissions_email`, `opening_hours`, `address`, `village`, `district`, `country`, `map_url`, `whatsapp`, `facebook`, `instagram`, `youtube`, `updated_at` FROM `contact_information` LIMIT 1");
+    $contact = Database::fetchOne("SELECT `school_name`, `phone`, `alternative_phone`, `email`, `admissions_email`, `opening_hours`, `address`, `village`, `district`, `country`, `map_url`, `whatsapp`, `facebook`, `instagram`, `youtube`, `tiktok`, `updated_at` FROM `contact_information` LIMIT 1");
 
     // Site-wide maintenance flag is folded into this endpoint since every public
     // page already calls it on load, rather than adding a dedicated round-trip.

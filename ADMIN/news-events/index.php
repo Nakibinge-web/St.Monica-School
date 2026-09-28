@@ -18,8 +18,8 @@ $where = ['`deleted_at` IS NULL'];
 $params = [];
 
 if ($search !== '') {
-    $where[] = "(`title` LIKE :search OR `excerpt` LIKE :search OR `event_location` LIKE :search)";
-    $params['search'] = "%{$search}%";
+    $where[] = "(`title` LIKE :s1 OR `excerpt` LIKE :s2 OR `event_location` LIKE :s3)";
+    $params += ['s1' => "%{$search}%", 's2' => "%{$search}%", 's3' => "%{$search}%"];
 }
 if (in_array($typeFilter, ['news', 'event', 'sports'])) {
     $where[] = "`type` = :type";

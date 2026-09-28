@@ -17,8 +17,8 @@ $where = ['1 = 1'];
 $params = [];
 
 if ($search !== '') {
-    $where[] = "(`name` LIKE :s OR `email` LIKE :s)";
-    $params['s'] = "%{$search}%";
+    $where[] = "(`name` LIKE :s1 OR `email` LIKE :s2)";
+    $params += ['s1' => "%{$search}%", 's2' => "%{$search}%"];
 }
 if (!empty($roleFilter)) {
     if ($roleFilter === 'super_admin') {

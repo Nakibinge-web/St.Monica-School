@@ -43,25 +43,15 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
         $photoPath = $item['photo'];
 
         // Remove photo if requested
-        if (!empty($_POST['remove_photo']) && $item['photo']) {
-            $fullPath = CMS_ROOT . '/uploads/gallery/' . basename($item['photo']);
-            if (file_exists($fullPath)) @unlink($fullPath);
+        if (!empty($_POST['remove_photo'])) {
             $photoPath = null;
         }
 
-        // New photo upload
-        if (!empty($_FILES['photo']['name'])) {
-            $uploadError = null;
-            $uploaded = handle_file_upload($_FILES['photo'], 'gallery', $uploadError);
-            if ($uploaded) {
-                // Delete old photo
-                if ($item['photo'] && str_contains($item['photo'], 'ADMIN/uploads/')) {
-                    $oldPath = CMS_ROOT . '/uploads/' . basename(dirname($item['photo'])) . '/' . basename($item['photo']);
-                    if (file_exists($oldPath)) @unlink($oldPath);
-                }
-                $photoPath = $uploaded;
-            } else {
-                set_flash('danger', 'Photo upload failed: ' . $uploadError);
+        // Photo chosen from the Media Library (empty = keep current)
+        if (!empty($_POST['photo'])) {
+            $photoPath = resolve_media_selection($_POST['photo']);
+            if (!$photoPath) {
+                set_flash('danger', 'The selected photo is no longer available in the Media Library. Please choose another.');
                 redirect(admin_url('testimonials/edit.php?id=' . $id));
             }
         }
@@ -78,6 +68,14 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
                 'display_order' => $order,
                 'status'        => $status
             ], 'id = :id', ['id' => $id]);
+
+            // Delete a replaced one-off upload, but never a Media Library file or one used elsewhere
+            $oldPhoto = $item['photo'] ?? '';
+            if ($oldPhoto && $oldPhoto !== $photoPath && str_contains($oldPhoto, 'ADMIN/uploads/')
+                && !is_media_file_protected($oldPhoto)) {
+                $oldFullPath = dirname(CMS_ROOT) . '/' . ltrim($oldPhoto, '/');
+                if (file_exists($oldFullPath)) @unlink($oldFullPath);
+            }
 
             log_activity('Updated Testimonial', "Updated testimonial by {$name}", 'testimonials', $id);
             set_flash('success', "Testimonial updated successfully.");
@@ -192,26 +190,18 @@ include CMS_ROOT . '/includes/header.php';
             <label class="block text-xs font-semibold text-slate-700 mb-1.5">
                 Author Portrait Photo
             </label>
+            <?= render_media_picker('photo', [
+                'current' => $item['photo'] ?? '',
+                'shape'   => 'circle',
+                'hint'    => 'Square portrait recommended. Without a photo, an initials circle is displayed.',
+            ]) ?>
+
             <?php if (!empty($item['photo'])): ?>
-                <div class="flex items-center gap-4 mb-3 p-3 bg-slate-50 rounded-lg border border-slate-200">
-                    <img src="<?= public_url($item['photo']) ?>" alt="Current Photo" class="w-12 h-12 rounded-full object-cover">
-                    <div class="flex-1 text-xs">
-                        <span class="font-semibold text-slate-800 block">Current Photo</span>
-                        <span class="text-slate-400 font-mono text-[11px]"><?= e($item['photo']) ?></span>
-                    </div>
-                    <label class="flex items-center gap-1.5 text-xs text-red-600 cursor-pointer hover:underline">
-                        <input type="checkbox" name="remove_photo" value="1">
-                        <span>Remove</span>
-                    </label>
-                </div>
+                <label class="inline-flex items-center gap-1.5 mt-3 text-xs text-red-600 cursor-pointer hover:underline">
+                    <input type="checkbox" name="remove_photo" value="1">
+                    <span>Remove photo and show initials instead</span>
+                </label>
             <?php endif; ?>
-
-            <input type="file" name="photo" accept="image/*" data-preview-target="photoPreview" 
-                   class="cms-input py-2">
-
-            <div id="photoPreviewContainer" class="hidden mt-3">
-                <img id="photoPreview" src="" alt="Photo Preview" class="w-16 h-16 rounded-full object-cover border border-slate-200 shadow-sm">
-            </div>
         </div>
 
         <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">

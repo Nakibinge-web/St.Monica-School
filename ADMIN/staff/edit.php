@@ -32,16 +32,15 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
 
     if (empty($name) || empty($position)) {
         set_flash('danger', 'Staff member name and position are required.');
+    } elseif ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        set_flash('danger', 'The contact email does not look valid. Correct it, or leave it empty since it is optional.');
     } else {
+        // Photo chosen from the Media Library (empty = keep current)
         $photoPath = null;
-        $uploadError = null;
-
-        if (!empty($_FILES['photo']['name'])) {
-            $uploaded = handle_file_upload($_FILES['photo'], 'staff', $uploadError);
-            if ($uploaded) {
-                $photoPath = $uploaded;
-            } else {
-                set_flash('danger', 'Photo upload failed: ' . $uploadError);
+        if (!empty($_POST['photo'])) {
+            $photoPath = resolve_media_selection($_POST['photo']);
+            if (!$photoPath) {
+                set_flash('danger', 'The selected photo is no longer available in the Media Library. Please choose another.');
                 redirect(admin_url('staff/edit.php?id=' . $id));
             }
         }
@@ -52,7 +51,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
                 'position'      => $position,
                 'department'    => $department,
                 'biography'     => $biography,
-                'email'         => $email,
+                'email'         => $email !== '' ? $email : null, // optional
                 'display_order' => $displayOrder,
                 'is_featured'   => $isFeatured,
                 'status'        => $status
@@ -131,8 +130,9 @@ include CMS_ROOT . '/includes/header.php';
 
             <!-- Email -->
             <div>
-                <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Contact Email</label>
-                <input type="email" name="email" value="<?= e($staff['email'] ?? '') ?>" class="cms-input">
+                <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Contact Email <span class="normal-case tracking-normal font-normal text-slate-400">(Optional)</span></label>
+                <input type="email" name="email" value="<?= e($staff['email'] ?? '') ?>" placeholder="staff@stmonicakasanje.ac.ug" class="cms-input">
+                <p class="text-xs text-slate-400 mt-1">Leave empty if this staff member has no public email.</p>
             </div>
 
             <!-- Display Order -->
@@ -151,23 +151,11 @@ include CMS_ROOT . '/includes/header.php';
             <div class="sm:col-span-2">
                 <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Staff Photo</label>
                 
-                <?php if (!empty($staff['photo'])): ?>
-                    <div class="flex items-center gap-4 mb-3">
-                        <img src="<?= public_url($staff['photo']) ?>" alt="<?= e($staff['name']) ?>" class="h-20 w-20 rounded-full object-cover object-top border border-slate-200">
-                        <div class="text-xs text-slate-500">
-                            <span class="font-semibold text-slate-700 block">Current Photo</span>
-                            Upload a new file below only if you wish to change it.
-                        </div>
-                    </div>
-                <?php endif; ?>
-
-                <input type="file" name="photo" accept="image/jpeg,image/png,image/webp" data-preview-target="staffEditPreviewImg" class="cms-input">
-                <p class="text-xs text-slate-400 mt-1">Leave empty to keep current photo.</p>
-
-                <div id="staffEditPreviewImgContainer" class="hidden mt-4">
-                    <p class="text-xs font-semibold text-slate-600 mb-1">New Photo Preview:</p>
-                    <img id="staffEditPreviewImg" src="#" alt="Preview" class="h-32 w-32 rounded-full object-cover object-top border border-slate-300 shadow-sm">
-                </div>
+                <?= render_media_picker('photo', [
+                    'current' => $staff['photo'] ?? '',
+                    'shape'   => 'circle',
+                    'hint'    => 'Portrait photo recommended.',
+                ]) ?>
             </div>
 
             <!-- Settings -->
@@ -179,11 +167,12 @@ include CMS_ROOT . '/includes/header.php';
                 </select>
             </div>
 
-            <div class="flex items-center pt-6">
-                <label class="flex items-center gap-3 cursor-pointer text-sm font-semibold text-slate-700 select-none">
+            <div class="sm:col-span-2 flex flex-col gap-1 pt-2">
+                <label class="inline-flex items-center gap-3 cursor-pointer text-sm font-semibold text-slate-700 select-none whitespace-nowrap">
                     <input type="checkbox" name="is_featured" value="1" <?= $staff['is_featured'] ? 'checked' : '' ?> class="rounded border-slate-300 text-red-600 focus:ring-red-500">
                     <span>Feature on Homepage ("Our Dedicated Team")</span>
                 </label>
+                <p class="text-xs text-slate-400 ml-7">Published staff always appear on the About Us page. Tick this to also show them on the homepage.</p>
             </div>
         </div>
 

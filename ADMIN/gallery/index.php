@@ -95,7 +95,11 @@ include CMS_ROOT . '/includes/header.php';
 
                     <!-- Details -->
                     <div class="p-4">
-                        <h3 class="font-bold text-slate-900 text-sm truncate"><?= e($img['title']) ?></h3>
+                        <?php if (trim($img['title'] ?? '') !== ''): ?>
+                            <h3 class="font-bold text-slate-900 text-sm truncate"><?= e($img['title']) ?></h3>
+                        <?php else: ?>
+                            <h3 class="font-semibold text-slate-400 text-sm italic">No caption</h3>
+                        <?php endif; ?>
                         <?php if ($img['description']): ?>
                             <p class="text-xs text-slate-500 line-clamp-2 mt-1"><?= e($img['description']) ?></p>
                         <?php endif; ?>
@@ -109,7 +113,7 @@ include CMS_ROOT . '/includes/header.php';
                         <a href="<?= admin_url('gallery/edit.php?id=' . $img['id']) ?>" class="p-1.5 text-slate-600 hover:text-[#1e2a4a] rounded hover:bg-slate-100" title="Edit">
                             <span class="material-symbols-outlined text-[18px]">edit</span>
                         </a>
-                        <button type="button" data-delete-btn data-action="<?= admin_url('gallery/delete.php?id=' . $img['id']) ?>" data-name="<?= e($img['title']) ?>" class="p-1.5 text-slate-400 hover:text-red-600 rounded hover:bg-red-50" title="Delete">
+                        <button type="button" data-delete-btn data-action="<?= admin_url('gallery/delete.php?id=' . $img['id']) ?>" data-name="<?= e(trim($img['title'] ?? '') !== '' ? $img['title'] : 'this photo') ?>" class="p-1.5 text-slate-400 hover:text-red-600 rounded hover:bg-red-50" title="Delete">
                             <span class="material-symbols-outlined text-[18px]">delete</span>
                         </button>
                     </div>

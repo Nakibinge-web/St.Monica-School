@@ -24,6 +24,7 @@ try {
     $newAdmissions   = (int)Database::fetchColumn("SELECT COUNT(*) FROM `admissions` WHERE `status` = 'New'");
     $totalMedia      = (int)Database::fetchColumn("SELECT COUNT(*) FROM `media_library`");
     $testimonials    = (int)Database::fetchColumn("SELECT COUNT(*) FROM `testimonials` WHERE `status` = 'published' AND `deleted_at` IS NULL");
+    $pendingReviews  = pending_reviews_count();
     
     // Recent applications for Admissions widget
     $recentAdmissions = Database::fetchAll("SELECT * FROM `admissions` ORDER BY `submitted_at` DESC LIMIT 5");
@@ -87,7 +88,7 @@ try {
     }
 } catch (Exception $e) {
     $totalStaff = $publishedNews = $upcomingEvents = $draftNews = $totalGallery = 0;
-    $totalAdmissions = $newAdmissions = $totalMedia = $testimonials = 0;
+    $totalAdmissions = $newAdmissions = $totalMedia = $testimonials = $pendingReviews = 0;
     $admissionsThisWeek = $admissionsThisMonth = $admissionsThisYear = 0;
     $recentAdmissions = $recentActivities = $latestArticles = [];
     $admissionsByMonth = $statusDistribution = $contentActivity = [];
@@ -146,6 +147,27 @@ include CMS_ROOT . '/includes/header.php';
         <p class="text-xs mt-2">
             If you need to run migration updates, please click <a href="<?= admin_url('database/setup.php') ?>" class="underline font-bold">here to execute migrations</a>.
         </p>
+    </div>
+<?php endif; ?>
+
+<?php if (!empty($pendingReviews) && can_manage('testimonials')): ?>
+    <!-- Visitor reviews awaiting approval (not .cms-alert, which auto-dismisses) -->
+    <div class="mb-8 p-4 rounded-xl border border-amber-200 bg-amber-50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+            <span class="w-10 h-10 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center flex-shrink-0">
+                <span class="material-symbols-outlined text-[22px]">rate_review</span>
+            </span>
+            <div>
+                <p class="text-sm font-bold text-amber-900">
+                    <?= $pendingReviews ?> visitor review<?= $pendingReviews === 1 ? '' : 's' ?> awaiting approval
+                </p>
+                <p class="text-xs text-amber-800/80">Ratings submitted from the homepage stay hidden until you publish them.</p>
+            </div>
+        </div>
+        <a href="<?= admin_url('testimonials/?status=draft') ?>" class="cms-btn cms-btn-accent text-xs self-start sm:self-auto">
+            <span class="material-symbols-outlined text-[16px]">rate_review</span>
+            <span>Review now</span>
+        </a>
     </div>
 <?php endif; ?>
 
@@ -221,7 +243,11 @@ include CMS_ROOT . '/includes/header.php';
                 <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Testimonials</p>
                 <div class="flex items-baseline gap-2 mt-1">
                     <h3 class="text-2xl font-bold text-slate-900"><?= $testimonials ?></h3>
-                    <span class="text-[11px] text-slate-400 font-medium">&bull; <?= $totalStaff ?> staff</span>
+                    <?php if (!empty($pendingReviews)): ?>
+                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-red-100 text-red-700"><?= $pendingReviews ?> pending</span>
+                    <?php else: ?>
+                        <span class="text-[11px] text-slate-400 font-medium">&bull; <?= $totalStaff ?> staff</span>
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
@@ -410,14 +436,14 @@ include CMS_ROOT . '/includes/header.php';
                                         <td class="font-semibold text-slate-900">
                                             <?= e($app['pupil_name']) ?>
                                         </td>
-                                        <td>
-                                            <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-medium">
+                                        <td class="whitespace-nowrap">
+                                            <span class="inline-block whitespace-nowrap px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-medium">
                                                 <?= e($app['pupil_class']) ?>
                                             </span>
                                         </td>
-                                        <td>
-                                            <div class="text-slate-800"><?= e($app['parent_name']) ?></div>
-                                            <div class="text-[11px] text-slate-400 font-mono"><?= e($app['mobile']) ?></div>
+                                        <td class="whitespace-nowrap">
+                                            <div class="text-slate-800 whitespace-nowrap"><?= e($app['parent_name']) ?></div>
+                                            <div class="text-[11px] text-slate-400 font-mono whitespace-nowrap"><?= e($app['mobile']) ?></div>
                                         </td>
                                         <td>
                                             <span class="px-2 py-0.5 rounded-full text-[11px] border <?= $stBadge ?>">

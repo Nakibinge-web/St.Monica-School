@@ -9,6 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="assets/css/style.css">
+    <!-- SweetAlert2 for polished alert dialogs -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -117,12 +119,156 @@
             break-inside: avoid;
             margin-bottom: 24px;
         }
-        .hover-lift {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        /* Gallery photo: pointer + small caption at the bottom centre on hover (no colour cover) */
+        .gallery-item {
+            position: relative;
+            cursor: pointer;
         }
-        .hover-lift:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 25px -5px rgba(30, 42, 74, 0.15);
+        .gallery-item:focus-visible {
+            outline: 3px solid #d93633;
+            outline-offset: 3px;
+        }
+        .gallery-caption {
+            position: absolute;
+            left: 50%;
+            bottom: 12px;
+            max-width: calc(100% - 24px);
+            padding: 6px 14px;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #1e2a4a;
+            font-size: 13px;
+            line-height: 18px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+            opacity: 0;
+            transform: translate(-50%, 6px);
+            transition: opacity 0.25s ease, transform 0.25s ease;
+            pointer-events: none;
+        }
+        .gallery-item:hover .gallery-caption,
+        .gallery-item:focus-visible .gallery-caption {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+        /* Touch screens have no hover: keep captions visible */
+        @media (hover: none) {
+            .gallery-caption {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+        }
+
+        /* Full-size photo viewer */
+        .gallery-lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: rgba(10, 12, 20, 0.88);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease, visibility 0.25s ease;
+        }
+        .gallery-lightbox.is-open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .gallery-lightbox figure {
+            max-width: min(1100px, 100%);
+            max-height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .gallery-lightbox img {
+            max-width: 100%;
+            max-height: calc(100vh - 170px);
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+        .gallery-lightbox figcaption {
+            margin-top: 14px;
+            text-align: center;
+            color: #ffffff;
+            max-width: 720px;
+        }
+        .gallery-lightbox img {
+            transition: opacity 0.2s ease;
+        }
+        .gallery-lightbox img.is-changing {
+            opacity: 0;
+        }
+        /* Previous / next buttons */
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 52px;
+            height: 52px;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(4px);
+            transition: background-color 0.2s ease, transform 0.2s ease;
+            z-index: 2;
+        }
+        .gallery-nav:hover {
+            background: #d93633;
+            border-color: #d93633;
+        }
+        .gallery-nav:active {
+            transform: translateY(-50%) scale(0.94);
+        }
+        .gallery-nav:focus-visible {
+            outline: 3px solid #ffffff;
+            outline-offset: 2px;
+        }
+        .gallery-nav[hidden] {
+            display: none;
+        }
+        .gallery-nav.is-prev { left: 20px; }
+        .gallery-nav.is-next { right: 20px; }
+        .gallery-counter {
+            position: absolute;
+            top: 22px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            color: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .gallery-counter[hidden] {
+            display: none;
+        }
+        /* Phones: smaller buttons tucked to the bottom so they don't cover the photo */
+        @media (max-width: 639px) {
+            .gallery-nav {
+                top: auto;
+                bottom: 20px;
+                transform: none;
+                width: 46px;
+                height: 46px;
+            }
+            .gallery-nav:active { transform: scale(0.94); }
+            .gallery-nav.is-prev { left: calc(50% - 60px); }
+            .gallery-nav.is-next { right: calc(50% - 60px); }
+            .gallery-lightbox img { max-height: calc(100vh - 230px); }
         }
         .traditional-pattern {
             background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30L30 0ZM30 15L45 30L30 45L15 30L30 15Z' fill='%23bac5ee' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
@@ -271,57 +417,39 @@
             <!-- Masonry Gallery Grid -->
             <div class="masonry-grid">
             <!-- Gallery Item 1 -->
-            <div class="masonry-item rounded-[0.5rem] overflow-hidden hover-lift bg-[#f3f3f3] border border-[#e2e2e2] relative group reveal-zoom" data-reveal-delay="0">
+            <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] reveal-zoom" tabindex="0" role="button" data-reveal-delay="0">
                 <img class="w-full h-auto object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiTfvxn762d9lsukXv6r5tDEtGSCn8SJOwWMfHqytzYjwgn0M5B35eyTmkgy2DE6ZWiuum_Yhj36To8hq-oNalFcLHmoVvWinPi-LV1B1Smf145m13K-5siGtW6N3WtIL4hUre8ooYf0niW7bBXeyuU4PtokNkwRWbvUgwQ8hxUUpwG-1q-cX_WG3j31BJvmWQajpZhZun8IYgwqfb3D6UV1erT35dYvbVvuPmF_2ookMqpAhovL-VMQ" alt="Science Fair"/>
-                <div class="absolute inset-0 bg-[#1e2a4a]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                    <span class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#ffb4ac] mb-1">Academics</span>
-                    <h3 class="text-[24px] leading-[32px] font-semibold text-white">Science Fair Prep</h3>
-                </div>
+                <span class="gallery-caption">Science Fair Prep</span>
             </div>
 
             <!-- Gallery Item 2 -->
-            <div class="masonry-item rounded-[0.5rem] overflow-hidden hover-lift bg-[#f3f3f3] border border-[#e2e2e2] relative group reveal-zoom" data-reveal-delay="100">
+            <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] reveal-zoom" tabindex="0" role="button" data-reveal-delay="100">
                 <img class="w-full h-auto object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjzBOYjDeySqiy8O-rvvkKAo_1biN9VAF3D5PZVzpO5P2aore8kpnEk-jhY0aQw28K4mvqICbgIq3yrOV_47jZZSQl2Veegsy_HsLy9z6WvF4TzjJNSA078KUz00Zlfku8qLDsjQkJgg89UohBn5VlAFLO5tlQw0scJW8-aMFoR_46yki5p1JR9pWfzKFNCd_OJouJxhJ1G0RvVLmpncGF8X9C7tmjKq3X1ZryboiJylKwkw9B7McllA" alt="Football"/>
-                <div class="absolute inset-0 bg-[#1e2a4a]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                    <span class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#ffb4ac] mb-1">Sports & Athletics</span>
-                    <h3 class="text-[24px] leading-[32px] font-semibold text-white">Inter-House Football</h3>
-                </div>
+                <span class="gallery-caption">Inter-House Football</span>
             </div>
 
             <!-- Gallery Item 3 -->
-            <div class="masonry-item rounded-[0.5rem] overflow-hidden hover-lift bg-[#f3f3f3] border border-[#e2e2e2] relative group reveal-zoom" data-reveal-delay="200">
+            <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] reveal-zoom" tabindex="0" role="button" data-reveal-delay="200">
                 <img class="w-full h-auto object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhh3cdyIuBaMtd4ZuUFprQWx4WXCLpw_ctC0Cu9Uoohr6bCZ25j7UpcybSypevOArRr0H6pfXsp6wCyLxfNIHv8TdCIhsBmhYUm_hNFkoiA8oT-CO9b1xR36qW7N0RyiRKZhpXWxzj05wNHOHa7SxyRobx39btoWpBvhcMZsq4RQLwch5ihiKwoESmyymj0Lv5ENcrA79rpDoZl2MQl-bjWNpXG3wmArLzsCYgICr1Ua_anrqRN566Tw" alt="Campus"/>
-                <div class="absolute inset-0 bg-[#1e2a4a]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                    <span class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#ffb4ac] mb-1">Campus Life</span>
-                    <h3 class="text-[24px] leading-[32px] font-semibold text-white">Main Quadrangle</h3>
-                </div>
+                <span class="gallery-caption">Main Quadrangle</span>
             </div>
 
             <!-- Gallery Item 4 -->
-            <div class="masonry-item rounded-[0.5rem] overflow-hidden hover-lift bg-[#f3f3f3] border border-[#e2e2e2] relative group reveal-zoom" data-reveal-delay="100">
+            <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] reveal-zoom" tabindex="0" role="button" data-reveal-delay="100">
                 <img class="w-full h-auto object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBuZlq7OKdha-Ec2Q2GmPR42dcIXv4kz8MRKSIO0LQdo62gPDZS_Jia_sfMPxVhfTG-NBRSzOhFRp6ZGHyptiDN_Xpctm_moFxwEU1cqYaL-HRbRw_Lk5UmTrR8EDiW8F4ird40qZpdxbsAxYGhNvuXCx3Junxnq40ZmVXxlQSDivqGZNtKt2KAGcwVyXiZFXeCRxtHLBaa3tTQzMzkZxnll5Gmfhc1kZKIY_Mn-zSqcaeU_mF9uUKWQ" alt="Arts"/>
-                <div class="absolute inset-0 bg-[#1e2a4a]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                    <span class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#ffb4ac] mb-1">Academics</span>
-                    <h3 class="text-[24px] leading-[32px] font-semibold text-white">Creative Arts Class</h3>
-                </div>
+                <span class="gallery-caption">Creative Arts Class</span>
             </div>
 
             <!-- Gallery Item 5 -->
-            <div class="masonry-item rounded-[0.5rem] overflow-hidden hover-lift bg-[#f3f3f3] border border-[#e2e2e2] relative group reveal-zoom" data-reveal-delay="200">
+            <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] reveal-zoom" tabindex="0" role="button" data-reveal-delay="200">
                 <img class="w-full h-auto object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjHE4MuErBw3ipQpLAsmrwpNBT5FBWAFo1JBlaWpU86O6c1pa8JyTKT9rVCG6XWzFMAGOTA3xdIbPuaN5bKN7DEy87-adqjA5zR9MnWIv9dAZFd5IbLgFXB7Ysxcob8MloLJiTbEKyt00zoMeLr9a3-bn_-IQLTOf6MVosAZoO06bNKDAWBR7EXryOxGmQQ0fixtsoeXQkkRAseTWkoGyYmiIax_2HHN72KXM10Nqnj6rb4mqCW13lqw" alt="Cultural Day"/>
-                <div class="absolute inset-0 bg-[#1e2a4a]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                    <span class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#ffb4ac] mb-1">Special Events</span>
-                    <h3 class="text-[24px] leading-[32px] font-semibold text-white">Annual Cultural Day</h3>
-                </div>
+                <span class="gallery-caption">Annual Cultural Day</span>
             </div>
 
             <!-- Gallery Item 6 -->
-            <div class="masonry-item rounded-[0.5rem] overflow-hidden hover-lift bg-[#f3f3f3] border border-[#e2e2e2] relative group reveal-zoom" data-reveal-delay="300">
+            <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] reveal-zoom" tabindex="0" role="button" data-reveal-delay="300">
                 <img class="w-full h-auto object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqEtiunPCGMKrwvxg5nZzwtWE5m1QHlWGq92UjGnXtdnLisTYL0uBRGz3GVsQPkOgHiaExkV7oOcA943MAt0_wdI5PscxIi_8JnrlNYta0oDtGOTcfeZnygdYJqGH7Sq_7BLwhX1z-b_YVlrzldtxI6jbec8qR7-8fTI08TO6bK9lgbpUWhhD3zG5PmxJyG9HF-aJicEeztpnmbYVNVxsGjZElEECq4S-zYWkm8UV-8A0khfMoW8PjcQ" alt="Library"/>
-                <div class="absolute inset-0 bg-[#1e2a4a]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                    <span class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#ffb4ac] mb-1">Campus Life</span>
-                    <h3 class="text-[24px] leading-[32px] font-semibold text-white">The Library Hub</h3>
-                </div>
+                <span class="gallery-caption">The Library Hub</span>
             </div>
             </div>
 
@@ -508,6 +636,127 @@
                 footerObserver.observe(footer);
             }
         });
+    </script>
+    <!-- Full-size photo viewer (opened by clicking a gallery photo) -->
+    <div id="galleryLightbox" class="gallery-lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+        <button type="button" id="galleryLightboxClose" class="absolute top-4 right-4 w-11 h-11 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition-colors" aria-label="Close">
+            <span class="material-symbols-outlined text-[26px]">close</span>
+        </button>
+        <span id="galleryLightboxCounter" class="gallery-counter" aria-live="polite"></span>
+        <button type="button" id="galleryLightboxPrev" class="gallery-nav is-prev" aria-label="Previous photo">
+            <span class="material-symbols-outlined text-[30px]">chevron_left</span>
+        </button>
+        <button type="button" id="galleryLightboxNext" class="gallery-nav is-next" aria-label="Next photo">
+            <span class="material-symbols-outlined text-[30px]">chevron_right</span>
+        </button>
+        <figure>
+            <img id="galleryLightboxImg" src="" alt="">
+            <figcaption>
+                <p id="galleryLightboxTitle" class="text-[18px] leading-[26px] font-semibold"></p>
+                <p id="galleryLightboxDesc" class="text-[14px] leading-[22px] text-white/75 mt-1"></p>
+            </figcaption>
+        </figure>
+    </div>
+    <script>
+        // Gallery photo viewer - delegated, so it also works for photos loaded from the CMS
+        (function () {
+            const box = document.getElementById('galleryLightbox');
+            const img = document.getElementById('galleryLightboxImg');
+            const title = document.getElementById('galleryLightboxTitle');
+            const desc = document.getElementById('galleryLightboxDesc');
+            const prevBtn = document.getElementById('galleryLightboxPrev');
+            const nextBtn = document.getElementById('galleryLightboxNext');
+            const counter = document.getElementById('galleryLightboxCounter');
+            let items = [];      // photos currently shown in the gallery (respects the category filter)
+            let index = 0;
+            let lastFocus = null;
+
+            function show(i) {
+                index = (i + items.length) % items.length; // wrap around at both ends
+                const item = items[index];
+                const photo = item.querySelector('img');
+                const caption = item.dataset.caption ?? (item.querySelector('.gallery-caption')?.textContent || '');
+                const description = item.dataset.description || '';
+
+                img.classList.add('is-changing');
+                const src = photo.currentSrc || photo.src;
+                const reveal = () => img.classList.remove('is-changing');
+                img.onload = reveal;
+                img.onerror = reveal;
+                img.src = src;
+                if (img.complete) reveal();
+                img.alt = photo.alt || caption;
+
+                title.textContent = caption;
+                desc.textContent = description;
+                title.hidden = !caption;
+                desc.hidden = !description;
+
+                const many = items.length > 1;
+                prevBtn.hidden = nextBtn.hidden = counter.hidden = !many;
+                counter.textContent = `${index + 1} / ${items.length}`;
+
+                // Preload neighbours so next/previous feel instant
+                if (many) {
+                    [index + 1, index - 1].forEach(n => {
+                        const p = items[(n + items.length) % items.length].querySelector('img');
+                        if (p) new Image().src = p.currentSrc || p.src;
+                    });
+                }
+            }
+
+            function open(item) {
+                items = [...document.querySelectorAll('.masonry-grid .gallery-item')].filter(el => el.querySelector('img'));
+                const start = items.indexOf(item);
+                if (start === -1) return;
+                lastFocus = item;
+                show(start);
+                box.classList.add('is-open');
+                document.body.style.overflow = 'hidden';
+                document.getElementById('galleryLightboxClose').focus();
+            }
+
+            function close() {
+                box.classList.remove('is-open');
+                document.body.style.overflow = '';
+                // Return focus to the photo last viewed, not just the one first clicked
+                const current = items[index] || lastFocus;
+                if (current) current.focus({ preventScroll: true });
+            }
+
+            prevBtn.addEventListener('click', (e) => { e.stopPropagation(); show(index - 1); });
+            nextBtn.addEventListener('click', (e) => { e.stopPropagation(); show(index + 1); });
+
+            // Swipe left / right on touch screens
+            let touchX = null;
+            box.addEventListener('touchstart', (e) => { touchX = e.touches[0].clientX; }, { passive: true });
+            box.addEventListener('touchend', (e) => {
+                if (touchX === null || items.length < 2) return;
+                const dx = e.changedTouches[0].clientX - touchX;
+                touchX = null;
+                if (Math.abs(dx) > 50) show(index + (dx < 0 ? 1 : -1));
+            }, { passive: true });
+
+            document.addEventListener('click', (e) => {
+                const item = e.target.closest('.gallery-item');
+                if (item) open(item);
+            });
+            document.addEventListener('keydown', (e) => {
+                if (box.classList.contains('is-open')) {
+                    if (e.key === 'Escape') close();
+                    else if (e.key === 'ArrowRight' && items.length > 1) show(index + 1);
+                    else if (e.key === 'ArrowLeft' && items.length > 1) show(index - 1);
+                    return;
+                }
+                const item = e.target.closest && e.target.closest('.gallery-item');
+                if (item && (e.key === 'Enter' || e.key === ' ')) {
+                    e.preventDefault();
+                    open(item);
+                }
+            });
+            document.getElementById('galleryLightboxClose').addEventListener('click', close);
+            box.addEventListener('click', (e) => { if (e.target === box) close(); });
+        })();
     </script>
     <script src="assets/js/cms-client.js"></script>
 </body>

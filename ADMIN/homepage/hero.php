@@ -57,13 +57,12 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && in_array($action, ['create'
         set_flash('danger', 'Slide title is required.');
     } else {
         $imagePath = null;
-        $uploadError = null;
 
-        // Check if an image was uploaded
-        if (!empty($_FILES['image']['name'])) {
-            $imagePath = handle_file_upload($_FILES['image'], 'homepage', $uploadError);
+        // Image chosen from the Media Library (empty = keep current)
+        if (!empty($_POST['image'])) {
+            $imagePath = resolve_media_selection($_POST['image']);
             if (!$imagePath) {
-                set_flash('danger', 'Image upload failed: ' . $uploadError);
+                set_flash('danger', 'The selected image is no longer available in the Media Library. Please choose another.');
                 redirect($action === 'update' ? admin_url("homepage/hero.php?action=edit&id={$editId}") : admin_url("homepage/hero.php?action=create"));
             }
         }
@@ -215,25 +214,13 @@ include CMS_ROOT . '/includes/header.php';
                     </div>
                 </div>
 
-                <!-- Slide Image Upload -->
+                <!-- Slide Image (from Media Library) -->
                 <div class="md:col-span-2">
                     <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Slide Background Image</label>
-                    
-                    <?php if (!empty($editSlide['image'])): ?>
-                        <div class="mb-3">
-                            <p class="text-xs text-slate-500 mb-1">Current Image:</p>
-                            <img src="<?= public_url($editSlide['image']) ?>" alt="Current Slide" class="h-32 w-auto object-cover rounded-lg border border-slate-200">
-                        </div>
-                    <?php endif; ?>
-
-                    <input type="file" name="image" accept="image/jpeg,image/png,image/webp" data-preview-target="heroPreviewImg" class="cms-input">
-                    <p class="text-xs text-slate-400 mt-1">Recommended: 1920x1080px landscape photo (WEBP, JPG, or PNG under 8MB).</p>
-
-                    <!-- Image Preview Container -->
-                    <div id="heroPreviewImgContainer" class="hidden mt-4">
-                        <p class="text-xs font-semibold text-slate-600 mb-1">Selected Image Preview:</p>
-                        <img id="heroPreviewImg" src="#" alt="Preview" class="h-36 w-auto object-cover rounded-lg border border-slate-300 shadow-sm">
-                    </div>
+                    <?= render_media_picker('image', [
+                        'current' => $editSlide['image'] ?? '',
+                        'hint'    => 'Recommended: 1920x1080px landscape photo.',
+                    ]) ?>
                 </div>
             </div>
 

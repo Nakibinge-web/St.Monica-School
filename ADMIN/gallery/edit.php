@@ -28,24 +28,21 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
     $displayOrder = (int)($_POST['display_order'] ?? 0);
     $status = in_array($_POST['status'] ?? '', ['published', 'draft']) ? $_POST['status'] : 'published';
 
-    if (empty($title)) {
-        set_flash('danger', 'Title / caption is required.');
-    } else {
-        try {
-            Database::update('gallery', [
-                'title'         => $title,
-                'description'   => $description,
-                'category'      => $category,
-                'display_order' => $displayOrder,
-                'status'        => $status
-            ], 'id = :id', ['id' => $id]);
+    // Title (hover caption) and description are both optional
+    try {
+        Database::update('gallery', [
+            'title'         => $title,
+            'description'   => $description,
+            'category'      => $category,
+            'display_order' => $displayOrder,
+            'status'        => $status
+        ], 'id = :id', ['id' => $id]);
 
-            log_activity('Updated Gallery Media', "Title: {$title} (ID: {$id})");
-            set_flash('success', 'Media information updated successfully.');
-            redirect(admin_url('gallery/?category=' . urlencode($category)));
-        } catch (Exception $e) {
-            set_flash('danger', 'Database error: ' . $e->getMessage());
-        }
+        log_activity('Updated Gallery Media', 'Title: ' . ($title !== '' ? $title : '(no caption)') . " (ID: {$id})");
+        set_flash('success', 'Media information updated successfully.');
+        redirect(admin_url('gallery/?category=' . urlencode($category)));
+    } catch (Exception $e) {
+        set_flash('danger', 'Database error: ' . $e->getMessage());
     }
 }
 
@@ -90,13 +87,15 @@ include CMS_ROOT . '/includes/header.php';
         </div>
 
         <div>
-            <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Title / Caption *</label>
-            <input type="text" name="title" required value="<?= e($image['title']) ?>" class="cms-input">
+            <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Caption <span class="normal-case tracking-normal font-normal text-slate-400">(Optional)</span></label>
+            <input type="text" name="title" value="<?= e($image['title']) ?>" placeholder="e.g. Science Fair Presentation" class="cms-input">
+            <p class="text-xs text-slate-400 mt-1">Shown in a small label at the bottom of the photo when visitors hover over it. Leave empty for no caption.</p>
         </div>
 
         <div>
-            <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Description</label>
+            <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Description <span class="normal-case tracking-normal font-normal text-slate-400">(Optional)</span></label>
             <textarea name="description" rows="3" class="cms-textarea"><?= e($image['description'] ?? '') ?></textarea>
+            <p class="text-xs text-slate-400 mt-1">Shown under the photo when a visitor clicks it to view it full size.</p>
         </div>
 
         <div class="grid grid-cols-2 gap-4">

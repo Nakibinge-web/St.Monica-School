@@ -48,15 +48,12 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
             $slug .= '-' . time();
         }
 
+        // Featured image chosen from the Media Library (empty = keep current)
         $imagePath = null;
-        $uploadError = null;
-
-        if (!empty($_FILES['featured_image']['name'])) {
-            $uploaded = handle_file_upload($_FILES['featured_image'], 'news', $uploadError);
-            if ($uploaded) {
-                $imagePath = $uploaded;
-            } else {
-                set_flash('danger', 'Image upload failed: ' . $uploadError);
+        if (!empty($_POST['featured_image'])) {
+            $imagePath = resolve_media_selection($_POST['featured_image']);
+            if (!$imagePath) {
+                set_flash('danger', 'The selected image is no longer available in the Media Library. Please choose another.');
                 redirect(admin_url('news-events/edit.php?id=' . $id));
             }
         }
@@ -187,23 +184,10 @@ include CMS_ROOT . '/includes/header.php';
             <div class="sm:col-span-12">
                 <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Featured Image</label>
                 
-                <?php if (!empty($item['featured_image'])): ?>
-                    <div class="flex items-center gap-4 mb-3">
-                        <img src="<?= public_url($item['featured_image']) ?>" alt="Current Image" class="h-20 w-32 object-cover rounded-lg border border-slate-200">
-                        <div class="text-xs text-slate-500">
-                            <span class="font-semibold text-slate-700 block">Current Featured Image</span>
-                            Upload below only if you want to replace it.
-                        </div>
-                    </div>
-                <?php endif; ?>
-
-                <input type="file" name="featured_image" accept="image/jpeg,image/png,image/webp" data-preview-target="newsEditPreviewImg" class="cms-input">
-                <p class="text-xs text-slate-400 mt-1">Leave empty to keep existing image.</p>
-
-                <div id="newsEditPreviewImgContainer" class="hidden mt-4">
-                    <p class="text-xs font-semibold text-slate-600 mb-1">Replacement Preview:</p>
-                    <img id="newsEditPreviewImg" src="#" alt="Preview" class="h-36 w-auto object-cover rounded-lg border border-slate-300 shadow-sm">
-                </div>
+                <?= render_media_picker('featured_image', [
+                    'current' => $item['featured_image'] ?? '',
+                    'hint'    => 'Landscape photo recommended.',
+                ]) ?>
             </div>
 
             <!-- Publication Status & Scheduling -->

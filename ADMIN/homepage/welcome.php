@@ -19,12 +19,12 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
     $authorTitle = trim($_POST['author_title'] ?? 'Director');
     $content = trim($_POST['content'] ?? '');
 
-    $uploadError = null;
+    // Photo chosen from the Media Library (empty = keep current)
     $imagePath = null;
-    if (!empty($_FILES['image']['name'])) {
-        $imagePath = handle_file_upload($_FILES['image'], 'homepage', $uploadError);
+    if (!empty($_POST['image'])) {
+        $imagePath = resolve_media_selection($_POST['image']);
         if (!$imagePath) {
-            set_flash('danger', 'Photo upload failed: ' . $uploadError);
+            set_flash('danger', 'The selected photo is no longer available in the Media Library. Please choose another.');
             redirect(admin_url('homepage/welcome.php'));
         }
     }
@@ -108,13 +108,11 @@ include CMS_ROOT . '/includes/header.php';
 
                     <div class="sm:col-span-2">
                         <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Director Photo</label>
-                        <input type="file" name="image" accept="image/jpeg,image/png,image/webp" data-preview-target="directorPreviewImg" class="cms-input">
-                        <p class="text-xs text-slate-400 mt-1">Upload high quality portrait photo (WEBP, JPG, PNG). Max 8MB.</p>
-                        
-                        <div id="directorPreviewImgContainer" class="hidden mt-4">
-                            <p class="text-xs font-semibold text-slate-600 mb-1">New Photo Preview:</p>
-                            <img id="directorPreviewImg" src="#" alt="Preview" class="h-44 w-auto object-cover rounded-lg border border-slate-300 shadow-sm">
-                        </div>
+                        <?= render_media_picker('image', [
+                            'current' => $section['image'] ?? '',
+                            'shape'   => 'circle',
+                            'hint'    => 'Use a high quality portrait photo.',
+                        ]) ?>
                     </div>
 
                     <div class="sm:col-span-2">

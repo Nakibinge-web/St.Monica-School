@@ -34,7 +34,7 @@ function slugify(string $text): string {
  * Set a session flash message
  */
 function set_flash(string $type, string $message): void {
-    if (session_status() === PHP_SESSION_NONE) session_start();
+    start_admin_session();
     $_SESSION['flash'] = [
         'type'    => $type, // 'success', 'danger', 'warning', 'info'
         'message' => $message
@@ -45,7 +45,7 @@ function set_flash(string $type, string $message): void {
  * Retrieve and clear flash message
  */
 function get_flash(): ?array {
-    if (session_status() === PHP_SESSION_NONE) session_start();
+    start_admin_session();
     if (isset($_SESSION['flash'])) {
         $flash = $_SESSION['flash'];
         unset($_SESSION['flash']);
@@ -479,6 +479,170 @@ function format_bytes(int $bytes): string {
 }
 
 /**
+ * Number of testimonials waiting for an admin to publish them
+ * (visitor "Rate Us" reviews arrive as drafts). Used by the sidebar badge,
+ * dashboard alert, and Testimonials list banner.
+ */
+function pending_reviews_count(): int {
+    try {
+        return (int)Database::fetchColumn("SELECT COUNT(*) FROM `testimonials` WHERE `status` = 'draft' AND `deleted_at` IS NULL");
+    } catch (Exception $e) {
+        return 0;
+    }
+}
+
+/**
+ * Categories available for organising Media Library assets
+ */
+function media_categories(): array {
+    return ['Campus Life', 'Academics', 'Sports & MDD', 'Special Events', 'Facilities', 'Administration', 'General'];
+}
+
+/**
+ * Validate an image path submitted from the Media Library picker.
+ * Only active image assets registered in the library are accepted, so a tampered
+ * form field can never point content at an arbitrary file.
+ *
+ * @return string|null The verified relative file path, or null if it is not a library image
+ */
+function resolve_media_selection(?string $filePath): ?string {
+    $filePath = trim((string)$filePath);
+    if ($filePath === '') return null;
+
+    try {
+        $found = Database::fetchColumn(
+            "SELECT `file_path` FROM `media_library` WHERE `file_path` = :p AND `file_type` = 'image' AND `status` = 'active' LIMIT 1",
+            ['p' => $filePath]
+        );
+        return $found ? (string)$found : null;
+    } catch (Exception $e) {
+        return null;
+    }
+}
+
+/**
+ * Whether a file must be kept on disk when a record that pointed at it is edited or purged:
+ * true if it belongs to the Media Library or is still referenced by any other content.
+ */
+function is_media_file_protected(string $filePath): bool {
+    try {
+        if (Database::fetchColumn("SELECT COUNT(*) FROM `media_library` WHERE `file_path` = :p", ['p' => $filePath]) > 0) {
+            return true;
+        }
+    } catch (Exception $e) {
+        return true; // When in doubt, keep the file
+    }
+    return !empty(get_media_usage($filePath));
+}
+
+/**
+ * Upload an image straight into the Media Library.
+ * Shared by the Upload Media page and the in-form Media Library picker.
+ *
+ * @param array $file $_FILES entry
+ * @param array $meta title, alt_text, caption, description, category
+ * @return array|null The saved media_library row, or null on failure ($error is set)
+ */
+function store_media_upload(array $file, array $meta, ?string &$error = null): ?array {
+    $title = trim($meta['title'] ?? '');
+    if ($title === '') {
+        $title = ucwords(str_replace(['-', '_', '.'], ' ', pathinfo($file['name'] ?? 'Image', PATHINFO_FILENAME)));
+    }
+    $category = in_array($meta['category'] ?? '', media_categories(), true) ? $meta['category'] : 'General';
+
+    // Validates, stores and optimizes the image
+    $relPath = handle_file_upload($file, 'gallery', $error);
+    if (!$relPath) return null;
+
+    $fullPath = dirname(CMS_ROOT) . '/' . $relPath;
+    $imageInfo = @getimagesize($fullPath);
+
+    $row = [
+        'title'       => $title,
+        'alt_text'    => trim($meta['alt_text'] ?? ''),
+        'caption'     => trim($meta['caption'] ?? ''),
+        'description' => trim($meta['description'] ?? ''),
+        'file_path'   => $relPath,
+        'file_type'   => 'image',
+        'file_size'   => (int)@filesize($fullPath),
+        'dimensions'  => $imageInfo ? "{$imageInfo[0]}x{$imageInfo[1]}" : null,
+        'category'    => $category,
+        'status'      => 'active'
+    ];
+
+    try {
+        $row['id'] = Database::insert('media_library', $row);
+    } catch (Exception $e) {
+        @unlink($fullPath);
+        $error = 'Database error saving media asset: ' . $e->getMessage();
+        return null;
+    }
+
+    log_activity('Uploaded Media Asset', "Title: {$title} (File: {$relPath})", 'media', (int)$row['id']);
+    return $row;
+}
+
+/**
+ * Render an image field that is filled from the Media Library picker modal.
+ * The chosen library path is submitted in a hidden input named $name; an empty value means
+ * "keep the current image". Behaviour lives in assets/js/media-picker.js.
+ *
+ * Options:
+ *   current => existing image path shown as the starting preview
+ *   shape   => 'rect' (default) or 'circle' for portraits
+ *   hint    => helper text under the buttons
+ */
+function render_media_picker(string $name, array $options = []): string {
+    $current = $options['current'] ?? '';
+    $shape   = ($options['shape'] ?? 'rect') === 'circle' ? 'circle' : 'rect';
+    $hint    = $options['hint'] ?? '';
+
+    $previewClass = $shape === 'circle'
+        ? 'w-28 h-28 rounded-full object-cover object-top'
+        : 'w-48 h-28 rounded-lg object-cover';
+    $boxClass = $shape === 'circle'
+        ? 'w-28 h-28 rounded-full'
+        : 'w-48 h-28 rounded-lg';
+
+    $currentUrl = $current !== '' ? public_url($current) : '';
+
+    ob_start(); ?>
+    <div class="flex flex-col sm:flex-row sm:items-center gap-4" data-media-picker
+         data-endpoint="<?= e(admin_url('media/picker.php')) ?>"
+         data-csrf="<?= e(csrf_token()) ?>"
+         data-original-src="<?= e($currentUrl) ?>">
+        <input type="hidden" name="<?= e($name) ?>" value="" data-media-input>
+
+        <div class="<?= $boxClass ?> shrink-0 bg-slate-100 border border-slate-200 overflow-hidden flex items-center justify-center relative">
+            <img src="<?= e($currentUrl) ?>" alt="Selected image" data-media-preview
+                 class="<?= $previewClass ?> <?= $currentUrl === '' ? 'hidden' : '' ?>">
+            <span class="material-symbols-outlined text-slate-300 text-[40px] <?= $currentUrl !== '' ? 'hidden' : '' ?>" data-media-empty>image</span>
+        </div>
+
+        <div class="min-w-0">
+            <div class="flex flex-wrap items-center gap-2">
+                <button type="button" class="cms-btn cms-btn-outline text-xs" data-media-open>
+                    <span class="material-symbols-outlined text-[16px]">photo_library</span>
+                    <span><?= $currentUrl !== '' ? 'Change Image' : 'Choose from Media Library' ?></span>
+                </button>
+                <button type="button" class="cms-btn cms-btn-outline text-xs hidden" data-media-reset>
+                    <span class="material-symbols-outlined text-[16px]">undo</span>
+                    <span><?= $currentUrl !== '' ? 'Keep Current' : 'Clear' ?></span>
+                </button>
+            </div>
+            <p class="text-xs text-slate-500 mt-2 truncate" data-media-status>
+                <?= $currentUrl !== '' ? 'Current image' : 'No image selected' ?>
+            </p>
+            <?php if ($hint !== ''): ?>
+                <p class="text-xs text-slate-400 mt-1"><?= e($hint) ?></p>
+            <?php endif; ?>
+        </div>
+    </div>
+    <?php
+    return ob_get_clean();
+}
+
+/**
  * Find where a media file (by relative path) is referenced across the CMS content tables.
  * Used by the Media Library, delete confirmation, and the media cleanup tool so a file
  * is never removed without the administrator knowing it is still in active use.
@@ -498,6 +662,9 @@ function get_media_usage(string $filePath): array {
         if (Database::fetchColumn("SELECT COUNT(*) FROM `gallery` WHERE `file_path` = :p", ['p' => $filePath]) > 0) {
             $usages[] = 'Gallery';
         }
+        if (Database::fetchColumn("SELECT COUNT(*) FROM `about_content` WHERE `image` = :p", ['p' => $filePath]) > 0) {
+            $usages[] = 'About Us Page';
+        }
         if (Database::fetchColumn("SELECT COUNT(*) FROM `facilities` WHERE `image` = :p", ['p' => $filePath]) > 0) {
             $usages[] = 'Facilities';
         }
@@ -506,6 +673,9 @@ function get_media_usage(string $filePath): array {
         }
         if (Database::fetchColumn("SELECT COUNT(*) FROM `testimonials` WHERE `photo` = :p", ['p' => $filePath]) > 0) {
             $usages[] = 'Testimonials';
+        }
+        if (Database::fetchColumn("SELECT COUNT(*) FROM `homepage_sections` WHERE `image` = :p", ['p' => $filePath]) > 0) {
+            $usages[] = "Director's Message";
         }
     } catch (Exception $e) {
         // Table might not be ready
@@ -518,7 +688,9 @@ function get_media_usage(string $filePath): array {
  */
 function log_activity(string $action, ?string $details = null, ?string $module = null, ?int $recordId = null): void {
     try {
-        if (session_status() === PHP_SESSION_NONE) session_start();
+        // Attribute the action to the signed-in admin, but never create a session just to log
+        // (e.g. a visitor submitting a public form has no admin session)
+        if (session_status() === PHP_SESSION_NONE && admin_session_cookie_present()) start_admin_session();
         $adminId = $_SESSION['admin_id'] ?? null;
         $adminName = $_SESSION['admin_name'] ?? 'System';
         $ip = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';

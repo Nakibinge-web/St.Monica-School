@@ -49,6 +49,39 @@ include CMS_ROOT . '/includes/header.php';
 <form method="POST" action="<?= admin_url('about/update.php') ?>" enctype="multipart/form-data" class="space-y-8">
     <?= csrf_field() ?>
 
+    <!-- Page Hero Banner -->
+    <div class="cms-card p-6 sm:p-8">
+        <div class="flex items-center gap-3 mb-6 pb-3 border-b border-slate-100">
+            <div class="w-10 h-10 rounded-lg bg-red-50 text-red-600 flex items-center justify-center">
+                <span class="material-symbols-outlined text-[22px]">wallpaper</span>
+            </div>
+            <div>
+                <h2 class="text-lg font-bold text-slate-900 brand-font">Page Hero Banner</h2>
+                <p class="text-xs text-slate-400">The red banner at the top of the About Us page: headline, intro text, and photo.</p>
+            </div>
+        </div>
+
+        <div class="space-y-4">
+            <div>
+                <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Headline</label>
+                <input type="text" name="hero_title" value="<?= e($aboutData['hero']['title'] ?? 'Discover St.Monica Junior School Kasanje') ?>" class="cms-input">
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Intro Text</label>
+                <textarea name="hero_content" rows="3" class="cms-textarea leading-relaxed text-sm"><?= e($aboutData['hero']['content'] ?? 'Nurturing minds, building character, and fostering a vibrant community since 1995. We are dedicated to providing a holistic education that empowers every child to flourish.') ?></textarea>
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Banner Photo</label>
+                <?= render_media_picker('hero_image', [
+                    'current' => $aboutData['hero']['image'] ?? 'assets/imgz/school building.webp',
+                    'hint'    => 'Landscape photo works best (at least 1200px wide). Its alt text from the Media Library is used for accessibility.',
+                ]) ?>
+            </div>
+        </div>
+    </div>
+
     <!-- 1. School History -->
     <div class="cms-card p-6 sm:p-8">
         <div class="flex items-center gap-3 mb-6 pb-3 border-b border-slate-100">
@@ -100,7 +133,8 @@ include CMS_ROOT . '/includes/header.php';
 
             <div class="md:col-span-2">
                 <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Our Motto & Explanation</label>
-                <textarea name="motto_content" rows="3" class="cms-textarea leading-relaxed text-sm"><?= e($aboutData['motto']['content'] ?? '') ?></textarea>
+                <textarea name="motto_content" rows="4" class="cms-textarea leading-relaxed text-sm"><?= e($aboutData['motto']['content'] ?? '') ?></textarea>
+                <p class="text-xs text-slate-400 mt-1">Put the motto on the first line, then a blank line, then the explanation. The first line is shown large on the website.</p>
             </div>
         </div>
     </div>

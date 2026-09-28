@@ -165,7 +165,7 @@ include CMS_ROOT . '/includes/header.php';
     </div>
 </div>
 
-<div class="space-y-8 max-w-5xl">
+<div class="space-y-8">
     <!-- Live Submitted Applications Panel -->
     <div class="cms-card overflow-hidden border-l-4 border-l-[#1e2a4a]">
         <div class="p-5 bg-slate-50 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -199,10 +199,10 @@ include CMS_ROOT . '/includes/header.php';
             </div>
         <?php else: ?>
             <div class="overflow-x-auto">
-                <table class="cms-table text-xs">
+                <table class="cms-table cms-table-compact text-xs">
                     <thead>
                         <tr>
-                            <th style="width: 130px;">App Reference</th>
+                            <th>App Reference</th>
                             <th>Pupil Name</th>
                             <th>Class</th>
                             <th>Parent & Phone</th>
@@ -225,7 +225,7 @@ include CMS_ROOT . '/includes/header.php';
                             };
                         ?>
                             <tr class="hover:bg-slate-50/70 transition">
-                                <td class="font-bold font-mono text-[#1e2a4a]">
+                                <td class="font-bold font-mono text-[#1e2a4a] whitespace-nowrap">
                                     <a href="<?= admin_url('admissions/view.php?id=' . $app['id']) ?>" class="hover:underline">
                                         <?= e($app['application_number']) ?>
                                     </a>
@@ -233,12 +233,12 @@ include CMS_ROOT . '/includes/header.php';
                                 <td>
                                     <div class="font-semibold text-slate-900"><?= e($app['pupil_name']) ?></div>
                                 </td>
-                                <td>
-                                    <span class="px-2 py-0.5 rounded bg-slate-100 font-medium text-slate-700"><?= e($app['pupil_class']) ?></span>
+                                <td class="whitespace-nowrap">
+                                    <span class="inline-block whitespace-nowrap px-2 py-0.5 rounded bg-slate-100 font-medium text-slate-700"><?= e($app['pupil_class']) ?></span>
                                 </td>
-                                <td>
-                                    <div class="font-medium text-slate-800"><?= e($app['parent_name']) ?></div>
-                                    <div class="text-[11px] text-slate-500 font-mono"><?= e($app['mobile']) ?></div>
+                                <td class="whitespace-nowrap">
+                                    <div class="font-medium text-slate-800 whitespace-nowrap"><?= e($app['parent_name']) ?></div>
+                                    <div class="text-[11px] text-slate-500 font-mono whitespace-nowrap"><?= e($app['mobile']) ?></div>
                                 </td>
                                 <td>
                                     <span class="text-slate-600 truncate max-w-[140px] block" title="<?= e($app['location']) ?>">
@@ -251,11 +251,13 @@ include CMS_ROOT . '/includes/header.php';
                                         <?= e($app['status']) ?>
                                     </span>
                                 </td>
-                                <td class="text-slate-500 whitespace-nowrap">
-                                    <?= date('M j, Y H:i', strtotime($app['submitted_at'])) ?>
+                                <td class="whitespace-nowrap">
+                                    <div class="text-slate-700"><?= date('M j, Y', strtotime($app['submitted_at'])) ?></div>
+                                    <div class="text-[11px] text-slate-500 font-mono"><?= date('H:i', strtotime($app['submitted_at'])) ?></div>
                                 </td>
                                 <td class="text-right whitespace-nowrap">
-                                    <a href="<?= admin_url('admissions/view.php?id=' . $app['id']) ?>" class="cms-btn cms-btn-outline text-[11px] py-1 px-2.5" title="Review Application">
+                                    <a href="<?= admin_url('admissions/view.php?id=' . $app['id']) ?>" class="cms-btn cms-btn-outline text-[11px] py-1 px-2.5 inline-flex items-center gap-1" title="Review Application">
+                                        <span class="material-symbols-outlined text-[15px]">visibility</span>
                                         <span>View Dossier</span>
                                     </a>
                                 </td>
@@ -267,7 +269,7 @@ include CMS_ROOT . '/includes/header.php';
         <?php endif; ?>
     </div>
     <!-- Section 1: 4-Step Admission Procedure -->
-    <div class="cms-card overflow-hidden">
+    <div class="cms-card overflow-hidden max-w-5xl">
         <div class="p-6 bg-slate-50 border-b border-slate-200">
             <div class="flex items-center gap-3">
                 <span class="w-10 h-10 rounded-lg bg-[#1e2a4a] text-white flex items-center justify-center">
@@ -324,7 +326,7 @@ include CMS_ROOT . '/includes/header.php';
     </div>
 
     <!-- Section 2: General Requirements & Required Documents -->
-    <div class="cms-card overflow-hidden">
+    <div class="cms-card overflow-hidden max-w-5xl">
         <div class="p-6 bg-slate-50 border-b border-slate-200">
             <div class="flex items-center gap-3">
                 <span class="w-10 h-10 rounded-lg bg-emerald-600 text-white flex items-center justify-center">
@@ -372,7 +374,7 @@ include CMS_ROOT . '/includes/header.php';
     </div>
 
     <!-- Section 3: School Fees Policy Note -->
-    <div class="cms-card overflow-hidden">
+    <div class="cms-card overflow-hidden max-w-5xl">
         <div class="p-6 bg-slate-50 border-b border-slate-200">
             <div class="flex items-center gap-3">
                 <span class="w-10 h-10 rounded-lg bg-indigo-600 text-white flex items-center justify-center">

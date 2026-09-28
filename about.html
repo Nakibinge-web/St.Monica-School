@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="assets/css/style.css">
+    <!-- SweetAlert2 for polished alert dialogs -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -216,14 +218,14 @@
             <div class="absolute inset-0 traditional-pattern opacity-30 animate-hero-pattern"></div>
             <div class="max-w-[1200px] mx-auto relative z-10 flex flex-col md:flex-row gap-12 items-center">
                 <div class="flex-1 space-y-6 text-left">
-                    <h1 class="text-[32px] md:text-[48px] leading-[40px] md:leading-[56px] font-bold tracking-[-0.02em] text-white reveal-on-scroll" data-reveal-delay="0">Discover St.Monica Junior School Kasanje</h1>
-                    <p class="text-[18px] leading-[28px] text-white/90 max-w-2xl reveal-on-scroll" data-reveal-delay="150">
+                    <h1 class="text-[32px] md:text-[48px] leading-[40px] md:leading-[56px] font-bold tracking-[-0.02em] text-white reveal-on-scroll" data-reveal-delay="0" data-about="hero-title">Discover St.Monica Junior School Kasanje</h1>
+                    <p class="text-[18px] leading-[28px] text-white/90 max-w-2xl reveal-on-scroll" data-reveal-delay="150" data-about="hero-text">
                         Nurturing minds, building character, and fostering a vibrant community since 1995. We are dedicated to providing a holistic education that empowers every child to flourish.
                     </p>
                 </div>
                 <div class="flex-1 w-full relative reveal-zoom" data-reveal-delay="300">
                     <div class="rounded-xl overflow-hidden shadow-2xl border border-white/20 group">
-                        <img class="w-full h-80 md:h-[380px] object-cover group-hover:scale-105 transition-transform duration-500" src="assets/imgz/school building.webp" alt="St Monica Junior School Building"/>
+                        <img data-about="hero-image" class="w-full h-80 md:h-[380px] object-cover group-hover:scale-105 transition-transform duration-500" src="assets/imgz/school building.webp" alt="St Monica Junior School Building"/>
                     </div>
                 </div>
             </div>
@@ -239,12 +241,12 @@
             <div class="max-w-[960px] mx-auto relative z-10">
                 <!-- Section Title -->
                 <div class="text-center mb-12 reveal-on-scroll" data-reveal-delay="0">
-                    <h2 class="text-[32px] leading-[40px] font-semibold tracking-[-0.01em] text-[#1e2a4a]">Our History</h2>
+                    <h2 class="text-[32px] leading-[40px] font-semibold tracking-[-0.01em] text-[#1e2a4a]" data-about="history-title">Our History</h2>
                     <div class="w-16 h-1 bg-[#d93633] mx-auto mt-4 rounded-full transition-all duration-500 group-hover:w-28"></div>
                 </div>
 
                 <!-- History Body Text (Sitting directly on background) -->
-                <div class="space-y-6 text-[17px] md:text-[19px] leading-[28px] md:leading-[34px] text-[#2C2C2C] font-normal transition-colors duration-300 reveal-on-scroll" data-reveal-delay="150">
+                <div data-about="history-body" class="space-y-6 text-[17px] md:text-[19px] leading-[28px] md:leading-[34px] text-[#2C2C2C] font-normal transition-colors duration-300 reveal-on-scroll" data-reveal-delay="150">
                     <p>Founded in 1995 by a group of passionate educators in Kampala, St. Monica Junior School began with a simple vision: to create a learning environment where academic rigor meets holistic personal development.</p>
                     <p>Starting with just three classrooms and 45 students, our commitment to excellence quickly resonated with the community. Over the decades, we have grown into a premier institution, expanding our campus and enriching our curriculum to meet global standards while staying deeply rooted in Ugandan values.</p>
                     <p>Today, St. Monica Junior School stands as a beacon of growth, community, and academic excellence, proudly shaping the leaders of tomorrow.</p>
@@ -267,7 +269,7 @@
                             <span class="material-symbols-outlined text-white text-[32px] transition-transform duration-300 group-hover:rotate-12">visibility</span>
                         </div>
                         <h3 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] mb-4 transition-colors duration-300 group-hover:text-[#d93633]">Our Vision</h3>
-                        <p class="text-[16px] leading-[24px] text-[#2C2C2C]">
+                        <p class="text-[16px] leading-[24px] text-[#2C2C2C]" data-about="vision">
                             To provide a happy, safe, and loving environment thus providing the highest quality care possible to the children. Rather than simply operating a daycare, we envision a facility where education including Christian education is an essential component of the child upbringing where the children we teach will reach their full human potential and later serve as responsible citizens
                         </p>
                     </div>
@@ -277,7 +279,7 @@
                             <span class="material-symbols-outlined text-white text-[32px] transition-transform duration-300 group-hover:rotate-12">flag</span>
                         </div>
                         <h3 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] mb-4 transition-colors duration-300 group-hover:text-[#d93633]">Our Mission</h3>
-                        <p class="text-[16px] leading-[24px] text-[#2C2C2C]">
+                        <p class="text-[16px] leading-[24px] text-[#2C2C2C]" data-about="mission">
                             St. Monica Junior School exists to serve the unique academic, physical, social, and emotional needs of children during that tender age. The staff is committed to creating and maintaining an orderly, trusting, and environment where teaching and learning are exciting and children are assisted as they grow.
                         </p>
                     </div>
@@ -331,10 +333,10 @@
                     </div>
                 </div>
                 <h2 class="text-[20px] leading-[28px] font-semibold text-white/90 uppercase tracking-widest mb-4">Our Motto</h2>
-                <p class="text-[48px] md:text-[64px] leading-[56px] md:leading-[72px] font-bold text-white italic mb-6">
+                <p class="text-[48px] md:text-[64px] leading-[56px] md:leading-[72px] font-bold text-white italic mb-6" data-about="motto">
                     "Always Aim Higher"
                 </p>
-                <p class="text-[18px] leading-[28px] text-white/90 max-w-2xl mx-auto">
+                <p class="text-[18px] leading-[28px] text-white/90 max-w-2xl mx-auto" data-about="motto-text">
                     We believe that every child has the potential to achieve greatness. Through dedicated teaching, a supportive environment, and a commitment to high standards, we strive for excellence in all aspects of school life.
                 </p>
             </div>
@@ -417,9 +419,9 @@
         <section id="administrators" class="py-20 px-4 md:px-20 bg-white group">
             <div class="max-w-[1200px] mx-auto">
                 <div class="text-center mb-12 reveal-on-scroll">
-                    <h2 class="text-[32px] leading-[40px] font-semibold tracking-[-0.01em] text-[#1e2a4a]">Our Top Administrators</h2>
+                    <h2 class="text-[32px] leading-[40px] font-semibold tracking-[-0.01em] text-[#1e2a4a]">Meet Our Staff</h2>
                     <div class="w-16 h-1 bg-[#d93633] mx-auto mt-4 mb-4 rounded-full transition-all duration-500 group-hover:w-28"></div>
-                    <p class="text-[18px] leading-[28px] text-[#2C2C2C] max-w-2xl mx-auto">Meet the dedicated leaders guiding our school to excellence</p>
+                    <p class="text-[18px] leading-[28px] text-[#2C2C2C] max-w-2xl mx-auto">The dedicated leaders, teachers and staff guiding our school to excellence</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <!-- Administrator 1 -->
@@ -484,9 +486,9 @@
             <div class="absolute inset-0 traditional-pattern opacity-10 pointer-events-none"></div>
             <div class="max-w-[1200px] mx-auto relative z-10">
                 <div class="text-center mb-12 reveal-on-scroll">
-                    <h2 class="text-[32px] leading-[40px] font-semibold tracking-[-0.01em] text-white">Support St.Monica</h2>
+                    <h2 class="text-[32px] leading-[40px] font-semibold tracking-[-0.01em] text-white" data-about="support-title">Support St.Monica</h2>
                     <div class="w-16 h-1 bg-[#d93633] mx-auto mt-4 mb-4 rounded-full transition-all duration-500 group-hover:w-28"></div>
-                    <p class="text-[18px] leading-[28px] text-white/90 max-w-2xl mx-auto">
+                    <p class="text-[18px] leading-[28px] text-white/90 max-w-2xl mx-auto" data-about="support-text">
                         Your generous support helps us nurture bright futures, provide quality education, and empower the leaders of tomorrow.
                     </p>
                 </div>
@@ -543,11 +545,11 @@
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     <!-- Step 1 -->
-                    <div class="bg-white rounded-xl p-8 shadow-sm border border-[#c6c6cf]/30 relative reveal-on-scroll" data-reveal-delay="0">
-                        <div class="absolute -top-4 -left-4 w-12 h-12 bg-[#d93633] rounded-full flex items-center justify-center text-white font-bold text-[20px] shadow-lg">
+                    <div class="join-step-card bg-white rounded-xl p-8 shadow-sm border border-[#c6c6cf]/30 relative reveal-on-scroll" data-reveal-delay="0">
+                        <div class="join-step-number absolute -top-4 -left-4 w-12 h-12 bg-[#d93633] rounded-full flex items-center justify-center text-white font-bold text-[20px] shadow-lg">
                             1
                         </div>
-                        <div class="w-16 h-16 bg-[#1e2a4a] rounded-full flex items-center justify-center mb-6 mx-auto">
+                        <div class="join-step-icon w-16 h-16 bg-[#1e2a4a] rounded-full flex items-center justify-center mb-6 mx-auto">
                             <span class="material-symbols-outlined text-white text-[32px]">contact_page</span>
                         </div>
                         <h3 class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] mb-3 text-center">Inquiry</h3>
@@ -556,11 +558,11 @@
                         </p>
                     </div>
                     <!-- Step 2 -->
-                    <div class="bg-white rounded-xl p-8 shadow-sm border border-[#c6c6cf]/30 relative reveal-on-scroll" data-reveal-delay="100">
-                        <div class="absolute -top-4 -left-4 w-12 h-12 bg-[#d93633] rounded-full flex items-center justify-center text-white font-bold text-[20px] shadow-lg">
+                    <div class="join-step-card bg-white rounded-xl p-8 shadow-sm border border-[#c6c6cf]/30 relative reveal-on-scroll" data-reveal-delay="100">
+                        <div class="join-step-number absolute -top-4 -left-4 w-12 h-12 bg-[#d93633] rounded-full flex items-center justify-center text-white font-bold text-[20px] shadow-lg">
                             2
                         </div>
-                        <div class="w-16 h-16 bg-[#1e2a4a] rounded-full flex items-center justify-center mb-6 mx-auto">
+                        <div class="join-step-icon w-16 h-16 bg-[#1e2a4a] rounded-full flex items-center justify-center mb-6 mx-auto">
                             <span class="material-symbols-outlined text-white text-[32px]">description</span>
                         </div>
                         <h3 class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] mb-3 text-center">Application</h3>
@@ -569,11 +571,11 @@
                         </p>
                     </div>
                     <!-- Step 3 -->
-                    <div class="bg-white rounded-xl p-8 shadow-sm border border-[#c6c6cf]/30 relative reveal-on-scroll" data-reveal-delay="200">
-                        <div class="absolute -top-4 -left-4 w-12 h-12 bg-[#d93633] rounded-full flex items-center justify-center text-white font-bold text-[20px] shadow-lg">
+                    <div class="join-step-card bg-white rounded-xl p-8 shadow-sm border border-[#c6c6cf]/30 relative reveal-on-scroll" data-reveal-delay="200">
+                        <div class="join-step-number absolute -top-4 -left-4 w-12 h-12 bg-[#d93633] rounded-full flex items-center justify-center text-white font-bold text-[20px] shadow-lg">
                             3
                         </div>
-                        <div class="w-16 h-16 bg-[#1e2a4a] rounded-full flex items-center justify-center mb-6 mx-auto">
+                        <div class="join-step-icon w-16 h-16 bg-[#1e2a4a] rounded-full flex items-center justify-center mb-6 mx-auto">
                             <span class="material-symbols-outlined text-white text-[32px]">person_search</span>
                         </div>
                         <h3 class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] mb-3 text-center">Assessment</h3>
@@ -582,11 +584,11 @@
                         </p>
                     </div>
                     <!-- Step 4 -->
-                    <div class="bg-white rounded-xl p-8 shadow-sm border border-[#c6c6cf]/30 relative reveal-on-scroll" data-reveal-delay="300">
-                        <div class="absolute -top-4 -left-4 w-12 h-12 bg-[#d93633] rounded-full flex items-center justify-center text-white font-bold text-[20px] shadow-lg">
+                    <div class="join-step-card bg-white rounded-xl p-8 shadow-sm border border-[#c6c6cf]/30 relative reveal-on-scroll" data-reveal-delay="300">
+                        <div class="join-step-number absolute -top-4 -left-4 w-12 h-12 bg-[#d93633] rounded-full flex items-center justify-center text-white font-bold text-[20px] shadow-lg">
                             4
                         </div>
-                        <div class="w-16 h-16 bg-[#1e2a4a] rounded-full flex items-center justify-center mb-6 mx-auto">
+                        <div class="join-step-icon w-16 h-16 bg-[#1e2a4a] rounded-full flex items-center justify-center mb-6 mx-auto">
                             <span class="material-symbols-outlined text-white text-[32px]">check_circle</span>
                         </div>
                         <h3 class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] mb-3 text-center">Enrollment</h3>
@@ -766,6 +768,36 @@
         document.querySelectorAll('.reveal-on-scroll, .reveal-on-scroll-left, .reveal-on-scroll-right, .reveal-zoom').forEach((el) => {
             scrollObserver.observe(el);
         });
+
+        // Mobile touch interactions for "How to Join Us" cards.
+        // Delegated on document because cms-client.js re-renders these cards from the CMS.
+        let joinTouchTimer;
+        const clearJoinTouch = (except) => {
+            document.querySelectorAll('.join-step-card.is-touch-active').forEach((c) => {
+                if (c !== except) c.classList.remove('is-touch-active');
+            });
+        };
+
+        document.addEventListener('touchstart', function (e) {
+            const card = e.target.closest('.join-step-card');
+            clearJoinTouch(card);
+            if (card) {
+                card.classList.add('is-touch-active');
+                clearTimeout(joinTouchTimer);
+            }
+        }, { passive: true });
+
+        document.addEventListener('touchend', function (e) {
+            const card = e.target.closest('.join-step-card');
+            if (!card) return;
+            joinTouchTimer = setTimeout(() => {
+                card.classList.remove('is-touch-active');
+            }, 1200);
+        }, { passive: true });
+
+        document.addEventListener('touchcancel', function () {
+            clearJoinTouch(null);
+        }, { passive: true });
     </script>
     <script src="assets/js/cms-client.js"></script>
 </body>

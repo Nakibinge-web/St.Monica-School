@@ -43,16 +43,15 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
         }
 
         $imagePath = 'assets/imgz/3 graduants.webp'; // default fallback
-        $uploadError = null;
 
-        if (!empty($_FILES['featured_image']['name'])) {
-            $uploaded = handle_file_upload($_FILES['featured_image'], 'news', $uploadError);
-            if ($uploaded) {
-                $imagePath = $uploaded;
-            } else {
-                set_flash('danger', 'Image upload failed: ' . $uploadError);
+        // Featured image chosen from the Media Library
+        if (!empty($_POST['featured_image'])) {
+            $selected = resolve_media_selection($_POST['featured_image']);
+            if (!$selected) {
+                set_flash('danger', 'The selected image is no longer available in the Media Library. Please choose another.');
                 redirect(admin_url('news-events/create.php?type=' . $type));
             }
+            $imagePath = $selected;
         }
 
         try {
@@ -65,6 +64,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
                 : null;
             $expiresAt = !empty($_POST['expires_at']) ? date('Y-m-d H:i:s', strtotime($_POST['expires_at'])) : null;
 
+            // Step 1: always save the post first, as a draft, so the content is never lost
             $newId = Database::insert('news_events', [
                 'title'          => $title,
                 'slug'           => $slug,
@@ -74,13 +74,30 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
                 'featured_image' => $imagePath,
                 'event_date'     => $eventDate,
                 'event_location' => $eventLocation,
-                'status'         => $status,
-                'published_at'   => $publishedAt,
+                'status'         => 'draft',
+                'published_at'   => null,
                 'expires_at'     => $expiresAt
             ]);
+            log_activity('Created News/Event', "Title: {$title} (Type: {$type})", 'news_events', $newId);
 
-            log_activity('Created News/Event', "Title: {$title} (Status: {$status}, Type: {$type})", 'news_events', $newId);
-            set_flash('success', ucfirst($type) . ' post saved successfully (' . ucfirst($status) . ').');
+            // Step 2: publish the saved post (if requested)
+            if ($status === 'published') {
+                try {
+                    Database::update('news_events', [
+                        'status'       => 'published',
+                        'published_at' => $publishedAt
+                    ], 'id = :id', ['id' => $newId]);
+                    log_activity('Published News/Event', "Title: {$title}", 'news_events', $newId);
+                    $when = ($scheduledAt && strtotime($publishedAt) > time())
+                        ? ' It is scheduled to go live on ' . date('M j, Y \a\t H:i', strtotime($publishedAt)) . '.'
+                        : ' It is now live on the website.';
+                    set_flash('success', ucfirst($type) . " post \"{$title}\" saved and published.{$when}");
+                } catch (Exception $e) {
+                    set_flash('warning', ucfirst($type) . " post \"{$title}\" was saved as a draft, but could not be published: " . $e->getMessage() . ' Open it and click Save & Publish to try again.');
+                }
+            } else {
+                set_flash('success', ucfirst($type) . " post \"{$title}\" saved as a draft. It is not visible on the website until published.");
+            }
             redirect(admin_url('news-events/'));
         } catch (Exception $e) {
             set_flash('danger', 'Database error: ' . $e->getMessage());
@@ -165,13 +182,9 @@ include CMS_ROOT . '/includes/header.php';
             <!-- Featured Image -->
             <div class="sm:col-span-12">
                 <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Featured Image</label>
-                <input type="file" name="featured_image" accept="image/jpeg,image/png,image/webp" data-preview-target="newsPreviewImg" class="cms-input">
-                <p class="text-xs text-slate-400 mt-1">Landscape photo (JPG, PNG, or WEBP under 8MB). Automatically compressed and optimized.</p>
-
-                <div id="newsPreviewImgContainer" class="hidden mt-4">
-                    <p class="text-xs font-semibold text-slate-600 mb-1">Image Preview:</p>
-                    <img id="newsPreviewImg" src="#" alt="Preview" class="h-36 w-auto object-cover rounded-lg border border-slate-300 shadow-sm">
-                </div>
+                <?= render_media_picker('featured_image', [
+                    'hint' => 'Landscape photo recommended. If none is chosen, a default school photo is used.',
+                ]) ?>
             </div>
 
             <!-- Publication Status & Scheduling -->
@@ -204,7 +217,7 @@ include CMS_ROOT . '/includes/header.php';
             </button>
             <button type="submit" onclick="document.getElementById('statusSelect').value='published';" class="cms-btn cms-btn-accent">
                 <span class="material-symbols-outlined text-[18px]">publish</span>
-                <span>Publish Post</span>
+                <span>Save &amp; Publish Post</span>
             </button>
         </div>
     </form>

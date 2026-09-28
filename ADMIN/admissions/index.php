@@ -39,8 +39,8 @@ $where = ['1 = 1'];
 $params = [];
 
 if ($search !== '') {
-    $where[] = "(`application_number` LIKE :s OR `pupil_name` LIKE :s OR `parent_name` LIKE :s OR `mobile` LIKE :s OR `location` LIKE :s)";
-    $params['s'] = "%{$search}%";
+    $where[] = "(`application_number` LIKE :s1 OR `pupil_name` LIKE :s2 OR `parent_name` LIKE :s3 OR `mobile` LIKE :s4 OR `location` LIKE :s5)";
+    $params += ['s1' => "%{$search}%", 's2' => "%{$search}%", 's3' => "%{$search}%", 's4' => "%{$search}%", 's5' => "%{$search}%"];
 }
 if (!empty($statusFilter)) {
     $where[] = "`status` = :status";
@@ -247,14 +247,14 @@ include CMS_ROOT . '/includes/header.php';
                             <td>
                                 <div class="font-bold text-slate-900 text-sm"><?= e($app['pupil_name']) ?></div>
                             </td>
-                            <td>
-                                <span class="px-2 py-0.5 rounded text-xs font-semibold bg-slate-100 text-slate-700">
+                            <td class="whitespace-nowrap">
+                                <span class="inline-block whitespace-nowrap px-2 py-0.5 rounded text-xs font-semibold bg-slate-100 text-slate-700">
                                     <?= e($app['pupil_class']) ?>
                                 </span>
                             </td>
-                            <td>
-                                <div class="text-xs font-medium text-slate-800"><?= e($app['parent_name']) ?></div>
-                                <div class="text-[11px] text-slate-500 font-mono"><?= e($app['mobile']) ?></div>
+                            <td class="whitespace-nowrap">
+                                <div class="text-xs font-medium text-slate-800 whitespace-nowrap"><?= e($app['parent_name']) ?></div>
+                                <div class="text-[11px] text-slate-500 font-mono whitespace-nowrap"><?= e($app['mobile']) ?></div>
                             </td>
                             <td>
                                 <span class="text-xs text-slate-600 truncate max-w-[150px] block" title="<?= e($app['location']) ?>">

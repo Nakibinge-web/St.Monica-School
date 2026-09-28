@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html class="light scroll-smooth" lang="en">
+
 <head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Contact Us - St. Monica Junior School Kasanje</title>
     <link rel="icon" type="image/png" href="assets/imgz/logo2-cut.png">
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@400;600;700&display=swap"
+        rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- jQuery and jQuery Validation -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -94,14 +98,14 @@
                         "label-sm": ["Montserrat"]
                     },
                     "fontSize": {
-                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
-                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
-                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                        "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
-                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
-                        "headline-md": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700"}]
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "display-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-sm": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700" }]
                     }
                 },
             },
@@ -121,6 +125,11 @@
             -webkit-tap-highlight-color: transparent;
             cursor: pointer;
             will-change: transform, box-shadow, background-color, border-color;
+            min-width: 0;
+        }
+
+        .contact-info-card .contact-email {
+            overflow-wrap: anywhere;
         }
 
         .contact-info-card h3,
@@ -271,20 +280,34 @@
             transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: opacity, transform;
         }
+
         .reveal-on-scroll-left.is-visible .form-row-animate {
             opacity: 1;
             transform: translateY(0);
         }
-        .form-row-animate:nth-child(1) { transition-delay: 0.1s; }
-        .form-row-animate:nth-child(2) { transition-delay: 0.2s; }
-        .form-row-animate:nth-child(3) { transition-delay: 0.3s; }
-        .form-row-animate:nth-child(4) { transition-delay: 0.4s; }
+
+        .form-row-animate:nth-child(1) {
+            transition-delay: 0.1s;
+        }
+
+        .form-row-animate:nth-child(2) {
+            transition-delay: 0.2s;
+        }
+
+        .form-row-animate:nth-child(3) {
+            transition-delay: 0.3s;
+        }
+
+        .form-row-animate:nth-child(4) {
+            transition-delay: 0.4s;
+        }
 
         /* Map Container Entrance & Depth */
         .map-wrapper {
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
             will-change: transform, box-shadow;
         }
+
         .map-wrapper:hover {
             transform: translateY(-4px);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
@@ -293,14 +316,23 @@
 
         /* Ambient Glow Pulse */
         @keyframes ambientFloat {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(12px, -12px) scale(1.08); }
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(12px, -12px) scale(1.08);
+            }
         }
+
         .animate-ambient-glow {
             animation: ambientFloat 9s ease-in-out infinite alternate;
         }
     </style>
 </head>
+
 <body class="bg-surface-white text-on-surface-charcoal font-body-md antialiased flex flex-col min-h-screen">
     <!-- TopNavBar -->
     <nav id="mainNavbar" class="nav-load fixed top-0 w-full bg-white shadow-sm z-50 transition-all duration-300">
@@ -370,32 +402,37 @@
                     href="index.html">Home</a>
                 <a class="block text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors pb-2"
                     href="about.html">About Us</a>
-                
+
                 <!-- School Life Mobile Accordion -->
                 <div>
-                    <button id="mobileSchoolLifeBtn" class="w-full flex items-center justify-between text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors pb-2">
+                    <button id="mobileSchoolLifeBtn"
+                        class="w-full flex items-center justify-between text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors pb-2">
                         <span>School Life</span>
                         <span class="material-symbols-outlined text-[20px]" id="mobileSchoolLifeIcon">expand_more</span>
                     </button>
                     <div id="mobileSchoolLifeMenu" class="hidden pl-4 mt-2 space-y-2">
-                        <a href="academics.html" class="block text-[14px] leading-[20px] font-semibold text-[#2C2C2C] hover:text-[#d93633] transition-colors py-2">
+                        <a href="academics.html"
+                            class="block text-[14px] leading-[20px] font-semibold text-[#2C2C2C] hover:text-[#d93633] transition-colors py-2">
                             Academics
                         </a>
-                        <a href="curriculum.html" class="block text-[14px] leading-[20px] font-semibold text-[#2C2C2C] hover:text-[#d93633] transition-colors py-2">
+                        <a href="curriculum.html"
+                            class="block text-[14px] leading-[20px] font-semibold text-[#2C2C2C] hover:text-[#d93633] transition-colors py-2">
                             School Curriculum
                         </a>
-                        <a href="cocurricular.html" class="block text-[14px] leading-[20px] font-semibold text-[#2C2C2C] hover:text-[#d93633] transition-colors py-2">
+                        <a href="cocurricular.html"
+                            class="block text-[14px] leading-[20px] font-semibold text-[#2C2C2C] hover:text-[#d93633] transition-colors py-2">
                             Co-curricular Activities
                         </a>
                     </div>
                 </div>
-                
+
                 <a class="block text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors pb-2"
                     href="gallery.html">Gallery</a>
                 <a class="block text-[16px] leading-[24px] font-semibold text-[#1e2a4a] border-b-2 border-[#d93633] hover:text-[#d93633] transition-colors pb-2"
                     href="contact.html">Contact</a>
-                
-                <button id="joinUsBtnMobile" class="w-full bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm mt-4">
+
+                <button id="joinUsBtnMobile"
+                    class="w-full bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm mt-4">
                     Join Us
                 </button>
             </div>
@@ -408,13 +445,19 @@
         <section class="relative py-20 md:py-28 px-4 md:px-20 overflow-hidden bg-[#d93633] text-white">
             <div class="absolute inset-0 traditional-pattern opacity-30 animate-hero-pattern"></div>
             <!-- Ambient floating glow orbs for depth -->
-            <div class="absolute -top-24 -left-24 w-80 h-80 bg-white/10 rounded-full blur-3xl pointer-events-none animate-ambient-glow"></div>
-            <div class="absolute -bottom-24 -right-24 w-80 h-80 bg-black/15 rounded-full blur-3xl pointer-events-none animate-ambient-glow" style="animation-delay: -4.5s;"></div>
+            <div
+                class="absolute -top-24 -left-24 w-80 h-80 bg-white/10 rounded-full blur-3xl pointer-events-none animate-ambient-glow">
+            </div>
+            <div class="absolute -bottom-24 -right-24 w-80 h-80 bg-black/15 rounded-full blur-3xl pointer-events-none animate-ambient-glow"
+                style="animation-delay: -4.5s;"></div>
 
             <div class="max-w-[1200px] mx-auto px-4 md:px-20 relative z-10 text-center">
-                <h1 class="text-[32px] md:text-[48px] leading-[40px] md:leading-[56px] font-bold tracking-[-0.02em] text-white mb-6 reveal-on-scroll" data-reveal-delay="0">Get in Touch</h1>
-                <p class="text-[18px] leading-[28px] text-white/90 max-w-3xl mx-auto reveal-on-scroll" data-reveal-delay="150">
-                    St. Monica Junior School is located about 2 Km from Kasanje Town (Kkoba village), in Wakiso District.
+                <h1 class="text-[32px] md:text-[48px] leading-[40px] md:leading-[56px] font-bold tracking-[-0.02em] text-white mb-6 reveal-on-scroll"
+                    data-reveal-delay="0">Get in Touch</h1>
+                <p class="text-[18px] leading-[28px] text-white/90 max-w-3xl mx-auto reveal-on-scroll"
+                    data-reveal-delay="150">
+                    St. Monica Junior School is located about 2 Km from Kasanje Town (Kkoba village), in Wakiso
+                    District.
                 </p>
             </div>
         </section>
@@ -423,39 +466,47 @@
         <section class="py-12 px-4 md:px-20 max-w-[1200px] mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
                 <!-- Location Card -->
-                <div class="contact-info-card bg-white p-8 rounded-[0.5rem] shadow-sm border border-[#e2e2e2] text-center reveal-on-scroll-left group cursor-pointer" data-reveal-delay="0">
-                    <div class="contact-card-icon inline-flex items-center justify-center w-16 h-16 bg-[#1e2a4a]/10 rounded-full mb-4 transition-all duration-300">
-                        <span class="material-symbols-outlined text-[#1e2a4a] text-[32px] transition-colors duration-300">location_on</span>
+                <div class="contact-info-card bg-white p-8 rounded-[0.5rem] shadow-sm border border-[#e2e2e2] text-center reveal-on-scroll-left group cursor-pointer"
+                    data-reveal-delay="0">
+                    <div
+                        class="contact-card-icon inline-flex items-center justify-center w-16 h-16 bg-[#1e2a4a]/10 rounded-full mb-4 transition-all duration-300">
+                        <span
+                            class="material-symbols-outlined text-[#1e2a4a] text-[32px] transition-colors duration-300">location_on</span>
                     </div>
                     <h3 class="text-[18px] leading-[28px] font-semibold text-[#1e2a4a] mb-2">Visit Us</h3>
                     <p class="text-[16px] leading-[24px] text-[#45464e]">
-                        Kasanje Village<br/>
-                        Wakiso District<br/>
+                        Kkoba village, Kasanje<br />
+                        Wakiso District<br />
                         Uganda
                     </p>
                 </div>
 
                 <!-- Email Card -->
-                <div class="contact-info-card bg-white p-8 rounded-[0.5rem] shadow-sm border border-[#e2e2e2] text-center reveal-on-scroll group cursor-pointer" data-reveal-delay="150">
-                    <div class="contact-card-icon inline-flex items-center justify-center w-16 h-16 bg-[#1e2a4a]/10 rounded-full mb-4 transition-all duration-300">
-                        <span class="material-symbols-outlined text-[#1e2a4a] text-[32px] transition-colors duration-300">mail</span>
+                <div class="contact-info-card bg-white p-8 rounded-[0.5rem] shadow-sm border border-[#e2e2e2] text-center reveal-on-scroll group cursor-pointer"
+                    data-reveal-delay="150">
+                    <div
+                        class="contact-card-icon inline-flex items-center justify-center w-16 h-16 bg-[#1e2a4a]/10 rounded-full mb-4 transition-all duration-300">
+                        <span
+                            class="material-symbols-outlined text-[#1e2a4a] text-[32px] transition-colors duration-300">mail</span>
                     </div>
                     <h3 class="text-[18px] leading-[28px] font-semibold text-[#1e2a4a] mb-2">Email Us</h3>
-                    <p class="text-[16px] leading-[24px] text-[#45464e]">
-                        info@stmonicakasanje.ac.ug<br/>
-                        admissions@stmonicakasanje.ac.ug
+                    <p class="contact-email text-[16px] leading-[24px] text-[#45464e]">
+                        stmonicajuniorschool2012<wbr />@gmail.com
                     </p>
                 </div>
 
                 <!-- Phone Card -->
-                <div class="contact-info-card bg-white p-8 rounded-[0.5rem] shadow-sm border border-[#e2e2e2] text-center reveal-on-scroll-right group cursor-pointer" data-reveal-delay="300">
-                    <div class="contact-card-icon inline-flex items-center justify-center w-16 h-16 bg-[#1e2a4a]/10 rounded-full mb-4 transition-all duration-300">
-                        <span class="material-symbols-outlined text-[#1e2a4a] text-[32px] transition-colors duration-300">phone</span>
+                <div class="contact-info-card bg-white p-8 rounded-[0.5rem] shadow-sm border border-[#e2e2e2] text-center reveal-on-scroll-right group cursor-pointer"
+                    data-reveal-delay="300">
+                    <div
+                        class="contact-card-icon inline-flex items-center justify-center w-16 h-16 bg-[#1e2a4a]/10 rounded-full mb-4 transition-all duration-300">
+                        <span
+                            class="material-symbols-outlined text-[#1e2a4a] text-[32px] transition-colors duration-300">phone</span>
                     </div>
                     <h3 class="text-[18px] leading-[28px] font-semibold text-[#1e2a4a] mb-2">Call Us</h3>
                     <p class="text-[16px] leading-[24px] text-[#45464e]">
-                        +256 414 123 456<br/>
-                        +256 772 987 654
+                        +256 752 406176 <br />
+                        +256 762636213
                     </p>
                 </div>
             </div>
@@ -465,7 +516,8 @@
         <section class="py-12 px-4 md:px-20 max-w-[1200px] mx-auto">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
                 <!-- Contact Form (Left, spanning 7 cols) -->
-                <div class="contact-form-card lg:col-span-7 bg-white p-8 md:p-10 rounded-[0.5rem] shadow-sm border border-[#e2e2e2] reveal-on-scroll-left" data-reveal-delay="0">
+                <div class="contact-form-card lg:col-span-7 bg-white p-8 md:p-10 rounded-[0.5rem] shadow-sm border border-[#e2e2e2] reveal-on-scroll-left"
+                    data-reveal-delay="0">
                     <h2 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] mb-6">
                         Send us a Message
                         <span class="form-heading-line"></span>
@@ -473,24 +525,43 @@
                     <form id="contactForm" class="space-y-6" novalidate>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 form-row-animate">
                             <div>
-                                <label class="block text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#2C2C2C] mb-2" for="name">Name</label>
-                                <input class="w-full bg-[#f9f9f9] border border-[#c6c6cf] rounded-[0.25rem] px-4 py-3 text-[16px] leading-[24px] focus:outline-none focus:border-[#1e2a4a] focus:ring-1 focus:ring-[#1e2a4a] transition-all" id="name" name="name" placeholder="Your full name" type="text"/>
+                                <label
+                                    class="block text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#2C2C2C] mb-2"
+                                    for="name">Name</label>
+                                <input
+                                    class="w-full bg-[#f9f9f9] border border-[#c6c6cf] rounded-[0.25rem] px-4 py-3 text-[16px] leading-[24px] focus:outline-none focus:border-[#1e2a4a] focus:ring-1 focus:ring-[#1e2a4a] transition-all"
+                                    id="name" name="name" placeholder="Your full name" type="text" />
                             </div>
                             <div>
-                                <label class="block text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#2C2C2C] mb-2" for="email">Email</label>
-                                <input class="w-full bg-[#f9f9f9] border border-[#c6c6cf] rounded-[0.25rem] px-4 py-3 text-[16px] leading-[24px] focus:outline-none focus:border-[#1e2a4a] focus:ring-1 focus:ring-[#1e2a4a] transition-all" id="email" name="email" placeholder="your.email@example.com" type="email"/>
+                                <label
+                                    class="block text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#2C2C2C] mb-2"
+                                    for="email">Email</label>
+                                <input
+                                    class="w-full bg-[#f9f9f9] border border-[#c6c6cf] rounded-[0.25rem] px-4 py-3 text-[16px] leading-[24px] focus:outline-none focus:border-[#1e2a4a] focus:ring-1 focus:ring-[#1e2a4a] transition-all"
+                                    id="email" name="email" placeholder="your.email@example.com" type="email" />
                             </div>
                         </div>
                         <div class="form-row-animate">
-                            <label class="block text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#2C2C2C] mb-2" for="subject">Subject</label>
-                            <input class="w-full bg-[#f9f9f9] border border-[#c6c6cf] rounded-[0.25rem] px-4 py-3 text-[16px] leading-[24px] focus:outline-none focus:border-[#1e2a4a] focus:ring-1 focus:ring-[#1e2a4a] transition-all" id="subject" name="subject" placeholder="How can we help?" type="text"/>
+                            <label
+                                class="block text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#2C2C2C] mb-2"
+                                for="subject">Subject</label>
+                            <input
+                                class="w-full bg-[#f9f9f9] border border-[#c6c6cf] rounded-[0.25rem] px-4 py-3 text-[16px] leading-[24px] focus:outline-none focus:border-[#1e2a4a] focus:ring-1 focus:ring-[#1e2a4a] transition-all"
+                                id="subject" name="subject" placeholder="How can we help?" type="text" />
                         </div>
                         <div class="form-row-animate">
-                            <label class="block text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#2C2C2C] mb-2" for="message">Message</label>
-                            <textarea class="w-full bg-[#f9f9f9] border border-[#c6c6cf] rounded-[0.25rem] px-4 py-3 text-[16px] leading-[24px] focus:outline-none focus:border-[#1e2a4a] focus:ring-1 focus:ring-[#1e2a4a] transition-all resize-none" id="message" name="message" placeholder="Write your message here..." rows="5"></textarea>
+                            <label
+                                class="block text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#2C2C2C] mb-2"
+                                for="message">Message</label>
+                            <textarea
+                                class="w-full bg-[#f9f9f9] border border-[#c6c6cf] rounded-[0.25rem] px-4 py-3 text-[16px] leading-[24px] focus:outline-none focus:border-[#1e2a4a] focus:ring-1 focus:ring-[#1e2a4a] transition-all resize-none"
+                                id="message" name="message" placeholder="Write your message here..."
+                                rows="5"></textarea>
                         </div>
                         <div class="form-row-animate">
-                            <button class="contact-form-btn bg-[#d93633] text-white text-[14px] leading-[20px] tracking-[0.05em] font-semibold py-3.5 px-8 rounded-full shadow-sm w-full md:w-auto" type="submit">
+                            <button
+                                class="contact-form-btn bg-[#d93633] text-white text-[14px] leading-[20px] tracking-[0.05em] font-semibold py-3.5 px-8 rounded-full shadow-sm w-full md:w-auto"
+                                type="submit">
                                 Send Message
                             </button>
                         </div>
@@ -499,8 +570,12 @@
 
                 <!-- Map (Right, spanning 5 cols) -->
                 <div class="lg:col-span-5 flex flex-col gap-6 reveal-on-scroll-right" data-reveal-delay="150">
-                    <div class="map-wrapper h-full min-h-[400px] rounded-[0.5rem] overflow-hidden shadow-sm border border-[#e2e2e2]">
-                        <iframe class="w-full h-full" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.8027083140364!2d32.400966173966786!3d0.1602842642463911!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x177d9d78438ea433%3A0x1a41e79700174128!2sSt%20Monica%20Junior%20School%2C%20Kasanjye!5e0!3m2!1sen!2sug!4v1724341837360!5m2!1sen!2sug" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <div
+                        class="map-wrapper h-full min-h-[400px] rounded-[0.5rem] overflow-hidden shadow-sm border border-[#e2e2e2]">
+                        <iframe class="w-full h-full"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.8027083140364!2d32.400966173966786!3d0.1602842642463911!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x177d9d78438ea433%3A0x1a41e79700174128!2sSt%20Monica%20Junior%20School%2C%20Kasanjye!5e0!3m2!1sen!2sug!4v1724341837360!5m2!1sen!2sug"
+                            style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>
@@ -598,11 +673,19 @@
                         <a class="text-[14px] leading-[20px] text-white/60 hover:text-secondary-container transition-colors"
                             href="#">Terms of Service</a>
                     </div>
-                    <p class="text-[14px] leading-[20px] text-white/60 text-center">
-                        © <span id="currentYear"></span> St Monica Junior School Kasanje. All rights reserved.
-                    </p>
+                    <div class="flex flex-col items-center gap-1.5">
+                        <p class="text-[14px] leading-[20px] text-white/60 text-center">
+                            © <span id="currentYear"></span> St Monica Junior School Kasanje. All rights reserved.
+                        </p>
+                        <a href="ADMIN/login/login.php" title="Admin Login" aria-label="Admin Login"
+                            class="text-white/30 hover:text-secondary-container transition-colors">
+                            <span class="material-symbols-outlined text-[16px]">lock</span>
+                        </a>
+                    </div>
                     <p class="text-[14px] leading-[20px] text-white/60 text-center md:text-right">
-                        Made by <a href="https://www.sofdas.com/" class="text-secondary-container hover:text-secondary transition-colors font-semibold">Sofdas Technologies</a>
+                        Made by <a href="https://www.sofdas.com/"
+                            class="text-secondary-container hover:text-secondary transition-colors font-semibold">Sofdas
+                            Technologies</a>
                     </p>
                 </div>
             </div>
@@ -615,7 +698,8 @@
     </script>
 
     <!-- Application Form Modal -->
-    <div id="applicationModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div id="applicationModal"
+        class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
         <div class="bg-white rounded-[0.5rem] max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
             <!-- Modal Header -->
             <div class="sticky top-0 bg-[#1e2a4a] text-white p-6 rounded-t-[0.5rem] flex justify-between items-center">
@@ -633,42 +717,62 @@
                 <form id="applicationForm" class="space-y-6" novalidate>
                     <!-- Parent's Name -->
                     <div>
-                        <label class="block text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#2C2C2C] mb-2" for="parentName">
+                        <label
+                            class="block text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#2C2C2C] mb-2"
+                            for="parentName">
                             Parent's Name <span class="text-[#d93633]">*</span>
                         </label>
-                        <input class="w-full bg-[#f9f9f9] border border-[#c6c6cf] rounded-[0.25rem] px-4 py-3 text-[16px] leading-[24px] focus:outline-none focus:border-[#1e2a4a] focus:ring-1 focus:ring-[#1e2a4a] transition-colors" id="parentName" name="parentName" placeholder="Enter parent's full name" type="text"/>
+                        <input
+                            class="w-full bg-[#f9f9f9] border border-[#c6c6cf] rounded-[0.25rem] px-4 py-3 text-[16px] leading-[24px] focus:outline-none focus:border-[#1e2a4a] focus:ring-1 focus:ring-[#1e2a4a] transition-colors"
+                            id="parentName" name="parentName" placeholder="Enter parent's full name" type="text" />
                     </div>
 
                     <!-- Mobile -->
                     <div>
-                        <label class="block text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#2C2C2C] mb-2" for="mobile">
+                        <label
+                            class="block text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#2C2C2C] mb-2"
+                            for="mobile">
                             Mobile <span class="text-[#d93633]">*</span>
                         </label>
-                        <input class="w-full bg-[#f9f9f9] border border-[#c6c6cf] rounded-[0.25rem] px-4 py-3 text-[16px] leading-[24px] focus:outline-none focus:border-[#1e2a4a] focus:ring-1 focus:ring-[#1e2a4a] transition-colors" id="mobile" name="mobile" placeholder="+256 XXX XXX XXX" type="tel"/>
+                        <input
+                            class="w-full bg-[#f9f9f9] border border-[#c6c6cf] rounded-[0.25rem] px-4 py-3 text-[16px] leading-[24px] focus:outline-none focus:border-[#1e2a4a] focus:ring-1 focus:ring-[#1e2a4a] transition-colors"
+                            id="mobile" name="mobile" placeholder="+256 XXX XXX XXX" type="tel" />
                     </div>
 
                     <!-- Email Address (Optional) -->
                     <div>
-                        <label class="block text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#2C2C2C] mb-2" for="emailAddress">
+                        <label
+                            class="block text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#2C2C2C] mb-2"
+                            for="emailAddress">
                             Email Address <span class="text-[#45464e] text-[12px] font-normal">(Optional)</span>
                         </label>
-                        <input class="w-full bg-[#f9f9f9] border border-[#c6c6cf] rounded-[0.25rem] px-4 py-3 text-[16px] leading-[24px] focus:outline-none focus:border-[#1e2a4a] focus:ring-1 focus:ring-[#1e2a4a] transition-colors" id="emailAddress" name="emailAddress" placeholder="your.email@example.com" type="email"/>
+                        <input
+                            class="w-full bg-[#f9f9f9] border border-[#c6c6cf] rounded-[0.25rem] px-4 py-3 text-[16px] leading-[24px] focus:outline-none focus:border-[#1e2a4a] focus:ring-1 focus:ring-[#1e2a4a] transition-colors"
+                            id="emailAddress" name="emailAddress" placeholder="your.email@example.com" type="email" />
                     </div>
 
                     <!-- Pupil's Name -->
                     <div>
-                        <label class="block text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#2C2C2C] mb-2" for="pupilName">
+                        <label
+                            class="block text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#2C2C2C] mb-2"
+                            for="pupilName">
                             Pupil's Name <span class="text-[#d93633]">*</span>
                         </label>
-                        <input class="w-full bg-[#f9f9f9] border border-[#c6c6cf] rounded-[0.25rem] px-4 py-3 text-[16px] leading-[24px] focus:outline-none focus:border-[#1e2a4a] focus:ring-1 focus:ring-[#1e2a4a] transition-colors" id="pupilName" name="pupilName" placeholder="Enter pupil's full name" type="text"/>
+                        <input
+                            class="w-full bg-[#f9f9f9] border border-[#c6c6cf] rounded-[0.25rem] px-4 py-3 text-[16px] leading-[24px] focus:outline-none focus:border-[#1e2a4a] focus:ring-1 focus:ring-[#1e2a4a] transition-colors"
+                            id="pupilName" name="pupilName" placeholder="Enter pupil's full name" type="text" />
                     </div>
 
                     <!-- Pupil's Class -->
                     <div>
-                        <label class="block text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#2C2C2C] mb-2" for="pupilClass">
+                        <label
+                            class="block text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#2C2C2C] mb-2"
+                            for="pupilClass">
                             Pupil's Class <span class="text-[#d93633]">*</span>
                         </label>
-                        <select class="w-full bg-[#f9f9f9] border border-[#c6c6cf] rounded-[0.25rem] px-4 py-3 text-[16px] leading-[24px] focus:outline-none focus:border-[#1e2a4a] focus:ring-1 focus:ring-[#1e2a4a] transition-colors" id="pupilClass" name="pupilClass">
+                        <select
+                            class="w-full bg-[#f9f9f9] border border-[#c6c6cf] rounded-[0.25rem] px-4 py-3 text-[16px] leading-[24px] focus:outline-none focus:border-[#1e2a4a] focus:ring-1 focus:ring-[#1e2a4a] transition-colors"
+                            id="pupilClass" name="pupilClass">
                             <option value="">Select class</option>
                             <option value="Baby Class">Baby Class</option>
                             <option value="Middle Class">Middle Class</option>
@@ -685,26 +789,37 @@
 
                     <!-- Location -->
                     <div>
-                        <label class="block text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#2C2C2C] mb-2" for="location">
+                        <label
+                            class="block text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#2C2C2C] mb-2"
+                            for="location">
                             Location <span class="text-[#d93633]">*</span>
                         </label>
-                        <input class="w-full bg-[#f9f9f9] border border-[#c6c6cf] rounded-[0.25rem] px-4 py-3 text-[16px] leading-[24px] focus:outline-none focus:border-[#1e2a4a] focus:ring-1 focus:ring-[#1e2a4a] transition-colors" id="location" name="location" placeholder="Enter your location/address" type="text"/>
+                        <input
+                            class="w-full bg-[#f9f9f9] border border-[#c6c6cf] rounded-[0.25rem] px-4 py-3 text-[16px] leading-[24px] focus:outline-none focus:border-[#1e2a4a] focus:ring-1 focus:ring-[#1e2a4a] transition-colors"
+                            id="location" name="location" placeholder="Enter your location/address" type="text" />
                     </div>
 
                     <!-- Message -->
                     <div>
-                        <label class="block text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#2C2C2C] mb-2" for="applicationMessage">
+                        <label
+                            class="block text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#2C2C2C] mb-2"
+                            for="applicationMessage">
                             Message <span class="text-[#d93633]">*</span>
                         </label>
-                        <textarea class="w-full bg-[#f9f9f9] border border-[#c6c6cf] rounded-[0.25rem] px-4 py-3 text-[16px] leading-[24px] focus:outline-none focus:border-[#1e2a4a] focus:ring-1 focus:ring-[#1e2a4a] transition-colors resize-none" id="applicationMessage" name="applicationMessage" placeholder="Tell us more about your application..." rows="4"></textarea>
+                        <textarea
+                            class="w-full bg-[#f9f9f9] border border-[#c6c6cf] rounded-[0.25rem] px-4 py-3 text-[16px] leading-[24px] focus:outline-none focus:border-[#1e2a4a] focus:ring-1 focus:ring-[#1e2a4a] transition-colors resize-none"
+                            id="applicationMessage" name="applicationMessage"
+                            placeholder="Tell us more about your application..." rows="4"></textarea>
                     </div>
 
                     <!-- Submit Button -->
                     <div class="flex gap-4 pt-4">
-                        <button type="submit" class="flex-1 bg-[#d93633] text-white text-[14px] leading-[20px] tracking-[0.05em] font-semibold py-3 px-8 rounded-full hover:bg-[#b51a1e] transition-colors shadow-sm">
+                        <button type="submit"
+                            class="flex-1 bg-[#d93633] text-white text-[14px] leading-[20px] tracking-[0.05em] font-semibold py-3 px-8 rounded-full hover:bg-[#b51a1e] transition-colors shadow-sm">
                             Submit Application
                         </button>
-                        <button type="button" id="cancelBtn" class="px-8 py-3 text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#45464e] hover:bg-[#f3f3f3] rounded-full transition-colors">
+                        <button type="button" id="cancelBtn"
+                            class="px-8 py-3 text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#45464e] hover:bg-[#f3f3f3] rounded-full transition-colors">
                             Cancel
                         </button>
                     </div>
@@ -726,7 +841,7 @@
         const mobileSchoolLifeMenu = document.getElementById('mobileSchoolLifeMenu');
         const mobileSchoolLifeIcon = document.getElementById('mobileSchoolLifeIcon');
 
-        mobileMenuBtn.addEventListener('click', function() {
+        mobileMenuBtn.addEventListener('click', function () {
             mobileMenu.classList.toggle('hidden');
             if (mobileMenu.classList.contains('hidden')) {
                 mobileMenuIcon.textContent = 'menu';
@@ -736,7 +851,7 @@
         });
 
         // Mobile School Life Accordion
-        mobileSchoolLifeBtn.addEventListener('click', function() {
+        mobileSchoolLifeBtn.addEventListener('click', function () {
             mobileSchoolLifeMenu.classList.toggle('hidden');
             if (mobileSchoolLifeMenu.classList.contains('hidden')) {
                 mobileSchoolLifeIcon.textContent = 'expand_more';
@@ -750,7 +865,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            
+
             const revealElements = document.querySelectorAll(
                 '.reveal-on-scroll, .reveal-on-scroll-left, .reveal-on-scroll-right, .reveal-zoom'
             );
@@ -818,24 +933,24 @@
             const contactCards = document.querySelectorAll('.contact-info-card');
             contactCards.forEach(card => {
                 let touchTimer;
-                card.addEventListener('touchstart', function() {
+                card.addEventListener('touchstart', function () {
                     contactCards.forEach(c => { if (c !== card) c.classList.remove('is-touch-active'); });
                     card.classList.add('is-touch-active');
                     clearTimeout(touchTimer);
                 }, { passive: true });
 
-                card.addEventListener('touchend', function() {
+                card.addEventListener('touchend', function () {
                     touchTimer = setTimeout(() => {
                         card.classList.remove('is-touch-active');
                     }, 2000);
                 }, { passive: true });
 
-                card.addEventListener('touchcancel', function() {
+                card.addEventListener('touchcancel', function () {
                     card.classList.remove('is-touch-active');
                 }, { passive: true });
             });
 
-            document.addEventListener('touchstart', function(e) {
+            document.addEventListener('touchstart', function (e) {
                 if (!e.target.closest('.contact-info-card')) {
                     contactCards.forEach(c => c.classList.remove('is-touch-active'));
                 }
@@ -844,4 +959,5 @@
     </script>
     <script src="assets/js/cms-client.js"></script>
 </body>
+
 </html>

@@ -33,15 +33,12 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
                 : strtoupper(substr($name, 0, 2));
         }
 
-        // Photo upload
+        // Photo chosen from the Media Library (optional)
         $photoPath = null;
-        if (!empty($_FILES['photo']['name'])) {
-            $uploadError = null;
-            $uploaded = handle_file_upload($_FILES['photo'], 'gallery', $uploadError);
-            if ($uploaded) {
-                $photoPath = $uploaded;
-            } else {
-                set_flash('danger', 'Photo upload failed: ' . $uploadError);
+        if (!empty($_POST['photo'])) {
+            $photoPath = resolve_media_selection($_POST['photo']);
+            if (!$photoPath) {
+                set_flash('danger', 'The selected photo is no longer available in the Media Library. Please choose another.');
                 redirect(admin_url('testimonials/create.php'));
             }
         }
@@ -174,14 +171,10 @@ include CMS_ROOT . '/includes/header.php';
             <label class="block text-xs font-semibold text-slate-700 mb-1.5">
                 Author Portrait Photo <span class="text-slate-400 font-normal">(Optional)</span>
             </label>
-            <input type="file" name="photo" accept="image/*" data-preview-target="photoPreview" 
-                   class="cms-input py-2">
-            <span class="text-[11px] text-slate-400 mt-1 block">Recommended: Square portrait (JPG, PNG, WebP). If omitted, initials circle will be displayed.</span>
-
-            <!-- Preview box -->
-            <div id="photoPreviewContainer" class="hidden mt-3">
-                <img id="photoPreview" src="" alt="Photo Preview" class="w-16 h-16 rounded-full object-cover border border-slate-200 shadow-sm">
-            </div>
+            <?= render_media_picker('photo', [
+                'shape' => 'circle',
+                'hint'  => 'Square portrait recommended. If omitted, an initials circle will be displayed.',
+            ]) ?>
         </div>
 
         <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">

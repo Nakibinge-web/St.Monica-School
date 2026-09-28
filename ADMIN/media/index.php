@@ -22,8 +22,8 @@ $where = ["1 = 1"];
 $params = [];
 
 if ($search !== '') {
-    $where[] = "(`title` LIKE :s OR `alt_text` LIKE :s OR `caption` LIKE :s OR `file_path` LIKE :s)";
-    $params['s'] = "%{$search}%";
+    $where[] = "(`title` LIKE :s1 OR `alt_text` LIKE :s2 OR `caption` LIKE :s3 OR `file_path` LIKE :s4)";
+    $params += ['s1' => "%{$search}%", 's2' => "%{$search}%", 's3' => "%{$search}%", 's4' => "%{$search}%"];
 }
 if (!empty($typeFilter)) {
     $where[] = "`file_type` = :type";
@@ -63,7 +63,7 @@ $totalPages = ceil($totalRows / $perPage);
 // format_bytes() and get_media_usage() are defined in includes/functions.php,
 // shared with media/delete.php and media/cleanup.php.
 
-$categories = ['Campus Life', 'Academics', 'Sports & MDD', 'Special Events', 'Facilities', 'Administration', 'General'];
+$categories = media_categories();
 
 include CMS_ROOT . '/includes/header.php';
 ?>

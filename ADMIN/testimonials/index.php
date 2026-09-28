@@ -19,8 +19,8 @@ $where = ['`deleted_at` IS NULL'];
 $params = [];
 
 if ($search !== '') {
-    $where[] = "(`name` LIKE :s OR `content` LIKE :s OR `child_info` LIKE :s)";
-    $params['s'] = "%{$search}%";
+    $where[] = "(`name` LIKE :s1 OR `content` LIKE :s2 OR `child_info` LIKE :s3)";
+    $params += ['s1' => "%{$search}%", 's2' => "%{$search}%", 's3' => "%{$search}%"];
 }
 if (in_array($statusFilter, ['published', 'draft'])) {
     $where[] = "`status` = :status";
@@ -32,6 +32,8 @@ $offset = ($page - 1) * $perPage;
 
 $totalRows = 0;
 $testimonials = [];
+$pendingReviews = pending_reviews_count();
+$currentListUrl = $_SERVER['REQUEST_URI'] ?? admin_url('testimonials/');
 
 try {
     $totalRows = (int)Database::fetchColumn("SELECT COUNT(*) FROM `testimonials` WHERE {$whereSql}", $params);
@@ -85,6 +87,27 @@ include CMS_ROOT . '/includes/header.php';
         </div>
     </form>
 </div>
+
+<?php if ($pendingReviews > 0 && $statusFilter !== 'draft'): ?>
+<!-- Pending reviews banner -->
+<div class="mb-6 p-4 rounded-xl border border-amber-200 bg-amber-50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+    <div class="flex items-center gap-3">
+        <span class="w-10 h-10 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-[22px]">rate_review</span>
+        </span>
+        <div>
+            <p class="text-sm font-bold text-amber-900">
+                <?= $pendingReviews ?> review<?= $pendingReviews === 1 ? '' : 's' ?> awaiting your approval
+            </p>
+            <p class="text-xs text-amber-800/80">Visitor ratings from the homepage stay hidden until you publish them.</p>
+        </div>
+    </div>
+    <a href="<?= admin_url('testimonials/?status=draft') ?>" class="cms-btn cms-btn-accent text-xs self-start sm:self-auto">
+        <span class="material-symbols-outlined text-[16px]">visibility</span>
+        <span>Show pending reviews</span>
+    </a>
+</div>
+<?php endif; ?>
 
 <!-- Testimonials Table -->
 <div class="cms-card overflow-hidden">
@@ -144,12 +167,23 @@ include CMS_ROOT . '/includes/header.php';
                                 </div>
                             </td>
                             <td>
-                                <span class="cms-badge <?= $t['status'] === 'published' ? 'badge-published' : 'badge-draft' ?>">
-                                    <?= ucfirst($t['status']) ?>
+                                <span class="cms-badge whitespace-nowrap <?= $t['status'] === 'published' ? 'badge-published' : 'badge-draft' ?>">
+                                    <?= $t['status'] === 'published' ? 'Published' : 'Pending review' ?>
                                 </span>
                             </td>
                             <td class="text-right">
                                 <div class="flex items-center justify-end gap-1.5">
+                                    <?php if ($t['status'] !== 'published'): ?>
+                                        <form method="POST" action="<?= admin_url('testimonials/publish.php') ?>" class="inline">
+                                            <?= csrf_field() ?>
+                                            <input type="hidden" name="id" value="<?= (int)$t['id'] ?>">
+                                            <input type="hidden" name="redirect" value="<?= e($currentListUrl) ?>">
+                                            <button type="submit" class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm transition whitespace-nowrap" title="Publish this review on the website">
+                                                <span class="material-symbols-outlined text-[16px]">check_circle</span>
+                                                <span>Publish</span>
+                                            </button>
+                                        </form>
+                                    <?php endif; ?>
                                     <a href="<?= admin_url('testimonials/edit.php?id=' . $t['id']) ?>" class="p-1.5 text-slate-600 hover:text-[#1e2a4a] rounded hover:bg-slate-100" title="Edit">
                                         <span class="material-symbols-outlined text-[18px]">edit</span>
                                     </a>

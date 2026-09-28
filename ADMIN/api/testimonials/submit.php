@@ -12,6 +12,7 @@ if (!defined('CMS_ROOT')) define('CMS_ROOT', dirname(dirname(__DIR__)));
 require_once CMS_ROOT . '/includes/config.php';
 require_once CMS_ROOT . '/includes/functions.php';
 require_once CMS_ROOT . '/includes/database.php';
+require_once CMS_ROOT . '/services/NotificationService.php';
 
 // Handle CORS preflight
 if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
@@ -125,6 +126,15 @@ try {
         "New visitor rating ({$rating}\u{2605}) submitted by {$name} ({$role}) — pending review",
         'testimonials',
         $newId
+    );
+
+    // Alert admins (bell + Notifications page); links straight to the pending list
+    $preview = mb_strlen($content) > 90 ? mb_substr($content, 0, 90) . '…' : $content;
+    NotificationService::create(
+        'New testimonial submitted',
+        "{$name} ({$role}) rated {$rating}/5: \"{$preview}\"",
+        admin_url('testimonials/?status=draft'),
+        'testimonial'
     );
 
     json_response(true, 'Thank you! Your review has been submitted and will appear on our website after admin review.', [

@@ -92,7 +92,7 @@ try {
         <?php endif; ?>
 
         <!-- Content -->
-        <?php if (can_manage('staff') || can_manage('news-events') || can_manage('testimonials') || can_manage('media') || can_manage('gallery') || can_manage('announcements')): ?>
+        <?php if (can_manage('staff') || can_manage('news-events') || can_manage('testimonials') || can_manage('media') || can_manage('gallery')): ?>
         <div>
             <div class="px-3 mb-2 text-[11px] font-bold text-slate-400 uppercase tracking-wider">Content</div>
             <nav class="space-y-1">
@@ -111,9 +111,16 @@ try {
                 <?php endif; ?>
 
                 <?php if (can_manage('testimonials')): ?>
-                <a href="<?= admin_url('testimonials/') ?>" class="sidebar-link <?= ($activeMenu === 'testimonials') ? 'active' : '' ?>">
-                    <span class="material-symbols-outlined text-[20px]">format_quote</span>
-                    <span>Testimonials</span>
+                <?php $pendingReviewsCount = pending_reviews_count(); ?>
+                <a href="<?= admin_url($pendingReviewsCount > 0 ? 'testimonials/?status=draft' : 'testimonials/') ?>" class="sidebar-link <?= ($activeMenu === 'testimonials') ? 'active' : '' ?> flex items-center justify-between"
+                   <?= $pendingReviewsCount > 0 ? 'title="' . $pendingReviewsCount . ' review(s) awaiting approval"' : '' ?>>
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-[20px]">format_quote</span>
+                        <span>Testimonials</span>
+                    </div>
+                    <?php if ($pendingReviewsCount > 0): ?>
+                        <span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-red-500 text-white shadow-sm"><?= $pendingReviewsCount ?></span>
+                    <?php endif; ?>
                 </a>
                 <?php endif; ?>
 
@@ -130,19 +137,12 @@ try {
                     <span>Media Library</span>
                 </a>
                 <?php endif; ?>
-
-                <?php if (can_manage('announcements')): ?>
-                <a href="<?= admin_url('announcements/') ?>" class="sidebar-link <?= ($activeMenu === 'announcements') ? 'active' : '' ?>">
-                    <span class="material-symbols-outlined text-[20px]">campaign</span>
-                    <span>Announcements</span>
-                </a>
-                <?php endif; ?>
             </nav>
         </div>
         <?php endif; ?>
 
         <!-- Communications -->
-        <?php if (can_manage('notifications') || can_manage('inquiries') || has_role('super_admin')): ?>
+        <?php if (can_manage('notifications') || can_manage('inquiries') || can_manage('newsletter') || has_role('super_admin')): ?>
         <div>
             <div class="px-3 mb-2 text-[11px] font-bold text-slate-400 uppercase tracking-wider">Communications</div>
             <nav class="space-y-1">
@@ -167,6 +167,13 @@ try {
                     <?php if ($newEnquiriesCount > 0): ?>
                         <span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-red-500 text-white shadow-sm"><?= $newEnquiriesCount ?></span>
                     <?php endif; ?>
+                </a>
+                <?php endif; ?>
+
+                <?php if (can_manage('newsletter')): ?>
+                <a href="<?= admin_url('newsletter/') ?>" class="sidebar-link <?= ($activeMenu === 'newsletter') ? 'active' : '' ?>">
+                    <span class="material-symbols-outlined text-[20px]">campaign</span>
+                    <span>Newsletter</span>
                 </a>
                 <?php endif; ?>
 

@@ -38,16 +38,13 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && in_array($action, ['create'
     if (empty($title) || empty($description)) {
         set_flash('danger', 'Title and description are required.');
     } else {
+        // Photo chosen from the Media Library (empty = keep current)
         $imagePath = null;
-        $uploadError = null;
-
-        if (!empty($_FILES['image']['name'])) {
-            $uploaded = handle_file_upload($_FILES['image'], 'homepage', $uploadError);
-            if ($uploaded) {
-                $imagePath = $uploaded;
-            } else {
-                set_flash('danger', 'Photo upload failed: ' . $uploadError);
-                redirect(admin_url('about/facilities.php' . ($action === 'edit' ? "?action=edit&id={$editId}" : '?action=create')));
+        if (!empty($_POST['image'])) {
+            $imagePath = resolve_media_selection($_POST['image']);
+            if (!$imagePath) {
+                set_flash('danger', 'The selected photo is no longer available in the Media Library. Please choose another.');
+                redirect(admin_url('about/facilities.php' . ($action === 'update' ? "?action=edit&id={$editId}" : '?action=create')));
             }
         }
 
@@ -158,12 +155,7 @@ include CMS_ROOT . '/includes/header.php';
 
             <div>
                 <label class="block text-xs font-semibold text-slate-700 uppercase mb-2">Facility Photo</label>
-                <?php if (!empty($editFac['image'])): ?>
-                    <div class="mb-3">
-                        <img src="<?= public_url($editFac['image']) ?>" alt="Photo" class="h-24 w-36 object-cover rounded-lg border border-slate-200">
-                    </div>
-                <?php endif; ?>
-                <input type="file" name="image" accept="image/jpeg,image/png,image/webp" class="cms-input">
+                <?= render_media_picker('image', ['current' => $editFac['image'] ?? '']) ?>
             </div>
 
             <div class="flex items-center justify-end gap-3 pt-6 border-t border-slate-100">

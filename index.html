@@ -14,6 +14,8 @@
         rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="assets/css/style.css">
+    <!-- SweetAlert2 for polished alert dialogs -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -468,7 +470,7 @@
                         Meet the passionate educators who make learning an exciting journey for every child.
                     </p>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8" data-home="team-grid">
                     <!-- Staff Card 1 -->
                     <div
                         class="vision-card opacity-0 translate-y-20 bg-[#f3f3f3] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-700 hover:scale-105 hover:-translate-y-2 group">
@@ -560,13 +562,21 @@
         </section>
 
         <!-- News & Events -->
-        <section class="py-24 px-4 md:px-12 lg:px-48 bg-[#f3f3f3]">
+        <section id="news" class="py-24 px-4 md:px-8 lg:px-12 bg-[#f3f3f3] scroll-mt-24">
             <div class="max-w-[1400px] mx-auto">
                 <div class="text-center mb-12 news-header opacity-0 translate-y-20">
                     <h2 class="text-[32px] leading-[40px] font-semibold text-[#1e2a4a] mb-2">News & Events</h2>
                     <p class="text-[16px] leading-[24px] text-[#2C2C2C]">Stay updated with our school community</p>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- One row: cards shrink to fit; scrolls sideways only when they would get too small -->
+                <div class="news-row-wrap">
+                <button type="button" class="news-row-arrow is-prev" data-news-prev aria-label="Previous news" hidden>
+                    <span class="material-symbols-outlined">chevron_left</span>
+                </button>
+                <button type="button" class="news-row-arrow is-next" data-news-next aria-label="More news" hidden>
+                    <span class="material-symbols-outlined">chevron_right</span>
+                </button>
+                <div class="news-row" data-home="news-row">
                     <!-- News Card 1 -->
                     <div class="news-card opacity-0 translate-y-20 bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-700 hover:scale-105 hover:-translate-y-2 group">
                         <div class="h-48 overflow-hidden">
@@ -633,6 +643,7 @@
                         </div>
                     </div>
                 </div>
+                </div><!-- /.news-row-wrap -->
             </div>
         </section>
 
@@ -881,8 +892,8 @@
                                 <div>
                                     <h3 class="text-[18px] leading-[28px] font-semibold text-[#1e2a4a] mb-2">Phone</h3>
                                     <p class="text-[16px] leading-[24px] text-[#45464e]">
-                                        +256 414 123 456<br />
-                                        +256 772 987 654
+                                        +256 752 406176<br />
+                                        +256 762 636213
                                     </p>
                                 </div>
                             </div>
@@ -974,7 +985,7 @@
                                 class="material-symbols-outlined text-[20px] text-secondary-container flex-shrink-0">phone</span>
                             <div class="flex flex-col">
                                 <span class="text-[16px] leading-[24px]">+256 752 406176</span>
-                                <span class="text-[16px] leading-[24px]">+256 762636213</span>
+                                <span class="text-[16px] leading-[24px]">+256 762 636213</span>
                             </div>
                         </li>
                         <li class="footer-contact-item flex items-center gap-3 text-white/70">
@@ -1323,19 +1334,17 @@
                 if (entry.isIntersecting) {
                     const counters = entry.target.querySelectorAll('.counter');
                     counters.forEach(counter => {
-                        const target = +counter.getAttribute('data-target');
                         const duration = 2000; // 2 seconds
-                        const increment = target / (duration / 16); // 60fps
-                        let current = 0;
+                        let start = null;
 
-                        const updateCounter = () => {
-                            current += increment;
-                            if (current < target) {
-                                counter.textContent = Math.ceil(current);
-                                requestAnimationFrame(updateCounter);
-                            } else {
-                                counter.textContent = target;
-                            }
+                        // data-target is read every frame so values loaded from the CMS
+                        // mid-animation still end on the correct number
+                        const updateCounter = (now) => {
+                            const target = +counter.getAttribute('data-target') || 0;
+                            if (start === null) start = now;
+                            const progress = Math.min((now - start) / duration, 1);
+                            counter.textContent = progress < 1 ? Math.ceil(target * progress) : target;
+                            if (progress < 1) requestAnimationFrame(updateCounter);
                         };
 
                         // Add animation to icons
@@ -1345,17 +1354,21 @@
                         }
 
                         // Start counting after a small delay
-                        setTimeout(updateCounter, 200);
+                        setTimeout(() => requestAnimationFrame(updateCounter), 200);
                     });
                     counterObserver.unobserve(entry.target);
                 }
             });
         }, { threshold: 0.5 });
 
-        // Observe all counter items
-        document.querySelectorAll('.counter-item').forEach(item => {
-            counterObserver.observe(item);
-        });
+        // Observe all counter items. Exposed so cms-client.js can animate counters
+        // it renders from the admin panel's School Statistics.
+        window.observeCounterItems = () => {
+            document.querySelectorAll('.counter-item').forEach(item => {
+                counterObserver.observe(item);
+            });
+        };
+        window.observeCounterItems();
 
         // Footer Animations Observer
         const footerObserver = new IntersectionObserver((entries) => {

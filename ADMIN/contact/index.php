@@ -98,7 +98,7 @@ include CMS_ROOT . '/includes/header.php';
                     <!-- Social Media Links -->
                     <div class="sm:col-span-2 pt-4 border-t border-slate-100">
                         <h3 class="text-sm font-bold text-slate-900 brand-font mb-4">Social Media Channels</h3>
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                             <div>
                                 <label class="block text-xs font-semibold text-slate-700 mb-1">Facebook URL</label>
                                 <input type="url" name="facebook" value="<?= e($contact['facebook'] ?? '') ?>" placeholder="https://facebook.com/..." class="cms-input text-xs">
@@ -110,6 +110,10 @@ include CMS_ROOT . '/includes/header.php';
                             <div>
                                 <label class="block text-xs font-semibold text-slate-700 mb-1">YouTube URL</label>
                                 <input type="url" name="youtube" value="<?= e($contact['youtube'] ?? '') ?>" placeholder="https://youtube.com/..." class="cms-input text-xs">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">TikTok URL</label>
+                                <input type="url" name="tiktok" value="<?= e($contact['tiktok'] ?? '') ?>" placeholder="https://www.tiktok.com/@..." class="cms-input text-xs">
                             </div>
                         </div>
                     </div>

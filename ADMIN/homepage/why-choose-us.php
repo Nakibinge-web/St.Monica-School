@@ -32,10 +32,16 @@ if ($action === 'update_intro' && ($_SERVER['REQUEST_METHOD'] ?? '') === 'POST')
     $title = trim($_POST['title'] ?? 'Why Choose St Monica?');
     $content = trim($_POST['content'] ?? '');
 
-    Database::update('homepage_sections', [
+    $introData = [
         'title'   => $title,
         'content' => $content
-    ], "section_key = 'why_choose_intro'");
+    ];
+    if (Database::fetchOne("SELECT `id` FROM `homepage_sections` WHERE `section_key` = 'why_choose_intro'")) {
+        Database::update('homepage_sections', $introData, "section_key = 'why_choose_intro'");
+    } else {
+        $introData['section_key'] = 'why_choose_intro';
+        Database::insert('homepage_sections', $introData);
+    }
 
     log_activity('Updated Why Choose Us Intro');
     set_flash('success', 'Section header updated successfully.');

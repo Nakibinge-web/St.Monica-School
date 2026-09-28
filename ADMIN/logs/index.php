@@ -20,8 +20,8 @@ $where = ['1 = 1'];
 $params = [];
 
 if ($search !== '') {
-    $where[] = "(`action` LIKE :s OR `details` LIKE :s OR `admin_name` LIKE :s)";
-    $params['s'] = "%{$search}%";
+    $where[] = "(`action` LIKE :s1 OR `details` LIKE :s2 OR `admin_name` LIKE :s3)";
+    $params += ['s1' => "%{$search}%", 's2' => "%{$search}%", 's3' => "%{$search}%"];
 }
 
 if (!empty($moduleFilter)) {

@@ -197,10 +197,13 @@ include CMS_ROOT . '/includes/header.php';
                                        value="<?= e($currentSeo['og_image'] ?? '') ?>" 
                                        class="cms-input font-mono text-xs" 
                                        placeholder="assets/images/... or https://...">
-                                <a href="<?= admin_url('media/') ?>" target="_blank" class="cms-btn cms-btn-outline text-xs whitespace-nowrap">
+                                <button type="button" class="cms-btn cms-btn-outline text-xs whitespace-nowrap"
+                                        data-media-picker-for="ogImage"
+                                        data-endpoint="<?= e(admin_url('media/picker.php')) ?>"
+                                        data-csrf="<?= e(csrf_token()) ?>">
                                     <span class="material-symbols-outlined text-[16px]">photo_library</span>
-                                    <span>Library</span>
-                                </a>
+                                    <span>Choose from Library</span>
+                                </button>
                             </div>
                             <p class="text-[11px] text-slate-400 mt-1">Recommended dimension: 1200 x 630 pixels (JPG/PNG).</p>
                         </div>

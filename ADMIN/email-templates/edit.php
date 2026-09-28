@@ -44,12 +44,17 @@ $activeMenu = 'email-templates';
 
 // Known placeholders per template, shown as a helpful reference (display only)
 $placeholderHints = [
-    'new_application_staff'      => ['application_number', 'pupil_name', 'pupil_class', 'parent_name', 'school_name'],
-    'application_received'       => ['parent_name', 'pupil_name', 'application_number', 'school_name'],
-    'application_status_update'  => ['parent_name', 'pupil_name', 'application_number', 'application_status', 'school_name'],
-    'new_enquiry_staff'          => ['enquiry_name', 'enquiry_email', 'enquiry_subject', 'school_name'],
-    'password_reset'             => ['admin_name', 'reset_url', 'school_name'],
-    'admin_invitation'           => ['admin_name', 'admin_role', 'login_url', 'school_name'],
+    'new_application_staff'            => ['application_number', 'pupil_name', 'pupil_class', 'parent_name', 'school_name'],
+    'application_received'             => ['parent_name', 'pupil_name', 'application_number', 'school_name'],
+    'application_status_update'        => ['parent_name', 'pupil_name', 'pupil_class', 'application_number', 'application_status', 'school_name', 'school_phone', 'school_email', 'custom_message'],
+    'application_status_accepted'      => ['parent_name', 'pupil_name', 'pupil_class', 'application_number', 'application_status', 'school_name', 'school_phone', 'school_email', 'custom_message'],
+    'application_status_under_review'  => ['parent_name', 'pupil_name', 'pupil_class', 'application_number', 'application_status', 'school_name', 'school_phone', 'school_email', 'custom_message'],
+    'application_status_contacted'     => ['parent_name', 'pupil_name', 'pupil_class', 'application_number', 'application_status', 'school_name', 'school_phone', 'school_email', 'custom_message'],
+    'application_status_rejected'      => ['parent_name', 'pupil_name', 'pupil_class', 'application_number', 'application_status', 'school_name', 'school_phone', 'school_email', 'custom_message'],
+    'application_status_withdrawn'     => ['parent_name', 'pupil_name', 'pupil_class', 'application_number', 'application_status', 'school_name', 'school_phone', 'school_email', 'custom_message'],
+    'new_enquiry_staff'                => ['enquiry_name', 'enquiry_email', 'enquiry_subject', 'school_name'],
+    'password_reset'                   => ['admin_name', 'reset_url', 'school_name'],
+    'admin_invitation'                 => ['admin_name', 'admin_role', 'login_url', 'school_name'],
 ];
 $hints = $placeholderHints[$template['template_key']] ?? [];
 

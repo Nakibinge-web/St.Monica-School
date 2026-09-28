@@ -63,7 +63,7 @@ $requiredTables = [
     'staff', 'news_events', 'gallery', 'about_content', 'core_values', 'facilities',
     'contact_information', 'activity_logs', 'admissions', 'admission_info', 'testimonials',
     'media_library', 'seo_settings', 'admission_notes', 'enquiries', 'notifications',
-    'announcements', 'site_settings', 'email_templates', 'admin_sessions',
+    'site_settings', 'email_templates', 'admin_sessions', 'newsletter_subscribers', 'newsletter_campaigns', 'newsletter_deliveries',
     'password_resets', 'remember_tokens'
 ];
 try {

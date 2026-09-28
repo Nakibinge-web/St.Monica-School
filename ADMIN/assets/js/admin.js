@@ -168,10 +168,41 @@ document.addEventListener('DOMContentLoaded', () => {
             textarea.value = editor.innerHTML;
         };
 
-        editor.addEventListener('input', syncContent);
+        // The original textarea is hidden, so the browser cannot show its "required" warning and
+        // would silently block the submit. Validate the visible editor ourselves instead.
+        const isRequired = textarea.hasAttribute('required');
+        textarea.removeAttribute('required');
+
+        const errorMsg = document.createElement('p');
+        errorMsg.className = 'hidden text-xs font-semibold text-red-600 mt-1.5';
+        errorMsg.textContent = 'This field is required. Please write some content before saving.';
+        wrapper.after(errorMsg);
+
+        const editorIsEmpty = () =>
+            editor.textContent.trim() === '' && !editor.querySelector('img, iframe, video');
+
+        const showRequiredError = (show) => {
+            errorMsg.classList.toggle('hidden', !show);
+            editor.classList.toggle('border-red-500', show);
+            editor.classList.toggle('ring-1', show);
+            editor.classList.toggle('ring-red-500', show);
+        };
+
+        editor.addEventListener('input', () => {
+            syncContent();
+            if (!editorIsEmpty()) showRequiredError(false);
+        });
         editor.addEventListener('blur', syncContent);
         if (textarea.form) {
-            textarea.form.addEventListener('submit', syncContent);
+            textarea.form.addEventListener('submit', (e) => {
+                syncContent();
+                if (isRequired && editorIsEmpty()) {
+                    e.preventDefault();
+                    showRequiredError(true);
+                    editor.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    editor.focus();
+                }
+            });
         }
 
         toolbar.querySelectorAll('button').forEach(btn => {

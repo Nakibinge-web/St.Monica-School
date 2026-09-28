@@ -1381,6 +1381,94 @@ body {
     transform: scale(1.15) rotate(-6deg) !important;
 }
 
+/* How to Join Us Step Cards (About) - Hover & Touch Effects */
+.join-step-card {
+    /* Keeps the scroll-reveal fade at its usual pace while making hover snappy */
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.join-step-card::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 4px;
+    background-color: #d93633;
+    border-bottom-left-radius: 0.75rem;
+    border-bottom-right-radius: 0.75rem;
+    transform: scaleX(0);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.join-step-card .join-step-number,
+.join-step-card .join-step-icon {
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.join-step-card h3 {
+    transition: color 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.join-step-card:hover,
+.join-step-card:active,
+.join-step-card.is-touch-active {
+    border-color: rgba(217, 54, 51, 0.35) !important;
+    box-shadow: 0 20px 25px -5px rgba(30, 42, 74, 0.12), 0 10px 10px -5px rgba(30, 42, 74, 0.06) !important;
+    transform: translateY(-8px) !important;
+}
+
+.join-step-card:hover::after,
+.join-step-card:active::after,
+.join-step-card.is-touch-active::after {
+    transform: scaleX(1);
+}
+
+.join-step-card:hover .join-step-number,
+.join-step-card:active .join-step-number,
+.join-step-card.is-touch-active .join-step-number {
+    background-color: #1e2a4a !important;
+    transform: scale(1.12);
+}
+
+.join-step-card:hover .join-step-icon,
+.join-step-card:active .join-step-icon,
+.join-step-card.is-touch-active .join-step-icon {
+    background-color: #d93633 !important;
+    transform: scale(1.12) rotate(6deg);
+    box-shadow: 0 12px 20px -4px rgba(217, 54, 51, 0.35);
+}
+
+.join-step-card:hover h3,
+.join-step-card:active h3,
+.join-step-card.is-touch-active h3 {
+    color: #d93633 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .join-step-card,
+    .join-step-card::after,
+    .join-step-card .join-step-number,
+    .join-step-card .join-step-icon {
+        transition: none !important;
+    }
+
+    .join-step-card:hover,
+    .join-step-card:active,
+    .join-step-card.is-touch-active,
+    .join-step-card:hover .join-step-number,
+    .join-step-card:hover .join-step-icon,
+    .join-step-card.is-touch-active .join-step-number,
+    .join-step-card.is-touch-active .join-step-icon {
+        transform: none !important;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
 
     .nav-load,
@@ -1519,4 +1607,327 @@ input.is-invalid, select.is-invalid, textarea.is-invalid {
 .swal-app-confirm-btn:focus {
     outline: none !important;
     box-shadow: 0 0 0 3px rgba(30, 42, 74, 0.25) !important;
+}
+
+/* SweetAlert2 - Newsletter Dialogs */
+.swal-newsletter-popup {
+    border-radius: 20px !important;
+    padding: 2rem 1.75rem 1.75rem !important;
+    font-family: 'Montserrat', sans-serif !important;
+    box-shadow: 0 20px 40px -15px rgba(30, 42, 74, 0.25) !important;
+}
+
+.swal-newsletter-title {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 22px !important;
+    font-weight: 700 !important;
+    color: #1e2a4a !important;
+    margin-top: 0.5rem !important;
+}
+
+.swal-newsletter-html {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 14px !important;
+    line-height: 22px !important;
+    color: #45464e !important;
+    margin-top: 0.75rem !important;
+}
+
+.swal-newsletter-confirm-btn {
+    background-color: #1e2a4a !important;
+    color: #fff !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    padding: 12px 36px !important;
+    border-radius: 999px !important;
+    border: none !important;
+    box-shadow: none !important;
+    cursor: pointer !important;
+    transition: background-color 0.2s ease, transform 0.15s ease !important;
+}
+
+.swal-newsletter-confirm-btn:hover {
+    background-color: #d93633 !important;
+    transform: translateY(-1px);
+}
+
+.swal-newsletter-confirm-btn:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 3px rgba(30, 42, 74, 0.25) !important;
+}
+
+.swal-newsletter-error-btn {
+    background-color: #d93633 !important;
+    color: #fff !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    padding: 12px 36px !important;
+    border-radius: 999px !important;
+    border: none !important;
+    box-shadow: none !important;
+    cursor: pointer !important;
+    transition: background-color 0.2s ease, transform 0.15s ease !important;
+}
+
+.swal-newsletter-error-btn:hover {
+    background-color: #b52a27 !important;
+    transform: translateY(-1px);
+}
+
+.swal-newsletter-error-btn:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 3px rgba(217, 54, 51, 0.25) !important;
+}
+
+/* News & Events article body (article.html) - formats HTML from the admin rich-text editor */
+.article-content {
+    color: #2C2C2C;
+    font-size: 17px;
+    line-height: 30px;
+    overflow-wrap: break-word;
+}
+
+.article-content > * + * {
+    margin-top: 1.1em;
+}
+
+.article-content h2,
+.article-content h3 {
+    color: #1e2a4a;
+    font-weight: 600;
+    margin-top: 1.6em;
+}
+
+.article-content h2 {
+    font-size: 26px;
+    line-height: 34px;
+}
+
+.article-content h3 {
+    font-size: 21px;
+    line-height: 30px;
+}
+
+.article-content a {
+    color: #d93633;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.article-content ul,
+.article-content ol {
+    padding-left: 1.5em;
+}
+
+.article-content ul {
+    list-style: disc;
+}
+
+.article-content ol {
+    list-style: decimal;
+}
+
+.article-content li + li {
+    margin-top: 0.4em;
+}
+
+.article-content li::marker {
+    color: #d93633;
+}
+
+.article-content blockquote {
+    border-left: 4px solid #d93633;
+    background: #f9f9f9;
+    padding: 14px 20px;
+    border-radius: 0 10px 10px 0;
+    color: #1e2a4a;
+    font-style: italic;
+}
+
+.article-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+}
+
+.article-content strong {
+    color: #1e2a4a;
+}
+
+/* ==========================================================
+   Homepage News & Events - single scaling row
+   Cards share the row width equally and shrink as posts are added.
+   Below a readable minimum width the row scrolls sideways instead.
+   ========================================================== */
+.news-row-wrap {
+    position: relative;
+}
+
+.news-row {
+    display: flex;
+    gap: var(--news-gap, 24px);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 4px; /* matches the side padding so the first card snaps flush (no phantom scroll) */
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    /* room for the hover lift and shadow, which overflow would otherwise clip */
+    padding: 12px 4px 20px;
+    margin: -12px -4px -20px;
+}
+
+.news-row::-webkit-scrollbar {
+    display: none;
+}
+
+.news-row > .news-card {
+    flex: 1 1 0;
+    min-width: var(--news-min, 160px);
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    container-type: inline-size;
+    transform: none;
+}
+
+.news-row > .news-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 30px -12px rgba(30, 42, 74, 0.25);
+}
+
+/* Phones: one card and a peek of the next, swipe for more */
+@media (max-width: 639px) {
+    .news-row > .news-card {
+        min-width: 78%;
+    }
+}
+
+.news-card-media {
+    display: block;
+    height: 192px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.news-card-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 24px;
+}
+
+.news-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.news-card-date {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 14px;
+    line-height: 20px;
+    color: #45464e;
+    white-space: nowrap;
+}
+
+.news-card-title {
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 600;
+    color: #1e2a4a;
+    margin-bottom: 8px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.news-card-excerpt {
+    font-size: 16px;
+    line-height: 24px;
+    color: #45464e;
+    margin-bottom: 16px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.news-card-more {
+    margin-top: auto;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 600;
+    color: #1e2a4a;
+    transition: color 0.2s ease;
+}
+
+.news-card-more:hover {
+    color: #d93633;
+}
+
+/* Medium cards (about 5-6 per row on a laptop) */
+@container (max-width: 250px) {
+    .news-card-media { height: 150px; }
+    .news-card-body { padding: 16px; }
+    .news-card-top { margin-bottom: 10px; }
+    .news-card-date { font-size: 12px; }
+    .news-card-title { font-size: 17px; line-height: 24px; }
+    .news-card-excerpt { font-size: 14px; line-height: 21px; -webkit-line-clamp: 2; margin-bottom: 12px; }
+    .news-card-more { font-size: 13px; }
+}
+
+/* Compact cards (7+ per row): stack the badge and date, keep the essentials */
+@container (max-width: 200px) {
+    .news-card-media { height: 120px; }
+    .news-card-body { padding: 14px; }
+    .news-card-top { flex-direction: column; align-items: flex-start; gap: 6px; }
+    .news-card-title { font-size: 15px; line-height: 21px; }
+    .news-card-excerpt { font-size: 13px; line-height: 19px; }
+}
+
+/* Scroll arrows - only shown when the row has more cards than fit */
+.news-row-arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 5;
+    width: 44px;
+    height: 44px;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    color: #1e2a4a;
+    border: 1px solid #e2e2e2;
+    box-shadow: 0 6px 18px rgba(30, 42, 74, 0.18);
+    transform: translateY(-50%);
+    transition: opacity 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.news-row-arrow:hover {
+    background: #d93633;
+    border-color: #d93633;
+    color: #ffffff;
+}
+
+.news-row-arrow[hidden] {
+    display: none;
+}
+
+.news-row-arrow:disabled {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.news-row-arrow.is-prev { left: -22px; }
+.news-row-arrow.is-next { right: -22px; }
+
+@media (max-width: 639px) {
+    .news-row-arrow { display: none; }
 }

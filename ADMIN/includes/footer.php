@@ -26,5 +26,6 @@
 
     <!-- Admin Script -->
     <script src="<?= admin_url('assets/js/admin.js') ?>"></script>
+    <script src="<?= admin_url('assets/js/media-picker.js') ?>"></script>
 </body>
 </html>

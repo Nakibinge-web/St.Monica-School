@@ -26,6 +26,7 @@ $district = trim($_POST['district'] ?? '');
 $facebook = trim($_POST['facebook'] ?? '');
 $instagram = trim($_POST['instagram'] ?? '');
 $youtube = trim($_POST['youtube'] ?? '');
+$tiktok = trim($_POST['tiktok'] ?? '');
 $mapUrl = trim($_POST['map_url'] ?? '');
 
 // If user pasted full iframe tag, extract the src URL
@@ -54,6 +55,7 @@ try {
         'facebook'          => $facebook,
         'instagram'         => $instagram,
         'youtube'           => $youtube,
+        'tiktok'            => $tiktok,
         'map_url'           => $mapUrl
     ];
 

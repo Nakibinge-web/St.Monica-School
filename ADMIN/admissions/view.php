@@ -16,6 +16,7 @@ if (!$app) {
 }
 
 require_once CMS_ROOT . '/services/EmailService.php';
+require_once CMS_ROOT . '/services/SettingsService.php';
 
 // Handle status update / note submission
 if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
@@ -46,6 +47,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
 
     $newStatus = trim($_POST['status'] ?? $app['status']);
     $notifyApplicant = !empty($_POST['notify_applicant']);
+    $customMessage = trim($_POST['custom_message'] ?? '');
 
     $allowedStatuses = ['New', 'Under Review', 'Contacted', 'Accepted', 'Rejected', 'Withdrawn'];
     if (!in_array($newStatus, $allowedStatuses, true)) {
@@ -64,20 +66,32 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
         }
         log_activity('Status Change', $logMsg, 'admissions', $id);
 
-        if ($notifyApplicant && !empty($app['email']) && $oldStatus !== $newStatus) {
-            EmailService::sendTemplate('application_status_update', $app['email'], [
+        if ($notifyApplicant && !empty($app['email'])) {
+            $emailSent = EmailService::sendStatusEmail($newStatus, $app['email'], [
                 'parent_name'        => $app['parent_name'],
                 'pupil_name'         => $app['pupil_name'],
+                'pupil_class'        => $app['pupil_class'],
                 'application_number' => $app['application_number'],
                 'application_status' => $newStatus,
-                'school_name'        => 'St. Monica Junior School Kasanje'
+                'custom_message'     => $customMessage,
+                'school_name'        => SettingsService::get('school_name', 'St. Monica Junior School Kasanje'),
+                'school_phone'       => SettingsService::get('school_phone', '+256 752 406176'),
+                'school_email'       => SettingsService::get('school_email', 'stmonicajuniorschool2012@gmail.com')
             ], $app['parent_name']);
+
+            if ($emailSent) {
+                set_flash('success', "Application status successfully updated to '{$newStatus}', and '{$newStatus}' notification email was delivered to {$app['email']}.");
+            } else {
+                $err = EmailService::getLastError() ?: 'SMTP host not configured';
+                set_flash('warning', "Application status updated to '{$newStatus}', but email could not be sent to {$app['email']} (Reason: {$err}). You can configure outgoing email in Website Settings &rarr; Email.");
+            }
+        } else {
+            set_flash('success', "Application status successfully updated to '{$newStatus}'.");
         }
 
-        set_flash('success', "Application status successfully updated to '{$newStatus}'.");
         redirect(admin_url('admissions/view.php?id=' . $id));
     } catch (Exception $e) {
-        set_flash('danger', 'Failed to update application status.');
+        set_flash('danger', 'Failed to update application status: ' . $e->getMessage());
     }
 }
 
@@ -89,12 +103,21 @@ try {
     // Table may not exist yet on an unmigrated install
 }
 
-// Status history timeline, sourced from the existing activity log (no duplicate audit system)
+// Status & Email history timeline
 $statusHistory = [];
 try {
+    $searchPattern = '%' . $app['application_number'] . '%';
+    $searchEmail = !empty($app['email']) ? ('%' . $app['email'] . '%') : '%###none###%';
     $statusHistory = Database::fetchAll(
-        "SELECT * FROM `activity_logs` WHERE `module` = 'admissions' AND `record_id` = :id AND `action` = 'Status Change' ORDER BY `created_at` DESC",
-        ['id' => $id]
+        "SELECT * FROM `activity_logs` 
+         WHERE (`module` = 'admissions' AND `record_id` = :id)
+            OR (`module` = 'email' AND (`details` LIKE :appNum OR `details` LIKE :email))
+         ORDER BY `created_at` DESC",
+        [
+            'id'     => $id,
+            'appNum' => $searchPattern,
+            'email'  => $searchEmail
+        ]
     );
 } catch (Exception $e) {
     // ignore
@@ -102,6 +125,7 @@ try {
 
 $pageTitle = 'Application #' . $app['application_number'];
 $activeMenu = 'admissions';
+$emailConfigured = EmailService::isConfigured();
 
 $statusBadge = match($app['status']) {
     'New'          => 'bg-red-100 text-red-700 border-red-200',
@@ -196,12 +220,20 @@ include CMS_ROOT . '/includes/header.php';
                 <div class="sm:col-span-2">
                     <label class="text-xs text-slate-400 font-medium block mb-1">Email Address</label>
                     <?php if (!empty($app['email'])): ?>
-                        <a href="mailto:<?= e($app['email']) ?>" class="text-slate-700 font-medium hover:text-red-600 inline-flex items-center gap-1.5">
-                            <span class="material-symbols-outlined text-[16px] text-blue-600">mail</span>
-                            <?= e($app['email']) ?>
-                        </a>
+                        <div class="flex items-center gap-3">
+                            <a href="mailto:<?= e($app['email']) ?>" class="text-slate-700 font-medium hover:text-red-600 inline-flex items-center gap-1.5 font-mono">
+                                <span class="material-symbols-outlined text-[16px] text-blue-600">mail</span>
+                                <?= e($app['email']) ?>
+                            </a>
+                            <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                Email notifications available
+                            </span>
+                        </div>
                     <?php else: ?>
-                        <span class="text-xs text-slate-400 italic">Not provided</span>
+                        <div class="flex items-center gap-2 text-xs text-slate-400 italic">
+                            <span class="material-symbols-outlined text-[16px]">mail_off</span>
+                            <span>Not provided on application form (notifications by email unavailable)</span>
+                        </div>
                     <?php endif; ?>
                 </div>
             </div>
@@ -270,25 +302,41 @@ include CMS_ROOT . '/includes/header.php';
             <?php endif; ?>
         </div>
 
-        <!-- Status History Timeline -->
+        <!-- Status & Email Activity Timeline -->
         <div class="cms-card p-6">
             <div class="flex items-center gap-2.5 pb-4 mb-4 border-b border-slate-100">
                 <span class="w-8 h-8 rounded-lg bg-blue-50 text-blue-700 flex items-center justify-center">
                     <span class="material-symbols-outlined text-[20px]">timeline</span>
                 </span>
-                <h2 class="font-bold text-slate-900 text-base">Status History</h2>
+                <h2 class="font-bold text-slate-900 text-base">Status & Email History</h2>
             </div>
             <?php if (empty($statusHistory)): ?>
-                <p class="text-xs text-slate-400 py-4 text-center">No status changes recorded yet.</p>
+                <p class="text-xs text-slate-400 py-4 text-center">No status changes or email events recorded yet.</p>
             <?php else: ?>
                 <div class="space-y-4">
-                    <?php foreach ($statusHistory as $entry): ?>
+                    <?php foreach ($statusHistory as $entry): 
+                        $action = $entry['action'] ?? '';
+                        $isEmailSent = ($action === 'Email Sent');
+                        $isEmailFailed = ($action === 'Email Not Sent');
+                        $badgeStyle = $isEmailSent ? 'bg-emerald-100 text-emerald-700' : ($isEmailFailed ? 'bg-amber-100 text-amber-700' : 'bg-blue-100 text-blue-700');
+                        $icon = $isEmailSent ? 'mark_email_read' : ($isEmailFailed ? 'mail_off' : 'history');
+                    ?>
                         <div class="flex gap-3">
-                            <div class="w-2 h-2 rounded-full bg-blue-500 mt-1.5 flex-shrink-0"></div>
+                            <div class="w-7 h-7 rounded-full <?= $badgeStyle ?> flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <span class="material-symbols-outlined text-[15px]"><?= $icon ?></span>
+                            </div>
                             <div class="flex-1 min-w-0">
-                                <p class="text-sm text-slate-700"><?= e($entry['details']) ?></p>
-                                <p class="text-[11px] text-slate-400 mt-1">
-                                    <?= e($entry['admin_name']) ?> &bull; <?= date('M j, Y g:i A', strtotime($entry['created_at'])) ?>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs font-bold <?= $isEmailSent ? 'text-emerald-800' : ($isEmailFailed ? 'text-amber-800' : 'text-slate-800') ?>">
+                                        <?= e($entry['action']) ?>
+                                    </span>
+                                    <span class="text-[11px] text-slate-400">
+                                        &bull; <?= date('M j, Y g:i A', strtotime($entry['created_at'])) ?>
+                                    </span>
+                                </div>
+                                <p class="text-xs text-slate-700 mt-0.5 leading-relaxed"><?= e($entry['details']) ?></p>
+                                <p class="text-[10px] text-slate-400 mt-0.5">
+                                    Operator: <?= e($entry['admin_name'] ?: 'System') ?>
                                 </p>
                             </div>
                         </div>
@@ -302,8 +350,13 @@ include CMS_ROOT . '/includes/header.php';
     <div class="lg:col-span-4 space-y-6">
         <!-- Status Action Card -->
         <div class="cms-card p-6 border-t-4 border-t-[#1e2a4a]">
-            <h3 class="font-bold text-slate-900 text-base mb-1 brand-font">Workflow Status</h3>
-            <p class="text-xs text-slate-500 mb-5">Change status and record internal staff remarks.</p>
+            <div class="flex items-center justify-between mb-1">
+                <h3 class="font-bold text-slate-900 text-base brand-font">Workflow Status</h3>
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-bold border <?= $statusBadge ?>">
+                    <?= e($app['status']) ?>
+                </span>
+            </div>
+            <p class="text-xs text-slate-500 mb-5">Update application progress and optionally notify the applicant.</p>
 
             <form method="POST" action="<?= admin_url('admissions/view.php?id=' . $app['id']) ?>" class="space-y-4">
                 <?= csrf_field() ?>
@@ -313,7 +366,7 @@ include CMS_ROOT . '/includes/header.php';
                     <label class="block text-xs font-semibold text-slate-700 mb-1.5" for="statusSelect">
                         Application Status <span class="text-red-600">*</span>
                     </label>
-                    <select id="statusSelect" name="status" class="cms-select text-sm font-semibold">
+                    <select id="statusSelect" name="status" class="cms-select text-sm font-semibold" onchange="updateEmailPreview()">
                         <?php foreach (['New', 'Under Review', 'Contacted', 'Accepted', 'Rejected', 'Withdrawn'] as $st): ?>
                             <option value="<?= $st ?>" <?= $app['status'] === $st ? 'selected' : '' ?>><?= $st ?></option>
                         <?php endforeach; ?>
@@ -321,10 +374,65 @@ include CMS_ROOT . '/includes/header.php';
                 </div>
 
                 <?php if (!empty($app['email'])): ?>
-                <label class="flex items-start gap-2 text-xs text-slate-600 cursor-pointer">
-                    <input type="checkbox" name="notify_applicant" value="1" class="mt-0.5 rounded border-slate-300">
-                    <span>Notify the applicant by email (<?= e($app['email']) ?>) when the status changes.</span>
-                </label>
+                    <div class="pt-3 border-t border-slate-100 space-y-3">
+                        <label class="flex items-start gap-2.5 text-xs text-slate-700 cursor-pointer select-none">
+                            <input type="checkbox" id="notifyApplicantCheckbox" name="notify_applicant" value="1" checked class="mt-0.5 rounded border-slate-300 text-red-600 focus:ring-red-500" onchange="toggleNotifyFields(this)">
+                            <div>
+                                <span class="font-semibold text-slate-900">Notify the applicant by email</span>
+                                <div class="text-[11px] text-slate-500 font-mono mt-0.5"><?= e($app['email']) ?></div>
+                            </div>
+                        </label>
+
+                        <div id="emailNotificationPanel" class="space-y-3 pl-6">
+                            <!-- SMTP Status Notice -->
+                            <?php if ($emailConfigured): ?>
+                                <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                    <span>SMTP Mailer Active</span>
+                                </div>
+                            <?php else: ?>
+                                <div class="p-2.5 rounded-lg bg-amber-50 border border-amber-200 text-[11px] text-amber-800 space-y-1">
+                                    <div class="flex items-center gap-1 font-semibold text-amber-900">
+                                        <span class="material-symbols-outlined text-[14px]">warning</span>
+                                        <span>SMTP not configured yet</span>
+                                    </div>
+                                    <p>Outgoing email host is unset. Configure SMTP in <a href="<?= admin_url('settings/?tab=email') ?>" class="underline font-bold text-amber-950 hover:text-red-600">Settings &rarr; Email</a> to send emails directly to applicants.</p>
+                                </div>
+                            <?php endif; ?>
+
+                            <!-- Dynamic Status Email Preview Box -->
+                            <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs space-y-1">
+                                <div class="flex items-center justify-between text-[11px] text-slate-400">
+                                    <span class="font-semibold uppercase tracking-wider">Status Template</span>
+                                    <a href="<?= admin_url('email-templates/') ?>" class="hover:text-red-600 underline">Templates</a>
+                                </div>
+                                <div class="font-semibold text-slate-800 text-xs flex items-center gap-1.5">
+                                    <span class="material-symbols-outlined text-[15px] text-[#1e2a4a]">mail</span>
+                                    <span id="previewTemplateTitle">Accepted Notification Email</span>
+                                </div>
+                                <p id="previewTemplateDesc" class="text-[11px] text-slate-500 leading-relaxed">
+                                    Congratulations letter confirming admission into <?= e($app['pupil_class']) ?>, requirements list collection, and bursar payment guidelines.
+                                </p>
+                            </div>
+
+                            <!-- Optional Custom Note for the Parent -->
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1" for="custom_message">
+                                    Special Remarks for Parent <span class="font-normal text-slate-400">(Optional)</span>
+                                </label>
+                                <textarea id="custom_message" name="custom_message" rows="2" placeholder="e.g. Please bring original birth certificate on Monday 9am..." class="cms-textarea text-xs"></textarea>
+                                <p class="text-[10px] text-slate-400 mt-1">This remark will appear in the official status email sent to the parent.</p>
+                            </div>
+                        </div>
+                    </div>
+                <?php else: ?>
+                    <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-500 flex items-start gap-2">
+                        <span class="material-symbols-outlined text-[18px] text-slate-400 mt-0.5">mail_off</span>
+                        <div>
+                            <span class="font-semibold text-slate-700">No Email Provided</span>
+                            <p class="text-[11px] text-slate-400 mt-0.5">The applicant did not provide an email address in the application form. You can reach the parent by phone at <a href="tel:<?= e($app['mobile']) ?>" class="font-semibold text-slate-700 hover:text-red-600 underline"><?= e($app['mobile']) ?></a>.</p>
+                        </div>
+                    </div>
                 <?php endif; ?>
 
                 <div class="pt-2">
@@ -334,7 +442,7 @@ include CMS_ROOT . '/includes/header.php';
                     </button>
                 </div>
             </form>
-            <p class="text-[11px] text-slate-400 mt-3">Use the Internal Notes panel below to record private remarks — status changes are logged automatically.</p>
+            <p class="text-[11px] text-slate-400 mt-3">All status changes and email dispatches are permanently tracked in the timeline.</p>
         </div>
 
         <!-- Metadata Card -->
@@ -355,5 +463,57 @@ include CMS_ROOT . '/includes/header.php';
         </div>
     </div>
 </div>
+
+<script>
+const pupilClass = "<?= addslashes(e($app['pupil_class'])) ?>";
+const statusDescriptions = {
+    'Accepted': {
+        title: 'Accepted Notification Email',
+        desc: 'Congratulations letter confirming admission into ' + pupilClass + ', requirements list collection, and bursar payment guidelines.'
+    },
+    'Under Review': {
+        title: 'Under Review Notification Email',
+        desc: 'Official acknowledgement that application for ' + pupilClass + ' is being evaluated by the admissions committee.'
+    },
+    'Contacted': {
+        title: 'Contacted / Follow-up Email',
+        desc: 'Notice requesting parent to call or visit the school office to confirm details or arrange an assessment date.'
+    },
+    'Rejected': {
+        title: 'Regret / Waiting List Notification Email',
+        desc: 'Polite notice regarding class capacity limits for ' + pupilClass + ', placing pupil on priority waiting list.'
+    },
+    'Withdrawn': {
+        title: 'Application Withdrawn Email',
+        desc: 'Official confirmation that this admission application has been withdrawn in the school registry.'
+    },
+    'New': {
+        title: 'Application Received Confirmation',
+        desc: 'Standard acknowledgement letter confirming receipt of application and reference number.'
+    }
+};
+
+function updateEmailPreview() {
+    const sel = document.getElementById('statusSelect');
+    const val = sel ? sel.value : 'Accepted';
+    const info = statusDescriptions[val] || {
+        title: 'Status Update Email',
+        desc: 'Official status change notification letter sent to applicant.'
+    };
+    const titleEl = document.getElementById('previewTemplateTitle');
+    const descEl = document.getElementById('previewTemplateDesc');
+    if (titleEl) titleEl.textContent = info.title;
+    if (descEl) descEl.textContent = info.desc;
+}
+
+function toggleNotifyFields(checkbox) {
+    const panel = document.getElementById('emailNotificationPanel');
+    if (panel) {
+        panel.style.display = checkbox.checked ? 'block' : 'none';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', updateEmailPreview);
+</script>
 
 <?php include CMS_ROOT . '/includes/footer.php'; ?>

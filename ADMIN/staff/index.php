@@ -20,8 +20,8 @@ $where = ['`deleted_at` IS NULL'];
 $params = [];
 
 if ($search !== '') {
-    $where[] = "(`name` LIKE :search OR `position` LIKE :search OR `email` LIKE :search)";
-    $params['search'] = "%{$search}%";
+    $where[] = "(`name` LIKE :s1 OR `position` LIKE :s2 OR `email` LIKE :s3)";
+    $params += ['s1' => "%{$search}%", 's2' => "%{$search}%", 's3' => "%{$search}%"];
 }
 if (in_array($statusFilter, ['published', 'draft'])) {
     $where[] = "`status` = :status";

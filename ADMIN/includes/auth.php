@@ -12,14 +12,8 @@ require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/functions.php';
 require_once __DIR__ . '/database.php';
 
-// Ensure secure session is active
-if (session_status() === PHP_SESSION_NONE) {
-    ini_set('session.cookie_httponly', '1');
-    ini_set('session.use_only_cookies', '1');
-    ini_set('session.cookie_samesite', 'Strict');
-    session_name('st_monica_admin');
-    session_start();
-}
+// Ensure the hardened admin session is active (see includes/session.php)
+start_admin_session();
 
 /**
  * Check if the current user is authenticated as administrator
@@ -90,7 +84,7 @@ function get_role_permissions(string $role): array {
         return ['*'];
     }
     if ($role === 'editor') {
-        return ['dashboard', 'homepage', 'about', 'staff', 'news-events', 'gallery', 'testimonials', 'media', 'seo', 'profile', 'preview', 'announcements', 'inquiries', 'notifications'];
+        return ['dashboard', 'homepage', 'about', 'staff', 'news-events', 'gallery', 'testimonials', 'media', 'seo', 'profile', 'preview', 'inquiries', 'notifications', 'newsletter'];
     }
     if ($role === 'admissions_manager') {
         return ['dashboard', 'admissions', 'admission-info', 'profile', 'inquiries', 'notifications'];
@@ -187,9 +181,7 @@ function login_admin(array $admin, bool $remember = false): void {
  * Completely destroy session on logout
  */
 function logout_admin(): void {
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
+    start_admin_session();
 
     log_activity('Admin Logout', 'Administrator signed out.');
 

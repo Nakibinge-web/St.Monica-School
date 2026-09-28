@@ -37,8 +37,9 @@ try {
     if ($item) {
         Database::delete($table, 'id = :id', ['id' => $id]);
 
+        // Images picked from the Media Library are shared, so only remove files nothing else uses
         $filePath = $item[$meta['file_col']] ?? null;
-        if (!empty($filePath) && str_contains($filePath, 'ADMIN/uploads/')) {
+        if (!empty($filePath) && str_contains($filePath, 'ADMIN/uploads/') && !is_media_file_protected($filePath)) {
             $fullPath = dirname(CMS_ROOT) . '/' . ltrim($filePath, '/');
             if (file_exists($fullPath)) {
                 @unlink($fullPath);

@@ -102,9 +102,9 @@ St.monica/
     ├── storage/backups/           # Auto-protected database backup storage (Phase Three)
     ├── services/                  # Phase Three service classes (Email, Notification, Settings, Backup)
     ├── inquiries/                 # Contact form enquiry management (Phase Three)
-    ├── notifications/             # Notification center (Phase Three)
+    ├── notifications/             # Notification center (read tracking, individual & bulk deletion, clear read/all)
     ├── email-templates/           # Editable transactional email templates (Phase Three)
-    ├── announcements/             # Short urgent public notices (Phase Three)
+    ├── newsletter/                # Newsletter subscribers, compose & send, sent history
     ├── trash/                     # Soft-delete recovery (Phase Three)
     ├── backups/                   # Database backup, download, and restore (Phase Three)
     ├── security/                  # Security Center (Phase Three)
@@ -144,7 +144,6 @@ The system implements strict role-based access control with three primary admini
 | **Central Media Library** | Full Access | Full Access | No Access |
 | **Website SEO** | Full Access | Full Access | No Access |
 | **School Contact Info** | Full Access | Full Access | No Access |
-| **Announcements** | Full Access | Full Access | No Access |
 | **Contact Enquiries** | Full Access | Full Access | Full Access |
 | **Notification Center** | Full Access | Full Access | Full Access |
 | **Email Templates** | Full Access | No Access | No Access |
@@ -238,7 +237,7 @@ The system uses an auto-discovering incremental migration engine in `ADMIN/datab
 | `009_create_admission_notes_table.sql` | Append-only internal notes timeline for applications |
 | `010_create_enquiries_table.sql` | Public contact form submissions |
 | `011_create_notifications_table.sql` | Admin notification center |
-| `012_create_announcements_table.sql` | Short urgent public notices |
+| `012_create_announcements_table.sql` | *(Removed - the Announcements module was retired; see migration 023)* |
 | `013_add_expires_at_to_news_events.sql` | Automatic content expiration |
 | `014_create_site_settings_table.sql` | Key/value site settings (maintenance mode, pagination, etc.) |
 | `015_create_email_templates_table.sql` | Editable transactional email templates |
@@ -246,6 +245,11 @@ The system uses an auto-discovering incremental migration engine in `ADMIN/datab
 | `017_create_admin_sessions_table.sql` | Active session tracking for the Security Center |
 | `018_create_password_resets_table.sql` | Secure password reset tokens |
 | `019_create_remember_tokens_table.sql` | Selector/validator "Remember Me" tokens |
+| `020_add_status_specific_email_templates.sql` | Per-status admission email templates |
+| `021_seed_about_hero_section.sql` | Editable About Us page hero banner |
+| `022_add_tiktok_to_contact_information.sql` | TikTok channel URL in contact information |
+| `023_drop_announcements_table.sql` | Removes the retired Announcements module's table |
+| `024_create_newsletter_tables.sql` | Newsletter subscribers, sent newsletters, per-recipient deliveries |
 
 ### Running Setup
 From PowerShell / Command Line:
@@ -315,14 +319,13 @@ Charts use [Chart.js](https://www.chartjs.org/) via CDN, consistent with the pro
 ## 12. Phase Three: Communications
 
 - **Contact Enquiries** (`ADMIN/inquiries/`): the public contact form on `contact.html` now actually submits to `ADMIN/api/contact/submit.php` (previously it only validated client-side and went nowhere). Submissions are listed, searchable, filterable by status (`new`/`read`/`replied`/`archived`), and rate-limited (5 per IP per 10 minutes).
-- **Notification Center** (`ADMIN/notifications/` + header bell dropdown): triggered on new admission applications and new enquiries. `admin_id = NULL` broadcasts to all admins.
+- **Notification Center** (`ADMIN/notifications/` + header bell dropdown): triggered on new admission applications, inquiries, and testimonials. `admin_id = NULL` broadcasts to all admins. Supports marking as read, single-item deletion (with confirmation modal), bulk checkbox selection deletion, and clearing all read or all notifications with full audit logging.
 - **Email Service** (`ADMIN/services/EmailService.php`): SMTP via [PHPMailer](https://github.com/PHPMailer/PHPMailer), configured entirely through environment variables (see §14). If `MAIL_HOST` is unset, emails are logged to `activity_logs` instead of sent, so nothing breaks in development.
 - **Email Templates** (`ADMIN/email-templates/`, Super Admin only): editable subject/body with `{{placeholder}}` substitution only — no code execution is ever possible through a template.
 
-## 13. Phase Three: Content Scheduling, Expiration & Announcements
+## 13. Phase Three: Content Scheduling & Expiration
 
 - **Automatic Expiration**: News & Events gained an `expires_at` field alongside the existing scheduled-publish `published_at`. Expired posts stop appearing in the public API but remain editable in the admin list with an "Expired" badge — nothing is auto-deleted.
-- **Announcements** (`ADMIN/announcements/`): short, urgent notices with a start/end date window, kept visually distinct from full News & Events articles. Active announcements are exposed via the existing `/ADMIN/api/homepage/` endpoint (`announcements` key) rather than a new endpoint.
 
 ## 14. Phase Three: Advanced Media Management
 
@@ -374,6 +377,13 @@ Also new: a full **secure password reset flow** (`ADMIN/login/forgot-password.ph
 
 ---
 
+## 19b. Newsletter
+
+- **Sign-up**: the footer "Newsletter" box on every public page posts to `/ADMIN/api/newsletter/subscribe.php` (honeypot + max 5 sign-ups per IP per 10 minutes; no session cookie is created).
+- **Admin** (`ADMIN/newsletter/`, Communications menu; Super Admin and Editor): subscriber list with search/filter, manual add, unsubscribe/re-subscribe, delete, CSV export; **Compose & Send** with a test-to-self button; **Sent Newsletters** history with per-newsletter delivery report.
+- **Sending** (`services/NewsletterService.php`): each subscriber receives an individual copy (no shared recipient lists). A send queues every subscriber in `newsletter_deliveries`, then the page sends batches of 15 over one SMTP connection, showing progress. If the mail server refuses a whole batch (e.g. Gmail's ~500/day limit), sending pauses; it can be resumed from the report later and nobody is emailed twice. Failed recipients can be retried.
+- **Unsubscribe**: every newsletter carries a personal unsubscribe link (`/ADMIN/api/newsletter/unsubscribe.php?token=...`, confirmation page so link-scanners cannot unsubscribe people) plus `List-Unsubscribe` / one-click headers for Gmail and Outlook.
+
 ## 20. Environment Configuration (Production Readiness)
 
 Copy `.env.example` (project root) to `.env` and fill in real values. `.env` is git-ignored and must never be committed.
@@ -384,6 +394,7 @@ Copy `.env.example` (project root) to `.env` and fill in real values. `.env` is 
 | `APP_DEBUG` | `true`/`false` — when false (the default in production), public API errors and the login page's dev-credentials hint are both suppressed |
 | `APP_TIMEZONE` | Defaults to `Africa/Kampala`; applied via `date_default_timezone_set()` for consistent timestamps across applications, news, activity logs, and scheduling |
 | `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD` | Database connection |
+| `APP_URL` | Optional public site address (e.g. `https://www.stmonicakasanje.ac.ug/`) used for links in newsletter emails; defaults to the address the admin panel is used on |
 | `MAIL_HOST`, `MAIL_PORT`, `MAIL_ENCRYPTION`, `MAIL_USERNAME`, `MAIL_PASSWORD`, `MAIL_FROM_ADDRESS`, `MAIL_FROM_NAME` | SMTP configuration for `EmailService` |
 | `BACKUP_DIR` | Optional custom backup storage path (outside the web root recommended in production) |
 | `MYSQLDUMP_BIN`, `MYSQL_BIN` | Optional explicit paths to the `mysqldump`/`mysql` CLI binaries if not on `PATH` |

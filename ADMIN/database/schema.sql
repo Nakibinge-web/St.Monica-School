@@ -179,6 +179,7 @@ CREATE TABLE IF NOT EXISTS `contact_information` (
     `facebook` VARCHAR(255) NULL,
     `instagram` VARCHAR(255) NULL,
     `youtube` VARCHAR(255) NULL,
+    `tiktok` VARCHAR(255) NULL,
     `whatsapp` VARCHAR(50) NULL,
     `map_url` TEXT NULL,
     `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP

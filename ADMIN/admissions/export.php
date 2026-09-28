@@ -17,8 +17,8 @@ $where = ['1 = 1'];
 $params = [];
 
 if ($search !== '') {
-    $where[] = "(`application_number` LIKE :s OR `pupil_name` LIKE :s OR `parent_name` LIKE :s OR `mobile` LIKE :s OR `location` LIKE :s)";
-    $params['s'] = "%{$search}%";
+    $where[] = "(`application_number` LIKE :s1 OR `pupil_name` LIKE :s2 OR `parent_name` LIKE :s3 OR `mobile` LIKE :s4 OR `location` LIKE :s5)";
+    $params += ['s1' => "%{$search}%", 's2' => "%{$search}%", 's3' => "%{$search}%", 's4' => "%{$search}%", 's5' => "%{$search}%"];
 }
 if (!empty($statusFilter)) {
     $where[] = "`status` = :status";

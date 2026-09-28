@@ -198,7 +198,16 @@
             }
         }
 
-        // C. Why Choose Us Highlights
+        // C. Why Choose Us Section Header & Intro
+        const whyIntro = homeData.why_choose_us && homeData.why_choose_us.intro;
+        if (whyIntro) {
+            const whyHeading = document.querySelector('.why-choose-text > h2');
+            const whyText = document.querySelector('.why-choose-text > p');
+            if (whyHeading && whyIntro.title) whyHeading.textContent = whyIntro.title;
+            if (whyText && whyIntro.content) whyText.textContent = whyIntro.content;
+        }
+
+        // C2. Why Choose Us Highlights
         if (homeData.why_choose_us && homeData.why_choose_us.items && homeData.why_choose_us.items.length > 0) {
             const container = document.querySelector('.why-choose-text .space-y-4');
             if (container) {
@@ -221,27 +230,47 @@
         }
 
         // D. Statistics Counters
+        // Rebuilt from the admin list so added, removed and reordered counters all show
         if (homeData.statistics && homeData.statistics.length > 0) {
-            const counterItems = document.querySelectorAll('.counter-item');
-            homeData.statistics.forEach((stat, index) => {
-                if (counterItems[index]) {
-                    const iconEl = counterItems[index].querySelector('.material-symbols-outlined');
-                    const counterEl = counterItems[index].querySelector('.counter');
-                    const labelEl = counterItems[index].querySelector('p');
+            const firstItem = document.querySelector('.counter-item');
+            const counterGrid = firstItem && firstItem.parentElement;
+            if (counterGrid) {
+                const count = homeData.statistics.length;
+                const colClasses = {
+                    1: 'grid-cols-1',
+                    2: 'grid-cols-1 md:grid-cols-2',
+                    3: 'grid-cols-1 md:grid-cols-3',
+                    4: 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4',
+                };
+                counterGrid.className = `grid gap-8 ${colClasses[count] || 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'}`;
 
-                    if (iconEl) iconEl.textContent = stat.icon;
-                    if (counterEl) {
-                        counterEl.setAttribute('data-target', stat.number_value);
-                        counterEl.textContent = stat.number_value;
-                    }
-                    if (labelEl) labelEl.textContent = stat.label;
+                counterGrid.innerHTML = homeData.statistics.map(stat => {
+                    const value = parseInt(stat.number_value, 10) || 0;
+                    return `
+                    <div class="text-center counter-item" style="opacity: 1;">
+                        <div class="inline-flex items-center justify-center w-20 h-20 bg-white/20 rounded-full mb-4 animate-icon">
+                            <span class="material-symbols-outlined text-white text-[40px]">${escapeHtml(stat.icon || 'verified')}</span>
+                        </div>
+                        <h3 class="text-[48px] leading-[56px] font-bold text-white mb-2">
+                            <span class="counter" data-target="${value}">0</span>${escapeHtml(stat.suffix || '')}
+                        </h3>
+                        <p class="text-[18px] leading-[28px] text-white/90 font-semibold">${escapeHtml(stat.label)}</p>
+                    </div>`;
+                }).join('');
+
+                // Count up when scrolled into view (defined in index.html); without it, show final values
+                if (typeof window.observeCounterItems === 'function') {
+                    window.observeCounterItems();
+                } else {
+                    counterGrid.querySelectorAll('.counter').forEach(el => { el.textContent = el.dataset.target; });
                 }
-            });
+            }
         }
 
         // E. Featured Staff Cards on Homepage
         if (homeData.featured_staff && homeData.featured_staff.length > 0) {
-            const staffGrid = document.querySelector('section.py-24.px-8.lg\\:px-48.bg-white .grid');
+            // "Our Dedicated Team" grid, tagged in index.html (style classes change too often to target)
+            const staffGrid = document.querySelector('[data-home="team-grid"]');
             if (staffGrid) {
                 let staffHtml = '';
                 homeData.featured_staff.forEach(staff => {
@@ -259,41 +288,84 @@
                     </div>`;
                 });
                 staffGrid.innerHTML = staffHtml;
+
+                // Fit the grid to the number of featured staff so 1 or 2 cards don't leave empty columns
+                const staffCount = homeData.featured_staff.length;
+                const staffLayouts = {
+                    1: 'grid grid-cols-1 gap-8 max-w-sm mx-auto',
+                    2: 'grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto',
+                };
+                staffGrid.className = staffLayouts[staffCount] || 'grid grid-cols-1 md:grid-cols-3 gap-8';
             }
         }
 
-        // F. Latest News & Events Cards on Homepage
+        // F. News & Events on Homepage: every live post in one row that scales to fit
         if (homeData.latest_news && homeData.latest_news.length > 0) {
-            const newsGrid = document.querySelector('.news-header')?.closest('section')?.querySelector('.grid');
-            if (newsGrid) {
-                let newsHtml = '';
-                homeData.latest_news.forEach(item => {
-                    const dateFormatted = item.event_date 
-                        ? new Date(item.event_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
-                        : new Date(item.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            const newsRow = document.querySelector('[data-home="news-row"]');
+            if (newsRow) {
+                const count = homeData.latest_news.length;
+                const typeLabels = { news: 'News', event: 'Event', sports: 'Sports' };
 
-                    newsHtml += `
-                    <div class="news-card opacity-100 bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-500 hover:scale-105 hover:-translate-y-2 group">
-                        <div class="h-48 overflow-hidden">
+                newsRow.innerHTML = homeData.latest_news.map(item => {
+                    const articleUrl = escapeHtml(`article.html?slug=${encodeURIComponent(item.slug)}`);
+                    const dateValue = String(item.event_date || item.created_at || '').replace(' ', 'T');
+                    const date = new Date(dateValue);
+                    const dateFormatted = isNaN(date) ? '' : date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+                    return `
+                    <article class="news-card opacity-100 bg-white rounded-xl overflow-hidden shadow-sm transition-all duration-300 group">
+                        <a href="${articleUrl}" class="news-card-media" tabindex="-1" aria-hidden="true">
                             <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                src="${escapeHtml(item.featured_image || 'assets/imgz/3 graduants.webp')}" alt="${escapeHtml(item.title)}" />
-                        </div>
-                        <div class="p-6">
-                            <div class="flex items-center justify-between mb-3">
-                                <span class="text-[12px] leading-[16px] font-bold text-[#d93633] bg-[#d93633]/10 px-3 py-1 rounded-full uppercase">${escapeHtml(item.type)}</span>
-                                <span class="text-[14px] leading-[20px] text-[#45464e] flex items-center gap-1">
-                                    <span class="material-symbols-outlined text-[16px]">calendar_today</span> ${dateFormatted}
-                                </span>
+                                src="${escapeHtml(item.featured_image || 'assets/imgz/3 graduants.webp')}" alt="${escapeHtml(item.title)}" loading="lazy" />
+                        </a>
+                        <div class="news-card-body">
+                            <div class="news-card-top">
+                                <span class="text-[12px] leading-[16px] font-bold text-[#d93633] bg-[#d93633]/10 px-3 py-1 rounded-full uppercase">${escapeHtml(typeLabels[item.type] || item.type)}</span>
+                                ${dateFormatted ? `<span class="news-card-date"><span class="material-symbols-outlined text-[16px]">calendar_today</span>${escapeHtml(dateFormatted)}</span>` : ''}
                             </div>
-                            <h3 class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] mb-2">${escapeHtml(item.title)}</h3>
-                            <p class="text-[16px] leading-[24px] text-[#45464e] mb-4">${escapeHtml(item.excerpt || '')}</p>
-                            <a class="text-[#1e2a4a] text-[14px] leading-[20px] font-semibold hover:text-[#d93633] transition-colors" href="about.html">Read More →</a>
+                            <h3 class="news-card-title"><a href="${articleUrl}" class="hover:text-[#d93633] transition-colors">${escapeHtml(item.title)}</a></h3>
+                            ${item.excerpt ? `<p class="news-card-excerpt">${escapeHtml(item.excerpt)}</p>` : ''}
+                            <a class="news-card-more" href="${articleUrl}" aria-label="Read more: ${escapeHtml(item.title)}">Read More →</a>
                         </div>
-                    </div>`;
-                });
-                newsGrid.innerHTML = newsHtml;
+                    </article>`;
+                }).join('');
+
+                // Tighter spacing as more cards share the row
+                newsRow.style.setProperty('--news-gap', count <= 4 ? '24px' : count <= 6 ? '18px' : '14px');
+                initNewsRowArrows(newsRow);
             }
         }
+    }
+
+    // Prev/next arrows for the News row, shown only when cards overflow (too many to fit at a readable size)
+    function initNewsRowArrows(row) {
+        const wrap = row.closest('.news-row-wrap');
+        if (!wrap) return;
+        const prev = wrap.querySelector('[data-news-prev]');
+        const next = wrap.querySelector('[data-news-next]');
+        if (!prev || !next) return;
+
+        const update = () => {
+            const overflowing = row.scrollWidth > row.clientWidth + 2;
+            prev.hidden = next.hidden = !overflowing;
+            prev.disabled = row.scrollLeft <= 2;
+            next.disabled = row.scrollLeft + row.clientWidth >= row.scrollWidth - 2;
+        };
+        const step = () => {
+            const card = row.querySelector('.news-card');
+            return card ? card.getBoundingClientRect().width + parseFloat(getComputedStyle(row).columnGap || 0) : row.clientWidth;
+        };
+
+        if (!wrap.dataset.arrowsReady) {
+            prev.addEventListener('click', () => row.scrollBy({ left: -step(), behavior: 'smooth' }));
+            next.addEventListener('click', () => row.scrollBy({ left: step(), behavior: 'smooth' }));
+            row.addEventListener('scroll', update, { passive: true });
+            window.addEventListener('resize', update);
+            wrap.dataset.arrowsReady = '1';
+        }
+        update();
+        // Re-check once images have loaded and fonts have settled
+        window.addEventListener('load', update, { once: true });
     }
 
     // ==========================================================
@@ -303,13 +375,51 @@
         const aboutData = await fetchApi('/about/');
         if (!aboutData) return;
 
-        // History text
-        if (aboutData.sections && aboutData.sections.history) {
-            const historyContainer = document.querySelector('section.py-24.px-6.md\\:px-20 .space-y-6');
-            if (historyContainer && aboutData.sections.history.content) {
-                const paras = aboutData.sections.history.content.split(/\n\s*\n/).map(p => escapeHtml(p.trim())).filter(Boolean);
-                historyContainer.innerHTML = paras.map(p => `<p>${p}</p>`).join('');
+        // Text sections edited under About Us in the admin panel (targets tagged data-about="..." in about.html)
+        const sections = aboutData.sections || {};
+        const aboutEl = (key) => document.querySelector(`[data-about="${key}"]`);
+        const toParagraphs = (text) => (text || '').split(/\r?\n\s*\r?\n/).map(p => p.trim()).filter(Boolean);
+        const setText = (key, value) => {
+            const el = aboutEl(key);
+            if (el && value && value.trim()) el.textContent = value.trim();
+        };
+
+        // Page hero banner: headline, intro text, photo
+        if (sections.hero) {
+            setText('hero-title', sections.hero.title);
+            setText('hero-text', sections.hero.content);
+            const heroImg = aboutEl('hero-image');
+            if (heroImg && sections.hero.image) {
+                heroImg.src = sections.hero.image;
+                heroImg.alt = sections.hero.image_alt || sections.hero.title || heroImg.alt;
             }
+        }
+
+        // History: title + paragraphs
+        if (sections.history) {
+            setText('history-title', sections.history.title);
+            const historyBody = aboutEl('history-body');
+            const paras = toParagraphs(sections.history.content);
+            if (historyBody && paras.length) {
+                historyBody.innerHTML = paras.map(p => `<p>${escapeHtml(p)}</p>`).join('');
+            }
+        }
+
+        // Vision & Mission cards
+        if (sections.vision) setText('vision', sections.vision.content);
+        if (sections.mission) setText('mission', sections.mission.content);
+
+        // Motto: first paragraph is the motto itself, anything after a blank line is the supporting text
+        if (sections.motto) {
+            const [motto, ...rest] = toParagraphs(sections.motto.content);
+            setText('motto', motto);
+            if (rest.length) setText('motto-text', rest.join(' '));
+        }
+
+        // Support St.Monica (donation) heading & intro
+        if (sections.support_cta) {
+            setText('support-title', sections.support_cta.title);
+            setText('support-text', sections.support_cta.content);
         }
 
         // Core Values
@@ -344,9 +454,15 @@
         }
 
         // Administrators
+        // "Meet Our Staff": every published staff member (featured or not)
         if (aboutData.administrators && aboutData.administrators.length > 0) {
             const adminGrid = document.querySelector('#administrators .grid');
             if (adminGrid) {
+                const staffLayouts = {
+                    1: 'grid grid-cols-1 gap-8 max-w-sm mx-auto',
+                    2: 'grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto',
+                };
+                adminGrid.className = staffLayouts[aboutData.administrators.length] || 'grid grid-cols-1 md:grid-cols-3 gap-8';
                 adminGrid.innerHTML = aboutData.administrators.map(a => `
                     <div class="bg-[#f3f3f3] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
                         <div class="h-80 overflow-hidden">
@@ -356,10 +472,11 @@
                             <h3 class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] mb-2">${escapeHtml(a.name)}</h3>
                             <p class="text-[14px] leading-[20px] text-[#d93633] font-semibold mb-3 uppercase tracking-wide">${escapeHtml(a.position)}</p>
                             <p class="text-[16px] leading-[24px] text-[#2C2C2C] mb-4">${escapeHtml(a.biography || '')}</p>
+                            ${a.email ? `
                             <div class="flex items-center gap-2 text-[#45464e] text-[14px]">
                                 <span class="material-symbols-outlined text-[18px]">mail</span>
-                                <span>${escapeHtml(a.email || '')}</span>
-                            </div>
+                                <span>${escapeHtml(a.email)}</span>
+                            </div>` : ''}
                         </div>
                     </div>
                 `).join('');
@@ -382,16 +499,20 @@
                 ? galleryItems
                 : galleryItems.filter(item => item.category === filterCategory);
 
-            grid.innerHTML = filtered.map(img => `
-                <div class="masonry-item rounded-[0.5rem] overflow-hidden hover-lift bg-[#f3f3f3] border border-[#e2e2e2] relative group">
-                    <img class="w-full h-auto object-cover" src="${escapeHtml(img.file_path)}" alt="${escapeHtml(img.title)}"/>
-                    <div class="absolute inset-0 bg-[#1e2a4a]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                        <span class="text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#ffb4ac] mb-1">${escapeHtml(img.category)}</span>
-                        <h3 class="text-[24px] leading-[32px] font-semibold text-white">${escapeHtml(img.title)}</h3>
-                        ${img.description ? `<p class="text-xs text-white/80 mt-1">${escapeHtml(img.description)}</p>` : ''}
-                    </div>
-                </div>
-            `).join('');
+            // Caption and description are optional in the admin panel. The hover caption shows the
+            // title (or the description when there is no title); photos with neither show no caption.
+            grid.innerHTML = filtered.map(img => {
+                const title = (img.title || '').trim();
+                const description = (img.description || '').trim();
+                const caption = title || description;
+                return `
+                <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2]"
+                     tabindex="0" role="button" aria-label="${escapeHtml(caption ? 'View photo: ' + caption : 'View photo')}"
+                     data-caption="${escapeHtml(title)}" data-description="${escapeHtml(description)}">
+                    <img class="w-full h-auto object-cover" src="${escapeHtml(img.file_path)}" alt="${escapeHtml(caption || img.category || 'School photo')}" loading="lazy"/>
+                    ${caption ? `<span class="gallery-caption">${escapeHtml(caption)}</span>` : ''}
+                </div>`;
+            }).join('');
         }
 
         // Render initial
@@ -476,11 +597,11 @@
         if (!stepsGrid) return;
 
         stepsGrid.innerHTML = data.procedure_steps.map((step, idx) => `
-            <div class="bg-white rounded-xl p-8 shadow-sm border border-[#c6c6cf]/30 relative">
-                <div class="absolute -top-4 -left-4 w-12 h-12 bg-[#d93633] rounded-full flex items-center justify-center text-white font-bold text-[20px] shadow-lg">
+            <div class="join-step-card bg-white rounded-xl p-8 shadow-sm border border-[#c6c6cf]/30 relative">
+                <div class="join-step-number absolute -top-4 -left-4 w-12 h-12 bg-[#d93633] rounded-full flex items-center justify-center text-white font-bold text-[20px] shadow-lg">
                     ${idx + 1}
                 </div>
-                <div class="w-16 h-16 bg-[#1e2a4a] rounded-full flex items-center justify-center mb-6 mx-auto text-white">
+                <div class="join-step-icon w-16 h-16 bg-[#1e2a4a] rounded-full flex items-center justify-center mb-6 mx-auto text-white">
                     <span class="material-symbols-outlined text-white text-[32px]">${escapeHtml(step.icon || 'help_center')}</span>
                 </div>
                 <h3 class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] mb-3 text-center">${escapeHtml(step.title)}</h3>
@@ -555,14 +676,151 @@
     // ==========================================================
     // INITIALIZATION DISPATCHER
     // ==========================================================
+    // ==========================================================
+    // NEWSLETTER SIGN-UP (footer "Newsletter" box on every page)
+    // ==========================================================
+    function ensureSweetAlert() {
+        if (typeof Swal !== 'undefined') {
+            return Promise.resolve(window.Swal);
+        }
+        return new Promise((resolve) => {
+            const existingScript = document.querySelector('script[src*="sweetalert2"]');
+            if (existingScript) {
+                if (typeof Swal !== 'undefined') return resolve(window.Swal);
+                existingScript.addEventListener('load', () => resolve(window.Swal));
+                existingScript.addEventListener('error', () => resolve(null));
+                // Fallback timeout in case load event already fired
+                setTimeout(() => resolve(window.Swal || null), 1500);
+            } else {
+                const script = document.createElement('script');
+                script.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
+                script.onload = () => resolve(window.Swal);
+                script.onerror = () => resolve(null);
+                document.head.appendChild(script);
+            }
+        });
+    }
+
+    async function showNewsletterAlert(isSuccess, title, text) {
+        const swal = await ensureSweetAlert();
+        if (swal) {
+            swal.fire({
+                icon: isSuccess ? 'success' : 'error',
+                title: title,
+                text: text,
+                timer: 3000,
+                timerProgressBar: true,
+                showConfirmButton: false,
+                customClass: {
+                    popup: 'swal-newsletter-popup',
+                    title: 'swal-newsletter-title',
+                    htmlContainer: 'swal-newsletter-html'
+                }
+            });
+        }
+    }
+
+    function initNewsletterForms() {
+        document.querySelectorAll('footer form').forEach(form => {
+            const input = form.querySelector('input[type="email"]');
+            const button = form.querySelector('button');
+            if (!input || !button || form.dataset.newsletterReady) return;
+            form.dataset.newsletterReady = '1';
+
+            input.name = 'email';
+            input.required = true;
+            input.autocomplete = 'email';
+            input.setAttribute('aria-label', 'Your email address');
+            button.type = 'submit';
+
+            // Hidden honeypot field: people never see it, spam bots fill it in
+            const trap = document.createElement('input');
+            trap.type = 'text';
+            trap.name = 'website';
+            trap.tabIndex = -1;
+            trap.autocomplete = 'off';
+            trap.setAttribute('aria-hidden', 'true');
+            trap.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px;opacity:0;';
+            form.appendChild(trap);
+
+            const message = document.createElement('p');
+            message.className = 'text-[13px] leading-[18px] font-semibold hidden';
+            message.setAttribute('role', 'status');
+            message.setAttribute('aria-live', 'polite');
+            form.appendChild(message);
+
+            let hideTimeout = null;
+            const show = (text, ok) => {
+                if (hideTimeout) clearTimeout(hideTimeout);
+                message.textContent = text;
+                message.classList.remove('hidden', 'text-emerald-300', 'text-red-300');
+                message.classList.add(ok ? 'text-emerald-300' : 'text-red-300');
+                hideTimeout = setTimeout(() => {
+                    message.classList.add('hidden');
+                }, 3000);
+            };
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const email = input.value.trim();
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    show('Please enter a valid email address.', false);
+                    showNewsletterAlert(false, 'Invalid Email Address', 'Please provide a valid email address (e.g., parent@example.com).');
+                    input.focus();
+                    return;
+                }
+
+                const originalHtml = button.innerHTML;
+                button.disabled = true;
+                button.innerHTML = '<span class="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span> Subscribing...';
+                try {
+                    const res = await fetch(API_BASE + '/newsletter/subscribe.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                        body: JSON.stringify({
+                            email,
+                            website: trap.value,
+                            source: (window.location.pathname.split('/').pop() || 'index.html')
+                        })
+                    });
+                    const json = await res.json().catch(() => null);
+                    if (json && json.success) {
+                        show(json.message, true);
+                        input.value = '';
+                        const title = (json.data && json.data.status === 'resubscribed')
+                            ? 'Welcome Back!'
+                            : ((json.data && json.data.status === 'already') ? 'Already Subscribed' : 'Subscribed Successfully!');
+                        showNewsletterAlert(true, title, json.message || 'Thank you for subscribing to our school newsletter!');
+                    } else {
+                        const errMsg = (json && json.message) || 'Could not subscribe right now. Please try again.';
+                        show(errMsg, false);
+                        showNewsletterAlert(false, 'Subscription Failed', errMsg);
+                    }
+                } catch (err) {
+                    const netErr = 'Could not connect to the server. Please check your internet connection and try again.';
+                    show(netErr, false);
+                    showNewsletterAlert(false, 'Connection Error', netErr);
+                } finally {
+                    button.disabled = false;
+                    button.innerHTML = originalHtml;
+                }
+            });
+        });
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
-        // Dynamic SEO tags across all public pages
-        updatePageSeo();
+        const path = window.location.pathname.toLowerCase();
+
+        initNewsletterForms();
+
+        // Dynamic SEO tags across all public pages (article.html sets its own from the article)
+        if (!path.includes('article.html')) {
+            updatePageSeo();
+        }
 
         // Always update global contact details & footers
         updateGlobalContact();
 
-        const path = window.location.pathname.toLowerCase();
         if (path.endsWith('index.html') || path.endsWith('/') || path.endsWith('st.monica/') || path === '') {
             updateHomepage();
             updateTestimonials();
