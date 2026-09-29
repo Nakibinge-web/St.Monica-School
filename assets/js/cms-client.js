@@ -142,6 +142,7 @@
                 let slidesHtml = '';
                 let thumbnailsHtml = '';
 
+                // Render background slides in order (slide 0 is initially active)
                 homeData.hero_slides.forEach(slide => {
                     const btnText = slide.button_text || 'Know More';
                     const btnUrl = slide.button_url || 'about.html';
@@ -164,12 +165,30 @@
                             </div>
                         </div>
                     </div>`;
-
-                    thumbnailsHtml += `
-                    <div class="item">
-                        <img src="${escapeHtml(slide.image)}" alt="${escapeHtml(slide.title)}">
-                    </div>`;
                 });
+
+                // Thumbnail list: first thumbnail MUST show the NEXT slide to occupy the background
+                const totalSlides = homeData.hero_slides.length;
+                if (totalSlides > 1) {
+                    for (let i = 1; i < totalSlides; i++) {
+                        const nextSlide = homeData.hero_slides[i];
+                        thumbnailsHtml += `
+                        <div class="item" title="Next: ${escapeHtml(nextSlide.title)}">
+                            <img src="${escapeHtml(nextSlide.image)}" alt="Next: ${escapeHtml(nextSlide.title)}">
+                        </div>`;
+                    }
+                    const firstSlide = homeData.hero_slides[0];
+                    thumbnailsHtml += `
+                    <div class="item" title="Next: ${escapeHtml(firstSlide.title)}">
+                        <img src="${escapeHtml(firstSlide.image)}" alt="Next: ${escapeHtml(firstSlide.title)}">
+                    </div>`;
+                } else if (totalSlides === 1) {
+                    const singleSlide = homeData.hero_slides[0];
+                    thumbnailsHtml += `
+                    <div class="item" title="${escapeHtml(singleSlide.title)}">
+                        <img src="${escapeHtml(singleSlide.image)}" alt="${escapeHtml(singleSlide.title)}">
+                    </div>`;
+                }
 
                 sliderList.innerHTML = slidesHtml;
                 thumbnailList.innerHTML = thumbnailsHtml;
@@ -544,8 +563,8 @@
         const testimonials = await fetchApi('/testimonials/');
         if (!testimonials || testimonials.length === 0) return;
 
-        const container = document.querySelector('.testimonial-header + .grid') || 
-                          document.querySelector('.testimonial-card')?.parentElement;
+        const container = document.querySelector('.testimonial-header + .grid') ||
+            document.querySelector('.testimonial-card')?.parentElement;
         if (!container) return;
 
         container.innerHTML = testimonials.map(t => {
@@ -554,7 +573,7 @@
                 .map(() => '<span class="material-symbols-outlined text-[#d93633]" style="font-variation-settings: \'FILL\' 1;">star</span>')
                 .join('');
 
-            const avatarHtml = t.photo 
+            const avatarHtml = t.photo
                 ? `<img src="${escapeHtml(t.photo)}" alt="${escapeHtml(t.name)}" class="w-12 h-12 rounded-full object-cover shadow-sm">`
                 : `<div class="w-12 h-12 bg-[#1e2a4a] rounded-full flex items-center justify-center text-white font-semibold text-sm">${escapeHtml(t.initials || 'P')}</div>`;
 

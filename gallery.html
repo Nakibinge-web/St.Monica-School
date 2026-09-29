@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html class="scroll-smooth" lang="en">
+
 <head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Gallery - St. Monica Junior School Kasanje</title>
     <link rel="icon" type="image/png" href="assets/imgz/logo2-cut.png">
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@400;600;700&display=swap"
+        rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- SweetAlert2 for polished alert dialogs -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -91,14 +95,14 @@
                         "label-sm": ["Montserrat"]
                     },
                     "fontSize": {
-                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
-                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
-                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                        "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
-                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
-                        "headline-md": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700"}]
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "display-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-sm": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700" }]
                     }
                 },
             },
@@ -109,25 +113,35 @@
             column-count: 1;
             column-gap: 24px;
         }
+
         @media (min-width: 768px) {
-            .masonry-grid { column-count: 2; }
+            .masonry-grid {
+                column-count: 2;
+            }
         }
+
         @media (min-width: 1024px) {
-            .masonry-grid { column-count: 3; }
+            .masonry-grid {
+                column-count: 3;
+            }
         }
+
         .masonry-item {
             break-inside: avoid;
             margin-bottom: 24px;
         }
+
         /* Gallery photo: pointer + small caption at the bottom centre on hover (no colour cover) */
         .gallery-item {
             position: relative;
             cursor: pointer;
         }
+
         .gallery-item:focus-visible {
             outline: 3px solid #d93633;
             outline-offset: 3px;
         }
+
         .gallery-caption {
             position: absolute;
             left: 50%;
@@ -149,11 +163,13 @@
             transition: opacity 0.25s ease, transform 0.25s ease;
             pointer-events: none;
         }
+
         .gallery-item:hover .gallery-caption,
         .gallery-item:focus-visible .gallery-caption {
             opacity: 1;
             transform: translate(-50%, 0);
         }
+
         /* Touch screens have no hover: keep captions visible */
         @media (hover: none) {
             .gallery-caption {
@@ -176,10 +192,12 @@
             visibility: hidden;
             transition: opacity 0.25s ease, visibility 0.25s ease;
         }
+
         .gallery-lightbox.is-open {
             opacity: 1;
             visibility: visible;
         }
+
         .gallery-lightbox figure {
             max-width: min(1100px, 100%);
             max-height: 100%;
@@ -187,6 +205,7 @@
             flex-direction: column;
             align-items: center;
         }
+
         .gallery-lightbox img {
             max-width: 100%;
             max-height: calc(100vh - 170px);
@@ -194,18 +213,22 @@
             border-radius: 10px;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
         }
+
         .gallery-lightbox figcaption {
             margin-top: 14px;
             text-align: center;
             color: #ffffff;
             max-width: 720px;
         }
+
         .gallery-lightbox img {
             transition: opacity 0.2s ease;
         }
+
         .gallery-lightbox img.is-changing {
             opacity: 0;
         }
+
         /* Previous / next buttons */
         .gallery-nav {
             position: absolute;
@@ -224,22 +247,33 @@
             transition: background-color 0.2s ease, transform 0.2s ease;
             z-index: 2;
         }
+
         .gallery-nav:hover {
             background: #d93633;
             border-color: #d93633;
         }
+
         .gallery-nav:active {
             transform: translateY(-50%) scale(0.94);
         }
+
         .gallery-nav:focus-visible {
             outline: 3px solid #ffffff;
             outline-offset: 2px;
         }
+
         .gallery-nav[hidden] {
             display: none;
         }
-        .gallery-nav.is-prev { left: 20px; }
-        .gallery-nav.is-next { right: 20px; }
+
+        .gallery-nav.is-prev {
+            left: 20px;
+        }
+
+        .gallery-nav.is-next {
+            right: 20px;
+        }
+
         .gallery-counter {
             position: absolute;
             top: 22px;
@@ -253,9 +287,11 @@
             color: rgba(255, 255, 255, 0.85);
             background: rgba(255, 255, 255, 0.1);
         }
+
         .gallery-counter[hidden] {
             display: none;
         }
+
         /* Phones: smaller buttons tucked to the bottom so they don't cover the photo */
         @media (max-width: 639px) {
             .gallery-nav {
@@ -265,16 +301,30 @@
                 width: 46px;
                 height: 46px;
             }
-            .gallery-nav:active { transform: scale(0.94); }
-            .gallery-nav.is-prev { left: calc(50% - 60px); }
-            .gallery-nav.is-next { right: calc(50% - 60px); }
-            .gallery-lightbox img { max-height: calc(100vh - 230px); }
+
+            .gallery-nav:active {
+                transform: scale(0.94);
+            }
+
+            .gallery-nav.is-prev {
+                left: calc(50% - 60px);
+            }
+
+            .gallery-nav.is-next {
+                right: calc(50% - 60px);
+            }
+
+            .gallery-lightbox img {
+                max-height: calc(100vh - 230px);
+            }
         }
+
         .traditional-pattern {
             background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30L30 0ZM30 15L45 30L30 45L15 30L30 15Z' fill='%23bac5ee' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
         }
     </style>
 </head>
+
 <body class="bg-surface-white text-on-surface-charcoal font-body-md antialiased flex flex-col min-h-screen">
     <!-- TopNavBar -->
     <nav class="nav-load fixed top-0 w-full bg-white shadow-sm z-50 transition-all duration-300">
@@ -282,7 +332,7 @@
             <!-- Brand with Logo -->
             <a href="index.html" class="flex items-center nav-load-logo">
                 <img src="assets/imgz/logo2.webp" alt="St Monica Junior School Logo"
-                    class="h-20 w-20 m-0 lg:h-60 lg:w-60 lg:m-20 object-contain hover:scale-105 transition-transform duration-200" />
+                    class="h-20 w-20 m-0 lg:h-28 lg:w-60 lg:m-20 object-contain hover:scale-105 transition-transform duration-200" />
             </a>
             <!-- Nav Links (Desktop) -->
             <div class="hidden lg:flex items-center gap-6 flex-nowrap mr-14">
@@ -307,20 +357,25 @@
                                 class="block px-6 py-3 text-[#2C2C2C] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:bg-[#f3f3f3] hover:text-[#d93633] transition-colors duration-150">
                                 Academics
                             </a>
-                            <a href="curriculum.html" class="block px-6 py-3 text-[#2C2C2C] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:bg-[#f3f3f3] hover:text-[#d93633] transition-colors duration-150">
+                            <a href="curriculum.html"
+                                class="block px-6 py-3 text-[#2C2C2C] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:bg-[#f3f3f3] hover:text-[#d93633] transition-colors duration-150">
                                 School Curriculum
                             </a>
-                            <a href="cocurricular.html" class="block px-6 py-3 text-[#2C2C2C] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:bg-[#f3f3f3] hover:text-[#d93633] transition-colors duration-150">
+                            <a href="cocurricular.html"
+                                class="block px-6 py-3 text-[#2C2C2C] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:bg-[#f3f3f3] hover:text-[#d93633] transition-colors duration-150">
                                 Co-curricular Activities
                             </a>
                         </div>
                     </div>
                 </div>
-                
-                <a class="nav-load-item text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] border-b-2 border-[#d93633] pb-1 hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap" href="gallery.html">Gallery</a>
-                <a class="nav-load-item text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap" href="contact.html">Contact</a>
-                
-                <a href="contact.html#apply" class="nav-load-item inline-block text-center bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm whitespace-nowrap ml-2">
+
+                <a class="nav-load-item text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] border-b-2 border-[#d93633] pb-1 hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
+                    href="gallery.html">Gallery</a>
+                <a class="nav-load-item text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors duration-200 whitespace-nowrap"
+                    href="contact.html">Contact</a>
+
+                <a href="contact.html#apply"
+                    class="nav-load-item inline-block text-center bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm whitespace-nowrap ml-2">
                     Join Us
                 </a>
             </div>
@@ -339,32 +394,37 @@
                     href="index.html">Home</a>
                 <a class="block text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors pb-2"
                     href="about.html">About Us</a>
-                
+
                 <!-- School Life Mobile Accordion -->
                 <div>
-                    <button id="mobileSchoolLifeBtn" class="w-full flex items-center justify-between text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors pb-2">
+                    <button id="mobileSchoolLifeBtn"
+                        class="w-full flex items-center justify-between text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors pb-2">
                         <span>School Life</span>
                         <span class="material-symbols-outlined text-[20px]" id="mobileSchoolLifeIcon">expand_more</span>
                     </button>
                     <div id="mobileSchoolLifeMenu" class="hidden pl-4 mt-2 space-y-2">
-                        <a href="academics.html" class="block text-[14px] leading-[20px] font-semibold text-[#2C2C2C] hover:text-[#d93633] transition-colors py-2">
+                        <a href="academics.html"
+                            class="block text-[14px] leading-[20px] font-semibold text-[#2C2C2C] hover:text-[#d93633] transition-colors py-2">
                             Academics
                         </a>
-                        <a href="curriculum.html" class="block text-[14px] leading-[20px] font-semibold text-[#2C2C2C] hover:text-[#d93633] transition-colors py-2">
+                        <a href="curriculum.html"
+                            class="block text-[14px] leading-[20px] font-semibold text-[#2C2C2C] hover:text-[#d93633] transition-colors py-2">
                             School Curriculum
                         </a>
-                        <a href="cocurricular.html" class="block text-[14px] leading-[20px] font-semibold text-[#2C2C2C] hover:text-[#d93633] transition-colors py-2">
+                        <a href="cocurricular.html"
+                            class="block text-[14px] leading-[20px] font-semibold text-[#2C2C2C] hover:text-[#d93633] transition-colors py-2">
                             Co-curricular Activities
                         </a>
                     </div>
                 </div>
-                
+
                 <a class="block text-[16px] leading-[24px] font-semibold text-[#1e2a4a] border-b-2 border-[#d93633] hover:text-[#d93633] transition-colors pb-2"
                     href="gallery.html">Gallery</a>
                 <a class="block text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors pb-2"
                     href="contact.html">Contact</a>
-                
-                <a href="contact.html#apply" class="block text-center w-full bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm mt-4">
+
+                <a href="contact.html#apply"
+                    class="block text-center w-full bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm mt-4">
                     Join Us
                 </a>
             </div>
@@ -377,8 +437,10 @@
         <section class="relative py-20 md:py-28 px-4 md:px-20 overflow-hidden bg-[#d93633] text-white">
             <div class="absolute inset-0 traditional-pattern opacity-30 animate-hero-pattern"></div>
             <!-- Ambient floating glow orbs for depth -->
-            <div class="absolute -top-24 -left-24 w-80 h-80 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
-            <div class="absolute -bottom-24 -right-24 w-80 h-80 bg-black/15 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -top-24 -left-24 w-80 h-80 bg-white/10 rounded-full blur-3xl pointer-events-none">
+            </div>
+            <div class="absolute -bottom-24 -right-24 w-80 h-80 bg-black/15 rounded-full blur-3xl pointer-events-none">
+            </div>
 
             <div class="max-w-[880px] mx-auto relative z-10 text-center space-y-6">
                 <!-- Pill Badge -->
@@ -387,7 +449,8 @@
                 </div> -->
 
                 <!-- Main Heading -->
-                <h1 class="text-[34px] md:text-[52px] leading-[42px] md:leading-[60px] font-bold tracking-[-0.02em] text-white reveal-on-scroll" data-reveal-delay="0">
+                <h1 class="text-[34px] md:text-[52px] leading-[42px] md:leading-[60px] font-bold tracking-[-0.02em] text-white reveal-on-scroll"
+                    data-reveal-delay="0">
                     Our Gallery
                 </h1>
 
@@ -395,8 +458,10 @@
                 <div class="w-20 h-1 bg-white/80 mx-auto rounded-full reveal-on-scroll" data-reveal-delay="100"></div>
 
                 <!-- Description -->
-                <p class="text-[18px] md:text-[20px] leading-[28px] md:leading-[32px] text-white/95 max-w-2xl mx-auto font-normal reveal-on-scroll" data-reveal-delay="180">
-                    This is our visual story. Explore the vibrant life, cherished celebrations, and precious moments at St. Monica Junior School.
+                <p class="text-[18px] md:text-[20px] leading-[28px] md:leading-[32px] text-white/95 max-w-2xl mx-auto font-normal reveal-on-scroll"
+                    data-reveal-delay="180">
+                    This is our visual story. Explore the vibrant life, cherished celebrations, and precious moments at
+                    St. Monica Junior School.
                 </p>
             </div>
         </section>
@@ -406,56 +471,83 @@
             <!-- Gallery Filters -->
             <div class="mb-12 text-center reveal-on-scroll" data-reveal-delay="0">
                 <div class="flex flex-wrap gap-4 justify-center">
-                    <button class="px-6 py-2 rounded-full bg-[#1e2a4a] text-white text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-md transition-transform hover:scale-105">All Photos</button>
-                    <button class="px-6 py-2 rounded-full border-2 border-[#c6c6cf] text-[#45464e] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:border-[#1e2a4a] hover:text-[#1e2a4a] transition-colors">Administration</button>
-                    <button class="px-6 py-2 rounded-full border-2 border-[#c6c6cf] text-[#45464e] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:border-[#1e2a4a] hover:text-[#1e2a4a] transition-colors">Academics</button>
-                    <button class="px-6 py-2 rounded-full border-2 border-[#c6c6cf] text-[#45464e] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:border-[#1e2a4a] hover:text-[#1e2a4a] transition-colors">Co-curricular Activities</button>
-                    <button class="px-6 py-2 rounded-full border-2 border-[#c6c6cf] text-[#45464e] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:border-[#1e2a4a] hover:text-[#1e2a4a] transition-colors">Special Events</button>
+                    <button
+                        class="px-6 py-2 rounded-full bg-[#1e2a4a] text-white text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-md transition-transform hover:scale-105">All
+                        Photos</button>
+                    <button
+                        class="px-6 py-2 rounded-full border-2 border-[#c6c6cf] text-[#45464e] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:border-[#1e2a4a] hover:text-[#1e2a4a] transition-colors">Administration</button>
+                    <button
+                        class="px-6 py-2 rounded-full border-2 border-[#c6c6cf] text-[#45464e] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:border-[#1e2a4a] hover:text-[#1e2a4a] transition-colors">Academics</button>
+                    <button
+                        class="px-6 py-2 rounded-full border-2 border-[#c6c6cf] text-[#45464e] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:border-[#1e2a4a] hover:text-[#1e2a4a] transition-colors">Co-curricular
+                        Activities</button>
+                    <button
+                        class="px-6 py-2 rounded-full border-2 border-[#c6c6cf] text-[#45464e] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:border-[#1e2a4a] hover:text-[#1e2a4a] transition-colors">Special
+                        Events</button>
                 </div>
             </div>
 
             <!-- Masonry Gallery Grid -->
             <div class="masonry-grid">
-            <!-- Gallery Item 1 -->
-            <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] reveal-zoom" tabindex="0" role="button" data-reveal-delay="0">
-                <img class="w-full h-auto object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiTfvxn762d9lsukXv6r5tDEtGSCn8SJOwWMfHqytzYjwgn0M5B35eyTmkgy2DE6ZWiuum_Yhj36To8hq-oNalFcLHmoVvWinPi-LV1B1Smf145m13K-5siGtW6N3WtIL4hUre8ooYf0niW7bBXeyuU4PtokNkwRWbvUgwQ8hxUUpwG-1q-cX_WG3j31BJvmWQajpZhZun8IYgwqfb3D6UV1erT35dYvbVvuPmF_2ookMqpAhovL-VMQ" alt="Science Fair"/>
-                <span class="gallery-caption">Science Fair Prep</span>
-            </div>
+                <!-- Gallery Item 1 -->
+                <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] reveal-zoom"
+                    tabindex="0" role="button" data-reveal-delay="0">
+                    <img class="w-full h-auto object-cover"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiTfvxn762d9lsukXv6r5tDEtGSCn8SJOwWMfHqytzYjwgn0M5B35eyTmkgy2DE6ZWiuum_Yhj36To8hq-oNalFcLHmoVvWinPi-LV1B1Smf145m13K-5siGtW6N3WtIL4hUre8ooYf0niW7bBXeyuU4PtokNkwRWbvUgwQ8hxUUpwG-1q-cX_WG3j31BJvmWQajpZhZun8IYgwqfb3D6UV1erT35dYvbVvuPmF_2ookMqpAhovL-VMQ"
+                        alt="Science Fair" />
+                    <span class="gallery-caption">Science Fair Prep</span>
+                </div>
 
-            <!-- Gallery Item 2 -->
-            <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] reveal-zoom" tabindex="0" role="button" data-reveal-delay="100">
-                <img class="w-full h-auto object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjzBOYjDeySqiy8O-rvvkKAo_1biN9VAF3D5PZVzpO5P2aore8kpnEk-jhY0aQw28K4mvqICbgIq3yrOV_47jZZSQl2Veegsy_HsLy9z6WvF4TzjJNSA078KUz00Zlfku8qLDsjQkJgg89UohBn5VlAFLO5tlQw0scJW8-aMFoR_46yki5p1JR9pWfzKFNCd_OJouJxhJ1G0RvVLmpncGF8X9C7tmjKq3X1ZryboiJylKwkw9B7McllA" alt="Football"/>
-                <span class="gallery-caption">Inter-House Football</span>
-            </div>
+                <!-- Gallery Item 2 -->
+                <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] reveal-zoom"
+                    tabindex="0" role="button" data-reveal-delay="100">
+                    <img class="w-full h-auto object-cover"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjzBOYjDeySqiy8O-rvvkKAo_1biN9VAF3D5PZVzpO5P2aore8kpnEk-jhY0aQw28K4mvqICbgIq3yrOV_47jZZSQl2Veegsy_HsLy9z6WvF4TzjJNSA078KUz00Zlfku8qLDsjQkJgg89UohBn5VlAFLO5tlQw0scJW8-aMFoR_46yki5p1JR9pWfzKFNCd_OJouJxhJ1G0RvVLmpncGF8X9C7tmjKq3X1ZryboiJylKwkw9B7McllA"
+                        alt="Football" />
+                    <span class="gallery-caption">Inter-House Football</span>
+                </div>
 
-            <!-- Gallery Item 3 -->
-            <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] reveal-zoom" tabindex="0" role="button" data-reveal-delay="200">
-                <img class="w-full h-auto object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhh3cdyIuBaMtd4ZuUFprQWx4WXCLpw_ctC0Cu9Uoohr6bCZ25j7UpcybSypevOArRr0H6pfXsp6wCyLxfNIHv8TdCIhsBmhYUm_hNFkoiA8oT-CO9b1xR36qW7N0RyiRKZhpXWxzj05wNHOHa7SxyRobx39btoWpBvhcMZsq4RQLwch5ihiKwoESmyymj0Lv5ENcrA79rpDoZl2MQl-bjWNpXG3wmArLzsCYgICr1Ua_anrqRN566Tw" alt="Campus"/>
-                <span class="gallery-caption">Main Quadrangle</span>
-            </div>
+                <!-- Gallery Item 3 -->
+                <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] reveal-zoom"
+                    tabindex="0" role="button" data-reveal-delay="200">
+                    <img class="w-full h-auto object-cover"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhh3cdyIuBaMtd4ZuUFprQWx4WXCLpw_ctC0Cu9Uoohr6bCZ25j7UpcybSypevOArRr0H6pfXsp6wCyLxfNIHv8TdCIhsBmhYUm_hNFkoiA8oT-CO9b1xR36qW7N0RyiRKZhpXWxzj05wNHOHa7SxyRobx39btoWpBvhcMZsq4RQLwch5ihiKwoESmyymj0Lv5ENcrA79rpDoZl2MQl-bjWNpXG3wmArLzsCYgICr1Ua_anrqRN566Tw"
+                        alt="Campus" />
+                    <span class="gallery-caption">Main Quadrangle</span>
+                </div>
 
-            <!-- Gallery Item 4 -->
-            <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] reveal-zoom" tabindex="0" role="button" data-reveal-delay="100">
-                <img class="w-full h-auto object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBuZlq7OKdha-Ec2Q2GmPR42dcIXv4kz8MRKSIO0LQdo62gPDZS_Jia_sfMPxVhfTG-NBRSzOhFRp6ZGHyptiDN_Xpctm_moFxwEU1cqYaL-HRbRw_Lk5UmTrR8EDiW8F4ird40qZpdxbsAxYGhNvuXCx3Junxnq40ZmVXxlQSDivqGZNtKt2KAGcwVyXiZFXeCRxtHLBaa3tTQzMzkZxnll5Gmfhc1kZKIY_Mn-zSqcaeU_mF9uUKWQ" alt="Arts"/>
-                <span class="gallery-caption">Creative Arts Class</span>
-            </div>
+                <!-- Gallery Item 4 -->
+                <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] reveal-zoom"
+                    tabindex="0" role="button" data-reveal-delay="100">
+                    <img class="w-full h-auto object-cover"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBuZlq7OKdha-Ec2Q2GmPR42dcIXv4kz8MRKSIO0LQdo62gPDZS_Jia_sfMPxVhfTG-NBRSzOhFRp6ZGHyptiDN_Xpctm_moFxwEU1cqYaL-HRbRw_Lk5UmTrR8EDiW8F4ird40qZpdxbsAxYGhNvuXCx3Junxnq40ZmVXxlQSDivqGZNtKt2KAGcwVyXiZFXeCRxtHLBaa3tTQzMzkZxnll5Gmfhc1kZKIY_Mn-zSqcaeU_mF9uUKWQ"
+                        alt="Arts" />
+                    <span class="gallery-caption">Creative Arts Class</span>
+                </div>
 
-            <!-- Gallery Item 5 -->
-            <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] reveal-zoom" tabindex="0" role="button" data-reveal-delay="200">
-                <img class="w-full h-auto object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjHE4MuErBw3ipQpLAsmrwpNBT5FBWAFo1JBlaWpU86O6c1pa8JyTKT9rVCG6XWzFMAGOTA3xdIbPuaN5bKN7DEy87-adqjA5zR9MnWIv9dAZFd5IbLgFXB7Ysxcob8MloLJiTbEKyt00zoMeLr9a3-bn_-IQLTOf6MVosAZoO06bNKDAWBR7EXryOxGmQQ0fixtsoeXQkkRAseTWkoGyYmiIax_2HHN72KXM10Nqnj6rb4mqCW13lqw" alt="Cultural Day"/>
-                <span class="gallery-caption">Annual Cultural Day</span>
-            </div>
+                <!-- Gallery Item 5 -->
+                <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] reveal-zoom"
+                    tabindex="0" role="button" data-reveal-delay="200">
+                    <img class="w-full h-auto object-cover"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjHE4MuErBw3ipQpLAsmrwpNBT5FBWAFo1JBlaWpU86O6c1pa8JyTKT9rVCG6XWzFMAGOTA3xdIbPuaN5bKN7DEy87-adqjA5zR9MnWIv9dAZFd5IbLgFXB7Ysxcob8MloLJiTbEKyt00zoMeLr9a3-bn_-IQLTOf6MVosAZoO06bNKDAWBR7EXryOxGmQQ0fixtsoeXQkkRAseTWkoGyYmiIax_2HHN72KXM10Nqnj6rb4mqCW13lqw"
+                        alt="Cultural Day" />
+                    <span class="gallery-caption">Annual Cultural Day</span>
+                </div>
 
-            <!-- Gallery Item 6 -->
-            <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] reveal-zoom" tabindex="0" role="button" data-reveal-delay="300">
-                <img class="w-full h-auto object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqEtiunPCGMKrwvxg5nZzwtWE5m1QHlWGq92UjGnXtdnLisTYL0uBRGz3GVsQPkOgHiaExkV7oOcA943MAt0_wdI5PscxIi_8JnrlNYta0oDtGOTcfeZnygdYJqGH7Sq_7BLwhX1z-b_YVlrzldtxI6jbec8qR7-8fTI08TO6bK9lgbpUWhhD3zG5PmxJyG9HF-aJicEeztpnmbYVNVxsGjZElEECq4S-zYWkm8UV-8A0khfMoW8PjcQ" alt="Library"/>
-                <span class="gallery-caption">The Library Hub</span>
-            </div>
+                <!-- Gallery Item 6 -->
+                <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] reveal-zoom"
+                    tabindex="0" role="button" data-reveal-delay="300">
+                    <img class="w-full h-auto object-cover"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqEtiunPCGMKrwvxg5nZzwtWE5m1QHlWGq92UjGnXtdnLisTYL0uBRGz3GVsQPkOgHiaExkV7oOcA943MAt0_wdI5PscxIi_8JnrlNYta0oDtGOTcfeZnygdYJqGH7Sq_7BLwhX1z-b_YVlrzldtxI6jbec8qR7-8fTI08TO6bK9lgbpUWhhD3zG5PmxJyG9HF-aJicEeztpnmbYVNVxsGjZElEECq4S-zYWkm8UV-8A0khfMoW8PjcQ"
+                        alt="Library" />
+                    <span class="gallery-caption">The Library Hub</span>
+                </div>
             </div>
 
             <!-- Load More Button -->
             <div class="mt-16 text-center reveal-on-scroll" data-reveal-delay="100">
-                <button class="inline-flex items-center gap-2 px-8 py-3 rounded-full border-2 border-[#1e2a4a] text-[#1e2a4a] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:bg-[#dae2ff] hover:text-[#0d1a39] transition-colors duration-300">
+                <button
+                    class="inline-flex items-center gap-2 px-8 py-3 rounded-full border-2 border-[#1e2a4a] text-[#1e2a4a] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:bg-[#dae2ff] hover:text-[#0d1a39] transition-colors duration-300">
                     Load More Memories
                     <span class="material-symbols-outlined text-[20px]">expand_more</span>
                 </button>
@@ -557,7 +649,9 @@
                         © <span id="currentYear"></span> St Monica Junior School Kasanje. All rights reserved.
                     </p>
                     <p class="text-[14px] leading-[20px] text-white/60 text-center md:text-right">
-                        Made by <a href="https://www.sofdas.com/" class="text-secondary-container hover:text-secondary transition-colors font-semibold">Sofdas Technologies</a>
+                        Made by <a href="https://www.sofdas.com/"
+                            class="text-secondary-container hover:text-secondary transition-colors font-semibold">Sofdas
+                            Technologies</a>
                     </p>
                 </div>
             </div>
@@ -579,7 +673,7 @@
         const mobileSchoolLifeMenu = document.getElementById('mobileSchoolLifeMenu');
         const mobileSchoolLifeIcon = document.getElementById('mobileSchoolLifeIcon');
 
-        mobileMenuBtn.addEventListener('click', function() {
+        mobileMenuBtn.addEventListener('click', function () {
             mobileMenu.classList.toggle('hidden');
             if (mobileMenu.classList.contains('hidden')) {
                 mobileMenuIcon.textContent = 'menu';
@@ -589,7 +683,7 @@
         });
 
         // Mobile School Life Accordion
-        mobileSchoolLifeBtn.addEventListener('click', function() {
+        mobileSchoolLifeBtn.addEventListener('click', function () {
             mobileSchoolLifeMenu.classList.toggle('hidden');
             if (mobileSchoolLifeMenu.classList.contains('hidden')) {
                 mobileSchoolLifeIcon.textContent = 'expand_more';
@@ -639,7 +733,9 @@
     </script>
     <!-- Full-size photo viewer (opened by clicking a gallery photo) -->
     <div id="galleryLightbox" class="gallery-lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
-        <button type="button" id="galleryLightboxClose" class="absolute top-4 right-4 w-11 h-11 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition-colors" aria-label="Close">
+        <button type="button" id="galleryLightboxClose"
+            class="absolute top-4 right-4 w-11 h-11 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition-colors"
+            aria-label="Close">
             <span class="material-symbols-outlined text-[26px]">close</span>
         </button>
         <span id="galleryLightboxCounter" class="gallery-counter" aria-live="polite"></span>
@@ -760,4 +856,5 @@
     </script>
     <script src="assets/js/cms-client.js"></script>
 </body>
+
 </html>

@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>News &amp; Events - St. Monica Junior School Kasanje</title>
-    <meta name="description" content="News and events from St. Monica Junior School Kasanje."/>
+    <meta name="description" content="News and events from St. Monica Junior School Kasanje." />
     <link rel="icon" type="image/png" href="assets/imgz/logo2-cut.png">
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@400;600;700&display=swap"
+        rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- SweetAlert2 for polished alert dialogs -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -93,14 +97,14 @@
                         "label-sm": ["Montserrat"]
                     },
                     "fontSize": {
-                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
-                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
-                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                        "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
-                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
-                        "headline-md": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700"}]
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "display-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-sm": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700" }]
                     }
                 },
             },
@@ -112,6 +116,7 @@
         }
     </style>
 </head>
+
 <body class="bg-surface-white text-on-surface-charcoal font-body-md antialiased flex flex-col min-h-screen">
     <!-- TopNavBar -->
     <nav class="nav-load fixed top-0 w-full bg-white shadow-sm z-50 transition-all duration-300">
@@ -119,7 +124,7 @@
             <!-- Brand with Logo -->
             <a href="index.html" class="flex items-center nav-load-logo">
                 <img src="assets/imgz/logo2.webp" alt="St Monica Junior School Logo"
-                    class="h-20 w-20 m-0 lg:h-60 lg:w-60 lg:m-20 object-contain hover:scale-105 transition-transform duration-200" />
+                    class="h-20 w-20 m-0 lg:h-28 lg:w-60 lg:m-20 object-contain hover:scale-105 transition-transform duration-200" />
             </a>
             <!-- Nav Links (Desktop) -->
             <div class="hidden lg:flex items-center gap-6 flex-nowrap mr-14">
@@ -181,32 +186,37 @@
                     href="index.html">Home</a>
                 <a class="block text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors pb-2"
                     href="about.html">About Us</a>
-                
+
                 <!-- School Life Mobile Accordion -->
                 <div>
-                    <button id="mobileSchoolLifeBtn" class="w-full flex items-center justify-between text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors pb-2">
+                    <button id="mobileSchoolLifeBtn"
+                        class="w-full flex items-center justify-between text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors pb-2">
                         <span>School Life</span>
                         <span class="material-symbols-outlined text-[20px]" id="mobileSchoolLifeIcon">expand_more</span>
                     </button>
                     <div id="mobileSchoolLifeMenu" class="hidden pl-4 mt-2 space-y-2">
-                        <a href="academics.html" class="block text-[14px] leading-[20px] font-semibold text-[#2C2C2C] hover:text-[#d93633] transition-colors py-2">
+                        <a href="academics.html"
+                            class="block text-[14px] leading-[20px] font-semibold text-[#2C2C2C] hover:text-[#d93633] transition-colors py-2">
                             Academics
                         </a>
-                        <a href="curriculum.html" class="block text-[14px] leading-[20px] font-semibold text-[#2C2C2C] hover:text-[#d93633] transition-colors py-2">
+                        <a href="curriculum.html"
+                            class="block text-[14px] leading-[20px] font-semibold text-[#2C2C2C] hover:text-[#d93633] transition-colors py-2">
                             School Curriculum
                         </a>
-                        <a href="cocurricular.html" class="block text-[14px] leading-[20px] font-semibold text-[#2C2C2C] hover:text-[#d93633] transition-colors py-2">
+                        <a href="cocurricular.html"
+                            class="block text-[14px] leading-[20px] font-semibold text-[#2C2C2C] hover:text-[#d93633] transition-colors py-2">
                             Co-curricular Activities
                         </a>
                     </div>
                 </div>
-                
+
                 <a class="block text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors pb-2"
                     href="gallery.html">Gallery</a>
                 <a class="block text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors pb-2"
                     href="contact.html">Contact</a>
-                
-                <a href="contact.html#apply" class="block text-center w-full bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm mt-4">
+
+                <a href="contact.html#apply"
+                    class="block text-center w-full bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm mt-4">
                     Join Us
                 </a>
             </div>
@@ -233,9 +243,13 @@
                 </div>
 
                 <div id="articleHeader" class="hidden">
-                    <span id="articleType" class="inline-block text-[12px] leading-[16px] font-bold uppercase tracking-wider bg-[#d93633] text-white px-3 py-1 rounded-full"></span>
-                    <h1 id="articleTitle" class="mt-4 text-[30px] md:text-[44px] leading-[38px] md:leading-[54px] font-bold tracking-[-0.02em]"></h1>
-                    <div id="articleMeta" class="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-[14px] text-white/80"></div>
+                    <span id="articleType"
+                        class="inline-block text-[12px] leading-[16px] font-bold uppercase tracking-wider bg-[#d93633] text-white px-3 py-1 rounded-full"></span>
+                    <h1 id="articleTitle"
+                        class="mt-4 text-[30px] md:text-[44px] leading-[38px] md:leading-[54px] font-bold tracking-[-0.02em]">
+                    </h1>
+                    <div id="articleMeta"
+                        class="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-[14px] text-white/80"></div>
                 </div>
             </div>
         </section>
@@ -243,7 +257,8 @@
         <!-- Article Body -->
         <section class="px-4 md:px-8 pb-20 bg-[#f9f9f9]">
             <div class="max-w-[900px] mx-auto -mt-20 md:-mt-24 relative z-10">
-                <article id="articleCard" class="bg-white rounded-2xl shadow-xl border border-[#c6c6cf]/30 overflow-hidden">
+                <article id="articleCard"
+                    class="bg-white rounded-2xl shadow-xl border border-[#c6c6cf]/30 overflow-hidden">
                     <!-- Loading placeholder -->
                     <div id="articleBodyLoading" class="animate-pulse" aria-hidden="true">
                         <div class="h-64 md:h-96 bg-[#eeeeee]"></div>
@@ -261,17 +276,23 @@
                         </figure>
 
                         <!-- Event details (events only) -->
-                        <div id="articleEventBox" class="hidden mx-6 md:mx-12 mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+                        <div id="articleEventBox"
+                            class="hidden mx-6 md:mx-12 mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
 
-                        <p id="articleExcerpt" class="hidden px-6 md:px-12 pt-8 text-[19px] leading-[30px] text-[#1e2a4a] font-semibold"></p>
+                        <p id="articleExcerpt"
+                            class="hidden px-6 md:px-12 pt-8 text-[19px] leading-[30px] text-[#1e2a4a] font-semibold">
+                        </p>
                         <div id="articleContent" class="article-content px-6 md:px-12 py-8 md:pb-12"></div>
 
-                        <div class="px-6 md:px-12 pb-10 flex flex-wrap items-center justify-between gap-4 border-t border-[#eeeeee] pt-6">
-                            <a href="index.html#news" class="inline-flex items-center gap-2 text-[#1e2a4a] font-semibold text-[15px] hover:text-[#d93633] transition-colors">
+                        <div
+                            class="px-6 md:px-12 pb-10 flex flex-wrap items-center justify-between gap-4 border-t border-[#eeeeee] pt-6">
+                            <a href="index.html#news"
+                                class="inline-flex items-center gap-2 text-[#1e2a4a] font-semibold text-[15px] hover:text-[#d93633] transition-colors">
                                 <span class="material-symbols-outlined text-[20px]">arrow_back</span>
                                 Back to News &amp; Events
                             </a>
-                            <button type="button" id="articleShareBtn" class="inline-flex items-center gap-2 text-[14px] font-semibold text-[#45464e] border border-[#c6c6cf] rounded-full px-4 py-2 hover:border-[#d93633] hover:text-[#d93633] transition-colors">
+                            <button type="button" id="articleShareBtn"
+                                class="inline-flex items-center gap-2 text-[14px] font-semibold text-[#45464e] border border-[#c6c6cf] rounded-full px-4 py-2 hover:border-[#d93633] hover:text-[#d93633] transition-colors">
                                 <span class="material-symbols-outlined text-[18px]">share</span>
                                 <span id="articleShareLabel">Share</span>
                             </button>
@@ -283,11 +304,14 @@
                         <div class="w-20 h-20 mx-auto rounded-full bg-[#f3f3f3] flex items-center justify-center">
                             <span class="material-symbols-outlined text-[40px] text-[#76777f]">article</span>
                         </div>
-                        <h2 id="articleMissingTitle" class="mt-6 text-[24px] leading-[32px] font-semibold text-[#1e2a4a]">Article not found</h2>
-                        <p id="articleMissingText" class="mt-2 text-[16px] leading-[24px] text-[#45464e] max-w-md mx-auto">
+                        <h2 id="articleMissingTitle"
+                            class="mt-6 text-[24px] leading-[32px] font-semibold text-[#1e2a4a]">Article not found</h2>
+                        <p id="articleMissingText"
+                            class="mt-2 text-[16px] leading-[24px] text-[#45464e] max-w-md mx-auto">
                             This article may have been removed or is no longer available.
                         </p>
-                        <a href="index.html#news" class="mt-8 inline-flex items-center gap-2 bg-[#d93633] text-white px-6 py-3 rounded-full font-semibold text-[14px] hover:bg-[#b51a1e] transition-colors">
+                        <a href="index.html#news"
+                            class="mt-8 inline-flex items-center gap-2 bg-[#d93633] text-white px-6 py-3 rounded-full font-semibold text-[14px] hover:bg-[#b51a1e] transition-colors">
                             <span class="material-symbols-outlined text-[20px]">arrow_back</span>
                             See all News &amp; Events
                         </a>
@@ -298,7 +322,9 @@
                 <div id="relatedWrap" class="hidden mt-16">
                     <div class="flex items-end justify-between gap-4 mb-6">
                         <h2 class="text-[26px] leading-[34px] font-semibold text-[#1e2a4a]">More News &amp; Events</h2>
-                        <a href="index.html#news" class="text-[14px] font-semibold text-[#d93633] hover:underline whitespace-nowrap">View all</a>
+                        <a href="index.html#news"
+                            class="text-[14px] font-semibold text-[#d93633] hover:underline whitespace-nowrap">View
+                            all</a>
                     </div>
                     <div id="relatedGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
                 </div>
@@ -401,7 +427,9 @@
                         © <span id="currentYear"></span> St Monica Junior School Kasanje. All rights reserved.
                     </p>
                     <p class="text-[14px] leading-[20px] text-white/60 text-center md:text-right">
-                        Made by <a href="https://www.sofdas.com/" class="text-secondary-container hover:text-secondary transition-colors font-semibold">Sofdas Technologies</a>
+                        Made by <a href="https://www.sofdas.com/"
+                            class="text-secondary-container hover:text-secondary transition-colors font-semibold">Sofdas
+                            Technologies</a>
                     </p>
                 </div>
             </div>
@@ -423,7 +451,7 @@
         const mobileSchoolLifeMenu = document.getElementById('mobileSchoolLifeMenu');
         const mobileSchoolLifeIcon = document.getElementById('mobileSchoolLifeIcon');
 
-        mobileMenuBtn.addEventListener('click', function() {
+        mobileMenuBtn.addEventListener('click', function () {
             mobileMenu.classList.toggle('hidden');
             if (mobileMenu.classList.contains('hidden')) {
                 mobileMenuIcon.textContent = 'menu';
@@ -433,7 +461,7 @@
         });
 
         // Mobile School Life Accordion
-        mobileSchoolLifeBtn.addEventListener('click', function() {
+        mobileSchoolLifeBtn.addEventListener('click', function () {
             mobileSchoolLifeMenu.classList.toggle('hidden');
             if (mobileSchoolLifeMenu.classList.contains('hidden')) {
                 mobileSchoolLifeIcon.textContent = 'expand_more';
@@ -468,4 +496,5 @@
     <script src="assets/js/article.js"></script>
     <script src="assets/js/cms-client.js"></script>
 </body>
+
 </html>

@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>School Curriculum - St. Monica Junior School Kasanje</title>
     <link rel="icon" type="image/png" href="assets/imgz/logo2-cut.png">
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@400;600;700&display=swap"
+        rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- SweetAlert2 for polished alert dialogs -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -91,14 +95,14 @@
                         "label-sm": ["Montserrat"]
                     },
                     "fontSize": {
-                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
-                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
-                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                        "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
-                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
-                        "headline-md": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700"}]
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "display-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-sm": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700" }]
                     }
                 },
             },
@@ -110,6 +114,7 @@
         }
     </style>
 </head>
+
 <body class="bg-surface-white text-on-surface-charcoal font-body-md antialiased flex flex-col min-h-screen">
     <!-- TopNavBar -->
     <nav class="nav-load fixed top-0 w-full bg-white shadow-sm z-50 transition-all duration-300">
@@ -117,7 +122,7 @@
             <!-- Brand with Logo -->
             <a href="index.html" class="flex items-center nav-load-logo">
                 <img src="assets/imgz/logo2.webp" alt="St Monica Junior School Logo"
-                    class="h-20 w-20 m-0 lg:h-60 lg:w-60 lg:m-20 object-contain hover:scale-105 transition-transform duration-200" />
+                    class="h-20 w-20 m-0 lg:h-28 lg:w-60 lg:m-20 object-contain hover:scale-105 transition-transform duration-200" />
             </a>
             <!-- Nav Links (Desktop) -->
             <div class="hidden lg:flex items-center gap-6 flex-nowrap mr-14">
@@ -179,32 +184,37 @@
                     href="index.html">Home</a>
                 <a class="block text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors pb-2"
                     href="about.html">About Us</a>
-                
+
                 <!-- School Life Mobile Accordion -->
                 <div>
-                    <button id="mobileSchoolLifeBtn" class="w-full flex items-center justify-between text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors border-b-2 border-[#d93633] pb-2">
+                    <button id="mobileSchoolLifeBtn"
+                        class="w-full flex items-center justify-between text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors border-b-2 border-[#d93633] pb-2">
                         <span>School Life</span>
                         <span class="material-symbols-outlined text-[20px]" id="mobileSchoolLifeIcon">expand_more</span>
                     </button>
                     <div id="mobileSchoolLifeMenu" class="hidden pl-4 mt-2 space-y-2">
-                        <a href="academics.html" class="block text-[14px] leading-[20px] font-semibold text-[#2C2C2C] hover:text-[#d93633] transition-colors py-2">
+                        <a href="academics.html"
+                            class="block text-[14px] leading-[20px] font-semibold text-[#2C2C2C] hover:text-[#d93633] transition-colors py-2">
                             Academics
                         </a>
-                        <a href="curriculum.html" class="block text-[14px] leading-[20px] font-semibold text-[#2C2C2C] hover:text-[#d93633] transition-colors py-2">
+                        <a href="curriculum.html"
+                            class="block text-[14px] leading-[20px] font-semibold text-[#2C2C2C] hover:text-[#d93633] transition-colors py-2">
                             School Curriculum
                         </a>
-                        <a href="cocurricular.html" class="block text-[14px] leading-[20px] font-semibold text-[#2C2C2C] hover:text-[#d93633] transition-colors py-2">
+                        <a href="cocurricular.html"
+                            class="block text-[14px] leading-[20px] font-semibold text-[#2C2C2C] hover:text-[#d93633] transition-colors py-2">
                             Co-curricular Activities
                         </a>
                     </div>
                 </div>
-                
+
                 <a class="block text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors pb-2"
                     href="gallery.html">Gallery</a>
                 <a class="block text-[16px] leading-[24px] font-semibold text-[#1e2a4a] hover:text-[#d93633] transition-colors pb-2"
                     href="contact.html">Contact</a>
-                
-                <a href="contact.html#apply" class="block text-center w-full bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm mt-4">
+
+                <a href="contact.html#apply"
+                    class="block text-center w-full bg-[#d93633] text-white px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-sm mt-4">
                     Join Us
                 </a>
             </div>
@@ -218,29 +228,37 @@
 
             <div class="max-w-[1200px] mx-auto relative z-10 flex flex-col md:flex-row gap-12 items-center">
                 <div class="flex-1 space-y-6 text-left reveal-on-scroll-left">
-                    <h1 class="text-[32px] md:text-[48px] leading-[40px] md:leading-[56px] font-bold tracking-[-0.02em] text-white">
+                    <h1
+                        class="text-[32px] md:text-[48px] leading-[40px] md:leading-[56px] font-bold tracking-[-0.02em] text-white">
                         Academic Excellence, Rooted in Values.
                     </h1>
                     <p class="text-[18px] leading-[28px] text-white/90 max-w-lg">
-                        Our primary curriculum is designed to foster critical thinking, creativity, and a strong moral foundation, aligning with national UNEB standards while nurturing global citizens.
+                        Our primary curriculum is designed to foster critical thinking, creativity, and a strong moral
+                        foundation, aligning with national UNEB standards while nurturing global citizens.
                     </p>
                 </div>
                 <div class="flex-1 w-full relative group reveal-zoom">
                     <!-- Ambient Glow Effect on Hover -->
-                    <div class="absolute -inset-2 bg-gradient-to-r from-white/35 via-amber-200/25 to-white/10 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-10"></div>
+                    <div
+                        class="absolute -inset-2 bg-gradient-to-r from-white/35 via-amber-200/25 to-white/10 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-10">
+                    </div>
 
                     <!-- Image Container Card -->
-                    <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-white/25 bg-white/5 backdrop-blur-sm transition-all duration-500 ease-out group-hover:-translate-y-2.5 group-hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] group-hover:border-white/50">
+                    <div
+                        class="relative rounded-2xl overflow-hidden shadow-2xl border border-white/25 bg-white/5 backdrop-blur-sm transition-all duration-500 ease-out group-hover:-translate-y-2.5 group-hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] group-hover:border-white/50">
                         <!-- Image with smooth zoom, tilt/pan sensation and slight brightness boost -->
-                        <img class="w-full h-80 md:h-[390px] object-cover transition-all duration-700 ease-out group-hover:scale-110 group-hover:brightness-105" 
-                             src="assets/imgz/hero1-light.webp" 
-                             alt="Students learning at St Monica Junior School"/>
+                        <img class="w-full h-80 md:h-[390px] object-cover transition-all duration-700 ease-out group-hover:scale-110 group-hover:brightness-105"
+                            src="assets/imgz/hero1-light.webp" alt="Students learning at St Monica Junior School" />
 
                         <!-- Diagonal shimmer light beam sweep effect on hover -->
-                        <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none"></div>
+                        <div
+                            class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none">
+                        </div>
 
                         <!-- Vignette and floating bottom tag -->
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-75 transition-opacity duration-500 pointer-events-none"></div>
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-75 transition-opacity duration-500 pointer-events-none">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -250,9 +268,11 @@
         <section class="py-20 px-4 md:px-20 bg-white">
             <div class="max-w-[1200px] mx-auto">
                 <div class="mb-8 text-center reveal-on-scroll">
-                    <h2 class="text-[32px] leading-[40px] font-semibold tracking-[-0.01em] text-[#1e2a4a] mb-4">About Our Curriculum</h2>
+                    <h2 class="text-[32px] leading-[40px] font-semibold tracking-[-0.01em] text-[#1e2a4a] mb-4">About
+                        Our Curriculum</h2>
                     <p class="text-[18px] leading-[28px] text-[#2C2C2C] max-w-4xl mx-auto">
-                        The school uses a curriculum that provides the tools our teachers need to assist us in helping your child reach their full potential. Special focus is to help children in the following:
+                        The school uses a curriculum that provides the tools our teachers need to assist us in helping
+                        your child reach their full potential. Special focus is to help children in the following:
                     </p>
                 </div>
 
@@ -260,64 +280,89 @@
                     <!-- Left Column -->
                     <div class="space-y-6">
                         <!-- Language Development -->
-                        <div class="relative overflow-hidden bg-[#f9f9f9] hover:bg-white rounded-2xl p-7 border-l-4 border-[#1e2a4a] border-y border-r border-transparent hover:border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group reveal-on-scroll-left" data-reveal-delay="0">
+                        <div class="relative overflow-hidden bg-[#f9f9f9] hover:bg-white rounded-2xl p-7 border-l-4 border-[#1e2a4a] border-y border-r border-transparent hover:border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group reveal-on-scroll-left"
+                            data-reveal-delay="0">
                             <!-- Ambient Corner Glow -->
-                            <div class="absolute -top-10 -right-10 w-28 h-28 bg-[#1e2a4a]/5 rounded-full blur-xl group-hover:bg-[#1e2a4a]/12 group-hover:scale-125 transition-all duration-500 pointer-events-none"></div>
+                            <div
+                                class="absolute -top-10 -right-10 w-28 h-28 bg-[#1e2a4a]/5 rounded-full blur-xl group-hover:bg-[#1e2a4a]/12 group-hover:scale-125 transition-all duration-500 pointer-events-none">
+                            </div>
 
                             <div class="relative z-10">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-12 h-12 rounded-xl bg-[#1e2a4a]/10 text-[#1e2a4a] flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-[#1e2a4a] group-hover:text-white group-hover:scale-110 group-hover:rotate-3 shadow-sm">
+                                        <div
+                                            class="w-12 h-12 rounded-xl bg-[#1e2a4a]/10 text-[#1e2a4a] flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-[#1e2a4a] group-hover:text-white group-hover:scale-110 group-hover:rotate-3 shadow-sm">
                                             <span class="material-symbols-outlined text-[24px]">chat</span>
                                         </div>
-                                        <h3 class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] transition-colors duration-200">
+                                        <h3
+                                            class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] transition-colors duration-200">
                                             Language Development
                                         </h3>
                                     </div>
-                                    <span class="material-symbols-outlined text-[20px] text-gray-300 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300 text-[#1e2a4a]">arrow_forward</span>
+                                    <span
+                                        class="material-symbols-outlined text-[20px] text-gray-300 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300 text-[#1e2a4a]">arrow_forward</span>
                                 </div>
-                                <p class="text-[16px] leading-[24px] text-[#2C2C2C] group-hover:text-[#1a1c1c] transition-colors">
-                                    Building strong communication skills and linguistic abilities through interactive learning.
+                                <p
+                                    class="text-[16px] leading-[24px] text-[#2C2C2C] group-hover:text-[#1a1c1c] transition-colors">
+                                    Building strong communication skills and linguistic abilities through interactive
+                                    learning.
                                 </p>
                             </div>
                         </div>
 
                         <!-- Literacy -->
-                        <div id="card-literacy" class="relative overflow-hidden bg-[#f9f9f9] hover:bg-white rounded-2xl p-7 border-l-4 border-[#d93633] border-y border-r border-transparent hover:border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group reveal-on-scroll-left flex flex-col" data-reveal-delay="100">
+                        <div id="card-literacy"
+                            class="relative overflow-hidden bg-[#f9f9f9] hover:bg-white rounded-2xl p-7 border-l-4 border-[#d93633] border-y border-r border-transparent hover:border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group reveal-on-scroll-left flex flex-col"
+                            data-reveal-delay="100">
                             <!-- Ambient Corner Glow -->
-                            <div class="absolute -top-10 -right-10 w-28 h-28 bg-[#d93633]/5 rounded-full blur-xl group-hover:bg-[#d93633]/12 group-hover:scale-125 transition-all duration-500 pointer-events-none"></div>
+                            <div
+                                class="absolute -top-10 -right-10 w-28 h-28 bg-[#d93633]/5 rounded-full blur-xl group-hover:bg-[#d93633]/12 group-hover:scale-125 transition-all duration-500 pointer-events-none">
+                            </div>
 
                             <div class="relative z-10 flex-1 flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-12 h-12 rounded-xl bg-[#d93633]/10 text-[#d93633] flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-[#d93633] group-hover:text-white group-hover:scale-110 group-hover:-rotate-3 shadow-sm">
+                                        <div
+                                            class="w-12 h-12 rounded-xl bg-[#d93633]/10 text-[#d93633] flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-[#d93633] group-hover:text-white group-hover:scale-110 group-hover:-rotate-3 shadow-sm">
                                             <span class="material-symbols-outlined text-[24px]">auto_stories</span>
                                         </div>
-                                        <h3 class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] group-hover:text-[#d93633] transition-colors duration-200">
+                                        <h3
+                                            class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] group-hover:text-[#d93633] transition-colors duration-200">
                                             Literacy
                                         </h3>
                                     </div>
-                                    <span class="material-symbols-outlined text-[20px] text-gray-300 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300 text-[#d93633]">menu_book</span>
+                                    <span
+                                        class="material-symbols-outlined text-[20px] text-gray-300 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300 text-[#d93633]">menu_book</span>
                                 </div>
                                 <ul class="space-y-2.5 text-[16px] leading-[24px] text-[#2C2C2C]">
-                                    <li class="flex items-start gap-2.5 transition-transform duration-200 group-hover:translate-x-1">
-                                        <span class="text-[#d93633] mt-1 text-[18px] leading-none group-hover:scale-125 transition-transform">•</span>
+                                    <li
+                                        class="flex items-start gap-2.5 transition-transform duration-200 group-hover:translate-x-1">
+                                        <span
+                                            class="text-[#d93633] mt-1 text-[18px] leading-none group-hover:scale-125 transition-transform">•</span>
                                         <span>Book knowledge and appreciation</span>
                                     </li>
-                                    <li class="flex items-start gap-2.5 transition-transform duration-200 group-hover:translate-x-1" style="transition-delay: 30ms;">
-                                        <span class="text-[#d93633] mt-1 text-[18px] leading-none group-hover:scale-125 transition-transform">•</span>
+                                    <li class="flex items-start gap-2.5 transition-transform duration-200 group-hover:translate-x-1"
+                                        style="transition-delay: 30ms;">
+                                        <span
+                                            class="text-[#d93633] mt-1 text-[18px] leading-none group-hover:scale-125 transition-transform">•</span>
                                         <span>Phonological awareness</span>
                                     </li>
-                                    <li class="flex items-start gap-2.5 transition-transform duration-200 group-hover:translate-x-1" style="transition-delay: 60ms;">
-                                        <span class="text-[#d93633] mt-1 text-[18px] leading-none group-hover:scale-125 transition-transform">•</span>
+                                    <li class="flex items-start gap-2.5 transition-transform duration-200 group-hover:translate-x-1"
+                                        style="transition-delay: 60ms;">
+                                        <span
+                                            class="text-[#d93633] mt-1 text-[18px] leading-none group-hover:scale-125 transition-transform">•</span>
                                         <span>Alphabet recognition</span>
                                     </li>
-                                    <li class="flex items-start gap-2.5 transition-transform duration-200 group-hover:translate-x-1" style="transition-delay: 90ms;">
-                                        <span class="text-[#d93633] mt-1 text-[18px] leading-none group-hover:scale-125 transition-transform">•</span>
+                                    <li class="flex items-start gap-2.5 transition-transform duration-200 group-hover:translate-x-1"
+                                        style="transition-delay: 90ms;">
+                                        <span
+                                            class="text-[#d93633] mt-1 text-[18px] leading-none group-hover:scale-125 transition-transform">•</span>
                                         <span>Print awareness</span>
                                     </li>
-                                    <li class="flex items-start gap-2.5 transition-transform duration-200 group-hover:translate-x-1" style="transition-delay: 120ms;">
-                                        <span class="text-[#d93633] mt-1 text-[18px] leading-none group-hover:scale-125 transition-transform">•</span>
+                                    <li class="flex items-start gap-2.5 transition-transform duration-200 group-hover:translate-x-1"
+                                        style="transition-delay: 120ms;">
+                                        <span
+                                            class="text-[#d93633] mt-1 text-[18px] leading-none group-hover:scale-125 transition-transform">•</span>
                                         <span>Early writing</span>
                                     </li>
                                 </ul>
@@ -325,23 +370,30 @@
                         </div>
 
                         <!-- Cognitive Development -->
-                        <div class="relative overflow-hidden bg-[#f9f9f9] hover:bg-white rounded-2xl p-7 border-l-4 border-[#1e2a4a] border-y border-r border-transparent hover:border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group reveal-on-scroll-left" data-reveal-delay="200">
+                        <div class="relative overflow-hidden bg-[#f9f9f9] hover:bg-white rounded-2xl p-7 border-l-4 border-[#1e2a4a] border-y border-r border-transparent hover:border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group reveal-on-scroll-left"
+                            data-reveal-delay="200">
                             <!-- Ambient Corner Glow -->
-                            <div class="absolute -top-10 -right-10 w-28 h-28 bg-[#1e2a4a]/5 rounded-full blur-xl group-hover:bg-[#1e2a4a]/12 group-hover:scale-125 transition-all duration-500 pointer-events-none"></div>
+                            <div
+                                class="absolute -top-10 -right-10 w-28 h-28 bg-[#1e2a4a]/5 rounded-full blur-xl group-hover:bg-[#1e2a4a]/12 group-hover:scale-125 transition-all duration-500 pointer-events-none">
+                            </div>
 
                             <div class="relative z-10">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-12 h-12 rounded-xl bg-[#1e2a4a]/10 text-[#1e2a4a] flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-[#1e2a4a] group-hover:text-white group-hover:scale-110 group-hover:rotate-3 shadow-sm">
+                                        <div
+                                            class="w-12 h-12 rounded-xl bg-[#1e2a4a]/10 text-[#1e2a4a] flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-[#1e2a4a] group-hover:text-white group-hover:scale-110 group-hover:rotate-3 shadow-sm">
                                             <span class="material-symbols-outlined text-[24px]">psychology</span>
                                         </div>
-                                        <h3 class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] transition-colors duration-200">
+                                        <h3
+                                            class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] transition-colors duration-200">
                                             Cognitive Development
                                         </h3>
                                     </div>
-                                    <span class="material-symbols-outlined text-[20px] text-gray-300 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300 text-[#1e2a4a]">arrow_forward</span>
+                                    <span
+                                        class="material-symbols-outlined text-[20px] text-gray-300 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300 text-[#1e2a4a]">arrow_forward</span>
                                 </div>
-                                <p class="text-[16px] leading-[24px] text-[#2C2C2C] group-hover:text-[#1a1c1c] transition-colors">
+                                <p
+                                    class="text-[16px] leading-[24px] text-[#2C2C2C] group-hover:text-[#1a1c1c] transition-colors">
                                     Enhancing critical thinking through math, science, and creative arts activities.
                                 </p>
                             </div>
@@ -352,60 +404,83 @@
                     <!-- Right Column -->
                     <div class="space-y-6">
                         <!-- Physical and Health Development -->
-                        <div class="relative overflow-hidden bg-[#f9f9f9] hover:bg-white rounded-2xl p-7 border-l-4 border-[#d93633] border-y border-r border-transparent hover:border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group reveal-on-scroll-right" data-reveal-delay="0">
+                        <div class="relative overflow-hidden bg-[#f9f9f9] hover:bg-white rounded-2xl p-7 border-l-4 border-[#d93633] border-y border-r border-transparent hover:border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group reveal-on-scroll-right"
+                            data-reveal-delay="0">
                             <!-- Ambient Corner Glow -->
-                            <div class="absolute -top-10 -right-10 w-28 h-28 bg-[#d93633]/5 rounded-full blur-xl group-hover:bg-[#d93633]/12 group-hover:scale-125 transition-all duration-500 pointer-events-none"></div>
+                            <div
+                                class="absolute -top-10 -right-10 w-28 h-28 bg-[#d93633]/5 rounded-full blur-xl group-hover:bg-[#d93633]/12 group-hover:scale-125 transition-all duration-500 pointer-events-none">
+                            </div>
 
                             <div class="relative z-10">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-12 h-12 rounded-xl bg-[#d93633]/10 text-[#d93633] flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-[#d93633] group-hover:text-white group-hover:scale-110 group-hover:-rotate-3 shadow-sm">
+                                        <div
+                                            class="w-12 h-12 rounded-xl bg-[#d93633]/10 text-[#d93633] flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-[#d93633] group-hover:text-white group-hover:scale-110 group-hover:-rotate-3 shadow-sm">
                                             <span class="material-symbols-outlined text-[24px]">sports_gymnastics</span>
                                         </div>
-                                        <h3 class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] group-hover:text-[#d93633] transition-colors duration-200">
+                                        <h3
+                                            class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] group-hover:text-[#d93633] transition-colors duration-200">
                                             Physical and Health Development
                                         </h3>
                                     </div>
-                                    <span class="material-symbols-outlined text-[20px] text-gray-300 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300 text-[#d93633]">fitness_center</span>
+                                    <span
+                                        class="material-symbols-outlined text-[20px] text-gray-300 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300 text-[#d93633]">fitness_center</span>
                                 </div>
-                                <p class="text-[16px] leading-[24px] text-[#2C2C2C] group-hover:text-[#1a1c1c] transition-colors">
+                                <p
+                                    class="text-[16px] leading-[24px] text-[#2C2C2C] group-hover:text-[#1a1c1c] transition-colors">
                                     Promoting physical fitness, coordination, and healthy lifestyle habits.
                                 </p>
                             </div>
                         </div>
 
                         <!-- Numeracy -->
-                        <div id="card-numeracy" class="relative overflow-hidden bg-[#f9f9f9] hover:bg-white rounded-2xl p-7 border-l-4 border-[#1e2a4a] border-y border-r border-transparent hover:border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group reveal-on-scroll-right flex flex-col md:min-h-[282px]" data-reveal-delay="100">
+                        <div id="card-numeracy"
+                            class="relative overflow-hidden bg-[#f9f9f9] hover:bg-white rounded-2xl p-7 border-l-4 border-[#1e2a4a] border-y border-r border-transparent hover:border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group reveal-on-scroll-right flex flex-col md:min-h-[282px]"
+                            data-reveal-delay="100">
                             <!-- Ambient Corner Glow -->
-                            <div class="absolute -top-10 -right-10 w-28 h-28 bg-[#1e2a4a]/5 rounded-full blur-xl group-hover:bg-[#1e2a4a]/12 group-hover:scale-125 transition-all duration-500 pointer-events-none"></div>
+                            <div
+                                class="absolute -top-10 -right-10 w-28 h-28 bg-[#1e2a4a]/5 rounded-full blur-xl group-hover:bg-[#1e2a4a]/12 group-hover:scale-125 transition-all duration-500 pointer-events-none">
+                            </div>
 
                             <div class="relative z-10 flex-1 flex flex-col justify-between">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-12 h-12 rounded-xl bg-[#1e2a4a]/10 text-[#1e2a4a] flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-[#1e2a4a] group-hover:text-white group-hover:scale-110 group-hover:rotate-3 shadow-sm">
+                                        <div
+                                            class="w-12 h-12 rounded-xl bg-[#1e2a4a]/10 text-[#1e2a4a] flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-[#1e2a4a] group-hover:text-white group-hover:scale-110 group-hover:rotate-3 shadow-sm">
                                             <span class="material-symbols-outlined text-[24px]">calculate</span>
                                         </div>
-                                        <h3 class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] transition-colors duration-200">
+                                        <h3
+                                            class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] transition-colors duration-200">
                                             Numeracy
                                         </h3>
                                     </div>
-                                    <span class="material-symbols-outlined text-[20px] text-gray-300 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300 text-[#1e2a4a]">functions</span>
+                                    <span
+                                        class="material-symbols-outlined text-[20px] text-gray-300 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300 text-[#1e2a4a]">functions</span>
                                 </div>
-                                <ul class="flex-1 flex flex-col justify-between py-1 text-[16px] leading-[24px] text-[#2C2C2C]">
-                                    <li class="flex items-start gap-2.5 transition-transform duration-200 group-hover:translate-x-1">
-                                        <span class="text-[#1e2a4a] mt-1 text-[18px] leading-none group-hover:scale-125 transition-transform">•</span>
+                                <ul
+                                    class="flex-1 flex flex-col justify-between py-1 text-[16px] leading-[24px] text-[#2C2C2C]">
+                                    <li
+                                        class="flex items-start gap-2.5 transition-transform duration-200 group-hover:translate-x-1">
+                                        <span
+                                            class="text-[#1e2a4a] mt-1 text-[18px] leading-none group-hover:scale-125 transition-transform">•</span>
                                         <span>Sorting and classifying</span>
                                     </li>
-                                    <li class="flex items-start gap-2.5 transition-transform duration-200 group-hover:translate-x-1" style="transition-delay: 30ms;">
-                                        <span class="text-[#1e2a4a] mt-1 text-[18px] leading-none group-hover:scale-125 transition-transform">•</span>
+                                    <li class="flex items-start gap-2.5 transition-transform duration-200 group-hover:translate-x-1"
+                                        style="transition-delay: 30ms;">
+                                        <span
+                                            class="text-[#1e2a4a] mt-1 text-[18px] leading-none group-hover:scale-125 transition-transform">•</span>
                                         <span>Ordering and sorting</span>
                                     </li>
-                                    <li class="flex items-start gap-2.5 transition-transform duration-200 group-hover:translate-x-1" style="transition-delay: 60ms;">
-                                        <span class="text-[#1e2a4a] mt-1 text-[18px] leading-none group-hover:scale-125 transition-transform">•</span>
+                                    <li class="flex items-start gap-2.5 transition-transform duration-200 group-hover:translate-x-1"
+                                        style="transition-delay: 60ms;">
+                                        <span
+                                            class="text-[#1e2a4a] mt-1 text-[18px] leading-none group-hover:scale-125 transition-transform">•</span>
                                         <span>Measuring</span>
                                     </li>
-                                    <li class="flex items-start gap-2.5 transition-transform duration-200 group-hover:translate-x-1" style="transition-delay: 90ms;">
-                                        <span class="text-[#1e2a4a] mt-1 text-[18px] leading-none group-hover:scale-125 transition-transform">•</span>
+                                    <li class="flex items-start gap-2.5 transition-transform duration-200 group-hover:translate-x-1"
+                                        style="transition-delay: 90ms;">
+                                        <span
+                                            class="text-[#1e2a4a] mt-1 text-[18px] leading-none group-hover:scale-125 transition-transform">•</span>
                                         <span>Identifying and using shapes</span>
                                     </li>
                                 </ul>
@@ -413,47 +488,62 @@
                         </div>
 
                         <!-- Character Development -->
-                        <div class="relative overflow-hidden bg-[#f9f9f9] hover:bg-white rounded-2xl p-7 border-l-4 border-[#d93633] border-y border-r border-transparent hover:border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group reveal-on-scroll-right" data-reveal-delay="200">
+                        <div class="relative overflow-hidden bg-[#f9f9f9] hover:bg-white rounded-2xl p-7 border-l-4 border-[#d93633] border-y border-r border-transparent hover:border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group reveal-on-scroll-right"
+                            data-reveal-delay="200">
                             <!-- Ambient Corner Glow -->
-                            <div class="absolute -top-10 -right-10 w-28 h-28 bg-[#d93633]/5 rounded-full blur-xl group-hover:bg-[#d93633]/12 group-hover:scale-125 transition-all duration-500 pointer-events-none"></div>
+                            <div
+                                class="absolute -top-10 -right-10 w-28 h-28 bg-[#d93633]/5 rounded-full blur-xl group-hover:bg-[#d93633]/12 group-hover:scale-125 transition-all duration-500 pointer-events-none">
+                            </div>
 
                             <div class="relative z-10">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-12 h-12 rounded-xl bg-[#d93633]/10 text-[#d93633] flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-[#d93633] group-hover:text-white group-hover:scale-110 group-hover:-rotate-3 shadow-sm">
+                                        <div
+                                            class="w-12 h-12 rounded-xl bg-[#d93633]/10 text-[#d93633] flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-[#d93633] group-hover:text-white group-hover:scale-110 group-hover:-rotate-3 shadow-sm">
                                             <span class="material-symbols-outlined text-[24px]">favorite</span>
                                         </div>
-                                        <h3 class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] group-hover:text-[#d93633] transition-colors duration-200">
+                                        <h3
+                                            class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] group-hover:text-[#d93633] transition-colors duration-200">
                                             Character Development
                                         </h3>
                                     </div>
-                                    <span class="material-symbols-outlined text-[20px] text-gray-300 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300 text-[#d93633]">military_tech</span>
+                                    <span
+                                        class="material-symbols-outlined text-[20px] text-gray-300 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300 text-[#d93633]">military_tech</span>
                                 </div>
-                                <p class="text-[16px] leading-[24px] text-[#2C2C2C] group-hover:text-[#1a1c1c] transition-colors">
-                                    Instilling moral values, health awareness, safety practices, proper nutrition, and strong character traits.
+                                <p
+                                    class="text-[16px] leading-[24px] text-[#2C2C2C] group-hover:text-[#1a1c1c] transition-colors">
+                                    Instilling moral values, health awareness, safety practices, proper nutrition, and
+                                    strong character traits.
                                 </p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Social and Emotional Development -->
-                    <div class="md:col-span-2 relative overflow-hidden bg-[#f9f9f9] hover:bg-white rounded-2xl p-7 border-l-4 border-[#d93633] border-y border-r border-transparent hover:border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group reveal-on-scroll" data-reveal-delay="150">
+                    <div class="md:col-span-2 relative overflow-hidden bg-[#f9f9f9] hover:bg-white rounded-2xl p-7 border-l-4 border-[#d93633] border-y border-r border-transparent hover:border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group reveal-on-scroll"
+                        data-reveal-delay="150">
                         <!-- Ambient Corner Glow -->
-                        <div class="absolute -top-10 -right-10 w-36 h-36 bg-[#d93633]/5 rounded-full blur-xl group-hover:bg-[#d93633]/12 group-hover:scale-125 transition-all duration-500 pointer-events-none"></div>
+                        <div
+                            class="absolute -top-10 -right-10 w-36 h-36 bg-[#d93633]/5 rounded-full blur-xl group-hover:bg-[#d93633]/12 group-hover:scale-125 transition-all duration-500 pointer-events-none">
+                        </div>
 
                         <div class="relative z-10 flex flex-col items-center text-center">
                             <!-- Top Right Action Glyph -->
-                            <span class="absolute top-0 right-0 material-symbols-outlined text-[20px] text-gray-300 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300 text-[#d93633]">favorite_border</span>
+                            <span
+                                class="absolute top-0 right-0 material-symbols-outlined text-[20px] text-gray-300 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300 text-[#d93633]">favorite_border</span>
 
                             <div class="flex items-center justify-center gap-3 mb-3">
-                                <div class="w-12 h-12 rounded-xl bg-[#d93633]/10 text-[#d93633] flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-[#d93633] group-hover:text-white group-hover:scale-110 group-hover:-rotate-3 shadow-sm">
+                                <div
+                                    class="w-12 h-12 rounded-xl bg-[#d93633]/10 text-[#d93633] flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-[#d93633] group-hover:text-white group-hover:scale-110 group-hover:-rotate-3 shadow-sm">
                                     <span class="material-symbols-outlined text-[24px]">groups</span>
                                 </div>
-                                <h3 class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] group-hover:text-[#d93633] transition-colors duration-200">
+                                <h3
+                                    class="text-[20px] leading-[28px] font-semibold text-[#1e2a4a] group-hover:text-[#d93633] transition-colors duration-200">
                                     Social and Emotional Development
                                 </h3>
                             </div>
-                            <p class="text-[16px] leading-[24px] text-[#2C2C2C] group-hover:text-[#1a1c1c] transition-colors max-w-2xl mx-auto text-center">
+                            <p
+                                class="text-[16px] leading-[24px] text-[#2C2C2C] group-hover:text-[#1a1c1c] transition-colors max-w-2xl mx-auto text-center">
                                 Fostering empathy, teamwork, and emotional intelligence in a supportive environment.
                             </p>
                         </div>
@@ -466,80 +556,111 @@
         <section class="py-20 px-4 md:px-20 bg-white">
             <div class="max-w-[1200px] mx-auto">
                 <div class="mb-12 text-center reveal-on-scroll">
-                    <h2 class="text-[32px] leading-[40px] font-semibold tracking-[-0.01em] text-[#1e2a4a] mb-4">Curriculum Overview</h2>
+                    <h2 class="text-[32px] leading-[40px] font-semibold tracking-[-0.01em] text-[#1e2a4a] mb-4">
+                        Curriculum Overview</h2>
                     <p class="text-[18px] leading-[28px] text-[#2C2C2C] max-w-3xl mx-auto">
-                        St. Monica Junior School Kasanje follows the National Primary School Curriculum, enhanced with enrichment programs to foster well-rounded learners prepared for the challenges of the modern world.
+                        St. Monica Junior School Kasanje follows the National Primary School Curriculum, enhanced with
+                        enrichment programs to foster well-rounded learners prepared for the challenges of the modern
+                        world.
                     </p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <!-- National Curriculum Card -->
-                    <div class="curriculum-overview-card group relative overflow-hidden bg-[#f9f9f9] rounded-2xl p-8 border border-transparent shadow-sm reveal-on-scroll" data-reveal-delay="0">
+                    <div class="curriculum-overview-card group relative overflow-hidden bg-[#f9f9f9] rounded-2xl p-8 border border-transparent shadow-sm reveal-on-scroll"
+                        data-reveal-delay="0">
                         <!-- Left Accent Border Bar (Disappears on hover/touch) -->
                         <div class="card-accent-bar absolute left-0 top-0 bottom-0 w-[5px] bg-[#1e2a4a]"></div>
 
                         <div class="relative z-10 flex items-start gap-5">
-                            <div class="card-icon w-14 h-14 bg-[#1e2a4a] text-white rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm">
-                                <span class="material-symbols-outlined text-[28px] transition-transform duration-300 group-hover:scale-110">school</span>
+                            <div
+                                class="card-icon w-14 h-14 bg-[#1e2a4a] text-white rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm">
+                                <span
+                                    class="material-symbols-outlined text-[28px] transition-transform duration-300 group-hover:scale-110">school</span>
                             </div>
                             <div class="flex-1">
-                                <h3 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] mb-2 transition-colors duration-200">National Curriculum</h3>
-                                <p class="text-[16px] leading-[24px] text-[#2C2C2C] group-hover:text-[#1a1c1c] transition-colors">
-                                     We adhere to the Uganda National Primary School Curriculum, ensuring all pupils receive a solid foundation in core academic areas.
+                                <h3
+                                    class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] mb-2 transition-colors duration-200">
+                                    National Curriculum</h3>
+                                <p
+                                    class="text-[16px] leading-[24px] text-[#2C2C2C] group-hover:text-[#1a1c1c] transition-colors">
+                                    We adhere to the Uganda National Primary School Curriculum, ensuring all pupils
+                                    receive a solid foundation in core academic areas.
                                 </p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Key Stages Card -->
-                    <div class="curriculum-overview-card card-rotate-alt group relative overflow-hidden bg-[#f9f9f9] rounded-2xl p-8 border border-transparent shadow-sm reveal-on-scroll" data-reveal-delay="150">
+                    <div class="curriculum-overview-card card-rotate-alt group relative overflow-hidden bg-[#f9f9f9] rounded-2xl p-8 border border-transparent shadow-sm reveal-on-scroll"
+                        data-reveal-delay="150">
                         <!-- Left Accent Border Bar (Disappears on hover/touch) -->
                         <div class="card-accent-bar absolute left-0 top-0 bottom-0 w-[5px] bg-[#d93633]"></div>
 
                         <div class="relative z-10 flex items-start gap-5">
-                            <div class="card-icon w-14 h-14 bg-[#d93633] text-white rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm">
-                                <span class="material-symbols-outlined text-[28px] transition-transform duration-300 group-hover:scale-110">stairs</span>
+                            <div
+                                class="card-icon w-14 h-14 bg-[#d93633] text-white rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm">
+                                <span
+                                    class="material-symbols-outlined text-[28px] transition-transform duration-300 group-hover:scale-110">stairs</span>
                             </div>
                             <div class="flex-1">
-                                <h3 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] group-hover:text-[#d93633] mb-2 transition-colors duration-200">Key Stages</h3>
-                                <p class="text-[16px] leading-[24px] text-[#2C2C2C] group-hover:text-[#1a1c1c] transition-colors">
-                                    The curriculum is structured into Lower Primary (P1-P3) and Upper Primary (P4-P7), with age-appropriate content and teaching methods for each stage.
+                                <h3
+                                    class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] group-hover:text-[#d93633] mb-2 transition-colors duration-200">
+                                    Key Stages</h3>
+                                <p
+                                    class="text-[16px] leading-[24px] text-[#2C2C2C] group-hover:text-[#1a1c1c] transition-colors">
+                                    The curriculum is structured into Lower Primary (P1-P3) and Upper Primary (P4-P7),
+                                    with age-appropriate content and teaching methods for each stage.
                                 </p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Creative & Physical Development Card -->
-                    <div class="curriculum-overview-card group relative overflow-hidden bg-[#f9f9f9] rounded-2xl p-8 border border-transparent shadow-sm reveal-on-scroll" data-reveal-delay="0">
+                    <div class="curriculum-overview-card group relative overflow-hidden bg-[#f9f9f9] rounded-2xl p-8 border border-transparent shadow-sm reveal-on-scroll"
+                        data-reveal-delay="0">
                         <!-- Left Accent Border Bar (Disappears on hover/touch) -->
                         <div class="card-accent-bar absolute left-0 top-0 bottom-0 w-[5px] bg-[#d93633]"></div>
 
                         <div class="relative z-10 flex items-start gap-5">
-                            <div class="card-icon w-14 h-14 bg-[#d93633] text-white rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm">
-                                <span class="material-symbols-outlined text-[28px] transition-transform duration-300 group-hover:scale-110">palette</span>
+                            <div
+                                class="card-icon w-14 h-14 bg-[#d93633] text-white rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm">
+                                <span
+                                    class="material-symbols-outlined text-[28px] transition-transform duration-300 group-hover:scale-110">palette</span>
                             </div>
                             <div class="flex-1">
-                                <h3 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] group-hover:text-[#d93633] mb-2 transition-colors duration-200">Creative & Physical Development</h3>
-                                <p class="text-[16px] leading-[24px] text-[#2C2C2C] group-hover:text-[#1a1c1c] transition-colors">
-                                    Art & Craft, Music and Physical Education are integrated to promote creativity, teamwork, and literacy.
+                                <h3
+                                    class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] group-hover:text-[#d93633] mb-2 transition-colors duration-200">
+                                    Creative & Physical Development</h3>
+                                <p
+                                    class="text-[16px] leading-[24px] text-[#2C2C2C] group-hover:text-[#1a1c1c] transition-colors">
+                                    Art & Craft, Music and Physical Education are integrated to promote creativity,
+                                    teamwork, and literacy.
                                 </p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Life Skills & Values Card -->
-                    <div class="curriculum-overview-card card-rotate-alt group relative overflow-hidden bg-[#f9f9f9] rounded-2xl p-8 border border-transparent shadow-sm reveal-on-scroll" data-reveal-delay="150">
+                    <div class="curriculum-overview-card card-rotate-alt group relative overflow-hidden bg-[#f9f9f9] rounded-2xl p-8 border border-transparent shadow-sm reveal-on-scroll"
+                        data-reveal-delay="150">
                         <!-- Left Accent Border Bar (Disappears on hover/touch) -->
                         <div class="card-accent-bar absolute left-0 top-0 bottom-0 w-[5px] bg-[#1e2a4a]"></div>
 
                         <div class="relative z-10 flex items-start gap-5">
-                            <div class="card-icon w-14 h-14 bg-[#1e2a4a] text-white rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm">
-                                <span class="material-symbols-outlined text-[28px] transition-transform duration-300 group-hover:scale-110">favorite</span>
+                            <div
+                                class="card-icon w-14 h-14 bg-[#1e2a4a] text-white rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm">
+                                <span
+                                    class="material-symbols-outlined text-[28px] transition-transform duration-300 group-hover:scale-110">favorite</span>
                             </div>
                             <div class="flex-1">
-                                <h3 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] mb-2 transition-colors duration-200">Life Skills & Values</h3>
-                                <p class="text-[16px] leading-[24px] text-[#2C2C2C] group-hover:text-[#1a1c1c] transition-colors">
-                                    Our curriculum emphasizes life skills, critical thinking, and values such as respect, responsibility, and integrity.
+                                <h3
+                                    class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] mb-2 transition-colors duration-200">
+                                    Life Skills & Values</h3>
+                                <p
+                                    class="text-[16px] leading-[24px] text-[#2C2C2C] group-hover:text-[#1a1c1c] transition-colors">
+                                    Our curriculum emphasizes life skills, critical thinking, and values such as
+                                    respect, responsibility, and integrity.
                                 </p>
                             </div>
                         </div>
@@ -551,69 +672,110 @@
         <!-- Core Curriculum Section -->
         <section class="py-20 px-4 md:px-20 bg-[#f9f9f9] max-w-[1200px] mx-auto">
             <div class="mb-12 text-center reveal-on-scroll">
-                <h2 class="text-[32px] leading-[40px] font-semibold tracking-[-0.01em] text-[#1e2a4a] mb-2">Core Curriculum</h2>
-                <p class="text-[16px] leading-[24px] text-[#45464e] max-w-2xl mx-auto">A comprehensive approach to foundational subjects, preparing students for PLE success and lifelong learning.</p>
+                <h2 class="text-[32px] leading-[40px] font-semibold tracking-[-0.01em] text-[#1e2a4a] mb-2">Core
+                    Curriculum</h2>
+                <p class="text-[16px] leading-[24px] text-[#45464e] max-w-2xl mx-auto">A comprehensive approach to
+                    foundational subjects, preparing students for PLE success and lifelong learning.</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-auto md:auto-rows-[250px]">
                 <!-- Math Card -->
-                <div class="core-curriculum-card group md:col-span-2 bg-[#f3f3f3] hover:bg-[#1e2a4a] active:bg-[#1e2a4a] rounded-2xl p-8 border border-[#c6c6cf] hover:border-[#1e2a4a] active:border-[#1e2a4a] shadow-sm hover:shadow-2xl active:shadow-2xl hover:-translate-y-1.5 active:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between cursor-pointer reveal-on-scroll-left" data-reveal-delay="0">
+                <div class="core-curriculum-card group md:col-span-2 bg-[#f3f3f3] hover:bg-[#1e2a4a] active:bg-[#1e2a4a] rounded-2xl p-8 border border-[#c6c6cf] hover:border-[#1e2a4a] active:border-[#1e2a4a] shadow-sm hover:shadow-2xl active:shadow-2xl hover:-translate-y-1.5 active:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between cursor-pointer reveal-on-scroll-left"
+                    data-reveal-delay="0">
                     <div>
-                        <div class="core-icon-box w-12 h-12 bg-[#1e2a4a] group-hover:bg-white group-active:bg-white text-white group-hover:text-[#1e2a4a] group-active:text-[#1e2a4a] rounded-full flex items-center justify-center mb-4 transition-all duration-300 shadow-sm group-hover:scale-110 group-active:scale-110">
-                            <span class="material-symbols-outlined text-[24px] transition-colors duration-300">calculate</span>
+                        <div
+                            class="core-icon-box w-12 h-12 bg-[#1e2a4a] group-hover:bg-white group-active:bg-white text-white group-hover:text-[#1e2a4a] group-active:text-[#1e2a4a] rounded-full flex items-center justify-center mb-4 transition-all duration-300 shadow-sm group-hover:scale-110 group-active:scale-110">
+                            <span
+                                class="material-symbols-outlined text-[24px] transition-colors duration-300">calculate</span>
                         </div>
-                        <h3 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] group-hover:text-white group-active:text-white mb-2 transition-colors duration-200">Mathematics</h3>
-                        <p class="text-[16px] leading-[24px] text-[#45464e] group-hover:text-white/90 group-active:text-white/90 transition-colors duration-200">Focusing on numerical fluency, problem-solving, and practical application of mathematical concepts in everyday life.</p>
+                        <h3
+                            class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] group-hover:text-white group-active:text-white mb-2 transition-colors duration-200">
+                            Mathematics</h3>
+                        <p
+                            class="text-[16px] leading-[24px] text-[#45464e] group-hover:text-white/90 group-active:text-white/90 transition-colors duration-200">
+                            Focusing on numerical fluency, problem-solving, and practical application of mathematical
+                            concepts in everyday life.</p>
                     </div>
                 </div>
 
                 <!-- English Card -->
-                <div class="core-curriculum-card group bg-[#d93633] hover:bg-[#1e2a4a] active:bg-[#1e2a4a] text-white rounded-2xl p-8 border border-transparent hover:border-[#1e2a4a] active:border-[#1e2a4a] shadow-sm hover:shadow-2xl active:shadow-2xl hover:-translate-y-1.5 active:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between cursor-pointer reveal-on-scroll" data-reveal-delay="150">
+                <div class="core-curriculum-card group bg-[#d93633] hover:bg-[#1e2a4a] active:bg-[#1e2a4a] text-white rounded-2xl p-8 border border-transparent hover:border-[#1e2a4a] active:border-[#1e2a4a] shadow-sm hover:shadow-2xl active:shadow-2xl hover:-translate-y-1.5 active:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between cursor-pointer reveal-on-scroll"
+                    data-reveal-delay="150">
                     <div>
-                        <div class="core-icon-box w-12 h-12 bg-white text-[#d93633] group-hover:text-[#1e2a4a] group-active:text-[#1e2a4a] rounded-full flex items-center justify-center mb-4 transition-all duration-300 shadow-sm group-hover:scale-110 group-active:scale-110">
-                            <span class="material-symbols-outlined text-[24px] transition-colors duration-300">menu_book</span>
+                        <div
+                            class="core-icon-box w-12 h-12 bg-white text-[#d93633] group-hover:text-[#1e2a4a] group-active:text-[#1e2a4a] rounded-full flex items-center justify-center mb-4 transition-all duration-300 shadow-sm group-hover:scale-110 group-active:scale-110">
+                            <span
+                                class="material-symbols-outlined text-[24px] transition-colors duration-300">menu_book</span>
                         </div>
-                        <h3 class="text-[24px] leading-[32px] font-semibold text-white mb-2 transition-colors duration-200">English Language</h3>
-                        <p class="text-[16px] leading-[24px] text-white/90 transition-colors duration-200">Developing comprehensive literacy skills: reading comprehension, creative writing, and effective communication.</p>
+                        <h3
+                            class="text-[24px] leading-[32px] font-semibold text-white mb-2 transition-colors duration-200">
+                            English Language</h3>
+                        <p class="text-[16px] leading-[24px] text-white/90 transition-colors duration-200">Developing
+                            comprehensive literacy skills: reading comprehension, creative writing, and effective
+                            communication.</p>
                     </div>
                 </div>
 
                 <!-- Science Card -->
-                <div class="core-curriculum-card group bg-[#e2e2e2] hover:bg-[#1e2a4a] active:bg-[#1e2a4a] rounded-2xl p-8 border border-[#c6c6cf] hover:border-[#1e2a4a] active:border-[#1e2a4a] shadow-sm hover:shadow-2xl active:shadow-2xl hover:-translate-y-1.5 active:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between cursor-pointer reveal-on-scroll-right" data-reveal-delay="0">
+                <div class="core-curriculum-card group bg-[#e2e2e2] hover:bg-[#1e2a4a] active:bg-[#1e2a4a] rounded-2xl p-8 border border-[#c6c6cf] hover:border-[#1e2a4a] active:border-[#1e2a4a] shadow-sm hover:shadow-2xl active:shadow-2xl hover:-translate-y-1.5 active:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between cursor-pointer reveal-on-scroll-right"
+                    data-reveal-delay="0">
                     <div>
-                        <div class="core-icon-box w-12 h-12 bg-[#1e2a4a] group-hover:bg-white group-active:bg-white text-white group-hover:text-[#1e2a4a] group-active:text-[#1e2a4a] rounded-full flex items-center justify-center mb-4 transition-all duration-300 shadow-sm group-hover:scale-110 group-active:scale-110">
-                            <span class="material-symbols-outlined text-[24px] transition-colors duration-300">science</span>
+                        <div
+                            class="core-icon-box w-12 h-12 bg-[#1e2a4a] group-hover:bg-white group-active:bg-white text-white group-hover:text-[#1e2a4a] group-active:text-[#1e2a4a] rounded-full flex items-center justify-center mb-4 transition-all duration-300 shadow-sm group-hover:scale-110 group-active:scale-110">
+                            <span
+                                class="material-symbols-outlined text-[24px] transition-colors duration-300">science</span>
                         </div>
-                        <h3 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] group-hover:text-white group-active:text-white mb-2 transition-colors duration-200">Integrated Science</h3>
-                        <p class="text-[16px] leading-[24px] text-[#45464e] group-hover:text-white/90 group-active:text-white/90 transition-colors duration-200">Fostering inquiry and discovery through hands-on experiments and understanding of the natural world.</p>
+                        <h3
+                            class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] group-hover:text-white group-active:text-white mb-2 transition-colors duration-200">
+                            Integrated Science</h3>
+                        <p
+                            class="text-[16px] leading-[24px] text-[#45464e] group-hover:text-white/90 group-active:text-white/90 transition-colors duration-200">
+                            Fostering inquiry and discovery through hands-on experiments and understanding of the
+                            natural world.</p>
                     </div>
                 </div>
 
                 <!-- Social Studies Card -->
-                <div class="core-curriculum-card group md:col-span-2 bg-[#f3f3f3] hover:bg-[#1e2a4a] active:bg-[#1e2a4a] rounded-2xl p-8 border border-[#c6c6cf] hover:border-[#1e2a4a] active:border-[#1e2a4a] shadow-sm hover:shadow-2xl active:shadow-2xl hover:-translate-y-1.5 active:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between relative overflow-hidden cursor-pointer reveal-on-scroll-left" data-reveal-delay="150">
+                <div class="core-curriculum-card group md:col-span-2 bg-[#f3f3f3] hover:bg-[#1e2a4a] active:bg-[#1e2a4a] rounded-2xl p-8 border border-[#c6c6cf] hover:border-[#1e2a4a] active:border-[#1e2a4a] shadow-sm hover:shadow-2xl active:shadow-2xl hover:-translate-y-1.5 active:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between relative overflow-hidden cursor-pointer reveal-on-scroll-left"
+                    data-reveal-delay="150">
                     <div class="relative z-10 w-full md:w-2/3">
-                        <div class="core-icon-box w-12 h-12 bg-[#1e2a4a] group-hover:bg-white group-active:bg-white text-white group-hover:text-[#1e2a4a] group-active:text-[#1e2a4a] rounded-full flex items-center justify-center mb-4 transition-all duration-300 shadow-sm group-hover:scale-110 group-active:scale-110">
-                            <span class="material-symbols-outlined text-[24px] transition-colors duration-300">public</span>
+                        <div
+                            class="core-icon-box w-12 h-12 bg-[#1e2a4a] group-hover:bg-white group-active:bg-white text-white group-hover:text-[#1e2a4a] group-active:text-[#1e2a4a] rounded-full flex items-center justify-center mb-4 transition-all duration-300 shadow-sm group-hover:scale-110 group-active:scale-110">
+                            <span
+                                class="material-symbols-outlined text-[24px] transition-colors duration-300">public</span>
                         </div>
-                        <h3 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] group-hover:text-white group-active:text-white mb-2 transition-colors duration-200">Social Studies (SST)</h3>
-                        <p class="text-[16px] leading-[24px] text-[#45464e] group-hover:text-white/90 group-active:text-white/90 transition-colors duration-200">Exploring history, geography, and civic responsibility to understand our place in Uganda and the global community.</p>
+                        <h3
+                            class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] group-hover:text-white group-active:text-white mb-2 transition-colors duration-200">
+                            Social Studies (SST)</h3>
+                        <p
+                            class="text-[16px] leading-[24px] text-[#45464e] group-hover:text-white/90 group-active:text-white/90 transition-colors duration-200">
+                            Exploring history, geography, and civic responsibility to understand our place in Uganda and
+                            the global community.</p>
                     </div>
                 </div>
             </div>
 
             <!-- Other Subjects Section -->
             <div class="mt-16">
-                <h3 class="text-[28px] leading-[36px] font-semibold text-[#1e2a4a] mb-8 text-center reveal-on-scroll">Other Subjects</h3>
+                <h3 class="text-[28px] leading-[36px] font-semibold text-[#1e2a4a] mb-8 text-center reveal-on-scroll">
+                    Other Subjects</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <!-- Luganda Card -->
-                    <div class="other-subject-card group relative overflow-hidden bg-white rounded-2xl p-8 border border-[#c6c6cf] hover:border-[#1e2a4a] active:border-[#1e2a4a] shadow-sm hover:shadow-2xl active:shadow-2xl hover:-translate-y-2 active:-translate-y-2 transition-all duration-300 cursor-pointer reveal-on-scroll" data-reveal-delay="0">
+                    <div class="other-subject-card group relative overflow-hidden bg-white rounded-2xl p-8 border border-[#c6c6cf] hover:border-[#1e2a4a] active:border-[#1e2a4a] shadow-sm hover:shadow-2xl active:shadow-2xl hover:-translate-y-2 active:-translate-y-2 transition-all duration-300 cursor-pointer reveal-on-scroll"
+                        data-reveal-delay="0">
                         <!-- Top Accent Line (Expands on hover) -->
-                        <div class="subject-top-bar absolute top-0 left-0 right-0 h-[4px] bg-[#1e2a4a] transform scale-x-0 group-hover:scale-x-100 group-active:scale-x-100 transition-transform duration-300 origin-center"></div>
+                        <div
+                            class="subject-top-bar absolute top-0 left-0 right-0 h-[4px] bg-[#1e2a4a] transform scale-x-0 group-hover:scale-x-100 group-active:scale-x-100 transition-transform duration-300 origin-center">
+                        </div>
 
                         <div class="flex flex-col items-center text-center">
-                            <div class="subject-icon-box w-16 h-16 bg-[#1e2a4a] text-white rounded-2xl flex items-center justify-center mb-4 transition-all duration-300 shadow-sm group-hover:scale-110 group-hover:rotate-6 group-hover:shadow-lg group-hover:shadow-[#1e2a4a]/25 group-active:scale-110 group-active:rotate-6">
-                                <span class="material-symbols-outlined text-[32px] transition-transform duration-300 group-hover:scale-110">translate</span>
+                            <div
+                                class="subject-icon-box w-16 h-16 bg-[#1e2a4a] text-white rounded-2xl flex items-center justify-center mb-4 transition-all duration-300 shadow-sm group-hover:scale-110 group-hover:rotate-6 group-hover:shadow-lg group-hover:shadow-[#1e2a4a]/25 group-active:scale-110 group-active:rotate-6">
+                                <span
+                                    class="material-symbols-outlined text-[32px] transition-transform duration-300 group-hover:scale-110">translate</span>
                             </div>
-                            <h4 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] mb-3 transition-colors duration-200">Luganda</h4>
+                            <h4
+                                class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] mb-3 transition-colors duration-200">
+                                Luganda</h4>
                             <p class="text-[16px] leading-[24px] text-[#2C2C2C]">
                                 Enhancing understanding and usage of the local language.
                             </p>
@@ -621,15 +783,22 @@
                     </div>
 
                     <!-- Kiswahili Card -->
-                    <div class="other-subject-card card-rotate-alt group relative overflow-hidden bg-white rounded-2xl p-8 border border-[#c6c6cf] hover:border-[#d93633] active:border-[#d93633] shadow-sm hover:shadow-2xl active:shadow-2xl hover:-translate-y-2 active:-translate-y-2 transition-all duration-300 cursor-pointer reveal-on-scroll" data-reveal-delay="150">
+                    <div class="other-subject-card card-rotate-alt group relative overflow-hidden bg-white rounded-2xl p-8 border border-[#c6c6cf] hover:border-[#d93633] active:border-[#d93633] shadow-sm hover:shadow-2xl active:shadow-2xl hover:-translate-y-2 active:-translate-y-2 transition-all duration-300 cursor-pointer reveal-on-scroll"
+                        data-reveal-delay="150">
                         <!-- Top Accent Line (Expands on hover) -->
-                        <div class="subject-top-bar absolute top-0 left-0 right-0 h-[4px] bg-[#d93633] transform scale-x-0 group-hover:scale-x-100 group-active:scale-x-100 transition-transform duration-300 origin-center"></div>
+                        <div
+                            class="subject-top-bar absolute top-0 left-0 right-0 h-[4px] bg-[#d93633] transform scale-x-0 group-hover:scale-x-100 group-active:scale-x-100 transition-transform duration-300 origin-center">
+                        </div>
 
                         <div class="flex flex-col items-center text-center">
-                            <div class="subject-icon-box w-16 h-16 bg-[#d93633] text-white rounded-2xl flex items-center justify-center mb-4 transition-all duration-300 shadow-sm group-hover:scale-110 group-hover:-rotate-6 group-hover:shadow-lg group-hover:shadow-[#d93633]/25 group-active:scale-110 group-active:-rotate-6">
-                                <span class="material-symbols-outlined text-[32px] transition-transform duration-300 group-hover:scale-110">language</span>
+                            <div
+                                class="subject-icon-box w-16 h-16 bg-[#d93633] text-white rounded-2xl flex items-center justify-center mb-4 transition-all duration-300 shadow-sm group-hover:scale-110 group-hover:-rotate-6 group-hover:shadow-lg group-hover:shadow-[#d93633]/25 group-active:scale-110 group-active:-rotate-6">
+                                <span
+                                    class="material-symbols-outlined text-[32px] transition-transform duration-300 group-hover:scale-110">language</span>
                             </div>
-                            <h4 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] group-hover:text-[#d93633] group-active:text-[#d93633] mb-3 transition-colors duration-200">Kiswahili</h4>
+                            <h4
+                                class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] group-hover:text-[#d93633] group-active:text-[#d93633] mb-3 transition-colors duration-200">
+                                Kiswahili</h4>
                             <p class="text-[16px] leading-[24px] text-[#2C2C2C]">
                                 Developing proficiency in another regional language.
                             </p>
@@ -637,15 +806,22 @@
                     </div>
 
                     <!-- German Card -->
-                    <div class="other-subject-card group relative overflow-hidden bg-white rounded-2xl p-8 border border-[#c6c6cf] hover:border-[#1e2a4a] active:border-[#1e2a4a] shadow-sm hover:shadow-2xl active:shadow-2xl hover:-translate-y-2 active:-translate-y-2 transition-all duration-300 cursor-pointer reveal-on-scroll" data-reveal-delay="300">
+                    <div class="other-subject-card group relative overflow-hidden bg-white rounded-2xl p-8 border border-[#c6c6cf] hover:border-[#1e2a4a] active:border-[#1e2a4a] shadow-sm hover:shadow-2xl active:shadow-2xl hover:-translate-y-2 active:-translate-y-2 transition-all duration-300 cursor-pointer reveal-on-scroll"
+                        data-reveal-delay="300">
                         <!-- Top Accent Line (Expands on hover) -->
-                        <div class="subject-top-bar absolute top-0 left-0 right-0 h-[4px] bg-[#1e2a4a] transform scale-x-0 group-hover:scale-x-100 group-active:scale-x-100 transition-transform duration-300 origin-center"></div>
+                        <div
+                            class="subject-top-bar absolute top-0 left-0 right-0 h-[4px] bg-[#1e2a4a] transform scale-x-0 group-hover:scale-x-100 group-active:scale-x-100 transition-transform duration-300 origin-center">
+                        </div>
 
                         <div class="flex flex-col items-center text-center">
-                            <div class="subject-icon-box w-16 h-16 bg-[#1e2a4a] text-white rounded-2xl flex items-center justify-center mb-4 transition-all duration-300 shadow-sm group-hover:scale-110 group-hover:rotate-6 group-hover:shadow-lg group-hover:shadow-[#1e2a4a]/25 group-active:scale-110 group-active:rotate-6">
-                                <span class="material-symbols-outlined text-[32px] transition-transform duration-300 group-hover:scale-110">public</span>
+                            <div
+                                class="subject-icon-box w-16 h-16 bg-[#1e2a4a] text-white rounded-2xl flex items-center justify-center mb-4 transition-all duration-300 shadow-sm group-hover:scale-110 group-hover:rotate-6 group-hover:shadow-lg group-hover:shadow-[#1e2a4a]/25 group-active:scale-110 group-active:rotate-6">
+                                <span
+                                    class="material-symbols-outlined text-[32px] transition-transform duration-300 group-hover:scale-110">public</span>
                             </div>
-                            <h4 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] mb-3 transition-colors duration-200">German</h4>
+                            <h4
+                                class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] mb-3 transition-colors duration-200">
+                                German</h4>
                             <p class="text-[16px] leading-[24px] text-[#2C2C2C]">
                                 Offering foundational knowledge of the German language.
                             </p>
@@ -659,69 +835,87 @@
         <section class="py-20 px-4 md:px-20 bg-white">
             <div class="max-w-[1200px] mx-auto">
                 <div class="mb-12 text-center reveal-on-scroll">
-                    <h2 class="text-[32px] leading-[40px] font-semibold tracking-[-0.01em] text-[#1e2a4a] mb-4">Teaching Approach</h2>
+                    <h2 class="text-[32px] leading-[40px] font-semibold tracking-[-0.01em] text-[#1e2a4a] mb-4">Teaching
+                        Approach</h2>
                     <p class="text-[18px] leading-[28px] text-[#2C2C2C] max-w-3xl mx-auto">
-                        Our innovative teaching methods ensure every student receives personalized attention and support to reach their full potential.
+                        Our innovative teaching methods ensure every student receives personalized attention and support
+                        to reach their full potential.
                     </p>
                 </div>
 
                 <div class="max-w-4xl mx-auto space-y-6">
                     <!-- Child-Centered Learning -->
-                    <div class="flex items-start gap-6 p-6 bg-[#f9f9f9] rounded-xl hover:bg-white hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-[#c6c6cf] reveal-on-scroll-left" data-reveal-delay="0">
+                    <div class="flex items-start gap-6 p-6 bg-[#f9f9f9] rounded-xl hover:bg-white hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-[#c6c6cf] reveal-on-scroll-left"
+                        data-reveal-delay="0">
                         <div class="flex-shrink-0">
-                            <div class="w-12 h-12 bg-[#1e2a4a] rounded-full flex items-center justify-center text-white text-[20px] font-bold shadow-md">
+                            <div
+                                class="w-12 h-12 bg-[#1e2a4a] rounded-full flex items-center justify-center text-white text-[20px] font-bold shadow-md">
                                 1
                             </div>
                         </div>
                         <div>
-                            <h3 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] mb-2">Child-Centered Learning</h3>
+                            <h3 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] mb-2">Child-Centered
+                                Learning</h3>
                             <p class="text-[16px] leading-[24px] text-[#2C2C2C]">
-                                Lessons are interactive and tailored to meet the needs of each pupil, encouraging participation and curiosity.
+                                Lessons are interactive and tailored to meet the needs of each pupil, encouraging
+                                participation and curiosity.
                             </p>
                         </div>
                     </div>
 
                     <!-- Inquiry-Based Methods -->
-                    <div class="flex items-start gap-6 p-6 bg-[#f9f9f9] rounded-xl hover:bg-white hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-[#c6c6cf] reveal-on-scroll-right" data-reveal-delay="100">
+                    <div class="flex items-start gap-6 p-6 bg-[#f9f9f9] rounded-xl hover:bg-white hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-[#c6c6cf] reveal-on-scroll-right"
+                        data-reveal-delay="100">
                         <div class="flex-shrink-0">
-                            <div class="w-12 h-12 bg-[#d93633] rounded-full flex items-center justify-center text-white text-[20px] font-bold shadow-md">
+                            <div
+                                class="w-12 h-12 bg-[#d93633] rounded-full flex items-center justify-center text-white text-[20px] font-bold shadow-md">
                                 2
                             </div>
                         </div>
                         <div>
-                            <h3 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] mb-2">Inquiry-Based Methods</h3>
+                            <h3 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] mb-2">Inquiry-Based
+                                Methods</h3>
                             <p class="text-[16px] leading-[24px] text-[#2C2C2C]">
-                                Pupils are encouraged to ask questions, explore, and discover through hands-on activities and projects.
+                                Pupils are encouraged to ask questions, explore, and discover through hands-on
+                                activities and projects.
                             </p>
                         </div>
                     </div>
 
                     <!-- Continuous Assessment -->
-                    <div class="flex items-start gap-6 p-6 bg-[#f9f9f9] rounded-xl hover:bg-white hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-[#c6c6cf] reveal-on-scroll-left" data-reveal-delay="200">
+                    <div class="flex items-start gap-6 p-6 bg-[#f9f9f9] rounded-xl hover:bg-white hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-[#c6c6cf] reveal-on-scroll-left"
+                        data-reveal-delay="200">
                         <div class="flex-shrink-0">
-                            <div class="w-12 h-12 bg-[#1e2a4a] rounded-full flex items-center justify-center text-white text-[20px] font-bold shadow-md">
+                            <div
+                                class="w-12 h-12 bg-[#1e2a4a] rounded-full flex items-center justify-center text-white text-[20px] font-bold shadow-md">
                                 3
                             </div>
                         </div>
                         <div>
-                            <h3 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] mb-2">Continuous Assessment</h3>
+                            <h3 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] mb-2">Continuous
+                                Assessment</h3>
                             <p class="text-[16px] leading-[24px] text-[#2C2C2C]">
-                                Regular formative and summative assessments help track progress and inform teaching strategies.
+                                Regular formative and summative assessments help track progress and inform teaching
+                                strategies.
                             </p>
                         </div>
                     </div>
 
                     <!-- Remedial & Enrichment Programs -->
-                    <div class="flex items-start gap-6 p-6 bg-[#f9f9f9] rounded-xl hover:bg-white hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-[#c6c6cf] reveal-on-scroll-right" data-reveal-delay="300">
+                    <div class="flex items-start gap-6 p-6 bg-[#f9f9f9] rounded-xl hover:bg-white hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-[#c6c6cf] reveal-on-scroll-right"
+                        data-reveal-delay="300">
                         <div class="flex-shrink-0">
-                            <div class="w-12 h-12 bg-[#d93633] rounded-full flex items-center justify-center text-white text-[20px] font-bold shadow-md">
+                            <div
+                                class="w-12 h-12 bg-[#d93633] rounded-full flex items-center justify-center text-white text-[20px] font-bold shadow-md">
                                 4
                             </div>
                         </div>
                         <div>
-                            <h3 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] mb-2">Remedial & Enrichment Programs</h3>
+                            <h3 class="text-[24px] leading-[32px] font-semibold text-[#1e2a4a] mb-2">Remedial &
+                                Enrichment Programs</h3>
                             <p class="text-[16px] leading-[24px] text-[#2C2C2C]">
-                                Support is provided for pupils who need extra help, while advanced learners are challenged with enrichment activities.
+                                Support is provided for pupils who need extra help, while advanced learners are
+                                challenged with enrichment activities.
                             </p>
                         </div>
                     </div>
@@ -824,7 +1018,9 @@
                         © <span id="currentYear"></span> St Monica Junior School Kasanje. All rights reserved.
                     </p>
                     <p class="text-[14px] leading-[20px] text-white/60 text-center md:text-right">
-                        Made by <a href="https://www.sofdas.com/" class="text-secondary-container hover:text-secondary transition-colors font-semibold">Sofdas Technologies</a>
+                        Made by <a href="https://www.sofdas.com/"
+                            class="text-secondary-container hover:text-secondary transition-colors font-semibold">Sofdas
+                            Technologies</a>
                     </p>
                 </div>
             </div>
@@ -846,7 +1042,7 @@
         const mobileSchoolLifeMenu = document.getElementById('mobileSchoolLifeMenu');
         const mobileSchoolLifeIcon = document.getElementById('mobileSchoolLifeIcon');
 
-        mobileMenuBtn.addEventListener('click', function() {
+        mobileMenuBtn.addEventListener('click', function () {
             mobileMenu.classList.toggle('hidden');
             if (mobileMenu.classList.contains('hidden')) {
                 mobileMenuIcon.textContent = 'menu';
@@ -856,7 +1052,7 @@
         });
 
         // Mobile School Life Accordion
-        mobileSchoolLifeBtn.addEventListener('click', function() {
+        mobileSchoolLifeBtn.addEventListener('click', function () {
             mobileSchoolLifeMenu.classList.toggle('hidden');
             if (mobileSchoolLifeMenu.classList.contains('hidden')) {
                 mobileSchoolLifeIcon.textContent = 'expand_more';
@@ -933,24 +1129,24 @@
             const interactiveCards = document.querySelectorAll('.curriculum-overview-card, .core-curriculum-card, .other-subject-card');
             interactiveCards.forEach(card => {
                 let touchTimer;
-                card.addEventListener('touchstart', function() {
+                card.addEventListener('touchstart', function () {
                     interactiveCards.forEach(c => { if (c !== card) c.classList.remove('is-touch-active'); });
                     card.classList.add('is-touch-active');
                     clearTimeout(touchTimer);
                 }, { passive: true });
 
-                card.addEventListener('touchend', function() {
+                card.addEventListener('touchend', function () {
                     touchTimer = setTimeout(() => {
                         card.classList.remove('is-touch-active');
                     }, 1200);
                 }, { passive: true });
 
-                card.addEventListener('touchcancel', function() {
+                card.addEventListener('touchcancel', function () {
                     card.classList.remove('is-touch-active');
                 }, { passive: true });
             });
 
-            document.addEventListener('touchstart', function(e) {
+            document.addEventListener('touchstart', function (e) {
                 if (!e.target.closest('.curriculum-overview-card, .core-curriculum-card, .other-subject-card')) {
                     interactiveCards.forEach(c => c.classList.remove('is-touch-active'));
                 }
@@ -959,4 +1155,5 @@
     </script>
     <script src="assets/js/cms-client.js"></script>
 </body>
+
 </html>
