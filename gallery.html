@@ -13,6 +13,9 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@400;600;700&display=swap"
         rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/style.css">
+    <!-- jQuery and jQuery Validation -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
     <!-- SweetAlert2 for polished alert dialogs -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script id="tailwind-config">
@@ -322,6 +325,21 @@
         .traditional-pattern {
             background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30L30 0ZM30 15L45 30L30 45L15 30L30 15Z' fill='%23bac5ee' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
         }
+
+        @keyframes fadeInItem {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeInItem 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
     </style>
 </head>
 
@@ -470,19 +488,19 @@
         <section class="pt-12 pb-24 px-4 md:px-20 max-w-[1200px] mx-auto w-full">
             <!-- Gallery Filters -->
             <div class="mb-12 text-center reveal-on-scroll" data-reveal-delay="0">
-                <div class="flex flex-wrap gap-4 justify-center">
+                <div id="galleryFilterBtns" class="flex flex-wrap gap-4 justify-center">
                     <button
-                        class="px-6 py-2 rounded-full bg-[#1e2a4a] text-white text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-md transition-transform hover:scale-105">All
+                        class="gallery-filter-btn px-6 py-2 rounded-full bg-[#1e2a4a] text-white text-[14px] leading-[20px] tracking-[0.05em] font-semibold shadow-md transition-transform hover:scale-105" data-filter="All Photos">All
                         Photos</button>
                     <button
-                        class="px-6 py-2 rounded-full border-2 border-[#c6c6cf] text-[#45464e] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:border-[#1e2a4a] hover:text-[#1e2a4a] transition-colors">Administration</button>
+                        class="gallery-filter-btn px-6 py-2 rounded-full border-2 border-[#c6c6cf] text-[#45464e] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:border-[#1e2a4a] hover:text-[#1e2a4a] transition-colors" data-filter="Administration">Administration</button>
                     <button
-                        class="px-6 py-2 rounded-full border-2 border-[#c6c6cf] text-[#45464e] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:border-[#1e2a4a] hover:text-[#1e2a4a] transition-colors">Academics</button>
+                        class="gallery-filter-btn px-6 py-2 rounded-full border-2 border-[#c6c6cf] text-[#45464e] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:border-[#1e2a4a] hover:text-[#1e2a4a] transition-colors" data-filter="Academics">Academics</button>
                     <button
-                        class="px-6 py-2 rounded-full border-2 border-[#c6c6cf] text-[#45464e] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:border-[#1e2a4a] hover:text-[#1e2a4a] transition-colors">Co-curricular
+                        class="gallery-filter-btn px-6 py-2 rounded-full border-2 border-[#c6c6cf] text-[#45464e] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:border-[#1e2a4a] hover:text-[#1e2a4a] transition-colors" data-filter="Co-curricular Activities">Co-curricular
                         Activities</button>
                     <button
-                        class="px-6 py-2 rounded-full border-2 border-[#c6c6cf] text-[#45464e] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:border-[#1e2a4a] hover:text-[#1e2a4a] transition-colors">Special
+                        class="gallery-filter-btn px-6 py-2 rounded-full border-2 border-[#c6c6cf] text-[#45464e] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:border-[#1e2a4a] hover:text-[#1e2a4a] transition-colors" data-filter="Special Events">Special
                         Events</button>
                 </div>
             </div>
@@ -491,62 +509,162 @@
             <div class="masonry-grid">
                 <!-- Gallery Item 1 -->
                 <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] reveal-zoom"
-                    tabindex="0" role="button" data-reveal-delay="0">
-                    <img class="w-full h-auto object-cover"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiTfvxn762d9lsukXv6r5tDEtGSCn8SJOwWMfHqytzYjwgn0M5B35eyTmkgy2DE6ZWiuum_Yhj36To8hq-oNalFcLHmoVvWinPi-LV1B1Smf145m13K-5siGtW6N3WtIL4hUre8ooYf0niW7bBXeyuU4PtokNkwRWbvUgwQ8hxUUpwG-1q-cX_WG3j31BJvmWQajpZhZun8IYgwqfb3D6UV1erT35dYvbVvuPmF_2ookMqpAhovL-VMQ"
-                        alt="Science Fair" />
+                    tabindex="0" role="button" data-category="Academics" data-caption="Science Fair Prep" data-description="Pupils engaged in collaborative research and practical experiments." data-reveal-delay="0">
+                    <img class="w-full h-auto object-cover" src="assets/imgz/studying.webp" alt="Science Fair Prep" loading="lazy" />
                     <span class="gallery-caption">Science Fair Prep</span>
                 </div>
 
                 <!-- Gallery Item 2 -->
                 <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] reveal-zoom"
-                    tabindex="0" role="button" data-reveal-delay="100">
-                    <img class="w-full h-auto object-cover"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjzBOYjDeySqiy8O-rvvkKAo_1biN9VAF3D5PZVzpO5P2aore8kpnEk-jhY0aQw28K4mvqICbgIq3yrOV_47jZZSQl2Veegsy_HsLy9z6WvF4TzjJNSA078KUz00Zlfku8qLDsjQkJgg89UohBn5VlAFLO5tlQw0scJW8-aMFoR_46yki5p1JR9pWfzKFNCd_OJouJxhJ1G0RvVLmpncGF8X9C7tmjKq3X1ZryboiJylKwkw9B7McllA"
-                        alt="Football" />
+                    tabindex="0" role="button" data-category="Co-curricular Activities" data-caption="Inter-House Football" data-description="Energetic sporting competitions fostering team spirit and wellness." data-reveal-delay="100">
+                    <img class="w-full h-auto object-cover" src="assets/imgz/netball.webp" alt="Inter-House Football" loading="lazy" />
                     <span class="gallery-caption">Inter-House Football</span>
                 </div>
 
                 <!-- Gallery Item 3 -->
                 <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] reveal-zoom"
-                    tabindex="0" role="button" data-reveal-delay="200">
-                    <img class="w-full h-auto object-cover"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhh3cdyIuBaMtd4ZuUFprQWx4WXCLpw_ctC0Cu9Uoohr6bCZ25j7UpcybSypevOArRr0H6pfXsp6wCyLxfNIHv8TdCIhsBmhYUm_hNFkoiA8oT-CO9b1xR36qW7N0RyiRKZhpXWxzj05wNHOHa7SxyRobx39btoWpBvhcMZsq4RQLwch5ihiKwoESmyymj0Lv5ENcrA79rpDoZl2MQl-bjWNpXG3wmArLzsCYgICr1Ua_anrqRN566Tw"
-                        alt="Campus" />
+                    tabindex="0" role="button" data-category="Administration" data-caption="Main Quadrangle" data-description="Our spacious and scenic campus courtyard." data-reveal-delay="200">
+                    <img class="w-full h-auto object-cover" src="assets/imgz/school building.webp" alt="Main Quadrangle" loading="lazy" />
                     <span class="gallery-caption">Main Quadrangle</span>
                 </div>
 
                 <!-- Gallery Item 4 -->
                 <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] reveal-zoom"
-                    tabindex="0" role="button" data-reveal-delay="100">
-                    <img class="w-full h-auto object-cover"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBuZlq7OKdha-Ec2Q2GmPR42dcIXv4kz8MRKSIO0LQdo62gPDZS_Jia_sfMPxVhfTG-NBRSzOhFRp6ZGHyptiDN_Xpctm_moFxwEU1cqYaL-HRbRw_Lk5UmTrR8EDiW8F4ird40qZpdxbsAxYGhNvuXCx3Junxnq40ZmVXxlQSDivqGZNtKt2KAGcwVyXiZFXeCRxtHLBaa3tTQzMzkZxnll5Gmfhc1kZKIY_Mn-zSqcaeU_mF9uUKWQ"
-                        alt="Arts" />
+                    tabindex="0" role="button" data-category="Academics" data-caption="Creative Arts Class" data-description="Hands-on craft, drawing and artistic expression." data-reveal-delay="100">
+                    <img class="w-full h-auto object-cover" src="assets/imgz/compund and kids.webp" alt="Creative Arts Class" loading="lazy" />
                     <span class="gallery-caption">Creative Arts Class</span>
                 </div>
 
                 <!-- Gallery Item 5 -->
                 <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] reveal-zoom"
-                    tabindex="0" role="button" data-reveal-delay="200">
-                    <img class="w-full h-auto object-cover"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjHE4MuErBw3ipQpLAsmrwpNBT5FBWAFo1JBlaWpU86O6c1pa8JyTKT9rVCG6XWzFMAGOTA3xdIbPuaN5bKN7DEy87-adqjA5zR9MnWIv9dAZFd5IbLgFXB7Ysxcob8MloLJiTbEKyt00zoMeLr9a3-bn_-IQLTOf6MVosAZoO06bNKDAWBR7EXryOxGmQQ0fixtsoeXQkkRAseTWkoGyYmiIax_2HHN72KXM10Nqnj6rb4mqCW13lqw"
-                        alt="Cultural Day" />
+                    tabindex="0" role="button" data-category="Special Events" data-caption="Annual Cultural Day" data-description="Vibrant traditional dance and heritage showcases." data-reveal-delay="200">
+                    <img class="w-full h-auto object-cover" src="assets/imgz/dancing.webp" alt="Annual Cultural Day" loading="lazy" />
                     <span class="gallery-caption">Annual Cultural Day</span>
                 </div>
 
                 <!-- Gallery Item 6 -->
                 <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] reveal-zoom"
-                    tabindex="0" role="button" data-reveal-delay="300">
-                    <img class="w-full h-auto object-cover"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqEtiunPCGMKrwvxg5nZzwtWE5m1QHlWGq92UjGnXtdnLisTYL0uBRGz3GVsQPkOgHiaExkV7oOcA943MAt0_wdI5PscxIi_8JnrlNYta0oDtGOTcfeZnygdYJqGH7Sq_7BLwhX1z-b_YVlrzldtxI6jbec8qR7-8fTI08TO6bK9lgbpUWhhD3zG5PmxJyG9HF-aJicEeztpnmbYVNVxsGjZElEECq4S-zYWkm8UV-8A0khfMoW8PjcQ"
-                        alt="Library" />
+                    tabindex="0" role="button" data-category="Academics" data-caption="The Library Hub" data-description="A quiet, resource-rich space encouraging reading culture." data-reveal-delay="300">
+                    <img class="w-full h-auto object-cover" src="assets/imgz/farming.webp" alt="The Library Hub" loading="lazy" />
                     <span class="gallery-caption">The Library Hub</span>
+                </div>
+
+                <!-- Gallery Item 7 -->
+                <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] reveal-zoom"
+                    tabindex="0" role="button" data-category="Co-curricular Activities" data-caption="Physical Training & Swimming" data-description="Aquatic skills and physical fitness training." data-reveal-delay="100">
+                    <img class="w-full h-auto object-cover" src="assets/imgz/swimming2.webp" alt="Physical Training & Swimming" loading="lazy" />
+                    <span class="gallery-caption">Physical Training & Swimming</span>
+                </div>
+
+                <!-- Gallery Item 8 -->
+                <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] reveal-zoom"
+                    tabindex="0" role="button" data-category="Special Events" data-caption="Top Class Graduates" data-description="Celebrating milestones and graduation ceremonies." data-reveal-delay="200">
+                    <img class="w-full h-auto object-cover" src="assets/imgz/3 graduants.webp" alt="Top Class Graduates" loading="lazy" />
+                    <span class="gallery-caption">Top Class Graduates</span>
+                </div>
+
+                <!-- Gallery Item 9 (Hidden initially until Load More) -->
+                <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] hidden"
+                    tabindex="0" role="button" data-category="Special Events" data-caption="Holy Mass & Pastoral Care" data-description="Spiritual growth, communal prayer, and thanksgiving." data-reveal-delay="0">
+                    <img class="w-full h-auto object-cover" src="assets/imgz/holy mass.webp" alt="Holy Mass & Pastoral Care" loading="lazy" />
+                    <span class="gallery-caption">Holy Mass & Pastoral Care</span>
+                </div>
+
+                <!-- Gallery Item 10 (Hidden initially until Load More) -->
+                <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] hidden"
+                    tabindex="0" role="button" data-category="Academics" data-caption="Active Class Participation" data-description="Eager learners asking and answering questions." data-reveal-delay="100">
+                    <img class="w-full h-auto object-cover" src="assets/imgz/hand raise.webp" alt="Active Class Participation" loading="lazy" />
+                    <span class="gallery-caption">Active Class Participation</span>
+                </div>
+
+                <!-- Gallery Item 11 (Hidden initially until Load More) -->
+                <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] hidden"
+                    tabindex="0" role="button" data-category="Administration" data-caption="Staff Leadership & Teachers" data-description="Qualified, caring, and dedicated educators." data-reveal-delay="100">
+                    <img class="w-full h-auto object-cover" src="assets/imgz/teachers3.webp" alt="Staff Leadership & Teachers" loading="lazy" />
+                    <span class="gallery-caption">Staff Leadership & Teachers</span>
+                </div>
+
+                <!-- Gallery Item 12 (Hidden initially until Load More) -->
+                <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] hidden"
+                    tabindex="0" role="button" data-category="Administration" data-caption="School Transport Service" data-description="Safe and reliable student transit vans." data-reveal-delay="100">
+                    <img class="w-full h-auto object-cover" src="assets/imgz/Student Van.webp" alt="School Transport Service" loading="lazy" />
+                    <span class="gallery-caption">School Transport Service</span>
+                </div>
+
+                <!-- Gallery Item 13 (Hidden initially until Load More) -->
+                <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] hidden"
+                    tabindex="0" role="button" data-category="Academics" data-caption="Primary Seven Candidates" data-description="Excellence in PLE preparation and leadership." data-reveal-delay="100">
+                    <img class="w-full h-auto object-cover" src="assets/imgz/P7.webp" alt="Primary Seven Candidates" loading="lazy" />
+                    <span class="gallery-caption">Primary Seven Candidates</span>
+                </div>
+
+                <!-- Gallery Item 14 (Hidden initially until Load More) -->
+                <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] hidden"
+                    tabindex="0" role="button" data-category="Special Events" data-caption="Marching Band & Celebrations" data-description="Smartly turned-out parade and brass band performance." data-reveal-delay="100">
+                    <img class="w-full h-auto object-cover" src="assets/imgz/matching.webp" alt="Marching Band & Celebrations" loading="lazy" />
+                    <span class="gallery-caption">Marching Band & Celebrations</span>
+                </div>
+
+                <!-- Gallery Item 15 (Hidden initially until Load More) -->
+                <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] hidden"
+                    tabindex="0" role="button" data-category="Co-curricular Activities" data-caption="Junior Swimming Lessons" data-description="Building water confidence and stroke technique." data-reveal-delay="100">
+                    <img class="w-full h-auto object-cover" src="assets/imgz/swimming.webp" alt="Junior Swimming Lessons" loading="lazy" />
+                    <span class="gallery-caption">Junior Swimming Lessons</span>
+                </div>
+
+                <!-- Gallery Item 16 (Hidden initially until Load More) -->
+                <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] hidden"
+                    tabindex="0" role="button" data-category="Academics" data-caption="Early Childhood Play & Study" data-description="Stimulating classroom environment for nursery learners." data-reveal-delay="100">
+                    <img class="w-full h-auto object-cover" src="assets/imgz/baby class.webp" alt="Early Childhood Play & Study" loading="lazy" />
+                    <span class="gallery-caption">Early Childhood Play & Study</span>
+                </div>
+
+                <!-- Gallery Item 17 (Hidden initially until Load More) -->
+                <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] hidden"
+                    tabindex="0" role="button" data-category="Co-curricular Activities" data-caption="School Choir Performance" data-description="Harmonious vocals and musical appreciation." data-reveal-delay="100">
+                    <img class="w-full h-auto object-cover" src="assets/imgz/singing.webp" alt="School Choir Performance" loading="lazy" />
+                    <span class="gallery-caption">School Choir Performance</span>
+                </div>
+
+                <!-- Gallery Item 18 (Hidden initially until Load More) -->
+                <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] hidden"
+                    tabindex="0" role="button" data-category="Co-curricular Activities" data-caption="Playground Recreation & Swings" data-description="Joyful recess and outdoor recreational facilities." data-reveal-delay="100">
+                    <img class="w-full h-auto object-cover" src="assets/imgz/swing.webp" alt="Playground Recreation & Swings" loading="lazy" />
+                    <span class="gallery-caption">Playground Recreation & Swings</span>
+                </div>
+
+                <!-- Gallery Item 19 (Hidden initially until Load More) -->
+                <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] hidden"
+                    tabindex="0" role="button" data-category="Special Events" data-caption="Holy Communion Celebration" data-description="A sacred milestone for our young Catholic pupils." data-reveal-delay="100">
+                    <img class="w-full h-auto object-cover" src="assets/imgz/Communion.webp" alt="Holy Communion Celebration" loading="lazy" />
+                    <span class="gallery-caption">Holy Communion Celebration</span>
+                </div>
+
+                <!-- Gallery Item 20 (Hidden initially until Load More) -->
+                <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] hidden"
+                    tabindex="0" role="button" data-category="Administration" data-caption="Administrative Leadership" data-description="Experienced guidance steering academic excellence." data-reveal-delay="100">
+                    <img class="w-full h-auto object-cover" src="assets/imgz/headteacher.webp" alt="Administrative Leadership" loading="lazy" />
+                    <span class="gallery-caption">Administrative Leadership</span>
+                </div>
+
+                <!-- Gallery Item 21 (Hidden initially until Load More) -->
+                <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] hidden"
+                    tabindex="0" role="button" data-category="Academics" data-caption="Focused Literacy Session" data-description="Guided reading, phonics, and comprehension." data-reveal-delay="100">
+                    <img class="w-full h-auto object-cover" src="assets/imgz/focused.webp" alt="Focused Literacy Session" loading="lazy" />
+                    <span class="gallery-caption">Focused Literacy Session</span>
+                </div>
+
+                <!-- Gallery Item 22 (Hidden initially until Load More) -->
+                <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2] hidden"
+                    tabindex="0" role="button" data-category="Co-curricular Activities" data-caption="Young Farmers Project" data-description="Practical agriculture skills and environment stewardship." data-reveal-delay="100">
+                    <img class="w-full h-auto object-cover" src="assets/imgz/planting.webp" alt="Young Farmers Project" loading="lazy" />
+                    <span class="gallery-caption">Young Farmers Project</span>
                 </div>
             </div>
 
             <!-- Load More Button -->
-            <div class="mt-16 text-center reveal-on-scroll" data-reveal-delay="100">
-                <button
+            <div id="loadMoreContainer" class="mt-16 text-center reveal-on-scroll" data-reveal-delay="100">
+                <button id="loadMoreBtn"
                     class="inline-flex items-center gap-2 px-8 py-3 rounded-full border-2 border-[#1e2a4a] text-[#1e2a4a] text-[14px] leading-[20px] tracking-[0.05em] font-semibold hover:bg-[#dae2ff] hover:text-[#0d1a39] transition-colors duration-300">
                     Load More Memories
                     <span class="material-symbols-outlined text-[20px]">expand_more</span>
@@ -623,12 +741,13 @@
                     <h4 class="text-[16px] leading-[24px] font-semibold text-white mb-6 uppercase tracking-wider">
                         Newsletter</h4>
                     <p class="text-[14px] leading-[20px] text-white/70 mb-4">Subscribe for school news.</p>
-                    <form class="space-y-3">
+                    <form class="space-y-3" novalidate>
                         <input
                             class="w-full bg-white/10 border border-white/20 text-white placeholder-white/50 rounded-lg px-4 py-3 text-[14px] focus:ring-2 focus:ring-secondary-container focus:border-transparent outline-none transition-all"
-                            placeholder="Your email address" type="email" />
+                            name="email" placeholder="Your email address" type="email" autocomplete="email" />
                         <button
-                            class="w-full bg-secondary-container text-white px-6 py-3 rounded-lg hover:bg-secondary transition-colors duration-200 font-semibold text-[14px] flex items-center justify-center gap-2">
+                            class="w-full bg-secondary-container text-white px-6 py-3 rounded-lg hover:bg-secondary transition-colors duration-200 font-semibold text-[14px] flex items-center justify-center gap-2"
+                            type="submit">
                             Subscribe
                             <span class="material-symbols-outlined text-[20px]">send</span>
                         </button>
@@ -802,7 +921,9 @@
             }
 
             function open(item) {
-                items = [...document.querySelectorAll('.masonry-grid .gallery-item')].filter(el => el.querySelector('img'));
+                items = [...document.querySelectorAll('.masonry-grid .gallery-item')].filter(el => {
+                    return el.querySelector('img') && !el.classList.contains('hidden') && el.style.display !== 'none';
+                });
                 const start = items.indexOf(item);
                 if (start === -1) return;
                 lastFocus = item;
@@ -854,6 +975,76 @@
             box.addEventListener('click', (e) => { if (e.target === box) close(); });
         })();
     </script>
+    <!-- Static Fallback Gallery Controller -->
+    <script>
+        (function () {
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            const loadMoreContainer = document.getElementById('loadMoreContainer');
+            const filterBtns = document.querySelectorAll('#galleryFilterBtns button, .gallery-filter-btn');
+            const items = [...document.querySelectorAll('.masonry-grid .gallery-item')];
+
+            let activeCategory = 'All Photos';
+
+            function updateDisplay(category, showAll) {
+                activeCategory = category;
+                let matchedCount = 0;
+                let visibleCount = 0;
+
+                items.forEach(item => {
+                    const itemCat = item.dataset.category || 'All Photos';
+                    const matches = (category === 'All Photos' || itemCat === category);
+
+                    if (matches) {
+                        matchedCount++;
+                        if (showAll || visibleCount < 8) {
+                            item.classList.remove('hidden');
+                            if (showAll && visibleCount >= 8) {
+                                item.classList.add('animate-fade-in');
+                            }
+                            visibleCount++;
+                        } else {
+                            item.classList.add('hidden');
+                        }
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+
+                if (loadMoreContainer) {
+                    if (showAll || matchedCount <= 8) {
+                        loadMoreContainer.style.display = 'none';
+                    } else {
+                        loadMoreContainer.style.display = '';
+                    }
+                }
+            }
+
+            if (loadMoreBtn) {
+                loadMoreBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    updateDisplay(activeCategory, true);
+                });
+            }
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const cat = (this.getAttribute('data-filter') || this.textContent).trim();
+                    filterBtns.forEach(b => {
+                        b.classList.remove('bg-[#1e2a4a]', 'text-white', 'shadow-md');
+                        b.classList.add('border-2', 'border-[#c6c6cf]', 'text-[#45464e]');
+                    });
+                    this.classList.add('bg-[#1e2a4a]', 'text-white', 'shadow-md');
+                    this.classList.remove('border-2', 'border-[#c6c6cf]', 'text-[#45464e]');
+
+                    updateDisplay(cat, false);
+                });
+            });
+
+            // Initial view: show 8 items
+            updateDisplay('All Photos', false);
+        })();
+    </script>
+    <script src="assets/js/form-validation.js"></script>
     <script src="assets/js/cms-client.js"></script>
 </body>
 

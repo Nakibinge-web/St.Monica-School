@@ -1269,22 +1269,10 @@ body {
 .curriculum-overview-card {
     position: relative;
     background-color: #f9f9f9;
-    border: 1px solid transparent;
+    border: none;
     transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;
-}
-
-.curriculum-overview-card .card-accent-bar {
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    border-top-left-radius: 1rem;
-    border-bottom-left-radius: 1rem;
-    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    opacity: 1;
 }
 
 .curriculum-overview-card .card-icon {
@@ -1296,16 +1284,9 @@ body {
 .curriculum-overview-card:active,
 .curriculum-overview-card.is-touch-active {
     background-color: #ffffff !important;
-    border-color: #e2e8f0 !important;
+    border: none !important;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
     transform: translateY(-6px) !important;
-}
-
-.curriculum-overview-card:hover .card-accent-bar,
-.curriculum-overview-card:active .card-accent-bar,
-.curriculum-overview-card.is-touch-active .card-accent-bar {
-    opacity: 0 !important;
-    transform: scaleY(0.7);
 }
 
 .curriculum-overview-card:hover .card-icon,
@@ -1527,6 +1508,21 @@ input.is-invalid,
 select.is-invalid,
 textarea.is-invalid {
     border-color: #ba1a1a !important;
+}
+
+/* Footer Newsletter Form Validation Styles */
+footer .form-error {
+    color: #ff8080 !important;
+    font-size: 13px !important;
+    line-height: 18px !important;
+    margin-top: 4px !important;
+    display: block !important;
+    font-weight: 500 !important;
+}
+
+footer input.is-invalid {
+    border-color: #ff8080 !important;
+    box-shadow: 0 0 0 2px rgba(255, 128, 128, 0.25) !important;
 }
 
 /* SweetAlert2 - Application Success Dialog */

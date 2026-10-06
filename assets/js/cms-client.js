@@ -513,44 +513,78 @@
         const grid = document.querySelector('.masonry-grid');
         if (!grid) return;
 
-        function renderGallery(filterCategory = 'All Photos') {
+        const loadMoreBtn = document.getElementById('loadMoreBtn') || document.querySelector('button.inline-flex.items-center.gap-2.px-8.py-3');
+        const loadMoreContainer = document.getElementById('loadMoreContainer') || loadMoreBtn?.parentElement;
+
+        let currentCategory = 'All Photos';
+        let isExpanded = false;
+
+        function renderGallery(filterCategory = 'All Photos', showAll = false) {
+            currentCategory = filterCategory;
             const filtered = (filterCategory === 'All Photos')
                 ? galleryItems
                 : galleryItems.filter(item => item.category === filterCategory);
 
+            const itemsToRender = showAll ? filtered : filtered.slice(0, 8);
+
             // Caption and description are optional in the admin panel. The hover caption shows the
             // title (or the description when there is no title); photos with neither show no caption.
-            grid.innerHTML = filtered.map(img => {
+            grid.innerHTML = itemsToRender.map((img, idx) => {
                 const title = (img.title || '').trim();
                 const description = (img.description || '').trim();
                 const caption = title || description;
+                const animClass = (showAll && idx >= 8) ? ' animate-fade-in' : '';
                 return `
-                <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2]"
+                <div class="masonry-item gallery-item rounded-[0.5rem] overflow-hidden bg-[#f3f3f3] border border-[#e2e2e2]${animClass}"
                      tabindex="0" role="button" aria-label="${escapeHtml(caption ? 'View photo: ' + caption : 'View photo')}"
+                     data-category="${escapeHtml(img.category || '')}"
                      data-caption="${escapeHtml(title)}" data-description="${escapeHtml(description)}">
                     <img class="w-full h-auto object-cover" src="${escapeHtml(img.file_path)}" alt="${escapeHtml(caption || img.category || 'School photo')}" loading="lazy"/>
                     ${caption ? `<span class="gallery-caption">${escapeHtml(caption)}</span>` : ''}
                 </div>`;
             }).join('');
+
+            // Hide or show the "Load More" button container
+            if (loadMoreContainer) {
+                if (showAll || filtered.length <= 8) {
+                    loadMoreContainer.style.display = 'none';
+                } else {
+                    loadMoreContainer.style.display = '';
+                }
+            }
         }
 
-        // Render initial
-        renderGallery('All Photos');
+        // Render initial (only 8 images shown by default)
+        renderGallery('All Photos', false);
+
+        // Bind Load More button
+        if (loadMoreBtn) {
+            loadMoreBtn.onclick = function (e) {
+                e.preventDefault();
+                isExpanded = true;
+                renderGallery(currentCategory, true);
+            };
+        }
 
         // Hook up filter buttons
-        const filterBtns = document.querySelectorAll('button');
+        const filterBtns = document.querySelectorAll('#galleryFilterBtns button, .gallery-filter-btn, button');
         filterBtns.forEach(btn => {
-            const text = btn.textContent.trim();
+            const text = (btn.getAttribute('data-filter') || btn.textContent).trim();
             if (['All Photos', 'Administration', 'Academics', 'Co-curricular Activities', 'Special Events'].includes(text)) {
                 btn.addEventListener('click', () => {
                     // Update active button styling
                     filterBtns.forEach(b => {
-                        b.classList.remove('bg-[#1e2a4a]', 'text-white', 'shadow-md');
-                        b.classList.add('border-2', 'border-[#c6c6cf]', 'text-[#45464e]');
+                        const bText = (b.getAttribute('data-filter') || b.textContent).trim();
+                        if (['All Photos', 'Administration', 'Academics', 'Co-curricular Activities', 'Special Events'].includes(bText)) {
+                            b.classList.remove('bg-[#1e2a4a]', 'text-white', 'shadow-md');
+                            b.classList.add('border-2', 'border-[#c6c6cf]', 'text-[#45464e]');
+                        }
                     });
                     btn.classList.add('bg-[#1e2a4a]', 'text-white', 'shadow-md');
                     btn.classList.remove('border-2', 'border-[#c6c6cf]', 'text-[#45464e]');
-                    renderGallery(text);
+
+                    isExpanded = false;
+                    renderGallery(text, false);
                 });
             }
         });
@@ -744,12 +778,18 @@
             const input = form.querySelector('input[type="email"]');
             const button = form.querySelector('button');
             if (!input || !button || form.dataset.newsletterReady) return;
+
+            // If jQuery Validation is available, let form-validation.js handle it
+            if (window.jQuery && typeof window.jQuery.fn.validate === 'function') {
+                return;
+            }
+
             form.dataset.newsletterReady = '1';
 
             input.name = 'email';
-            input.required = true;
             input.autocomplete = 'email';
             input.setAttribute('aria-label', 'Your email address');
+            form.setAttribute('novalidate', 'novalidate');
             button.type = 'submit';
 
             // Hidden honeypot field: people never see it, spam bots fill it in

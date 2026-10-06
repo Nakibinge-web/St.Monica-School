@@ -14,6 +14,9 @@
         rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="assets/css/style.css?v=20260929">
+    <!-- jQuery and jQuery Validation -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
     <!-- SweetAlert2 for polished alert dialogs -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script id="tailwind-config">
@@ -936,7 +939,7 @@
                                     <h3 class="text-[18px] leading-[28px] font-semibold text-[#1e2a4a] mb-2">Address
                                     </h3>
                                     <p class="text-[16px] leading-[24px] text-[#45464e]">
-                                        Kasanje Village<br />
+                                        Kkobe village, Kasanje<br />
                                         Wakiso District<br />
                                         Uganda
                                     </p>
@@ -1064,12 +1067,13 @@
                     <h4 class="text-[16px] leading-[24px] font-semibold text-white mb-6 uppercase tracking-wider">
                         Newsletter</h4>
                     <p class="text-[14px] leading-[20px] text-white/70 mb-4">Subscribe for school news.</p>
-                    <form class="space-y-3">
+                    <form class="space-y-3" novalidate>
                         <input
                             class="w-full bg-white/10 border border-white/20 text-white placeholder-white/50 rounded-lg px-4 py-3 text-[14px] focus:ring-2 focus:ring-secondary-container focus:border-transparent outline-none transition-all"
-                            placeholder="Your email address" type="email" />
+                            name="email" placeholder="Your email address" type="email" autocomplete="email" />
                         <button
-                            class="w-full bg-secondary-container text-white px-6 py-3 rounded-lg hover:bg-secondary transition-colors duration-200 font-semibold text-[14px] flex items-center justify-center gap-2">
+                            class="w-full bg-secondary-container text-white px-6 py-3 rounded-lg hover:bg-secondary transition-colors duration-200 font-semibold text-[14px] flex items-center justify-center gap-2"
+                            type="submit">
                             Subscribe
                             <span class="material-symbols-outlined text-[20px]">send</span>
                         </button>
@@ -1530,6 +1534,7 @@
             footerObserver.observe(footer);
         }
     </script>
+    <script src="assets/js/form-validation.js"></script>
     <script src="assets/js/cms-client.js?v=20260929"></script>
     <script src="assets/js/rate-us.js"></script>
 </body>

@@ -439,4 +439,153 @@ $(document).ready(function() {
         }, 6000);
     }
 
+    // ==========================================
+    // 6. Newsletter Form Validation & Submission
+    // ==========================================
+    function initNewsletterValidation() {
+        $('footer form').each(function(index, formEl) {
+            const $form = $(formEl);
+            const $input = $form.find('input[type="email"], input[name="email"]');
+            const $button = $form.find('button');
+            if (!$input.length || !$button.length) return;
+
+            // Ensure field has name="email"
+            if (!$input.attr('name')) {
+                $input.attr('name', 'email');
+            }
+
+            // Explicitly remove HTML5 required attribute
+            $input.removeAttr('required');
+            $input.prop('required', false);
+            $form.attr('novalidate', 'novalidate');
+            $form.addClass('newsletter-form');
+
+            // Mark ready for CMS client to avoid double-binding
+            formEl.dataset.newsletterReady = '1';
+
+            // Hidden honeypot field for bot protection
+            let $trap = $form.find('input[name="website"]');
+            if (!$trap.length) {
+                $trap = $('<input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">');
+                $form.append($trap);
+            }
+
+            // Inline feedback message element
+            let $message = $form.find('p[role="status"]');
+            if (!$message.length) {
+                $message = $('<p class="text-[13px] leading-[18px] font-semibold hidden mt-2" role="status" aria-live="polite"></p>');
+                $form.append($message);
+            }
+
+            let hideTimeout = null;
+            const showInlineMessage = (text, ok) => {
+                if (hideTimeout) clearTimeout(hideTimeout);
+                $message.text(text).removeClass('hidden text-emerald-300 text-red-300').addClass(ok ? 'text-emerald-300' : 'text-red-300');
+                hideTimeout = setTimeout(() => {
+                    $message.addClass('hidden');
+                }, 3000);
+            };
+
+            const fieldName = $input.attr('name');
+            const rules = {};
+            const messages = {};
+
+            rules[fieldName] = {
+                required: true,
+                email: true
+            };
+            messages[fieldName] = {
+                required: "Please enter your email address",
+                email: "Please enter a valid email address"
+            };
+
+            $form.validate({
+                rules: rules,
+                messages: messages,
+                errorElement: 'span',
+                errorClass: 'form-error',
+                errorPlacement: function(error, element) {
+                    error.insertAfter(element);
+                },
+                highlight: function(element) {
+                    $(element).addClass('is-invalid')
+                              .removeClass('border-white/20');
+                },
+                unhighlight: function(element) {
+                    $(element).removeClass('is-invalid')
+                              .addClass('border-white/20');
+                },
+                submitHandler: function(form) {
+                    const email = $input.val().trim();
+                    const trapVal = $trap.val();
+                    const originalBtnHtml = $button.html();
+
+                    $button.prop('disabled', true).html(`
+                        <span class="inline-flex items-center justify-center gap-2">
+                            <span class="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                            <span>Subscribing...</span>
+                        </span>
+                    `);
+
+                    const apiUrl = getApiUrl('newsletter/subscribe.php');
+
+                    $.ajax({
+                        url: apiUrl,
+                        method: 'POST',
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        data: JSON.stringify({
+                            email: email,
+                            website: trapVal,
+                            source: (window.location.pathname.split('/').pop() || 'index.html')
+                        }),
+                        success: function(response) {
+                            $button.prop('disabled', false).html(originalBtnHtml);
+                            if (response && response.success) {
+                                showInlineMessage(response.message, true);
+                                $input.val('');
+                                const title = (response.data && response.data.status === 'resubscribed')
+                                    ? 'Welcome Back!'
+                                    : ((response.data && response.data.status === 'already') ? 'Already Subscribed' : 'Subscribed Successfully!');
+                                showSweetAlertToast(true, title, response.message || 'Thank you for subscribing to our school newsletter!');
+                            } else {
+                                const errMsg = (response && response.message) || 'Could not subscribe right now. Please try again.';
+                                showInlineMessage(errMsg, false);
+                                showSweetAlertToast(false, 'Subscription Failed', errMsg);
+                            }
+                        },
+                        error: function() {
+                            $button.prop('disabled', false).html(originalBtnHtml);
+                            const netErr = 'Could not connect to the server. Please check your internet connection and try again.';
+                            showInlineMessage(netErr, false);
+                            showSweetAlertToast(false, 'Connection Error', netErr);
+                        }
+                    });
+
+                    return false;
+                }
+            });
+        });
+    }
+
+    function showSweetAlertToast(isSuccess, title, text) {
+        if (typeof Swal !== 'undefined') {
+            Swal.fire({
+                icon: isSuccess ? 'success' : 'error',
+                title: title,
+                text: text,
+                timer: 3000,
+                timerProgressBar: true,
+                showConfirmButton: false,
+                customClass: {
+                    popup: 'swal-newsletter-popup',
+                    title: 'swal-newsletter-title',
+                    htmlContainer: 'swal-newsletter-html'
+                }
+            });
+        }
+    }
+
+    initNewsletterValidation();
+
 });
